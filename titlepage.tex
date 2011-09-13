@@ -1,0 +1,45 @@
+%% This style file was created by Jamie Stevens on 09/05/2005
+%% It allows you to put the UniMelb logo on the top of your title
+%% page, as well as keeping all the rest of the maketitle options intact.
+
+%% You'll need the A3_CMYK.eps file in your thesis directory for this
+%% style to work properly.
+
+%% This style file is called by 
+%%    \usepackage[options]{titlepage_melbourne_uni}
+%% where options can be:
+%%     acidfree = puts ``Produced on acid-free paper'' 
+%%                at the bottom of the page
+
+\ProvidesPackage{titlepage_melbourne_uni}[2005/05/09]
+\RequirePackage{graphicx}
+\newsavebox{\acidfreepaper}
+\DeclareOption{acidfree}{
+\sbox{\acidfreepaper}{\rmfamily Produced on acid-free paper}
+}
+\DeclareOption*{
+\sbox{\acidfreepaper}{}
+}
+\ProcessOptions
+\renewcommand{\maketitle}{
+\thispagestyle{empty}
+\begin{center}
+\includegraphics[scale=0.65]{A3_CMYK}\\
+\vspace{2cm}
+{\sffamily\Huge \@title}\\
+\vspace{1cm}
+{\rmfamily\Large \@author}\\
+\vspace{1cm}
+{\rmfamily Submitted in total fulfilment of the requirements}\\
+{\rmfamily of the degree of Doctor of Philosophy}\\
+\vspace{1cm}
+{\rmfamily \@date}\\
+\vspace{1cm}
+{\rmfamily School of Physics}\\
+{\rmfamily The University of Melbourne}\\
+\vspace{5cm}
+\usebox{\acidfreepaper}
+\end{center}
+\cleardoublepage
+\setcounter{page}{1}
+}
