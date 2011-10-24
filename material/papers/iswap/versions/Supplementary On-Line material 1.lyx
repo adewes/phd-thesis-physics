@@ -1,0 +1,251 @@
+#LyX 1.6.9 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass revtex4
+\options aps
+\use_default_options false
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Supplementary Online Material for
+\begin_inset Newline newline
+\end_inset
+
+Characterization of a two-transmon processor with individual single-shot
+ qubit readout
+\end_layout
+
+\begin_layout Author
+A.
+ Dewes
+\begin_inset Formula $^{1}$
+\end_inset
+
+, F.
+ R.
+ Ong
+\begin_inset Formula $^{1}$
+\end_inset
+
+, V.
+ Schmitt
+\begin_inset Formula $^{1}$
+\end_inset
+
+, R.
+ Lauro
+\begin_inset Formula $^{1}$
+\end_inset
+
+, N.
+ Boulant
+\begin_inset Formula $^{2}$
+\end_inset
+
+, P.
+ Bertet
+\begin_inset Formula $^{1}$
+\end_inset
+
+, D.
+ Vion
+\begin_inset Formula $^{1}$
+\end_inset
+
+, and D.
+ Esteve
+\begin_inset Formula $^{1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Affiliation
+\begin_inset Formula $^{1}$
+\end_inset
+
+Quantronics group, Service de Physique de l'État Condensé (CNRS URA 2464),
+ IRAMIS, DSM, CEA-Saclay, 91191 Gif-sur-Yvette, France 
+\end_layout
+
+\begin_layout Affiliation
+\begin_inset Formula $^{2}$
+\end_inset
+
+ I2BM, Neurospin, LRMN, 91191CEA-Saclay, 91191 Gif-sur-Yvette, France 
+\end_layout
+
+\begin_layout Date
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Animated gif file to be included in the supplementary online material.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename U:/Commun/PROJET Cavités/articles/ISWAP/figures/anim134.pdf
+	lyxscale 30
+	width 16cm
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Reconstruction of the two-bit register density matrix by quantum state tomograph
+y during the 
+\begin_inset Formula $iSWAP$
+\end_inset
+
+ gate operation.
+ The working point is slightly different from the one reported in Figs 1
+ and 2 of our Letter.
+ The main characteristics of the dynamics are clearly visible on the animated
+ density matrix shown on the left, where each matrix element is represented
+ by a circle with area proportional to its modulus (unit modulus for a circle
+ touching the cell borders), and in the plot of the populations 
+\begin_inset Formula $\rho_{00}=\rho_{\left|00\right\rangle \left\langle 00\right|}$
+\end_inset
+
+, 
+\begin_inset Formula $\rho_{01}=\rho_{\left|01\right\rangle \left\langle 01\right|}$
+\end_inset
+
+, and 
+\begin_inset Formula $\rho_{10}=\rho_{\left|10\right\rangle \left\langle 10\right|}$
+\end_inset
+
+ (on the right): we observe the swapping of 
+\begin_inset Formula $\rho_{00}$
+\end_inset
+
+ and 
+\begin_inset Formula $\rho_{01}$
+\end_inset
+
+ at frequency 
+\begin_inset Formula ${\color{red}{\color{black}2}}g$
+\end_inset
+
+, the oscillations of the coherence amplitude 
+\begin_inset Formula $\left|\rho_{\left|01\right\rangle \left\langle 10\right|}\right|$
+\end_inset
+
+ at the double frequency, the fast rotation of its phase 
+\begin_inset Formula $\mathrm{arg}(\rho_{\left|01\right\rangle \left\langle 10\right|})$
+\end_inset
+
+, as well as the relaxation towards 
+\begin_inset Formula $\left|00\right\rangle $
+\end_inset
+
+.
+ However, the picture is less quantitative than Fig.
+ 2 due to slow technical drifts that occured during the several hour long
+ data collection.
+ These drifts are responsible for small uncontrolled rotations of the measured
+ operators, which build spurious coherent matrix elements: one sees for
+ instance 
+\begin_inset Formula $\rho_{\left|00\right\rangle \left\langle 01\right|}$
+\end_inset
+
+ unexpectedly peaking at 9% at 
+\begin_inset Formula $\Delta t=8\,\mathrm{ns}$
+\end_inset
+
+ and 
+\begin_inset Formula $\rho_{\left|00\right\rangle \left\langle 10\right|}$
+\end_inset
+
+ reaching about the same error after 
+\begin_inset Formula $350\,\mathrm{ns}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

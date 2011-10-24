@@ -1,0 +1,1429 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass revtex4
+\options aps
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Supplementary material for
+\end_layout
+
+\begin_layout Title
+Characterization of a two-transmon qubit gate with individual readouts
+\end_layout
+
+\begin_layout Author
+A.
+ Dewes
+\begin_inset Formula $^{1}$
+\end_inset
+
+, F.
+ R.
+ Ong
+\begin_inset Formula $^{1}$
+\end_inset
+
+, V.
+ Schmitt
+\begin_inset Formula $^{1}$
+\end_inset
+
+, R.
+ Lauro
+\begin_inset Formula $^{1}$
+\end_inset
+
+, N.
+ Boulant
+\begin_inset Formula $^{2}$
+\end_inset
+
+, P.
+ Bertet
+\begin_inset Formula $^{1}$
+\end_inset
+
+, D.
+ Vion
+\begin_inset Formula $^{1}$
+\end_inset
+
+, and D.
+ Esteve
+\begin_inset Formula $^{1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Affiliation
+\begin_inset Formula $^{1}$
+\end_inset
+
+Quantronics group, Service de Physique de l'État Condensé (CNRS URA 2464),
+ IRAMIS, DSM, CEA-Saclay, 91191 Gif-sur-Yvette, France 
+\end_layout
+
+\begin_layout Affiliation
+\begin_inset Formula $^{2}$
+\end_inset
+
+ I2BM, Neurospin, LRMN, 91191CEA-Saclay, 91191 Gif-sur-Yvette, France 
+\end_layout
+
+\begin_layout Date
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+S1.
+ Sample preparation
+\end_layout
+
+\begin_layout Standard
+The sample is fabricated on a silicon chip oxidized over 50 nm.
+ A 150 nm thick niobium layer is first deposited by magnetron sputtering
+ and then dry-etched in a 
+\begin_inset Formula $SF_{6}$
+\end_inset
+
+ plasma to pattern the readout resonators, the current lines for frequency
+ tuning, and their ports.
+ Finally, the transmon qubit, the coupling capacitance and the Josephson
+ junctions of the resonators are fabricated by double-angle evaporation
+ of aluminum through a shadow mask patterned by e-beam lithography.
+ The first layer of aluminum is oxidized in a 
+\begin_inset Formula $Ar-O_{2}$
+\end_inset
+
+ mixture to form the oxide barrier of the junctions.
+ The chip is glued with wax on a printed circuit board (PCB) and wire bonded
+ to it.
+ The PCB is then screwed in a copper box anchored to the cold plate of a
+ dilution refrigerator.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+S2.
+ Sample parameters
+\end_layout
+
+\begin_layout Standard
+The sample is first characterized by spectroscopy (see Fig 1.b).
+ The incident power used is high enough to observe not only the resonator
+ frequency 
+\begin_inset Formula $\nu_{R}$
+\end_inset
+
+ and the qubit line 
+\begin_inset Formula $\nu_{01}$
+\end_inset
+
+ but also the two-photon transition at frequency 
+\begin_inset Formula $\nu_{02}/2$
+\end_inset
+
+ between the ground and second excited states of the transmons (not shown
+ on Fig.
+ 1b).
+ A fit of the transmon model to the data yields the sample parameters 
+\begin_inset Formula $E_{J}^{I}=36.2\,\mathrm{GHz}$
+\end_inset
+
+, 
+\begin_inset Formula $E_{C}^{I}=0.98\,\mathrm{GHz}$
+\end_inset
+
+, 
+\begin_inset Formula $d_{I}=0.2$
+\end_inset
+
+, 
+\begin_inset Formula $E_{J}^{II}=43.1\,\mathrm{GHz}$
+\end_inset
+
+, 
+\begin_inset Formula $E_{C}^{II}=0.87\,\mathrm{GHz}$
+\end_inset
+
+, 
+\begin_inset Formula $d_{II}=0.35$
+\end_inset
+
+, 
+\begin_inset Formula $\nu_{R}^{I}=6.84\,\mathrm{GHz}$
+\end_inset
+
+, and 
+\begin_inset Formula $\nu_{R}^{II}=6.70\,\mathrm{GHz}$
+\end_inset
+
+.
+ The qubit-readout anticrossing at 
+\begin_inset Formula $\nu=\nu_{R}$
+\end_inset
+
+ yields the qubit-readout couplings 
+\begin_inset Formula $g_{0}^{I}\simeq g_{0}^{II}\simeq50\,\mathrm{MHz}$
+\end_inset
+
+.
+ Independent measurements of the resonators dynamics (data not shown) yields
+ 
+\begin_inset Formula $Q_{I}=Q_{II}=730$
+\end_inset
+
+, 
+\begin_inset Formula $K_{I}/\nu_{R}^{I}\simeq K_{II}/\nu_{R}^{II}\simeq2.3\pm0.5\times10^{-5}$
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+S3.
+ Experimental setup
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Each qubit is fitted with an individual microwave and flux driving circuit.
+ The qubit drive pulses are generated by two phase-locked Agilent E8257D
+ Microwave Generators whose continuous wave outputs are fed to a pair of
+ I/Q-mixers.
+ The two IF inputs of each of these mixers are provided by a Tektronix AWG5013
+ 4-Channel 1GS/s Arbitrary Waveform Generator.
+ Sideband mixing in the frequency range of 50-300 MHz is used to generate
+ multi-tone drive pulses and to obtain a high ON/OFF ratio (>50dB) of the
+ signal at the output of the mixers.
+ Phase and amplitude errors of the mixers are corrected by measuring the
+ signals at the output and applying a sideband- and carrier-frequency dependent
+ correction to the IF input channels.
+ The pulses for the JBA readouts are generated by mixing the continuous
+ signals of a pair of Anritsu MG3692A microwave generators with IF pulses
+ provided by a Tektronix AFG3251 1 GS/s Arbitrary Function Generator.
+ Each readout pulse consists of a measurement part with a rise time of 30
+ ns and a hold time of 100 ns, followed by a latching part of 2 
+\begin_inset Formula $\mu s$
+\end_inset
+
+ duration at 90 % of the original pulse height.
+ (The amplitude and frequency of the readout pulses are chosen such as to
+ obtain a high discrimination of the two qubit states when measuring of
+ the phase of the reflected signals, as explained in S4) -> [AD: Already
+ too detailed?].
+ The drive and readout microwave signals of each qubit are combined and
+ sent to the sample through a pair of transmission lines that are attenuated
+ by 70 dB over different temperature stages and filtered at 4K and 300 mK.
+ A microwave circulator at 20 mK separates the input signals going to the
+ chip from the reflected signals coming from the chip.
+ The latter get amplified by 36 dB (?) at 4K by two Caltech HEMT amplifiers
+ with noise temperatures of 7 K.
+ The reflected readout pulses  get further amplified at room temperature
+ and demodulated with the continuous signals of the readout microwave sources.
+ The IQ quadratures of the demodulated signals are measured at a rate of
+ 1 GS/s by an Acqiris CC103 4-channel Fast Data Acquisition Card.
+ The mean value of the demodulated quadrature phases during the latching
+ part of the readout pulses are then used to determine the state of the
+ JBA readouts by applying a simple treshold criterion.
+ 
+\end_layout
+
+\begin_layout Standard
+The flux control pulses are generated by a second AWG and sent to the chip
+ through a transmission line, equipped with 40 dB of attenuation distributed
+ over different temperature stages and a pair of 1 GHz Eccosorb low-pass
+ filters at 4K.
+ The input signal of each flux line is fed back to room temperature through
+ an identical transmission line and acquired by a second Acqiris DAC, which
+ allows the measurement and compensation of the non-ideal frequency response
+ of each line.
+\end_layout
+
+\begin_layout Standard
+S4.
+ Readout characterization
+\end_layout
+
+\begin_layout Standard
+As explained in details in [12], our readout scheme is not free of errors,
+ even when reading a single qubit.
+ First, incorrect mapping 
+\begin_inset Formula $\left|0\right\rangle \rightarrow1$
+\end_inset
+
+ or
+\begin_inset Formula $\left|1\right\rangle \rightarrow0$
+\end_inset
+
+ of the projected state of the qubit to the dynamical state of the resonator
+ can occur, due to the stochastic nature of the switching between the two
+ dynamical states.
+ As shown in Fig.
+ S3.2, the probability 
+\begin_inset Formula $p$
+\end_inset
+
+ to obtain the outcome 1 varies continuously from 0 to 1 over a certain
+ range of drive power 
+\begin_inset Formula $P_{d}$
+\end_inset
+
+ applied to the readout.
+ When the shift in power between the two 
+\begin_inset Formula $p_{\left|0\right\rangle ,\left|1\right\rangle }(P_{d})$
+\end_inset
+
+ curves is not much larger than this range, the two curves overlap and errors
+ are significant even at the optimal drive power where the difference in
+ 
+\begin_inset Formula $p$
+\end_inset
+
+ is maximum.
+ Second, even in the case of non overlapping 
+\begin_inset Formula $p_{\left|0\right\rangle ,\left|1\right\rangle }(P_{d})$
+\end_inset
+
+ curves, the qubit initially projected in state
+\begin_inset Formula $\left|1\right\rangle $
+\end_inset
+
+ can relax down to 
+\begin_inset Formula $\left|0\right\rangle $
+\end_inset
+
+ before the end of the measurement, yielding an outcome 0 instead of 1.
+ The probability of these two types of errors vary in opposite directions
+ as a function of the frequency detuning 
+\begin_inset Formula $\Delta=\nu_{R}-\nu>0$
+\end_inset
+
+ between the resonator and the qubit, so that a compromise has to be found
+ for 
+\begin_inset Formula $\Delta$
+\end_inset
+
+.
+ Besides, the contrast 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $c=Max\left(p_{\left|1\right\rangle }-p_{\left|0\right\rangle }\right)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ can be increased [12] by 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+shelving state 
+\begin_inset Formula $\left|1\right\rangle $
+\end_inset
+
+ into state
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\left|2\right\rangle $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ with a microwave 
+\begin_inset Formula $\pi$
+\end_inset
+
+ pulse at frequency 
+\begin_inset Formula $\nu_{12}$
+\end_inset
+
+ just before the readout resonator pulse.
+ The smallest errors 
+\begin_inset Formula $e_{0}^{I,II}$
+\end_inset
+
+ and 
+\begin_inset Formula $e_{1}^{I,II}$
+\end_inset
+
+ when reading 
+\begin_inset Formula $\left|0\right\rangle $
+\end_inset
+
+ and 
+\begin_inset Formula $\left|1\right\rangle $
+\end_inset
+
+ are found for 
+\begin_inset Formula $\Delta_{I}=440\,\mathrm{MHz}$
+\end_inset
+
+ and 
+\begin_inset Formula $\Delta_{II}=575\,\mathrm{MHz}$
+\end_inset
+
+ and are shown by arrows in the top panels of Fig.
+ S3.2: 
+\begin_inset Formula $e_{0}^{I}=5\%$
+\end_inset
+
+ and 
+\begin_inset Formula $e_{1}^{I}=13\%$
+\end_inset
+
+ (contrast 
+\begin_inset Formula $c_{I}=1-e_{0}^{I}-e_{1}^{I}=82\%$
+\end_inset
+
+) , and 
+\begin_inset Formula $e_{0}^{II}=5.5\%$
+\end_inset
+
+ and 
+\begin_inset Formula $e_{1}^{II}=12\%$
+\end_inset
+
+ (
+\begin_inset Formula $c_{II}=82\%$
+\end_inset
+
+).
+ When using the 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\left|1\right\rangle \rightarrow\left|2\right\rangle $
+\end_inset
+
+ shelving before readout,
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $e_{0}^{I}=2.5\%$
+\end_inset
+
+ and 
+\begin_inset Formula $e_{2}^{I}=9.5\%$
+\end_inset
+
+ (contrast 
+\begin_inset Formula $c_{I}==1-e_{0}^{I}-e_{2}^{I}=88\%$
+\end_inset
+
+), and 
+\begin_inset Formula $e_{0}^{II}=3\%$
+\end_inset
+
+ and 
+\begin_inset Formula $e_{2}^{II}=8\%$
+\end_inset
+
+ (
+\begin_inset Formula $c_{II}=89\%$
+\end_inset
+
+)
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+.
+ 
+\end_layout
+
+\begin_layout Standard
+When the two qubits are measured simultaneously, one has also to take into
+ account a possible readout crosstalk, i.e.
+ an influence of the projected state of each qubit on the outcome of the
+ readout of the other qubit.
+ We do observe such an effect and have to minimize it by increasing 
+\begin_inset Formula $\Delta_{I,II}$
+\end_inset
+
+ up to 
+\begin_inset Formula $\sim1\,\mathrm{GHz}$
+\end_inset
+
+ with respect to previous optimal values and by not using the shelving technique.
+ An immediate consequence shown in Fig.
+ 3.2 (b) is a reduction of the 
+\begin_inset Formula $c_{I,II}$
+\end_inset
+
+ contrasts.
+ The errors when reading 
+\begin_inset Formula $\left|0\right\rangle $
+\end_inset
+
+ and 
+\begin_inset Formula $\left|1\right\rangle $
+\end_inset
+
+ are now 
+\begin_inset Formula $e_{0}^{I}=19\,\%$
+\end_inset
+
+ and 
+\begin_inset Formula $e_{1}^{I}=7\,\%$
+\end_inset
+
+ (contrast 
+\begin_inset Formula $c_{I}=74\%$
+\end_inset
+
+) and 
+\begin_inset Formula $e_{0}^{II}=19\,\%$
+\end_inset
+
+ and 
+\begin_inset Formula $e_{1}^{II}=12\,\%$
+\end_inset
+
+ (contrast 
+\begin_inset Formula $c_{II}=69\%$
+\end_inset
+
+).
+ Then to characterize the errors due to crosstalk, we measure the 
+\begin_inset Formula $4\times4$
+\end_inset
+
+ readout matrix 
+\begin_inset Formula $\mathcal{R}$
+\end_inset
+
+ linking the probabilities 
+\begin_inset Formula $p_{uv}$
+\end_inset
+
+ of the four possible 
+\begin_inset Formula $uv$
+\end_inset
+
+ outcomes to the population of the four
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+ 
+\begin_inset Formula $\left|uv\right\rangle $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ states.
+ As shown in Fig.
+ S3.2(c-d), we then rewrite 
+\begin_inset Formula $\mathcal{R}=\mathcal{C}_{CT}.\left(\mathcal{C}_{I}\otimes\mathcal{C}_{II}\right)$
+\end_inset
+
+ as the product of a 
+\begin_inset Formula $4\times4$
+\end_inset
+
+ pure crosstalk matrix 
+\begin_inset Formula $\mathcal{C}_{CT}$
+\end_inset
+
+ with the tensorial product of the two 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ single qubit readout matrices 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula 
+\[
+\mathcal{C}_{I,II}=\left(\begin{array}{cc}
+1-e_{0}^{I,II} & e_{1}^{I,II}\\
+e_{0}^{I,II} & 1-e_{1}^{I,II}
+\end{array}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We also illustrate on the figure the impact of the readout errors on our
+ swapping experiment by comparing the bare readout outcomes 
+\begin_inset Formula $uv$
+\end_inset
+
+, the outcomes corrected from the independent readout errors only, and the
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\left|uv\right\rangle $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ population calculated with the full correction including crosstalk.
+\end_layout
+
+\begin_layout Standard
+We now explain briefly the cause of the readout crosstalk in our processor.
+ Unlike what was observed for other qubit readout schemes using switching
+ detectors [5], the crosstalk we observe is not directly due to an electromagnet
+ic perturbation induced by the switching of one detector that would help
+ or prevent the switching of the other one.
+ Indeed, when both qubits frequencies 
+\begin_inset Formula $\nu_{I,II}$
+\end_inset
+
+ are moved far below 
+\begin_inset Formula $\nu_{R}^{I,II}$
+\end_inset
+
+, the readout crosstalk disappears: the switching of a detector has no effect
+ on the switching of the other one.
+ The crosstalk is actually due to the rather strong ac-Stark shift 
+\begin_inset Formula $\sim2\left(n_{H}-n_{L}\right)g_{0}^{2}/(R-\nu_{R})\sim500\,\mathrm{MHz}$
+\end_inset
+
+ of the qubit frequency when a readout resonator switches from its low to
+ high amplitude dynamical state with 
+\begin_inset Formula $n_{L}\sim10$
+\end_inset
+
+ and 
+\begin_inset Formula $n_{H}\sim10^{2}$
+\end_inset
+
+ photons, respectively.
+ The small residual effective coupling between the qubits at readout can
+ then slightly shift the frequency of the other resonatator, yielding a
+ change of its switching probability by a few percent.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename U:/Commun/PROJET Cavités/articles/ISWAP/figures/FigureS3.pdf
+	lyxscale 30
+	width 8cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Readout imperfections and their correction.
+ (a) Switching probabilities of the readouts as a function of their driving
+ power, with the qubit prepared in state
+\begin_inset Formula $\left|0\right\rangle $
+\end_inset
+
+(blue), 
+\begin_inset Formula $\left|1\right\rangle $
+\end_inset
+
+ ( red), or 
+\begin_inset Formula $\left|2\right\rangle $
+\end_inset
+
+ (brown), at the optimal readout points.
+ The arrows and dashed segments indicate the readout errors and contrast,
+ at the power where the later is maximum.
+ (b) Same as (a) but at readout points 
+\begin_inset Formula $R^{I,II}$
+\end_inset
+
+ used in this work.
+ (c-d) Single readout matrices 
+\begin_inset Formula $\mathcal{C}_{I,II}$
+\end_inset
+
+ and pure readout crosstalk matrix 
+\begin_inset Formula $\mathcal{C}_{CT}$
+\end_inset
+
+ characterizing the simultaneous readout of the two qubits.
+ (d-f) bare readout outcomes 
+\begin_inset Formula $uv$
+\end_inset
+
+, outcomes corrected from the independent readout errors only, and
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\left|uv\right\rangle $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ population calculated with the full correction including crosstalk for
+ the swapping experiment of Fig.
+ 2.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig S3.1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+S5.
+ Removing errors made on tomographic pulses before calculating the gate
+ process map
+\end_layout
+
+\begin_layout Standard
+Tomographic errors are excluded from the process map of our
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+ 
+\begin_inset Formula $\sqrt{iSWAP}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ gate using the following method.
+ The measured Pauli sets corresponding to the 16 input states are first
+ fitted by a model including errors both in the preparation (index 
+\begin_inset Formula $prep$
+\end_inset
+
+) of the state and in the tomographic pulses (index 
+\begin_inset Formula $tomo$
+\end_inset
+
+).
+ The errors included are angular errors 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\varepsilon_{I,II}^{prep}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ , 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\eta_{I,II}^{prep,tomo}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+and 
+\begin_inset Formula $\delta_{I,II}^{prep}$
+\end_inset
+
+ on the nominal 
+\begin_inset Formula $\pi$
+\end_inset
+
+ and 
+\begin_inset Formula $\pi/2$
+\end_inset
+
+ rotations around 
+\begin_inset Formula $X_{I,II}$
+\end_inset
+
+ and 
+\begin_inset Formula $Y_{I,II}$
+\end_inset
+
+, a possible skewing 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\xi_{I,II}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ of nominal 
+\begin_inset Formula $\left(\overrightarrow{X_{I}},\overrightarrow{Y_{I}}\right)=90\text{°}$
+\end_inset
+
+ and 
+\begin_inset Formula $\left(\overrightarrow{X_{II}},\overrightarrow{Y_{II}}\right)=90\text{° angles}$
+\end_inset
+
+, and a possible rotation 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\mu_{I,II}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ of the tomographic 
+\begin_inset Formula $XY$
+\end_inset
+
+ frame with respect to the preparation one.
+ The rotation operators are thus given by
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{array}{c}
+X_{I,II}^{prep}(\pi)=e^{-i\left(\pi+\varepsilon_{I,II}^{prep}\right)\sigma_{x}^{I,II}/2},\\
+X_{I,II}^{prep}(-\pi/2)=e^{+i\left(\pi/2+\eta_{I,II}^{prep}\right)\sigma_{x}^{I,II}/2},\\
+Y_{I,II}^{prep}(\pi/2)=e^{-i\left(\pi/2+\delta_{I,II}^{prep}\right)\left[\mathrm{cos}\left(\xi_{I,II}\right)\sigma_{y}^{I,II}\mathrm{-sin}\left(\xi_{I,II}\right)\sigma_{x}^{I,II}\right]/2},\\
+X_{I,II}^{tomo}(\pi/2)=e^{-i\left(\pi/2+\eta_{I,II}^{tomo}\right)\left[\mathrm{\mathrm{sin}\left(\mu_{I,II}\right)\sigma_{x}^{I,II}+cos}\left(\mu_{I,II}\right)\sigma_{y}^{I,II}\right]/2},\\
+Y_{I,II}^{tomo}(-\pi/2)=e^{+i\left(\pi/2+\lambda_{I,II}^{tomo}\right)\left[\mathrm{cos}\left(\mu_{I,II}+\xi_{I,II}\right)\sigma_{y}^{I,II}\mathrm{-sin}\left(\mu_{I,II}+\xi_{I,II}\right)\sigma_{x}^{I,II}\right]/2}.
+\end{array}
+\]
+
+\end_inset
+
+The 16 input states are then 
+\begin_inset Formula $\left\{ \rho_{in}^{e}=U\left|0\right\rangle \left\langle 0\right|U^{\dagger}\right\} $
+\end_inset
+
+ with 
+\begin_inset Formula $\left\{ U\right\} =\{I_{I},X_{I}^{prep}(\pi),Y_{I}^{prep}(\pi/2),X_{I}^{prep}(-\pi/2)\}\otimes\{I_{II},X_{II}^{prep}(\pi),Y_{II}^{prep}(\pi/2),X_{II}^{prep}(-\pi/2)\}$
+\end_inset
+
+, and each input state yields a Pauli set 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\left\{ \left\langle P_{k}^{e}\right\rangle =Tr\left(\rho^{e}P_{k}^{e}\right)\right\} $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ with 
+\begin_inset Formula $\left\{ P_{k}^{e}\right\} =\{I_{I},X_{I}^{e},Y_{I}^{e},Z_{I}\}\otimes\{I_{II},X_{II}^{e},Y_{II}^{e},Z_{II}\}$
+\end_inset
+
+, 
+\begin_inset Formula $X^{e}=Y^{tomo}(-\pi/2)^{\dagger}\sigma_{z}Y^{tomo}(-\pi/2)$
+\end_inset
+
+, and 
+\begin_inset Formula $X^{e}=X^{tomo}(\pi/2)^{\dagger}\sigma_{z}X^{tomo}(\pi/2)$
+\end_inset
+
+.
+ Figure S5.1 shows the best fit of the modelled 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\left\{ \left\langle P_{k}^{e}\right\rangle \right\} $
+\end_inset
+
+ to the measured input Pauli sets, yielding 
+\begin_inset Formula $\varepsilon_{I}^{prep}=-1\text{°}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\varepsilon_{II}^{prep}=-3\text{°}$
+\end_inset
+
+, 
+\begin_inset Formula $\eta_{I}^{prep}=3\text{°}$
+\end_inset
+
+, 
+\begin_inset Formula $\eta_{II}^{prep}=4\text{°}$
+\end_inset
+
+, 
+\begin_inset Formula $\delta_{I}^{prep}=-6\text{°}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\delta_{II}^{prep}=-3\text{°}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\eta_{I}^{tomo}=-6\text{°}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\eta_{II}^{tomo}=-4\text{°}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\lambda_{I}^{tomo}=12\text{°}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\lambda_{II}^{tomo}=5\text{°}$
+\end_inset
+
+,
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\xi_{I}=1\text{°}$
+\end_inset
+
+, 
+\begin_inset Formula $\xi_{II}=-2\text{°}$
+\end_inset
+
+, and 
+\begin_inset Formula $\mu_{I}=\mu_{II}=-11\text{°}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Knowing the tomographic errors and thus 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\left\{ \left\langle P_{k}^{e}\right\rangle \right\} $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+, we then invert the 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+linear relation 
+\begin_inset Formula $\left\{ \left\langle P_{k}^{e}\right\rangle =Tr\left(\rho P_{k}^{e}\right)\right\} $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ to find the 
+\begin_inset Formula $16\times16$
+\end_inset
+
+ matrix 
+\begin_inset Formula $B$
+\end_inset
+
+ that links the vector 
+\begin_inset Formula $\overrightarrow{\left\langle P_{k}^{e}\right\rangle }$
+\end_inset
+
+ to the 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\overrightarrow{\rho}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ vector 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+representing any density matrix written as a single column
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+, i.e.
+ 
+\begin_inset Formula $\overrightarrow{\rho^{e}}=B.\overrightarrow{\left\langle P_{k}^{e}\right\rangle }$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+.
+ The matrix 
+\begin_inset Formula $B$
+\end_inset
+
+ is finally applied to the measured 16 input and 16 output Pauli sets to
+ find the 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+the 16
+\begin_inset Formula $(\rho_{in,},\rho_{out})_{k}$
+\end_inset
+
+ couples to be used for calculating the gate map.
+\end_layout
+
+\end_body
+\end_document

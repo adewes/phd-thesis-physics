@@ -1,0 +1,87 @@
+%% LyX 1.6.9 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english,aps]{revtex4}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{color}
+\usepackage{graphicx}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% A simple dot to overcome graphicx limitations
+\newcommand{\lyxdot}{.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\@ifundefined{textcolor}{}
+{%
+ \definecolor{BLACK}{gray}{0}
+ \definecolor{WHITE}{gray}{1}
+ \definecolor{RED}{rgb}{1,0,0}
+ \definecolor{GREEN}{rgb}{0,1,0}
+ \definecolor{BLUE}{rgb}{0,0,1}
+ \definecolor{CYAN}{cmyk}{1,0,0,0}
+ \definecolor{MAGENTA}{cmyk}{0,1,0,0}
+ \definecolor{YELLOW}{cmyk}{0,0,1,0}
+ }
+
+\makeatother
+
+\usepackage{babel}
+
+\begin{document}
+
+\title{Supplementary Online Material for\\
+Characterization of a two-transmon processor with individual single-shot
+qubit readout}
+
+
+\author{A. Dewes$^{1}$, F. R. Ong$^{1}$, V. Schmitt$^{1}$, R. Lauro$^{1}$,
+N. Boulant$^{2}$, P. Bertet$^{1}$, D. Vion$^{1}$, and D. Esteve$^{1}$}
+
+
+\affiliation{$^{1}$Quantronics group, Service de Physique de l'État Condensé
+(CNRS URA 2464), IRAMIS, DSM, CEA-Saclay, 91191 Gif-sur-Yvette, France }
+
+
+\affiliation{$^{2}$ I2BM, Neurospin, LRMN, 91191CEA-Saclay, 91191 Gif-sur-Yvette,
+France }
+
+
+\date{\today}
+
+\maketitle
+Animated gif file to be included in the supplementary online material.\\
+
+
+%
+\begin{figure}[h]
+\includegraphics[width=16cm]{\string"U:/Commun/PROJET Cavités/articles/ISWAP/figures/anim134\string".eps}\caption{Reconstruction of the two-bit register density matrix by quantum state
+tomography during the $iSWAP$ gate operation. The working point is
+slightly different from the one reported in Figs 1 and 2 of our Letter.
+The main characteristics of the dynamics are clearly visible on the
+animated density matrix shown on the left, where each matrix element
+is represented by a circle with area proportional to its modulus (unit
+modulus for a circle touching the cell borders), and in the plot of
+the populations $\rho_{00}=\rho_{\left|00\right\rangle \left\langle 00\right|}$,
+$\rho_{01}=\rho_{\left|01\right\rangle \left\langle 01\right|}$,
+and $\rho_{10}=\rho_{\left|10\right\rangle \left\langle 10\right|}$
+(on the right): we observe the swapping of $\rho_{00}$ and $\rho_{01}$
+at frequency ${\color{red}{\color{black}2}}g$, the oscillations of
+the coherence amplitude $\left|\rho_{\left|01\right\rangle \left\langle 10\right|}\right|$
+at the double frequency, the fast rotation of its phase $\mathrm{arg}(\rho_{\left|01\right\rangle \left\langle 10\right|})$,
+as well as the relaxation towards $\left|00\right\rangle $. However,
+the picture is less quantitative than Fig. 2 due to slow technical
+drifts that occured during the several hour long data collection.
+These drifts are responsible for small uncontrolled rotations of the
+measured operators, which build spurious coherent matrix elements:
+one sees for instance $\rho_{\left|00\right\rangle \left\langle 01\right|}$
+unexpectedly peaking at 9\% at $\Delta t=8\,\mathrm{ns}$ and $\rho_{\left|00\right\rangle \left\langle 10\right|}$
+reaching about the same error after $350\,\mathrm{ns}$.}
+
+
+\label{fig2}%
+\end{figure}
+
+\end{document}

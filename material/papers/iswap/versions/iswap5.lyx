@@ -1,0 +1,2346 @@
+#LyX 1.6.9 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass revtex4
+\options aps,twocolumn
+\use_default_options false
+\begin_modules
+theorems-ams
+\end_modules
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 2
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Characterization of a two-transmon processor with individual single-shot
+ qubit readout 
+\end_layout
+
+\begin_layout Author
+A.
+ Dewes
+\begin_inset Formula $^{1}$
+\end_inset
+
+, F.
+ R.
+ Ong
+\begin_inset Formula $^{1}$
+\end_inset
+
+, V.
+ Schmitt
+\begin_inset Formula $^{1}$
+\end_inset
+
+, R.
+ Lauro
+\begin_inset Formula $^{1}$
+\end_inset
+
+, N.
+ Boulant
+\begin_inset Formula $^{2}$
+\end_inset
+
+, P.
+ Bertet
+\begin_inset Formula $^{1}$
+\end_inset
+
+, D.
+ Vion
+\begin_inset Formula $^{1}$
+\end_inset
+
+, and D.
+ Esteve
+\begin_inset Formula $^{1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Affiliation
+\begin_inset Formula $^{1}$
+\end_inset
+
+Quantronics group, Service de Physique de l'État Condensé (CNRS URA 2464),
+ IRAMIS, DSM, CEA-Saclay, 91191 Gif-sur-Yvette, France 
+\end_layout
+
+\begin_layout Affiliation
+\begin_inset Formula $^{2}$
+\end_inset
+
+ I2BM, Neurospin, LRMN, 91191CEA-Saclay, 91191 Gif-sur-Yvette, France 
+\end_layout
+
+\begin_layout Date
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+We report the characterization of a two-qubit processor implemented with
+ two capacitively coupled tunable superconducting qubits of the transmon
+ type, each qubit having its own non-destructive single-shot readout.
+ The fixed capacitive coupling yields the 
+\begin_inset Formula $\sqrt{iSWAP}$
+\end_inset
+
+ two-qubit gate for a suitable interaction time.
+ We reconstruct by state tomography the coherent dynamics of the two-bit
+ register as a function of the interaction time, observe a violation of
+ the Bell inequality by 22 standard deviations after readout error correction,
+ and measure by quantum process tomography a gate fidelity of 90%.
+\end_layout
+
+\begin_layout Standard
+
+\color black
+Quantum information processing is one of the most appealing ideas for exploiting
+ the resources of quantum physics and performing tasks beyond reach of classical
+ machines 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nielsen Chuang"
+
+\end_inset
+
+.
+ Ideally, a quantum processor consists of an ensemble of highly coherent
+ two-level systems, the qubits, that can be efficiently reset, that can
+ follow any unitary evolution needed by an algorithm using a universal set
+ of single and two qubit gates, and that can be read projectively.
+ In the domain of electrical quantum circuits 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "QubitsSupra"
+
+\end_inset
+
+, important progress 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DiCarlo2qb,Yamamoto,Bialczak,IBM Steffen,DiCarlo3qb"
+
+\end_inset
+
+ has been achieved recently with the operation of elementary quantum processors
+ based on different superconducting qubits.
+ Those based on transmon qubits 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DiCarlo2qb,DiCarlo3qb,Transmon Koch,TransmonSchreier"
+
+\end_inset
+
+ are well protected against decoherence but embed the qubits in a same resonator
+ used both for coupling the qubits and for reading them.
+ Consequently, individual readout of the qubits is not possible and the
+ results of a calculation, as the Grover search algorithm demonstrated on
+ two qubits 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DiCarlo2qb"
+
+\end_inset
+
+, cannot be obtained by running the algorithm only once.
+ Furthermore, the overhead for getting a result from such a processor without
+ single-shot readout but with a larger number of qubits overcomes the speed-up
+ gain expected from any useful algorithm.
+ The situation is different for processors based on phase qubits, where
+ the qubits are more sensitive to decoherence but can be read individually
+ with a high fidelity, although destructively.
+ This  significant departure from the wished scheme can be cured, when needed,
+ since a destructive readout can be transformed into a non-destructive one
+ at the cost of adding one ancilla qubit and one extra two-qubit gate for
+ each qubit to be read projectively.
+ Moreover, energy release during a destructive readout can result in a sizeable
+ cross-talk between the readout outcomes, which can also be solved at the
+ expense of a more complex architecture 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ansmann Bell,RezQ"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement t
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename U:/Commun/PROJET Cavités/articles/ISWAP/figures/Figure1.pdf
+	lyxscale 30
+	width 8cm
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+(a): circuit schematics 
+\color black
+of the experiment with qubits in green and readouts in grayed blue
+\color inherit
+.
+ (b) Left panel: Spectroscopy of the sample showing the resonator frequencies
+ 
+\begin_inset Formula $\nu_{R}^{I,II}$
+\end_inset
+
+ (horizontal lines), and the measured (disks, triangles)
+\color black
+ and fitted (lines) 
+\color inherit
+qubit frequencies 
+\begin_inset Formula $\nu_{I,II}$
+\end_inset
+
+ as a function of their flux bias 
+\begin_inset Formula $\phi_{I,II}$
+\end_inset
+
+ when the other qubit is far detuned.
+ Right panel: Spectroscopic anticrossing of the two qubits obtained by varying
+ 
+\begin_inset Formula $\phi_{I}$
+\end_inset
+
+ at 
+\begin_inset Formula $\nu_{II}=5.124\,\mathrm{GHz}$
+\end_inset
+
+ and plotting the probability of 01 or 10 outcomes.
+ (c) Typical pulse sequence including 
+\begin_inset Formula $X$
+\end_inset
+
+ or 
+\begin_inset Formula $Y$
+\end_inset
+
+ rotations, a 
+\begin_inset Formula $\sqrt{iSWAP}{}^{\alpha}$
+\end_inset
+
+gate, 
+\begin_inset Formula $Z$
+\end_inset
+
+ rotations, and tomographic and readout pulses.
+ Microwave pulses a(t) for qubit (green) and for readout (blue) are drawn
+ on top of the 
+\begin_inset Formula $\nu_{I,II}(\phi)$
+\end_inset
+
+ dc pulses (red lines).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\color black
+In this work, we operate a new architecture that comes closer to the ideal
+ quantum processor design than the above-mentioned ones.
+ Our circuit is based on frequency tunable transmons that are capacitively
+ coupled.
+ Although the coupling is fixed, the interaction is effective only when
+ the qubits are on resonance, which yields the 
+\begin_inset Formula $\sqrt{iSWAP}$
+\end_inset
+
+ universal gate for an adequate coupling duration.
+ Each qubit is equipped with its own non-destructive single-shot readout
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "JBA Siddiqi,JBA Mallet"
+
+\end_inset
+
+, and the two qubits can be read with low cross-talk.
+ In order to characterize the circuit operation, we reconstruct the time
+ evolution of the two-qubit register density matrix during the resonant
+ and coherent exchange of a single quantum of excitation between the qubits
+ by quantum state tomography.
+ Then, we prepare a Bell state with concurrence 0.85, measure the CHSH entangleme
+nt witness, and find a violation of the corresponding Bell inequality by
+ 22 standard deviations.
+ We then characterize the 
+\begin_inset Formula $\sqrt{iSWAP}$
+\end_inset
+
+ universal gate operation by determining its
+\color magenta
+ 
+\color black
+process map by quantum process
+\color red
+ 
+\color black
+tomography 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nielsen Chuang"
+
+\end_inset
+
+.
+ We find a gate fidelity of 90% due to qubit decoherence and systematic
+ unitary errors.
+ 
+\end_layout
+
+\begin_layout Standard
+The circuit implemented is schematized in Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig1"
+
+\end_inset
+
+a: The 
+\color black
+coupled 
+\color inherit
+qubits and their respective 
+\color black
+control and readout sub-circuits are
+\color inherit
+ fabricated on a Si chip (see Supplementary material S1), which is then
+ cooled down to 
+\begin_inset Formula $20\,\mathrm{mK}$
+\end_inset
+
+ in a dilution refrigerator, and connected to room temperature sources and
+ measurement devices by attenuated and filtered control lines and by two
+ measurement lines equipped with cryogenic amplifiers.
+ Each transmon 
+\begin_inset Formula $j=I,\, II$
+\end_inset
+
+ is a capacitively shunted SQUID characterized by its Coulomb energy 
+\begin_inset Formula $E_{C}^{j}$
+\end_inset
+
+ for a Cooper pair, the asymmetry 
+\begin_inset Formula $d_{j}$
+\end_inset
+
+ between its two Josephson junctions, and its total effective Josephson
+ energy 
+\begin_inset Formula $E_{J}^{j}(\phi_{j})=E_{J}^{j}\left|\mathrm{cos}(x_{j})\right|\sqrt{1+d_{j}^{2}\mathrm{tan^{2}}(x_{j})}$
+\end_inset
+
+, with 
+\begin_inset Formula $x_{j}=\pi\phi_{j}/\phi_{0}$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+, 
+\begin_inset Formula $\phi_{0}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ the flux quantum, and 
+\begin_inset Formula $\phi_{j}$
+\end_inset
+
+ the magnetic flux through the SQUID induced by a current line with a 
+\begin_inset Formula $0.5\,\mathrm{GHz}$
+\end_inset
+
+ bandwidth.
+ The transition frequencies 
+\begin_inset Formula $\nu_{j}\simeq\sqrt{2E_{C}^{j}E_{J}^{j}}/h$
+\end_inset
+
+ between the two lowest energy states 
+\begin_inset Formula $\left|0\right\rangle _{j}$
+\end_inset
+
+ and 
+\begin_inset Formula $\left|1\right\rangle _{j}$
+\end_inset
+
+ can thus be tuned by 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\phi_{j}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+.
+ The qubits are coupled by a capacitor with nominal value 
+\begin_inset Formula $C_{c}\simeq0.13\,\mathrm{fF}$
+\end_inset
+
+ and form a register with Hamiltonian 
+\begin_inset Formula $H=h\left(-\nu_{I}\sigma_{z}^{I}-\nu_{II}\sigma_{z}^{II}+{\color{black}{\color{red}{\color{black}2}}}g\sigma_{y}^{I}\sigma_{y}^{II}\right)/2$
+\end_inset
+
+ -with 
+\begin_inset Formula $h$
+\end_inset
+
+ the Planck constant-, where 
+\begin_inset Formula $\sigma_{x,y,z}$
+\end_inset
+
+ are the Pauli operators, 
+\begin_inset Formula ${\color{red}{\color{black}2}}g=\sqrt{E_{C}^{I}E_{C}^{II}\nu_{I}\nu_{II}}/E_{Cc}\ll\nu_{I,II}$
+\end_inset
+
+ is the coupling frequency, and 
+\begin_inset Formula $E_{Cc}$
+\end_inset
+
+ the Coulomb energy of a Cooper pair on the coupling capacitor.
+ The two-qubit gate is defined in the uncoupled basis 
+\begin_inset Formula $\{\left|uv\right\rangle \}\equiv\{\left|0\right\rangle _{I},\left|1\right\rangle _{I}\}\otimes\{\left|0\right\rangle _{II},\left|1\right\rangle _{II}\}$
+\end_inset
+
+, i.e.
+ at a working point 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $M_{I,II}$
+\end_inset
+
+ where the qubits are sufficiently detuned (
+\begin_inset Formula $\nu_{II}-\nu_{I}\gg{\color{red}{\color{black}2}}g$
+\end_inset
+
+) to be negligibly coupled.
+ Bringing them on resonance at a frequency 
+\begin_inset Formula $\nu$
+\end_inset
+
+ in a time much shorter than 
+\begin_inset Formula $1/2g$
+\end_inset
+
+ but much longer than 1/
+\begin_inset Formula $\nu$
+\end_inset
+
+, and keeping them on resonance during a time 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+, one implements an operation 
+\begin_inset Formula $\Theta_{I}.\Theta_{II}.\sqrt{iSWAP}^{\,(8g\Delta t)}$
+\end_inset
+
+, which is the product of the
+\begin_inset Formula \[
+\sqrt{iSWAP}=\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 1/\sqrt{2} & -i/\sqrt{2} & 0\\
+0 & -i/\sqrt{2} & 1/\sqrt{2} & 0\\
+0 & 0 & 0 & 1\end{array}\right)\]
+
+\end_inset
+
+gate to an adjustable power and of two single qubit phase gates 
+\begin_inset Formula $\Theta_{j}=\mathrm{exp\left(i\theta_{j}\sigma_{z}^{j}{\color{red}{\color{black}/2}}\right)}$
+\end_inset
+
+ accounting for the dynamical phases 
+\begin_inset Formula $\theta_{j}=\int{\color{red}{\color{black}2}}\pi(\nu-\nu_{j})dt$
+\end_inset
+
+ accumulated during the coupling.
+ The exact 
+\begin_inset Formula $\sqrt{iSWAP}$
+\end_inset
+
+ gate can thus be obtained by choosing 
+\begin_inset Formula $\Delta t={\color{red}{\color{black}1}}/8g$
+\end_inset
+
+ and by applying a compensation rotation 
+\begin_inset Formula $\Theta_{j}^{-1}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ to each qubit afterward.
+\end_layout
+
+\begin_layout Standard
+For readout, each qubit is capacitively coupled to its own 
+\color black
+
+\begin_inset Formula $\lambda/2$
+\end_inset
+
+ 
+\color inherit
+coplanar waveguide resonator 
+\color black
+with frequency 
+\begin_inset Formula $\nu_{R}^{j}$
+\end_inset
+
+ and quality factor 
+\begin_inset Formula $Q_{j}$
+\end_inset
+
+, which is made non linear with a Josephson junction.
+
+\color inherit
+ 
+\color black
+Each readout is
+\color red
+ 
+\color inherit
+operated as a Josephson bifurcation amplifier, as explained in details in
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "JBA Mallet"
+
+\end_inset
+
+: The homodyne measurement 
+\color black
+(see Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig1"
+
+\end_inset
+
+a) 
+\color inherit
+of two microwave pulses simultaneously applied to and reflected from the
+ readouts yields a two-bit outcome 
+\begin_inset Formula $uv$
+\end_inset
+
+ that maps with a high fidelity the state 
+\begin_inset Formula $\left|uv\right\rangle $
+\end_inset
+
+ on which the register is projected; the probabilities 
+\begin_inset Formula $p_{uv}$
+\end_inset
+
+ of the four possible outcomes are determined by repeating the same experimental
+ sequence a few 
+\begin_inset Formula $10^{4}$
+\end_inset
+
+ times.
+ Single qubit rotations 
+\begin_inset Formula $u\left(\theta\right)$
+\end_inset
+
+ by an angle 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\theta$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ around an axis 
+\begin_inset Formula $\overrightarrow{u}$
+\end_inset
+
+ of the XY plane of the Bloch sphere are obtained by sending directly through
+ the readout resonators Gaussian microwave pulses with frequencies 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\nu_{j}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+, phases 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\varphi_{j}=(\overrightarrow{X},\overrightarrow{u})$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ and calibrated area 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $A_{j}\varpropto\theta$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+.
+ Rotations around Z are obtained by changing temporarily 
+\begin_inset Formula $\nu_{I,II}$
+\end_inset
+
+ with dc pulses on the current lines.
+\end_layout
+
+\begin_layout Standard
+The sample is first characterized by spectroscopy (see Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig1"
+
+\end_inset
+
+b) and a fit of the transmon model to the data yields the sample parameters
+ (see S2).
+ The working points where the qubits are manipulated 
+\begin_inset Formula $(M^{I,II}$
+\end_inset
+
+), resonantly coupled (C), and read out 
+\begin_inset Formula $(R^{I,II}$
+\end_inset
+
+) are chosen to get sufficiently long relaxation times 
+\begin_inset Formula $\sim0.5\,\text{µs}$
+\end_inset
+
+ during gates, negligible residual coupling during single qubit rotations
+ and readout, and best possible fidelities at readout.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig1"
+
+\end_inset
+
+b shows these points as well as the spectroscopic anticrossing of the two
+ qubits at point 
+\begin_inset Formula $C$
+\end_inset
+
+, where 
+\begin_inset Formula ${\color{red}{\color{black}2}}g=9.2\;\mathrm{MHz}$
+\end_inset
+
+ in agreement with the design value of 
+\begin_inset Formula $C_{c}$
+\end_inset
+
+.
+ Then, readout errors are characterized at 
+\begin_inset Formula $R^{I,II}$
+\end_inset
+
+ (see Fig.
+ S3.1): In a first approximation, the errors are independent for the two
+ readouts and are of about 10% and 20% when reading 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\left|0\right\rangle $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\left|1\right\rangle $
+\end_inset
+
+ respectively.
+ This limited fidelity results for a large part from energy relaxation of
+ the qubits at readout.
+ In addition we observe a small readout cross talk, i.e.
+ a variation of up to 2% in the probability of an outcome of readout 
+\begin_inset Formula $j$
+\end_inset
+
+ depending on the state of the other qubit.
+ All these effects
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ are calibrated by measuring the four 
+\begin_inset Formula $p_{uv}$
+\end_inset
+
+ probabilities for each of the four
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+ 
+\begin_inset Formula $\left|uv\right\rangle $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ states, which allows us to calculate a 
+\begin_inset Formula $4\times4$
+\end_inset
+
+ readout matrix
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+ 
+\begin_inset Formula $\mathcal{R}$
+\end_inset
+
+ linking the 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+
+\begin_inset Formula $p_{uv}$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+'s to the 
+\begin_inset Formula $\left|uv\right\rangle $
+\end_inset
+
+ populations
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename U:/Commun/PROJET Cavités/articles/ISWAP/figures/Figure2.pdf
+	lyxscale 30
+	width 8cm
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Coherent swapping of a single excitation between the qubits.
+ (a) Experimental (solid lines) and fitted (dashed lines) occupation probabiliti
+es of the four computational states 
+\begin_inset Formula $\left|00\right\rangle ..\left|11\right\rangle $
+\end_inset
+
+ as a function of the coupling duration.
+ No 
+\begin_inset Formula $Z$
+\end_inset
+
+ or tomographic pulses are applied here.
+ (b,c) State tomography of the initial state (left) and of the state produced
+ by the 
+\begin_inset Formula $\sqrt{iSWAP}$
+\end_inset
+
+ gate (right).
+ (b) Ideal (empty bars) and experimental (color filling) expected values
+ of the 15 Pauli operators 
+\begin_inset Formula $XI,..,ZZ$
+\end_inset
+
+.
+ (c) Corresponding ideal (color filled black circles with pointer) and experimen
+tal (red circle and pointer) density matrices, as well as fidelity 
+\begin_inset Formula $F$
+\end_inset
+
+ and concurence 
+\begin_inset Formula $C$
+\end_inset
+
+.
+ Each matrix element is represented by a circle with an area proportional
+ to its modulus (diameter = cell size for unit modulus) and a phase pointer
+ giving its argument.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Repeating the pulse sequence shown in Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig1"
+
+\end_inset
+
+c at 
+\begin_inset Formula $M^{I}=5.247\,\mathrm{GHz}$
+\end_inset
+
+, 
+\begin_inset Formula $M^{II}=C=5.125\,\mathrm{GHz}$
+\end_inset
+
+, 
+\begin_inset Formula $R^{I}=5.80\,\mathrm{GHz}$
+\end_inset
+
+, and 
+\begin_inset Formula $R^{II}=5.75\,\mathrm{GHz}$
+\end_inset
+
+, and applying the readout corrections 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\mathcal{R}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+, we observe the coherent exchange of a single excitation initially stored
+ in qubit 
+\begin_inset Formula $I$
+\end_inset
+
+.
+ We show in Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig2"
+
+\end_inset
+
+ the time evolution of the measured 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\left|uv\right\rangle $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ populations, in fair agreement with a prediction obtained by integration
+ of a simple time independent Lindblad master equation of the system, involving
+ the independently measured relaxation times 
+\begin_inset Formula $T_{1}^{I}=436\, ns$
+\end_inset
+
+ and 
+\begin_inset Formula $T_{1}^{II}=520\, ns$
+\end_inset
+
+, and two independent effective pure dephasing times 
+\begin_inset Formula $T_{\varphi}^{I}=T_{\varphi}^{II}=2.0\,\text{µ}s$
+\end_inset
+
+ as fitting parameters.
+ Tomographic reconstruction of the register density matrix 
+\begin_inset Formula $\rho$
+\end_inset
+
+ is obtained by measuring the expectation values of the 15 two-qubit Pauli
+ operators 
+\begin_inset Formula $\left\{ P_{k}\right\} =\left\{ XI,..,ZZ\right\} $
+\end_inset
+
+, the 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $X_{j}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ and 
+\begin_inset Formula $Y_{j}$
+\end_inset
+
+ measurements being obtained using tomographic pulses 
+\begin_inset Formula $\overrightarrow{Y_{j}}\left(-90\text{°}\right)$
+\end_inset
+
+ or 
+\begin_inset Formula $\overrightarrow{X_{j}}\left(90\text{°}\right)$
+\end_inset
+
+ just before readout.
+ The 
+\begin_inset Formula $\rho$
+\end_inset
+
+ matrix is calculated from the Pauli set by global minimization of the Hilbert-S
+chmidt distance between the possibly non-physical 
+\begin_inset Formula $\rho$
+\end_inset
+
+ and all physical (i.e.
+ positive-semidefinite) 
+\begin_inset Formula $\rho's$
+\end_inset
+
+.
+ This is done at regular interval of the coupling time to produce a movie
+ of 
+\begin_inset Formula $\rho\left(\Delta t\right)$
+\end_inset
+
+ (see supplementary on line material) showing the swapping of the 
+\begin_inset Formula $\left|10\right\rangle $
+\end_inset
+
+ and 
+\begin_inset Formula $\left|01\right\rangle $
+\end_inset
+
+ populations at frequency 
+\begin_inset Formula ${\color{red}{\color{black}2}}g$
+\end_inset
+
+ , the oscillation of the corresponding coherences  at frequency 
+\begin_inset Formula ${\color{black}{\color{red}{\color{black}4}}}g$
+\end_inset
+
+, as well as the dephasing and relaxation towards
+\begin_inset Formula $\left|00\right\rangle $
+\end_inset
+
+.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig2"
+
+\end_inset
+
+ shows only 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\left\{ \left\langle P_{k}\right\rangle \right\} $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ and 
+\begin_inset Formula $\rho$
+\end_inset
+
+ at 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+=
+\begin_inset Formula $0\,\mathrm{ns}$
+\end_inset
+
+ and after 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+a 
+\begin_inset Formula $\sqrt{iSWAP}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ obtained at 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+=
+\begin_inset Formula $31\,\mathrm{ns}$
+\end_inset
+
+ with 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\Theta_{j}^{-1}$
+\end_inset
+
+rotations of 
+\begin_inset Formula $\theta_{I}\simeq-65\text{°}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\theta_{II}\simeq+60\text{°}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+.
+ The fidelity 
+\begin_inset Formula $F=\left\langle \psi_{id}\right|\rho\left|\psi_{id}\right\rangle $
+\end_inset
+
+ of 
+\begin_inset Formula $\rho$
+\end_inset
+
+ with the ideal density matrices 
+\begin_inset Formula $\left|\psi_{id}\right\rangle \left\langle \psi_{id}\right|$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+ are 95% and 91%, respectively, and are limited by errors on the preparation
+ pulse, statistical noise, and relaxation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename U:/Commun/PROJET Cavités/articles/ISWAP/figures/Figure3b.pdf
+	lyxscale 30
+	width 8cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Test of the CHSH-Bell inequality on a 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\left|10\right\rangle +e^{i\psi}\left|01\right\rangle $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ state by measuring the qubits along 
+\begin_inset Formula $X^{I}$
+\end_inset
+
+or 
+\begin_inset Formula $Y^{I}$
+\end_inset
+
+ and 
+\begin_inset Formula $X_{\varphi}^{II}$
+\end_inset
+
+ or 
+\begin_inset Formula $Y_{\varphi}^{II}$
+\end_inset
+
+ (see top-left inset)
+\color black
+,
+\color red
+ 
+\color black
+respectively
+\color inherit
+.
+ Blue (resp.
+ red) error bars are the experimental CHSH entanglement witness determined
+ from the raw (resp.
+ readout errors corrected ) measurements as a function of the angle 
+\begin_inset Formula $\varphi$
+\end_inset
+
+ between the measuring basis, whereas solid line is a fit using 
+\begin_inset Formula $\psi$
+\end_inset
+
+ as the only fitting parameter.
+ Height of error bars is 
+\begin_inset Formula $\pm$
+\end_inset
+
+ one standard deviation 
+\begin_inset Formula $\sigma(N)$
+\end_inset
+
+ (see bottom-right inset), with 
+\begin_inset Formula $N$
+\end_inset
+
+ the number of sequences per point.
+ Note that averaging beyond 
+\begin_inset Formula $N=10^{6}$
+\end_inset
+
+ does not improve the violation because of a slow drift of 
+\begin_inset Formula $\varphi$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig3"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To quantify in a different way our ability to entangle the two qubits, we
+ prepare a Bell state 
+\begin_inset Formula $\left|10\right\rangle +e^{i\psi}\left|01\right\rangle $
+\end_inset
+
+ 
+\color black
+(with 
+\color inherit
+
+\begin_inset Formula $\psi=\theta_{II}-\theta_{I}$
+\end_inset
+
+)
+\color black
+ using the pulse sequence of Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig1"
+
+\end_inset
+
+c with 
+\begin_inset Formula $\Delta t=31\,\mathrm{ns}$
+\end_inset
+
+ and no 
+\begin_inset Formula $\Theta_{j}^{-1}$
+\end_inset
+
+rotations
+\color inherit
+, and measure the 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+CHSH
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ entanglement witness 
+\begin_inset Formula $\left\langle XX_{\varphi}\right\rangle +\left\langle XY_{\varphi}\right\rangle +\left\langle YY_{\varphi}\right\rangle -\left\langle YX_{\varphi}\right\rangle $
+\end_inset
+
+ by keeping the two measurement axes of a single qubit perpendicular and
+ rotating by a variable angle 
+\begin_inset Formula $\varphi$
+\end_inset
+
+ the measurement basis of qubit 
+\begin_inset Formula $II$
+\end_inset
+
+.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig3"
+
+\end_inset
+
+ compares the results obtained with and without correcting the readout errors,
+ with what is theoretically expected from the decoherence parameters indicated
+ previously: unlike in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ansmann Bell"
+
+\end_inset
+
+ and because of a readout contrast limited to 
+\begin_inset Formula $70-75\,\%$
+\end_inset
+
+, the witness does not exceed the classical bound of 2 without correcting
+ the readout errors.
+ After correction, it reaches 2.43, in good agreement with the theoretical
+ prediction (see also 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Chow Bell"
+
+\end_inset
+
+), and exceeds the classical bound by up to 22 standard deviations when
+ averaged over 10
+\begin_inset Formula $^{6}$
+\end_inset
+
+ sequences.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename U:/Commun/PROJET Cavités/articles/ISWAP/figures/Figure4.pdf
+	lyxscale 30
+	width 8cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Map of the implemented 
+\begin_inset Formula $\sqrt{iSWAP}$
+\end_inset
+
+ gate yielding a fidelity of 90%.
+ (a) Ideal (empty thick bars) and experimental (color filled bars) lower
+ part of the Hermitian matrix 
+\begin_inset Formula $\chi$
+\end_inset
+
+ (elements below 1% not shown).
+ A matrix element is represented by a bar with height proportional to its
+ modulus and a red phase pointer (as well as a filling color for experiment)
+ giving its argument (top left inset).
+ Expected peaks are marked by a star.
+ (b) Lower part of the 
+\begin_inset Formula $\widetilde{\chi}$
+\end_inset
+
+ matrix (red circles - see text), with the same convention as in Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig2"
+
+\end_inset
+
+, but with circles magnified for readability (a one-cell diameter represents
+ a 8 % modulus)
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+.
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+Main visible contributions (continuous circles) are explained in text.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig4"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In a last experiment, we characterize the imperfections of our 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\sqrt{iSWAP}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ gate by quantum process tomography 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nielsen Chuang"
+
+\end_inset
+
+.
+ We build a completely positive map 
+\begin_inset Formula $\rho_{out}=\mathcal{E}(\rho_{in})=\sum_{m,n}\chi_{mn}P_{m}^{'}\rho_{in}P_{n}^{'\dagger}$
+\end_inset
+
+ characterized by a 
+\begin_inset Formula $16\times16$
+\end_inset
+
+ superoperator 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\chi$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ expressed here in the modified Pauli operator basis 
+\begin_inset Formula $\left\{ P_{k}^{'}\right\} =\{I,X,Y^{'}=iY,Z\}^{\otimes2}$
+\end_inset
+
+, for which all matrices are real.
+ For that purpose, we apply the gate (
+\color black
+using pulse sequences similar to that of 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig1"
+
+\end_inset
+
+c, with 
+\begin_inset Formula $\Delta t=31\,\mathrm{ns}$
+\end_inset
+
+ and 
+\begin_inset Formula $\Theta_{j}^{-1}$
+\end_inset
+
+rotations
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+) to
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ the sixteen input states 
+\begin_inset Formula $\{\left|0\right\rangle ,\left|1\right\rangle ,\left|0\right\rangle +\left|1\right\rangle ,\left|0\right\rangle +i\left|1\right\rangle \}^{\otimes2}$
+\end_inset
+
+ and characterize both the input and output states by quantum state tomography.
+ By operating as described previously, we would obtain apparent input and
+ output density matrices including errors made in the state tomography itself,
+ which we don't want to include in the gate map.
+ Instead, we fit the 16 experimental
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+ input Pauli 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+sets by a model including amplitude and phase errors for the 
+\begin_inset Formula $X$
+\end_inset
+
+ and 
+\begin_inset Formula $Y$
+\end_inset
+
+ preparation and tomographic pulses (see S4), in order to determine which
+ operator set 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\left\{ P_{k}^{e}\right\} $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ is actually measured.
+ The input and output matrices 
+\begin_inset Formula $\rho_{in,out}$
+\end_inset
+
+ corrected from the tomographic errors only are calculated by inverting
+ the linear relation 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\left\{ \left\langle P_{k}^{e}\right\rangle =Tr\left(\rho P_{k}^{e}\right)\right\} $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ and by applying it to the experimental Pauli sets.
+ We then calculate from the 
+\begin_inset Formula $\left\{ \rho_{in,out}\right\} $
+\end_inset
+
+ set an Hermitian 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\chi$
+\end_inset
+
+ matrix
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ that is not necessarily physical
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+ due to statistical errors, and which we render physical by taking the nearest
+ Hermitian completely positive matrix.
+ This final 
+\begin_inset Formula $\chi$
+\end_inset
+
+ matrix is shown in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig4"
+
+\end_inset
+
+ and compared to the ideal one, 
+\begin_inset Formula $\chi_{id}$
+\end_inset
+
+, which yields a gate fidelity 
+\begin_inset Formula $F_{g}=Tr\left(\chi.\chi_{id}\right)=0.9$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Fidelities"
+
+\end_inset
+
+.
+ To better understand the imperfections, we also show the map 
+\begin_inset Formula $\widetilde{\chi}$
+\end_inset
+
+ of the actual process preceded by the inverse ideal process 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Korotkov"
+
+\end_inset
+
+.
+ The first diagonal element of 
+\begin_inset Formula $\widetilde{\chi}$
+\end_inset
+
+ is equal to 
+\begin_inset Formula $F$
+\end_inset
+
+ by construction.
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+Then, main visible errors
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+ are unitary (too long coupling time inducing a 95° swap instead of 90°
+ and 
+\begin_inset Formula $\Theta_{1,2}$
+\end_inset
+
+ rotations too small by 
+\begin_inset Formula $3.5°$
+\end_inset
+
+ and 
+\begin_inset Formula $7°$
+\end_inset
+
+ respectively) but reduce fidelity by only 1-2%.
+ On the other hand decoherence reduces fidelity by 8% but is barely visible
+ in 
+\begin_inset Formula $\widetilde{\chi}$
+\end_inset
+
+ due to a spread over many matrix elements with modulus of the order of
+ or below the 
+\begin_inset Formula $1-2\%$
+\end_inset
+
+ noise level.
+ 
+\end_layout
+
+\begin_layout Standard
+As a conclusion, we have demonstrated a high fidelity 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\sqrt{iSWAP}$
+\end_inset
+
+ gate
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ in a two josephson qubit circuit with individual non-destructive single-shot
+ readouts
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+, observed a violation of the CHSH-Bell inequality, and followed the register's
+ dynamics by tomography.
+ Although quantum coherence and readout fidelity are still limited in this
+ circuit, we think they are sufficient to test simple two-qubit algorithms
+ in the single-run mode, which will be the aim of future work.
+\end_layout
+
+\begin_layout Standard
+We gratefully acknowledge helpful discussion with J.
+ Martinis and his coworkers, with M.
+ Devoret, D.
+ DiVicenzo, A.
+ Korotkov, P.
+ Milman, and within the Quantronics group, technical support from P.
+ Orfila, P.
+ Senat, and J.C.
+ Tack, as well as financial support from the European research contracts
+ MIDAS and SOLID.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Nielsen Chuang"
+
+\end_inset
+
+ M.
+ A.
+ Nielsen and I.
+ L.
+ Chuang, Quantum Computation and Quantum Information (Cambridge University
+ Press, Cambridge, UK, 2000).
+ 
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "QubitsSupra"
+
+\end_inset
+
+ J.
+ Clarke and F.
+ Wilhelm, Nature 
+\series bold
+453
+\series default
+, 1031 (2008).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "DiCarlo2qb"
+
+\end_inset
+
+ L.
+ DiCarlo
+\emph on
+ et al.
+\emph default
+, Nature 
+\series bold
+460
+\series default
+, 240 (2008).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "DiCarlo3qb"
+
+\end_inset
+
+ L.
+ DiCarlo
+\emph on
+ et al.
+\emph default
+, Nature 
+\series bold
+467
+\series default
+, 574 (2010).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Yamamoto"
+
+\end_inset
+
+T.
+ Yamamoto 
+\shape italic
+et al
+\shape default
+., Phys.
+ Rev.
+ B 
+\series bold
+82
+\series default
+, 184515 (2010).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Bialczak"
+
+\end_inset
+
+R.
+ C.
+ Bialczak
+\shape italic
+ et al
+\shape default
+., Nature Physics 
+\series bold
+6
+\series default
+, 409-413 (2010).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "IBM Steffen"
+
+\end_inset
+
+J.
+ M.
+ Chow
+\emph on
+ et al.
+\emph default
+, Phys.
+ Rev.
+ Lett.
+ 107, 080502 (2011).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Transmon Koch"
+
+\end_inset
+
+J.
+ Koch
+\emph on
+ et al.
+\emph default
+, Phys.
+ Rev.
+ A 
+\series bold
+76
+\series default
+, 042319 (2007).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "TransmonSchreier"
+
+\end_inset
+
+ J.A.
+ Schreier 
+\emph on
+et al.
+\emph default
+, Phys.
+ Rev.
+ B 
+\series bold
+77
+\series default
+, 180502(R) (2008).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Ansmann Bell"
+
+\end_inset
+
+ M.
+ Ansmann
+\emph on
+ et al.
+\emph default
+, Nature 
+\series bold
+461
+\series default
+, 504 (2009).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "RezQ"
+
+\end_inset
+
+M.
+ Mariantoni 
+\emph on
+et al.
+\emph default
+, Science, DOI:10.1126/science.1208517 (2011).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "JBA Siddiqi"
+
+\end_inset
+
+I.
+ Siddiqi 
+\emph on
+et al.
+\emph default
+, Phys.
+ Rev.
+ Lett.
+ 
+\series bold
+93
+\series default
+, 207002 (2004).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "JBA Mallet"
+
+\end_inset
+
+F.
+ Mallet
+\emph on
+ et al.
+\emph default
+, Nature Physics 
+\series bold
+5
+\series default
+, 791 (2009).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Chow Bell"
+
+\end_inset
+
+J.
+ M.
+ Chow
+\emph on
+ et al.
+\emph default
+, Phys.
+ Rev.
+ A 
+\series bold
+81
+\series default
+, 062325 (2010).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Fidelities"
+
+\end_inset
+
+The fidelities 
+\begin_inset Formula $F$
+\end_inset
+
+ for the 16 outputs states range between 80% and 99.5%
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Korotkov"
+
+\end_inset
+
+A.
+ G.
+ Kofman and A.
+ N.
+ Korotkov, Phys.
+ Rev.
+ A, vol.
+ 
+\series bold
+81
+\series default
+, no.
+ 4 (2009), and private communication.
+\end_layout
+
+\end_body
+\end_document

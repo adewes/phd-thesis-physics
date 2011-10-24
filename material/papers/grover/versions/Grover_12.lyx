@@ -1,0 +1,1600 @@
+#LyX 1.6.4 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass revtex4
+\begin_preamble
+\newcommand{\pq}[2]{#1\,{\rm #2}}% physical quantity, value and unit
+\renewcommand{\Re}{{\rm Re}\,}% real part
+\newcommand{\Ej}{E_{\rm J}}% Josephson energy
+\newcommand{\Tn}{T_{\rm N}}% Noise temperature
+\newcommand{\Rn}{R_{\rm N}}% Normal state resistance
+\newcommand{\pairrate}{\Gamma^{\rm cp}}\newcommand{\photonrate}{\Gamma^{\rm ph}}\newcommand{\znorm}{r}
+\end_preamble
+\options prl
+\use_default_options false
+\language english
+\inputencoding utf8
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 2
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 2
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Demonstrating quantum speed-up in a superconducting two-qubit processor
+ 
+\end_layout
+
+\begin_layout Author
+A.
+ Dewes
+\begin_inset Formula $^{1}$
+\end_inset
+
+, R.
+ Lauro
+\begin_inset Formula $^{1},$
+\end_inset
+
+ F.R.
+ Ong
+\begin_inset Formula $^{1},$
+\end_inset
+
+ V.
+ Schmitt
+\begin_inset Formula $^{1}$
+\end_inset
+
+, P.
+ Milman
+\begin_inset Formula $^{2,3}$
+\end_inset
+
+, P.
+ Bertet
+\begin_inset Formula $^{1}$
+\end_inset
+
+, D.
+ Vion
+\begin_inset Formula $^{1}$
+\end_inset
+
+, and D.
+ Esteve
+\begin_inset Formula $^{1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Affiliation
+\begin_inset Formula $^{1}$
+\end_inset
+
+Service de Physique de l'Etat Condens
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+é
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+/IRAMIS/DSM (CNRS URA 2464), CEA Saclay, 91191 Gif-sur-Yvette, France
+\end_layout
+
+\begin_layout Affiliation
+\begin_inset Formula $^{2}$
+\end_inset
+
+Laboratoire Matériaux et Phénomènes Quantiques, Université Paris Diderot,
+ 10 rue Alice Domon et Léonie Duquet, 75205 Paris, France, 
+\end_layout
+
+\begin_layout Affiliation
+\begin_inset Formula $^{3}$
+\end_inset
+
+Univ.
+ Paris-Sud 11, Institut de Sciences Moléculaires d'Orsay (CNRS), 91405 Orsay,
+ France
+\end_layout
+
+\begin_layout Date
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+We operate a superconducting quantum processor consisting of two tunable
+ transmon qubits coupled by a swapping interaction, and equipped with non
+ destructive single-shot readout of the two qubits.
+ With this processor, we run the Grover search algorithm among four objects
+ and find that the correct answer is retrieved after a single run with a
+ success probability between 
+\begin_inset Formula $0.52$
+\end_inset
+
+ and 
+\begin_inset Formula $0.67$
+\end_inset
+
+, significantly larger than the 
+\begin_inset Formula $0.25$
+\end_inset
+
+ achieved with a classical algorithm.
+ This constitutes a proof-of-concept for the quantum speed-up of electrical
+ quantum processors.
+ 
+\end_layout
+
+\begin_layout Standard
+The proposition of quantum algorithms 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "search,Shor,NielsenChuang"
+
+\end_inset
+
+ that perform useful computational tasks more efficiently than classical
+ algorithms has motivated the realization of physical systems 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "QC"
+
+\end_inset
+
+ able to implement them and to demonstrate quantum speed-up.
+ The versatility and the potential scalability of electrical circuits make
+ them very appealing for implementing a quantum processor built as sketched
+ in
+\begin_inset space ~
+\end_inset
+
+Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:blueprint"
+
+\end_inset
+
+.
+ Ideally, a quantum processor consists of a scalable set of quantum bits
+ that
+\color black
+ can be efficiently reset, that can follow any unitary evolution needed
+ by an algorithm using a universal set of single and two qubit gates, and
+ that can be read projectively
+\color inherit
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "divincenzo"
+
+\end_inset
+
+.
+ The non-unitary projective readout operations can be performed at various
+ stages of an algorithm, and in any case at the end in order to get the
+ final outcome.
+ Quantum processors based on superconducting qubits have already been operated,
+ but they fail to meet the above criteria in different aspects.
+ With the transmon qubit 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Transmon Koch,TransmonSchreier"
+
+\end_inset
+
+ derived from the Cooper pair box 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "box"
+
+\end_inset
+
+, two simple quantum algorithms, namely the Deutsch-Jozsa algorithm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DeutschJozsa"
+
+\end_inset
+
+ and the Grover search algorithm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "search"
+
+\end_inset
+
+, were demonstrated in a two qubit processor with the coupling between the
+ qubits mediated by a cavity also used for readout 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dicarlo"
+
+\end_inset
+
+.
+ In this circuit, the qubits are not read independently, but the value of
+ a single collective variable is determined from the cavity transmission
+ measured over a large number of repeated sequences.
+ By applying suitable qubit rotations prior to this measurement, the density
+ matrix of the two-qubit register was inferred at different steps of the
+ algorithm, and found in good agreement with the predicted one.
+ Demonstrating quantum speed-up is however more demanding than measuring
+ a collective qubit variable since it requests to obtain an outcome after
+ a single run, i.e.
+ to perform the single-shot readout of the qubit register.
+ Up to now, single-shot readout in superconducting processors has been achieved
+ only for phase qubits 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "yamamoto,mariantoni"
+
+\end_inset
+
+.
+ In a two phase-qubit processor equipped with single-shot but destructive
+ readout of the qubits, the Deutsch-Jozsa algorithm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DeutschJozsa"
+
+\end_inset
+
+ was demonstrated in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "yamamoto"
+
+\end_inset
+
+ with a success probability of order 
+\begin_inset Formula $0.7$
+\end_inset
+
+ in a single run, to be compared to 
+\begin_inset Formula $0.5$
+\end_inset
+
+ for a classical algorithm.
+ 
+\end_layout
+
+\begin_layout Standard
+Since the Deutsch-Jozsa classification algorithm is not directly related
+ to any practical situation, demonstrating quantum speed-up for more useful
+ algorithms in an electrical processor designed along the blueprint of Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:blueprint"
+
+\end_inset
+
+ is an important goal.
+ In this work, we operate a new two transmon-qubit processor 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "processor"
+
+\end_inset
+
+ that comes closer to the ideal scheme than those previously mentioned,
+ and we run the Grover search algorithm among four objects.
+ Since, in this case, the algorithm ideally yields the answer after one
+ algorithm step, its success probability after a single run provides a simple
+ benchmark.
+ We find that our processor yields the correct answer at each run with a
+ success probability that ranges between 
+\begin_inset Formula $0.52$
+\end_inset
+
+ and 
+\begin_inset Formula $0.67$
+\end_inset
+
+, whereas a single step classical algorithm using a random query would yield
+ the correct answer with probability 
+\begin_inset Formula $0.25$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Fig1.pdf
+	lyxscale 40
+	width 8cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:blueprint"
+
+\end_inset
+
+Schematic blueprint of a quantum processor based on quantum gates, represented
+ here in the two-qubit case relevant for our experiment.
+ A quantum processor consists of a qubit register that can perform any unitary
+ evolution needed by an algorithm under the effect of a universal set of
+ quantum gates (single qubit gate 
+\begin_inset Formula $U_{1}$
+\end_inset
+
+ , two-qubit gate 
+\begin_inset Formula $U_{2}$
+\end_inset
+
+).
+ Ideally, all the qubits may be read projectively, and may be reset.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Fig2.pdf
+	lyxscale 40
+	width 8.5cm
+
+\end_inset
+
+ 
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:circuittomo"
+
+\end_inset
+
+ Electrical scheme of the two qubit circuit operated and typical sequence
+ during processor operation.
+ (a) two tunable transmon qubits (green) are capacitively coupled.
+ Their frequency is controlled by the flux induced in their SQUID loop by
+ a local current line (in red).
+ The coupling capacitance (in magenta) yields a swapping evolution between
+ the qubits when on resonance.
+ Each transmon is embedded in a non-linear resonator used for single-shot
+ readout.
+ Each reflected readout pulse is routed to a cryogenic amplifier through
+ circulators, homodyned at room temperature and acquired digitally, which
+ yields a two-bit outcome.
+ (b) Typical operation of the processor showing the resonant microwave pulses
+ 
+\begin_inset Formula $a(t)$
+\end_inset
+
+ applied to the qubits (green) and to the readouts (blue), on top of the
+ DC pulses (red lines) that vary the transition frequencies of qubit 
+\begin_inset Formula $I$
+\end_inset
+
+ (solid) and 
+\begin_inset Formula $II$
+\end_inset
+
+ (dashed).
+ With the qubits tuned at a first working point for single qubit gates,
+ resonant pulses are applied for performing X and Y rotations, and small
+ flux pulses are applied for Z rotations; qubits are then moved to the interacti
+on point for two-qubit gate operations.
+ Such sequences can be combined as needed by the algorithm.
+ Qubits are then moved to their initial working point for applying tomography
+ pulses and a 
+\begin_inset Formula $\left|1\right\rangle \rightarrow\left|2\right\rangle $
+\end_inset
+
+ pulse that 
+\begin_inset Formula $X_{12}(\pi)$
+\end_inset
+
+ increases readout fidelity; they are finally moved at the readout working
+ point and read.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The scheme and the operation mode of our processor is shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:circuittomo"
+
+\end_inset
+
+.
+ Two tunable transmon qubits coupled by a fixed capacitor, are embedded
+ in two identical control and readout sub-circuits.
+ The Hamiltonian of the two qubits 
+\begin_inset Formula $\left\{ I,II\right\} $
+\end_inset
+
+ is 
+\begin_inset Formula $H/h=\left(-\nu_{I}\sigma_{z}^{I}-\nu_{II}\sigma_{z}^{II}+2g\sigma_{y}^{I}\sigma_{y}^{II}\right)/2$
+\end_inset
+
+, where 
+\begin_inset Formula $\sigma_{x,y,z}$
+\end_inset
+
+ are the Pauli operators, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\nu_{I,II}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ the qubit frequency controlled by the flux applied to each transmon SQUID
+ loop with a fast (
+\begin_inset Formula $0.5\,\mathrm{GHz}$
+\end_inset
+
+ bandwidth) local current line, and 
+\begin_inset Formula $g=4.6\:\mathrm{MHz\ll\nu_{I,II}}$
+\end_inset
+
+ the coupling frequency controlled by the coupling capacitance.
+ The achieved frequency control allows us to place the two transmons on
+ resonance during times precise enough for performing the universal two-qubit
+ gate 
+\color black
+
+\begin_inset Formula $\sqrt{iSWAP}$
+\end_inset
+
+
+\color inherit
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "processor"
+
+\end_inset
+
+ and the exchange gate
+\color black
+ 
+\begin_inset Formula $iSWAP$
+\end_inset
+
+
+\color inherit
+ used in this work.
+ The qubit frequencies are tuned to different values for single qubit manipulati
+on, two-qubit gate operation, and readout.
+ The readout is independently and simultaneously performed for each qubit
+ using the single-shot method of 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mallet"
+
+\end_inset
+
+.
+ It is based on the dynamical transition of a non-linear resonator 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "siddiqi,metcalfe"
+
+\end_inset
+
+ that maps the quantum state of each transmon to the bifurcated/non bifurcated
+ state of its resonator,  which yields a binary outcome for each qubit.
+ This readout method is potentially non-destructive, but its non-destructive
+ character is presently limited by relaxation during the readout pulse.
+ In order to further improve the readout fidelity, we resort to a shelving
+ method that exploits the second excited state of the transmon.
+ For this purpose, a microwave pulse that induces a transition from the
+ state 
+\begin_inset Formula $\left|1\right\rangle $
+\end_inset
+
+ towards the second excited state 
+\begin_inset Formula $\left|2\right\rangle $
+\end_inset
+
+ of the transmon is applied just before the readout pulse as demonstrated
+ in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mallet"
+
+\end_inset
+
+.
+ This variant does not alter the non-destructive aspect of the readout method
+ since an extra pulse bringing state 
+\begin_inset Formula $\left|2\right\rangle $
+\end_inset
+
+ back to state 
+\begin_inset Formula $\left|1\right\rangle $
+\end_inset
+
+ could be applied after readout.
+ Although the readout contrast achieved with this shelving method and with
+ optimized microwave pulses reaches 
+\begin_inset Formula $0.88$
+\end_inset
+
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $0.89$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ for the two qubits respectively, the values achieved at working points
+ suitable for processor operation are lower and equal to 
+\begin_inset Formula $0.84$
+\end_inset
+
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $0.83$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+.
+ The readout outcome probabilities for all input states of the two-qubit
+ register are given in the Supplementary Information S4, with a discussion
+ of the error sources.
+\end_layout
+
+\begin_layout Standard
+In order to characterize the evolution of the quantum register during the
+ algorithm, we determine its density matrix by state tomography.
+ For this purpose, we measure the expectation values of the extended Pauli
+ set of operators 
+\begin_inset Formula $\left\{ \sigma_{X}I,..,\sigma_{Z}\sigma_{Z}\right\} $
+\end_inset
+
+ by applying the suitable rotations just before readout and by averaging
+ typically 
+\begin_inset Formula $10^{4}\:$
+\end_inset
+
+times.
+ Note that the readout errors, which can be well-characterized, are corrected
+ when determining the expectation value of the Pauli set, and thus do not
+ contribute to tomography errors as explained in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "processor"
+
+\end_inset
+
+.
+ The density matrix 
+\begin_inset Formula $\rho$
+\end_inset
+
+ is then taken as the acceptable positive-semidefinite matrix that, according
+ to the Hilbert-Schmidt distance, is the closest to the possibly non physical
+ one derived from the measurement set.
+ In order to characterize the fidelity of the algorithm at all steps, we
+ use the state fidelity 
+\begin_inset Formula $F=\left\langle \psi\left|\rho\right|\psi\right\rangle $
+\end_inset
+
+ with 
+\begin_inset Formula $\left|\psi\right\rangle $
+\end_inset
+
+ the ideal quantum state at the step considered; 
+\begin_inset Formula $F$
+\end_inset
+
+ is in this case the probability for the qubit register to be in state 
+\begin_inset Formula $\left|\psi\right\rangle $
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The Grover search algorithm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "search"
+
+\end_inset
+
+ consists in retrieving a particular basis state in a Hilbert space of size
+ 
+\begin_inset Formula $N$
+\end_inset
+
+ using a function able to discriminate it from the other ones.
+ This function is used to build an oracle operator that tags the searched
+ state.
+ Starting from the superposition 
+\begin_inset Formula $\left|\phi\right\rangle $
+\end_inset
+
+ of all register states, a unitary sequence that incorporates the oracle
+ operator is repeated about 
+\begin_inset Formula $\sqrt{N}$
+\end_inset
+
+ times, and eventually yields the searched state with a high probability.
+ The implementation of Grover's algorithm in a two-qubit Hilbert space often
+ proceeds in a simpler way 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "grov_Chuang,grov_Fourier_Optics,grov_Jones,grov_optics,grov_Rydberg,grov_trapped_ions"
+
+\end_inset
+
+ since the result is obtained with certainty after a single algorithm step.
+ The algorithm then consists of an encoding sequence depending on the searched
+ state, followed by a universal decoding sequence that retrieves it.
+ Grover's algorithm thus provides a simple benchmark for two-qubit processors.
+ Its implementation with our quantum processor is shown in 
+\color black
+Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:operation"
+
+\end_inset
+
+(a).
+ First, the superposed state 
+\begin_inset Formula $\left|\phi\right\rangle $
+\end_inset
+
+ is obtained by applying 
+\begin_inset Formula $\pi/2$
+\end_inset
+
+ rotations around the 
+\begin_inset Formula $Y$
+\end_inset
+
+ axis for the two qubits.
+ The oracle operator 
+\begin_inset Formula $O_{uv}$
+\end_inset
+
+ tagging the two-qubit state 
+\begin_inset Formula $\left|uv\right\rangle \equiv\left|u\right\rangle _{I}\otimes\left|v\right\rangle _{II}$
+\end_inset
+
+ to be searched is then applied to state 
+\begin_inset Formula $\left|\phi\right\rangle $
+\end_inset
+
+.
+ Each 
+\begin_inset Formula $O_{uv}$
+\end_inset
+
+ consists of a 
+\begin_inset Formula $\mathit{\mathrm{\mathit{iSWAP}}}$
+\end_inset
+
+ gate followed by a 
+\begin_inset Formula $Z(\pm\pi/2)$
+\end_inset
+
+ rotation on each qubit, with the four possible sign combinations 
+\begin_inset Formula $(-,-)$
+\end_inset
+
+, 
+\begin_inset Formula $(+,-)$
+\end_inset
+
+ , 
+\begin_inset Formula $(-,+)$
+\end_inset
+
+ , and 
+\begin_inset Formula $(+,+)$
+\end_inset
+
+ corresponding to 
+\begin_inset Formula $uv=00$
+\end_inset
+
+, 
+\begin_inset Formula $01$
+\end_inset
+
+, 
+\begin_inset Formula $10$
+\end_inset
+
+, and 
+\begin_inset Formula $11$
+\end_inset
+
+, respectively.
+ In the algorithm we use, as in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dicarlo"
+
+\end_inset
+
+
+\color inherit
+, the encoding is a phase encoding.
+ When applied to 
+\begin_inset Formula $\left|\phi\right\rangle $
+\end_inset
+
+, each oracle operator inverts the sign of the component corresponding to
+ the state it tags, respectively to the other ones.
+ The density matrix after applying the oracle ideally takes a simple form:
+ the amplitude of all coefficients is 
+\begin_inset Formula $1/4$
+\end_inset
+
+, and the phase of an element 
+\begin_inset Formula $\rho_{rs}$
+\end_inset
+
+ is 
+\begin_inset Formula $\varphi_{rs}=\pi(\delta_{rt}+\delta_{st})$
+\end_inset
+
+, where 
+\begin_inset Formula $t$
+\end_inset
+
+ corresponds to the state tagged by the oracle operator.
+  The state tomography performed after applying the oracle, shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:operation"
+
+\end_inset
+
+(b), is in good agreement with this prediction.
+ More quantitatively, we find that after having applied the oracle operator,
+ the intermediate fidelity is 
+\begin_inset Formula $F_{int}=0.87$
+\end_inset
+
+, 
+\begin_inset Formula $0.80$
+\end_inset
+
+, 
+\begin_inset Formula $0.84$
+\end_inset
+
+, and 
+\begin_inset Formula $0.82$
+\end_inset
+
+, respectively.
+ We attribute the difference with the ideal density matrix to small gate
+ errors, to decoherence, and to small errors of the tomography pulses.
+ The last part of the algorithm consists in transforming the obtained state
+ in the searched state irrespectively of it, or equivalently to transform
+ the phase information distributed over the elements of the density matrix
+ in a weight information with the whole weight on the searched state.
+ This operation is readily performed by applying a 
+\begin_inset Formula $\mathrm{\mathit{iSWAP}}$
+\end_inset
+
+ gate followed by 
+\begin_inset Formula $Y(\pi/2)$
+\end_inset
+
+ rotations for both qubits.
+ We find that the fidelity of the density matrix at the end of the algorithm
+ is 
+\begin_inset Formula $F_{final}=0.70$
+\end_inset
+
+, 
+\begin_inset Formula $0.62$
+\end_inset
+
+, 
+\begin_inset Formula $0.67$
+\end_inset
+
+, and 
+\begin_inset Formula $0.66$
+\end_inset
+
+ respectively.
+ This fidelity 
+\begin_inset Formula $F_{final}$
+\end_inset
+
+ gives the success probability one would obtain assuming no errors when
+ reading the qubit register at the end of the algorithm.
+ 
+\end_layout
+
+\begin_layout Standard
+We now consider the success probability obtained after a single run, which
+ probes the quantum speed-up actually achieved by the processor.
+ We find (see Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:operation"
+
+\end_inset
+
+) that our processor does yield the correct answer with a success probability
+ 
+\begin_inset Formula $P_{S}=0.67$
+\end_inset
+
+, 
+\begin_inset Formula $0.55$
+\end_inset
+
+, 
+\begin_inset Formula $0.62$
+\end_inset
+
+, and 
+\begin_inset Formula $0.52$
+\end_inset
+
+ for the four basis states, which is smaller than the density matrix fidelity
+ 
+\begin_inset Formula $F_{final}$
+\end_inset
+
+.
+ One notices that the difference between 
+\begin_inset Formula $F_{final}$
+\end_inset
+
+ and 
+\begin_inset Formula $P_{S}$
+\end_inset
+
+, mostly due to readout errors, slightly depends on the searched state:
+ the larger the energy of the searched state, the larger the difference.
+ This dependence is well explained by the effect of relaxation during the
+ readout pulse, which is the main error source at readout, the second one
+ being readout crosstalk.
+ One also notices that the outcome errors are distributed over all the wrong
+ answers.
+ To summarize, the error in the outcome of Grover's algorithm originate
+ both from small unitary errors accumulated during the algorithm, and from
+ decoherence during the whole sequence, in particular during the final readout.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Fig3.pdf
+	lyxscale 40
+	width 8.5cm
+
+\end_inset
+
+ 
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:operation"
+
+\end_inset
+
+ (a) Experimental sequence used for implementing the Grover search algorithm
+ on four objects.
+ First, 
+\begin_inset Formula $Y(\pi/2)$
+\end_inset
+
+ rotations are applied to produce the superposition 
+\begin_inset Formula $\left|\phi\right\rangle =(1/2){\textstyle \sum_{u,v}\left|uv\right\rangle }$
+\end_inset
+
+ of all basis states; then one of the four possible oracle (corresponding
+ to the four sign combinations of the Z rotations) is applied.
+ The tagged state is then decoded in all cases using a 
+\begin_inset Formula $iSWAP$
+\end_inset
+
+ operation followed by 
+\begin_inset Formula $Y(\pi/2)$
+\end_inset
+
+ rotations.
+ (b) State tomography at two steps of the algorithm and success probability
+ after a single run.
+ The yellow dot on the left marks the basis state tagged by each oracle
+ operator used.
+ After applying the oracle, the information on the tagged state is encoded
+ in the phase of six particular elements of the density matrix 
+\begin_inset Formula $\rho$
+\end_inset
+
+.
+ After decoding, the tagged state should be the only matrix element present
+ in 
+\begin_inset Formula $\rho$
+\end_inset
+
+.
+ The amplitude of each matrix element is represented by a disk (black for
+ the ideal density matrix, red for the measured one) and its phase by a
+ radius (as well as a filling color for the ideal matrice).
+ The probability distribution of the single-run readout outcomes is indicated
+ on the right (yellow box for the correct answer, filled dark boxes for
+ the wrong ones).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color black
+We now discuss the significance of the obtained results in terms of quantum
+ information processing.
+ The achieved success probability is smaller than the theoretically achievable
+ value 
+\begin_inset Formula $1$
+\end_inset
+
+, but nevertheless sizeably larger than the value of 
+\begin_inset Formula $0.25$
+\end_inset
+
+ obtained by running once the classical algorithm that consists in making
+ a random trial.
+ From the point of view of a user that would search which unknown oracle
+ picked at random has been given to him, the fidelity of the algorithm outcome
+ is 
+\begin_inset Formula $F_{o}=0.57$
+\end_inset
+
+, 
+\begin_inset Formula $0.63$
+\end_inset
+
+, 
+\begin_inset Formula $0.57$
+\end_inset
+
+, and 
+\begin_inset Formula $0.59$
+\end_inset
+
+ for the 
+\begin_inset Formula $00$
+\end_inset
+
+, 
+\begin_inset Formula $01$
+\end_inset
+
+, 
+\begin_inset Formula $10$
+\end_inset
+
+, and 
+\begin_inset Formula $11$
+\end_inset
+
+ outcomes respectively, as explained in the Supplementary Information S5.
+ Despite the presence of errors, this result demonstrates the quantum speed-up
+ for Grover's algorithm when searching in a Hilbert space with small size
+ 
+\begin_inset Formula $N=4$
+\end_inset
+
+.
+ Demonstrating the 
+\begin_inset Formula $\sqrt{N}$
+\end_inset
+
+ speed-up for Grover's algorithm in larger Hilbert spaces requires a qubit
+ architecture more scalable than the present one, which presently is a major
+ challenge in the field.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color black
+In conclusion, we have demonstrated the operation of the Grover search algorithm
+ in a superconducting two-qubit processor with single-shot non destructive
+ readout.
+ This result indicates that the quantum speed-up expected from quantum algorithm
+s is within reach of superconducting quantum bit processors.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "search"
+
+\end_inset
+
+L.K.
+ Grover, Proceedings, 28th Annual ACM Symposium on the Theory of 
+\color black
+Computing
+\color inherit
+, 1996, p.
+ 212; and Am.
+ J.
+ Phys., 
+\series bold
+69,
+\series default
+ 769 (2001).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Shor"
+
+\end_inset
+
+P.W.
+ Shor, Proceedings, 35th Annual Symposium on Foundations of Computer Science,
+ IEEE Press, Los Alamitos, CA, (1994); and SIAM J.
+ Comp., 26, 1484, (1997).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "NielsenChuang"
+
+\end_inset
+
+M.
+ A.
+ Nielsen and I.
+ L.
+ Chuang, Quantum Computation and Quantum Information (Cambridge University
+ Press, Cambridge, UK, 2000).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "QC"
+
+\end_inset
+
+T.D.
+ Ladd et al., Nature 
+\series bold
+\color black
+464
+\series default
+\color inherit
+, 45 (2010).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "divincenzo"
+
+\end_inset
+
+D.P.
+ DiVincenzo, Fortschritte der Physik 
+\series bold
+\color black
+48
+\series default
+\color inherit
+, 771-784 (2000).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Transmon Koch"
+
+\end_inset
+
+J.
+ Koch
+\emph on
+ et al.
+\emph default
+, Phys.
+ Rev.
+ A 
+\series bold
+76
+\series default
+, 042319 (2007).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "TransmonSchreier"
+
+\end_inset
+
+ J.A.
+ Schreier 
+\emph on
+et al.
+\emph default
+, Phys.
+ Rev.
+ 
+\series bold
+B77
+\series default
+, 180502 (2008).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "box"
+
+\end_inset
+
+Y.
+ Nakamura, Yu.
+ A.
+ Pashkin, and J.
+ S.
+ Tsai1, Nature 
+\series bold
+398
+\series default
+, 786 (1999).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "DeutschJozsa"
+
+\end_inset
+
+D.
+ Deutsch and R.
+ Jozsa, Proc.
+ R.
+ Soc.
+ London 1A, 
+\series bold
+439
+\series default
+, 553 (1992).
+ 
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "dicarlo"
+
+\end_inset
+
+ L.
+ DiCarlo et al., Nature 
+\series bold
+467
+\series default
+, 574 (2010).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "yamamoto"
+
+\end_inset
+
+ T.
+ Yamamoto et al., Phys.
+ Rev.
+ 
+\series bold
+B 82
+\series default
+, 184515 (2010).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "mariantoni"
+
+\end_inset
+
+M.
+ Mariantoni 
+\emph on
+et al.
+\emph default
+, Science DOI:10.1126, (2011); arXiv:1109.3743.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "processor"
+
+\end_inset
+
+A.
+ Dewes et al., submitted to Phys.
+ Rev.
+ Lett; arXiv:1109.6735.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "mallet"
+
+\end_inset
+
+F.
+ Mallet
+\emph on
+ et al.
+\emph default
+, Nature Physics 
+\series bold
+5
+\series default
+, 791 (2009).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "siddiqi"
+
+\end_inset
+
+I.
+ Siddiqi 
+\emph on
+et al.
+\emph default
+, Phys.
+ Rev.
+ Lett.
+ 
+\series bold
+93
+\series default
+, 207002 (2004).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "metcalfe"
+
+\end_inset
+
+M.
+ Metcalfe
+\emph on
+ et al.
+\emph default
+, Phys.
+ Rev.
+ B 76, 174516 (2007).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "grov_Jones"
+
+\end_inset
+
+J.A.
+ Jones, M.
+ Mosca, and R.H.
+ Hansen, Nature 
+\series bold
+393
+\series default
+, 344 (1998).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "grov_Chuang"
+
+\end_inset
+
+ I.L.
+ Chuang, N.
+ Gershenfeld, and M.
+ Kubinec, Phys.
+ Rev.
+ Lett.
+ 
+\series bold
+80
+\series default
+, 3408 (1998).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "grov_trapped_ions"
+
+\end_inset
+
+ K.A.
+ Brickman 
+\emph on
+et al.
+\emph default
+, Phys.
+ Rev.
+ 
+\series bold
+A 72
+\series default
+, 050306, (2005).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "grov_Fourier_Optics"
+
+\end_inset
+
+ N.
+ Bhattacharya 
+\emph on
+et al.
+\emph default
+, Phys.
+ Rev.
+ Lett.
+ 
+\series bold
+88
+\series default
+, 137901 (2002).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "grov_optics"
+
+\end_inset
+
+P.
+ Walther 
+\emph on
+et al.
+\emph default
+, Nature 
+\series bold
+434
+\series default
+, 169 (2005).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "grov_Rydberg"
+
+\end_inset
+
+J.
+ Ahn, T.C.
+ Weinacht, and P.H.
+ Bucksbaum, Science 
+\series bold
+287
+\series default
+, 463 (2000).
+\end_layout
+
+\end_body
+\end_document

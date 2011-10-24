@@ -1,0 +1,605 @@
+#LyX 1.6.9 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass revtex4
+\options aps,twocolumn
+\use_default_options false
+\begin_modules
+theorems-ams
+\end_modules
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 2
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Characterization of a two-transmon qubit gate with individual readouts 
+\end_layout
+
+\begin_layout Author
+A.
+ Dewes
+\begin_inset Formula $^{1}$
+\end_inset
+
+, F.
+ R.
+ Ong
+\begin_inset Formula $^{1}$
+\end_inset
+
+,V.
+ Schmitt
+\begin_inset Formula $^{1}$
+\end_inset
+
+, R.
+ Lauro
+\begin_inset Formula $^{1}$
+\end_inset
+
+, N.
+ Boulant
+\begin_inset Formula $^{2}$
+\end_inset
+
+, P.
+ Bertet
+\begin_inset Formula $^{1}$
+\end_inset
+
+, D.
+ Vion
+\begin_inset Formula $^{1}$
+\end_inset
+
+, and D.
+ Esteve
+\begin_inset Formula $^{1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Affiliation
+\begin_inset Formula $^{1}$
+\end_inset
+
+Quantronics group, Service de Physique de l'État Condensé (CNRS URA 2464),
+ IRAMIS, DSM, CEA-Saclay, 91191 Gif-sur-Yvette, France 
+\end_layout
+
+\begin_layout Affiliation
+\begin_inset Formula $^{2}$
+\end_inset
+
+ I2BM, Neurospin, LRMN, 91191CEA-Saclay, 91191 Gif-sur-Yvette, France 
+\end_layout
+
+\begin_layout Date
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+We report the characterization of a 
+\begin_inset Formula $\sqrt{iSWAP}$
+\end_inset
+
+ two-qubit gate implemented with two capacitively coupled superconducting
+ qubits of the transmon type, each qubit having its own non-destructive
+ single-shot readout.
+ We reconstruct the coherent dynamics of the two-bit register by state tomograph
+y as a function of the coupling time, measure the CHSH entanglement witness
+ of a Bell state, and observe a violation of the corresponding Bell inequality
+ by 22 standard deviations after readout error correction.
+ We finally measure by standard quantum process tomography a gate fidelity
+ of 90%.
+\end_layout
+
+\begin_layout Standard
+Introduction...
+\end_layout
+
+\begin_layout Standard
+In this letter we ....
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename U:/Commun/PROJET Cavités/articles/ISWAP/figures/Figure2.pdf
+	lyxscale 30
+	width 8cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Coherent swapping of a single excitation between the qubits.
+ (a) Experimental (solid lines) and fitted (dashed lines) occupation probabiliti
+es of the four computational state 
+\begin_inset Formula $\left|00\right\rangle ..\left|11\right\rangle $
+\end_inset
+
+ as a function of the coupling duration.
+ Experimental values are obtained from the pulse sequence shown in Fig.
+ 1c without Z and tomographic pulses, and by correcting the raw readout
+ outcomes from the calibrated readout errors.
+ The fit involves the integration of the master equation of the system (see
+ text).
+ (b,c) State tomography of the initial state (pulse sequence of Fig.
+ 1c with no coupling nor Z pulses) and of the state produced by the 
+\begin_inset Formula $\sqrt{iSWAP}$
+\end_inset
+
+ gate (full sequence of Fig.
+ 1c with 
+\begin_inset Formula $31\,\mathrm{ns}$
+\end_inset
+
+ coupling time and 
+\begin_inset Formula $Z_{I}=x\text{°}$
+\end_inset
+
+ and 
+\begin_inset Formula $Z_{I}=x\text{°}$
+\end_inset
+
+compensation pulses), on the left and right pannel, respectively.
+ (b) Experimental (color filling) and ideal (empty black bars) expected
+ values of the 15 two-qubit Pauli operators 
+\begin_inset Formula $XI,..,ZZ$
+\end_inset
+
+.
+ (c) Corresponding ideal (color filled black circles with a black pointer)
+ and experimental (red circle and pointer) density matrices of the register,
+ as well as fidelities F.
+ Each matrix element is represented by a circle with an area proportional
+ to its modulus (diameter = cell size for modulus=1) and a phase pointer
+ giving its argument.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename U:/Commun/PROJET Cavités/articles/ISWAP/figures/Figure3.pdf
+	lyxscale 30
+	width 8cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Test of the CHSH-Bell inequality on a 
+\begin_inset Formula $\left|10\right\rangle +e^{i\psi}\left|01\right\rangle $
+\end_inset
+
+ initial state, using the pulse sequence of Fig.
+ 1c with a 31 ns coupling time, no Z pulses, and 
+\begin_inset Formula $X^{I}$
+\end_inset
+
+or 
+\begin_inset Formula $Y^{I}$
+\end_inset
+
+ and 
+\begin_inset Formula $X_{\varphi}^{II}$
+\end_inset
+
+ or 
+\begin_inset Formula $Y_{\varphi}^{II}$
+\end_inset
+
+ tomographic pulses (see top-left inset) on qubit I and II, respectively.
+ Blue (resp.
+ red) error bars show the experimental CHSH entanglement witness determined
+ from the raw (resp.
+ readout errors corrected ) measurements as a function of the angle 
+\begin_inset Formula $\varphi$
+\end_inset
+
+ between the two measuring basis, whereas solid line is a fit using phase
+ 
+\begin_inset Formula $\psi$
+\end_inset
+
+ as the only fitting parameter (see text).
+ Error bars' height is 
+\begin_inset Formula $\pm$
+\end_inset
+
+ one standard deviation 
+\begin_inset Formula $\sigma(N)$
+\end_inset
+
+ (see bottom-right inset), with 
+\begin_inset Formula $N$
+\end_inset
+
+ the number of sequences per point.
+ Readout errors corrected CHSH reaches x and exceeds the classical limit
+ 2 by up to 22 standard deviations when averaged over about 1 million sequences.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig3"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename U:/Commun/PROJET Cavités/articles/ISWAP/figures/Figure4a.pdf
+	lyxscale 30
+	width 8cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Map of the 
+\begin_inset Formula $\sqrt{iSWAP}$
+\end_inset
+
+ process expressed in the 
+\begin_inset Formula $\{I,X,Y'=iY,Z\}^{\otimes2}$
+\end_inset
+
+ operator basis and obtained by standard quantum process tomography, starting
+ from the 16 input states 
+\begin_inset Formula $\{\left|0\right\rangle ,\left|1\right\rangle ,\left|0\right\rangle +\left|1\right\rangle ,\left|0\right\rangle +i\left|1\right\rangle \}^{\otimes2}$
+\end_inset
+
+.
+ The corresponding 16 pulse sequences are similar to the one used for Fig.
+ 2 except for the preparation pulses, and the fidelity obtained is 90%.
+ (a) Comparison of the ideal (empty black thick bars) and experimental (color
+ filled thin bars) lower triangular part of the Hermitian 
+\begin_inset Formula $\chi$
+\end_inset
+
+ matrix, with elements below 1% not shown.
+ Each matrix element is represented by a bar with a height proportional
+ to its modulus and a red phase pointer (and a filling color in the experimental
+ case) giving its argument (see top left inset).
+ Expected peaks are marked with a star.
+ (b) Lower triangular part of the hermitian 
+\begin_inset Formula $\widetilde{\chi}$
+\end_inset
+
+ post-error matrix (see text), with elements below 1% not shown and with
+ the same convention of representation as in Fig.
+ 2, but with circle areas multplied by 13 for a better readability.
+ Main error contributions (continuous circles) are indicated on top and
+ are unitary (see text).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig4"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In conclusion we have...
+ 
+\end_layout
+
+\begin_layout Standard
+We gratefully acknowledge helpfull discussion with J.
+ Martinis and his coworkers, M.
+ Devoret, D.
+ DiVicenzo, A.
+ Korotkov, P.
+ Millman, and within the Quantronics group, technical support from P.
+ Orfila, P.
+ Senat, and J.C.
+ Tack, as well as financial support from the European research contract
+ SOLID.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "WinelandRMP"
+
+\end_inset
+
+ C.F.
+ Roos 
+\emph on
+et al.
+\emph default
+, Phys.
+ Rev.
+ Lett.
+ 
+\series bold
+92
+\series default
+, 220402 (2004); C.
+ Langer 
+\emph on
+et al.
+\emph default
+, Phys.
+ Rev.
+ Lett.
+ 
+\series bold
+95
+\series default
+, 060502 (2005).
+ 
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "QubitsSupra"
+
+\end_inset
+
+ J.
+ Clarke and F.
+ Wilhelm, Nature 
+\series bold
+453
+\series default
+, 1031 (2008).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "DiCarlo2qb"
+
+\end_inset
+
+ L.
+ DiCarlo
+\emph on
+ et al.
+\emph default
+, Nature 
+\series bold
+460
+\series default
+, 240 (2008).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "TransmonSchreier"
+
+\end_inset
+
+ J.A.
+ Schreier 
+\emph on
+et al.
+\emph default
+, Phys.
+ Rev.
+ B 
+\series bold
+77
+\series default
+, 180502(R) (2008).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "VacuumRabiKimble"
+
+\end_inset
+
+ M.G.
+ Raizen
+\emph on
+ et al.
+\emph default
+, Phys.
+ Rev.
+ Lett.
+ 
+\series bold
+63
+\series default
+, 240 (1989).
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-2"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-3"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-4"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-5"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-6"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-15"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
