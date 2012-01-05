@@ -1,27 +1,86 @@
 \chapter{Experiments}
 
+%-Discuss all the experiments performed during the PhD thesis.
+
 \section{Realizing a 2-Qubit Quantum Processor}
+
+%-Motivate the performed experiments.
 
 \subsection{Requirements}
 
+%-List requirements for diVincenzo-style quantum computation:
+%-Good 1 & 2 Qubit Gates
+%-Qubits can be reset
+%-Individual Single Shot Readout with High Fidelity
+
 \subsection{Design \& Implementation}
+
+%-Discuss the design & realization of our 2-qubit processor:
+%  -Chip design
+%  -Analytical model and parameter design.
+%  -Measurement setup & RF chain
 
 \section{Characterization of the Processor}
 
+%-Show basic characteristics of the processor:
+%  -Qubit transition energies vs. fluxes
+%  -Qubit fast frequency controls
+%  -2 Qubit interaction
+
 \subsection{Readout}
+
+%-Discuss the readout errors and crosstalk
 
 \subsection{Single-Qubit Manipulation}
 
+%-Discuss single qubit manipulation, gate fidelity and state tomography
+%Data: 14/12/2010
+
 \subsection{Two-Qubit Manipulation}
 
-\subsection{Limitations}
+%-Discuss the realization of a 2 qubit gate:
+%  -Principle
+%  -Implementation & Pulse Sequency
+%  -Characterization through Quantum Process Tomography:
+%     -Principles: State tomography, Pauli set, process tomography
+%     -Discuss alternative representations of the process information:
+%        -Chi matrix, Choi matrix, S, log S, Kraus operator representation
+%  		-Errors: Discuss simulations, error models and possible reasons for discrepancies
+
+%-Discuss the generation of Bell states, the measurement of entanglement witnesses and the measured violation of the CHSH equation.
+
+
+%To Do:
+% -Look through the swapping data and see if there's evidence for wavefunction collapse in qubit 2 when qubit 1 is measured and the two qubits are only partially entangled. Compare the Leo's proposition.
 
 \section{Running Grover's Search Algorithm}
 
+%Motivate this experiment:
+% -Benchmark for superconducting quantum computers
+% -Speed-up for searching in an unsorted database
+
 \subsection{Introduction \& Motivation}
+
+%-Explain the Grover experiment...
+%		-Theoretical interest
+%		-First demonstration in NMR
+%   -Potential speed-up
+%   -Details of the algorithm:
+%     -Elementary operations
+%     -Pulse shapes, corrections, ...
 
 \subsection{Experimental Implementation}
 
+%-Show the implementation principle of the experiment.
+%  -Break down the algorithm using the universal quantum gates that we've implemented
+
 \subsection{Results}
 
+%To Do:
+%  -Create figures for all steps of the algorithm using Matplotlib
+%  -Re-Analyze the data using Denis' Mathematica
+%-Discuss the results and errors.
+
 \subsection{Conclusions}
+
+%-Conclusions regarding quantum speed-up and applicability of results to larger-scale quantum computing.
