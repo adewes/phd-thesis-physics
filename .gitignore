@@ -2,5 +2,7 @@
 *.aux
 *.dvi
 *.ps
-*.pdf
+*.pyc
+*.txt
+*.par
 *~
