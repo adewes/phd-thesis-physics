@@ -1,0 +1,19 @@
+parameters: {}
+tree:
+- Folder
+- {name: '[project]'}
+- - - Folder
+    - {name: plotting}
+    - - - Folder
+        - {name: config}
+        - - - File
+            - {url: 'E:/cygwin/home/adewes/thesis/python/phdthesis/config/params.py'}
+            - []
+          - - File
+            - {url: 'E:/cygwin/home/adewes/thesis/python/phdthesis/config/matplotlib/rcparams.py'}
+            - []
+      - - Folder
+        - {name: anticrossing}
+        - - - File
+            - {url: 'E:/cygwin/home/adewes/thesis/material/figures/2-qubit-processor/characterization/anticrossing/plot_anticrossing.py'}
+            - []
