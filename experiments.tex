@@ -81,11 +81,26 @@
 %To Do:
 % -Look through the swapping data and see if there's evidence for wavefunction collapse in qubit 2 when qubit 1 is measured and the two qubits are only partially entangled. Compare the Leo's proposition.
 
-\subsection{Performing State Tomography}
+\subsection{Quantum State Tomography}
+
+Quantum state tomography is the procedure of experimentally determining an unknown quantum state\cite{michael_a._nielsen_quantum_2000}.
+
+\begin{eqnarray}
+\rho & = & \sum\limits_{v_1,v_2\hdots v_n} \frac{c_{v_1,v_2\hdots v_n} \sigma_{v_1}\otimes \sigma_{v_2}\hdots \sigma_{v_n}}{2^n} \label{eq:state_tomography_state_representation} \\
+c_{v_1,v_2\hdots v_n} & = & \mathrm{tr}\left(\sigma_{v_1}\otimes \sigma_{v_2}\hdots \sigma_{v_n} \; \rho \right)  \label{eq:state_tomography_coefficients}
+\end{eqnarray}
+
+where $v_i \in \left\{ X,Y,Z,I\right\}$ and $n$ gives the number of qubits in the system. To determine the coefficients $c_{v_1,v_2\hdots v_n}$ we prepare an ensemble of identical states $\rho$ and measure the expectation value of the operator $\sigma_{v_1}\otimes \sigma_{v_2}\hdots \sigma_{v_n}$. However, this would involve measuring the expectation values of the operators $\sigma_{X}$ and $\sigma_{Y}$, which we cannot do in experiment. Therefore, instead of directly measuring $\sigma_x$ or $\sigma_y$, we perform a rotation $\Theta_{\pi /2}(Y)$ or $\Theta_{-\pi /2}(X)$ first and measure $\sigma_z$ afterwards, which yields the same result. \todo{check the signs of the rotations!}
+
+Repeating this method many times and averaging the result then gives an estimate of the coefficients $c_{v_1,v_2\hdots v_n}$. Unfortunately, when estimating these coefficients one-by-one, small measurement and preparation errors can yield a density matrix $\rho$ which is {\it non-physical} i.e. which violates the positivity or unity-trace properties of a physical density matrix. There, often we use techniques for jointly estimating all $c_{v_1,v_2\hdots v_n}$'s within the set of acceptable density matrices.
+
+\subsubsection{Maximum Likelihood Estimation}
+
+A method which is often used in quantum state tomography is the so-called {\it maximum-likelihood} technique, which works in the following way:
 
 \subsection{Process Tomography of the Quantum Gate}
 
-A quantum process can be described as a map $\mathcal{E} : \rho_\mathcal{H} \to \rho_\mathcal{H}$ that maps a density matrix $\rho$ defined in a Hilbert space $Q_1$ to another density matrix $\mathcal{E}(\rho)$ defined in a target Hilbert space $Q_2$ and fulfilling three axiomatic properties \cite{Nielsen}:
+A quantum process can be described as a map $\mathcal{E} : \rho_\mathcal{H} \to \rho_\mathcal{H}$ that maps a density matrix $\rho$ defined in a Hilbert space $Q_1$ to another density matrix $\mathcal{E}(\rho)$ defined in a target Hilbert space $Q_2$ and fulfilling three axiomatic properties \cite{michael_a._nielsen_quantum_2000}:
 
 \begin{axiom}
 $\mathrm{tr}\left[\mathcal{E}(\rho)\right]$ is the probability that the process represented by $\mathcal{E}$ occurs, when $\rho$ is the initial state.
@@ -102,7 +117,7 @@ $\mathcal{E}$ is a {\it convex-linear map} on the set of density matrices, that 
 \begin{axiom}
 $\mathcal{E}$ is a {\it completely-positive} map. That is, if $\mathcal{E}$  maps density operators of system $Q_1$ to density operators of system $Q_2$, then $\mathcal{E}(A)$ must be positive for any positive operator $A$. Furthermore, if we introduce an extra system $R$ of arbitrary dimensionality, it must be true that $(\mathcal{I}\otimes \mathcal{E})(A)$ is positive for any positive operator $A$ on the combined system $RQ_1$, where $\mathcal{I}$ denotes the identity map on system $R$.
 \end{axiom}
-As shown in \cite{Nielsen}, any quantum process fulfilling these criteria can be written in the form
+As shown in \cite{michael_a._nielsen_quantum_2000}, any quantum process fulfilling these criteria can be written in the form
 
 \begin{equation}
   \mathcal{E}(\rho) = \sum\limits_i E_i \rho E_i^\dagger \label{eq:process_operator_sum_representation}
@@ -118,7 +133,7 @@ Now, if we express the operators $E_i$ in a different operator basis $\tilde{E}_
 \end{eqnarray}
 where we defined $\chi_{jk} = \sum\limits_i a_{ij} a_{ik}^*$. This is the so-called $\chi$-matrix representation of the quantum process. Here, all the information on the process is contained in the $\chi$ matrix, which controls the action of the process-independent operators $\tilde{E}_i$ on the initial density matrix $\rho$.
 
-Now, the goal of {\it quantum process tomography} is to obtain the coefficients of the $\chi$-matrix --or any other complete representation of the process-- from a set of experimentally measured density matrices $\rho$ and $\mathcal{E}(\rho)$.
+Now, the goal of {\it quantum process tomography} is to obtain the coefficients of the $\chi$-matrix -- or any other complete representation of the process -- from a set of experimentally measured density matrices $\rho$ and $\mathcal{E}(\rho)$.
 
 To achieve this, several techniques have been developed. The technique used in this work is the so-called {\it standard quantum process tomography (SQPT)}. This technique proceeds as follows:
 
@@ -133,7 +148,7 @@ letting $\tilde{E}_m \tilde{\rho}_j \tilde{E}_n^\dagger = \sum_k \beta_{jk}^{mn}
 \begin{eqnarray}
 \sum\limits_k \lambda_{ik} \tilde{\rho}_k & = & \sum\limits_{m,n} \chi_{mn} \sum\limits_k \beta_{ik}^{mn} \tilde{\rho}_k  
 \end{eqnarray}
-This directly yields $\lambda_{ik} = \sum_{m,n}\beta_{ik}^{mn}\; \chi_{mn}$, which, by linear inversion,  gives us $\chi$.
+This directly yields $\lambda_{ik} = \sum_{m,n}\beta_{ik}^{mn}\; \chi_{mn}$, which, by linear inversion,  gives $\chi$.
 
 \section{Running Grover's Search Algorithm}
 
@@ -143,6 +158,26 @@ This directly yields $\lambda_{ik} = \sum_{m,n}\beta_{ik}^{mn}\; \chi_{mn}$, whi
 
 \subsection{Introduction \& Motivation}
 
+\begin{enumerate}
+  \item {\textbf Inputs:} An oracle function $\mathcal{O}$ which performs the operation $O\ket{x}\ket{q} = \ket{x}\ket{q\otimes f(x)}$, where $f(x) = \delta_{x,x_0}$
+  \item {\textbf Outputs:} The marked state $x_0$
+	\item Initialize the qubit register to the state: 
+	$$\ket{\psi} \to \ket{0}^{\otimes n}\ket{0}$$
+	\item Apply the Hadamard transformation to all of the qubits: 
+	$$\ket{psi}\to \frac{1}{\sqrt{2^n}}\sum\limits_{x=0}^{2^n-1} \ket{x} \left[ \frac{\ket{0}-\ket{1}}{\sqrt{2}} \right]$$
+	\item Apply the Grover iteration $R \approx [\pi \sqrt{2^n}/4]$ times:
+	$$ \ket{\psi} \to \left[(2 \ket{\psi}\bra{\psi}-I)\mathcal{O}\right]^R \frac{1}{\sqrt{2^n}} \sum\limits_{x=0}^{2^n-1}\ket{x} \left[ \frac{\ket{0}-\ket{1}}{\sqrt{2}} \right] \approx \ket{x_0}\left[\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right] $$
+	\item Measure the first n qubits to obtain $x_0$
+\end{enumerate}
+
+For the 2-qubit case, this algorithm can be drastically simplified -- or ``compiled'' -- such that it runs without the ancilla qubit and in one single step of the Grover iteration:
+
+\begin{enumerate}
+  \item {\textbf Inputs:} An oracle function $\mathcal{O}$ which performs the operation $O\ket{x} =(-1)^{\delta_{x,x_0}}\ket{x}$, where $x_0$ is the marked state that is searched.
+  \item {\textbf Outputs:} The marked state $x_0$
+	\item 
+\end{enumerate}
+
 %-Explain the Grover experiment...
 %		-Theoretical interest
 %		-First demonstration in NMR
@@ -150,6 +185,13 @@ This directly yields $\lambda_{ik} = \sum_{m,n}\beta_{ik}^{mn}\; \chi_{mn}$, whi
 %   -Details of the algorithm:
 %     -Elementary operations
 %     -Pulse shapes, corrections, ...
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.\textwidth]{./material/figures/2-qubit-processor/grover/grover-schematic-1}
+	\label{fig:GroverAlgorithmSchematic}
+	\caption{}
+\end{figure}
 
 \subsection{Experimental Implementation}
 
