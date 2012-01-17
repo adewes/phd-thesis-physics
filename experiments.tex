@@ -26,6 +26,14 @@
 
 %-Motivate the performed experiments.
 
+\begin{figure}
+	\centering
+		\includegraphics[width=0.8\textwidth]{./material/papers/iswap/figures/2_qubit_processor_spectrocopy}
+	\label{fig:ProcessorSpectroscopy}
+	\caption{}
+\end{figure}
+
+
 \subsection{Requirements}
 
 %-List requirements for diVincenzo-style quantum computation:
@@ -66,6 +74,14 @@
 \end{figure}
 
 
+\begin{figure}
+	\centering
+		\includegraphics[width=0.8\textwidth]{./material/papers/iswap/figures/iswap_gate_pulse_sequence}
+	\label{fig:ISwapPulseSequence}
+	\caption{}
+\end{figure}
+
+
 %-Discuss the realization of a 2 qubit gate:
 %  -Principle
 %  -Implementation & Pulse Sequency
@@ -80,6 +96,15 @@
 
 %To Do:
 % -Look through the swapping data and see if there's evidence for wavefunction collapse in qubit 2 when qubit 1 is measured and the two qubits are only partially entangled. Compare the Leo's proposition.
+
+\subsection{Violation of Bell's inequality}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.8\textwidth]{./material/papers/iswap/figures/chsh}
+	\label{fig:CHSH}
+	\caption{}
+\end{figure}
 
 \subsection{Quantum State Tomography}
 
@@ -150,6 +175,14 @@ letting $\tilde{E}_m \tilde{\rho}_j \tilde{E}_n^\dagger = \sum_k \beta_{jk}^{mn}
 \end{eqnarray}
 This directly yields $\lambda_{ik} = \sum_{m,n}\beta_{ik}^{mn}\; \chi_{mn}$, which, by linear inversion,  gives $\chi$.
 
+\begin{figure}
+	\centering
+		\includegraphics[width=1.\textwidth]{./material/papers/iswap/figures/chi_matrix_and_error_process}
+	\label{fig:GateChiMatrixAndErrorProcess}
+	\caption{}
+\end{figure}
+
+
 \section{Running Grover's Search Algorithm}
 
 %Motivate this experiment:
@@ -188,7 +221,7 @@ For the 2-qubit case, this algorithm can be drastically simplified -- or ``compi
 
 \begin{figure}
 	\centering
-		\includegraphics[width=1.\textwidth]{./material/figures/2-qubit-processor/grover/grover-schematic-1}
+		\includegraphics[width=1.\textwidth]{./material/papers/grover/figures/grover_algorithm_schematic}
 	\label{fig:GroverAlgorithmSchematic}
 	\caption{}
 \end{figure}
@@ -204,6 +237,13 @@ For the 2-qubit case, this algorithm can be drastically simplified -- or ``compi
 %  -Create figures for all steps of the algorithm using Matplotlib
 %  -Re-Analyze the data using Denis' Mathematica
 %-Discuss the results and errors.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.\textwidth]{./material/papers/grover/figures/grover_algorithm_experimental_results}
+	\label{fig:GroverAlgorithmExperimentalResults}
+	\caption{}
+\end{figure}
 
 \subsection{Conclusions}
 
