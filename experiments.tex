@@ -27,12 +27,11 @@
 %-Motivate the performed experiments.
 
 \begin{figure}
-	\centering
-		\includegraphics[width=0.8\textwidth]{./material/papers/iswap/figures/2_qubit_processor_spectrocopy}
+	\centering	
+	\includegraphics[width=0.8\textwidth]{./material/papers/iswap/figures/2_qubit_processor_spectrocopy}
 	\label{fig:ProcessorSpectroscopy}
 	\caption{}
 \end{figure}
-
 
 \subsection{Requirements}
 
@@ -125,7 +124,7 @@ A method which is often used in quantum state tomography is the so-called {\it m
 
 \subsection{Process Tomography of the Quantum Gate}
 
-A quantum process can be described as a map $\mathcal{E} : \rho_\mathcal{H} \to \rho_\mathcal{H}$ that maps a density matrix $\rho$ defined in a Hilbert space $Q_1$ to another density matrix $\mathcal{E}(\rho)$ defined in a target Hilbert space $Q_2$ and fulfilling three axiomatic properties \cite{michael_a._nielsen_quantum_2000}:
+A quantum process can be described as a map $\mathcal{E} : \rho_\mathcal{H} \to \rho_\mathcal{H}$ that maps a density matrix $\rho$ defined in a Hilbert space $Q_1$ to another density matrix $\mathcal{E}(\rho)$ defined in a target Hilbert space $Q_2$ and fulfilling three axiomatic properties \cite{michael_a._nielsen_quantum_2000,haroche_exploring_2006}:
 
 \begin{axiom}
 $\mathrm{tr}\left[\mathcal{E}(\rho)\right]$ is the probability that the process represented by $\mathcal{E}$ occurs, when $\rho$ is the initial state.
@@ -174,6 +173,35 @@ letting $\tilde{E}_m \tilde{\rho}_j \tilde{E}_n^\dagger = \sum_k \beta_{jk}^{mn}
 \sum\limits_k \lambda_{ik} \tilde{\rho}_k & = & \sum\limits_{m,n} \chi_{mn} \sum\limits_k \beta_{ik}^{mn} \tilde{\rho}_k  
 \end{eqnarray}
 This directly yields $\lambda_{ik} = \sum_{m,n}\beta_{ik}^{mn}\; \chi_{mn}$, which, by linear inversion,  gives $\chi$.
+
+\subsubsection{The Kraus representation}
+
+Besides the $\chi$-matrix representation, there is another useful way of expressing a quantum map, the so called {\it Kraus representation}, which is given as
+
+\begin{equation}
+ \mathcal{E}(\rho) = \sum\limits_i M_i \; \rho \; M_i^\dagger \label{eq:process_kraus_representation}
+\end{equation}
+
+It can be shown \citep{haroche_exploring_2006} that this sum contains at most $N$ elements, where $N$ is the dimension of the Hilbert space of the density matrix $\rho$. We can go from the $\chi$ representation to the Kraus representation by changing the basis $\tilde{E}_i$ such that
+
+\begin{equation}
+	\tilde{E}_i = \sum\limits_l a_{il}\; \breve{E}_l
+\end{equation}
+
+which, for eq. (\ref{eq:process_chi_representation}), yields
+
+\begin{eqnarray}
+ \mathcal{E}(\rho) & = & \sum\limits_{j,k} \sum\limits_l a_{jl} \breve{E}_l \; \rho \sum\limits_m a_{km}^* \breve{E}_m^\dagger \; \chi_{jk} \\
+ & = & \sum\limits_{l,m}  \breve{E}_l \; \rho \; \breve{E}_m^\dagger \; \sum\limits_{j,k} a_{jl} a_{km}^* \chi_{jk} \label{eq:process_chi_transformed}
+\end{eqnarray}
+
+The last sum on the right side of eq. (\ref{eq:process_chi_transformed}) corresponds to a change of coordinates of the matrix $\chi$. Now, we can pick the $a$ such that $\chi$ is diagonal in the new basis $\breve{E}$ and obtain
+
+\begin{eqnarray}
+ \mathcal{E}(\rho) & = &  \sum\limits_{l} \lambda_l \breve{E}_l \; \rho \; \breve{E}_l^\dagger \\
+& = &  \sum\limits_{l} M_l \; \rho \; M_l^\dagger
+\end{eqnarray}
+with $\lambda_l$ being the $l$-th eigenvalue of the $\chi$ matrix with the eigen-operator $\breve{E}_l$ and $M_{l} = \sqrt{\lambda_l} \breve{E}_l$.
 
 \begin{figure}
 	\centering
