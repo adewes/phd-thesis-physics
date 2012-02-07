@@ -60,7 +60,19 @@ In the following sections we will discuss the details of each element of this pr
 
 \subsection{Simultaneous Single-Shot Qubit Readout}
 
-To read out the state of each qubit is done by using a so-called Josephson bifurcation amplifier \citep{siddiqi_dispersive_2006,mallet_single-shot_2009}. This readout works by capacitively coupling the qubit to a coplanar waveguide resonator which is rendered nonlinear by adding a Josephson junction at the center of the resonator. This nonlinear resonator can exhibit bistable behaviour for certain drive parameters, which we can use to map the state of the qubit to one of the bistable states of the resonator, thus obtaining a high-fidelity, single-shot readout of the qubit. In contrast to other CQED architectures, each of the two qubits of our processor possesses its own JBA readout, which follows the diVincenzo criteria by allowing a simultaneous measurement of the state of the whole qubit register. The fidelity attained with a JBA readout can be as high as 93 \% \citep{mallet_single-shot_2009}, but due to design contraints was usually around 85 \% for the quantum processor realized here.
+To read out the state of each qubit is done by using a so-called Josephson bifurcation amplifier \citep{siddiqi_dispersive_2006,mallet_single-shot_2009}. This readout works by capacitively coupling the qubit to a coplanar waveguide resonator which is rendered nonlinear by adding a Josephson junction at the center of the resonator. This nonlinear resonator can exhibit bistable behaviour for certain drive parameters, which we can use to map the state of the qubit to one of the bistable states of the resonator, thus obtaining a high-fidelity, single-shot readout of the qubit. In contrast to other CQED architectures, each of the two qubits of our processor possesses its own JBA readout, which follows the diVincenzo criteria by allowing a simultaneous measurement of the state of the whole qubit register. The fidelity attained with a JBA readout can be as high as 93 \% \citep{mallet_single-shot_2009}, but due to design contraints was usually around 83-85 \% for the quantum processor realized here.
+
+\subsection{Operation of the Processor}
+
+The main functions of our two qubit processor consist in 
+
+\begin{itemize}
+\item Performing one-qubit operations, i.e. $\sigma_x$,$\sigma_y$,$\sigma_z$ rotations
+\item Performing a two-qubit quantum gate e.g. the $\sqrt{i\mathrm{SWAP}}$ gate
+\item Reading out the state of each qubit
+\end{itemize}
+
+To perform these different functions we tune the qubit frequencies to different values. For single-qubit manipulation, we chose a qubit working point which is sufficiently detuned from the readout resonator of each qubit and thus minimizes the relaxation of the qubit through the resonator. In addition, the qubit frequencies are sufficiently detuned from each other to completely supress an interaction between them. This detuning is lifted when implementing the two-qubit gate, as will be explained later. Finally, the readout of the qubits is done at a working point where each qubit frequency is close to the frequency of its corresponding readout resonator yet not close enough to produce too fast relaxation of the qubit, which allows for maximum readout fidelity.
 
 \subsection{Two-Qubit Quantum Operations}
 
@@ -71,17 +83,19 @@ To read out the state of each qubit is done by using a so-called Josephson bifur
 	\caption{An experiment showing the creation of entanglement between the two qubits and the realization of the universal $\sqrt{i\mathrm{SWAP}}$ quantum gate. The qubits start out seperated in frequency and are initialized to the state $\ket{10}$. Afterwards, the qubit frequencies are non-adiabatically tuned into resonance and held there for a well-defined time $\Delta t$. When measuring the $\sigma_z^1 \otimes \sigma_z^2$ operator of the system, an energy exchange between the states $\ket{01}$ and $\ket{10}$ can be observed. The reconstruction of the full quantum state of the system after an interaction time of $\Delta t = 31 \; \mathrm{ns} $ by quantum state tomography shows entanglement between the qubits. By adding compensating $\sigma_z^{1,2}$ pulses after the application of the entanglement gate one can implement the $\sqrt{i\mathrm{SWAP}}$ gate.}
 \end{figure}
 
-The fixed coupling between the two qubits of our processor provides a $\sigma_{xx}$-type coupling of the qubits. This coupling is effective only when the qubit frequencies are near-resonance and can thus be switched on and off by changing the qubit frequencies. In the processor realized here, the effective qubit-qubit coupling  of the qubits was of the order of $2g = 8.2 \; \mathrm{MHz}$.\todo{Check if this is really $2g$!}
-
-Using the $\sigma_x$ coupling of the qubits, we can implement the so called $\sqrt{i\mathrm{SWAP}}$ gate, which is a universal 2-qubit quantum gate and has the unitary representation
+The fixed coupling between the two qubits of our processor provides a $\sigma_{xx}$-type coupling of the qubits. This coupling is effective only when the qubit frequencies are near-resonance and can thus be switched on and off by changing the qubit frequencies. In the processor presented in this work, the effective coupling constant $g$ of the qubits was of the order of $2g = 8.2 \; \mathrm{MHz}$\todo{Check if this is really $2g$!}. When this coupling is switched on non-adiabatically -- e.g. by abruptly tuning the two qubits into resonance --, the evolution operator of the coupled 2-qubit system takes the form
 
 \begin{equation}
-	\sqrt{i\mathrm{SWAP}}  =  \left( \begin{array}{cccc} 1/\sqrt{2} & 0 & 0 & 0 \\ 0 & 1/\sqrt{2} & i/\sqrt{2} & 0 \\ 0 & i/\sqrt{2} & 1/\sqrt{2} & 0 \\ 0 & 0 & 0 & 1/\sqrt{2} \end{array} \right) \label{eq:sqrt_iswap_gate}
+	U(t)  =  \left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & \cos{2 \pi t g} & i\sin{2 \pi t g} & 0 \\ 0 & i\sin{2 \pi t g} & \cos{2 \pi t g} & 0 \\ 0 & 0 & 0 & 1 \end{array} \right) \label{eq:swap_evolution_operator}
 \end{equation}
 
-This gate is realized by starting with the two qubits seperated in frequency such that the coupling between them is negligable. After initializing the qubits to a given state, the qubit frequencies are tuned in resonance non-adiabatically by changed the magnetic flux in on of the two qubit loops. Holding the qubits at resonance for a well-defined time $\Delta t$ and seperating them non-adiabatically afterwards can produce an entangled qubit state, as shown in fig. (\ref{fig:iSwap2}). 
+When letting the qubits evolve according to eq. (\ref{eq:swap_evolution_operator}) for exactly $t = 1/8g$ one obtains the so called $\sqrt{i\mathrm{SWAP}}$ gate, which has the representation
 
-With the realized quantum processor we attain a gate fidelity of 90 \% for this quantum gate, which is good enough to demonstrate simple quantum algorithms with the system.
+\begin{equation}
+	\sqrt{i\mathrm{SWAP}}  =  \left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 1/\sqrt{2} & i/\sqrt{2} & 0 \\ 0 & i/\sqrt{2} & 1/\sqrt{2} & 0 \\ 0 & 0 & 0 & 1 \end{array} \right) \label{eq:sqrt_iswap_gate}
+\end{equation}
+
+The pulse sequence used to realize this quantum gate is shown in fig. (\ref{fig:iSwap2}).  The attained fidelity of this gate was 90 \% for the realized quantum processor, which is goog enough to allow a simple demonstration of a benchmark quantum algorithm with the system.
 
 \subsection{Running a Quantum Algorithm}
 
