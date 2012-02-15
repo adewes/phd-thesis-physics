@@ -1,3 +1,11 @@
+*.bbl
+*.blg
+*.lof
+*.lot
+*.tcp
+*.toc
+*.tps
+*.pptx
 *.log
 *.aux
 *.dvi

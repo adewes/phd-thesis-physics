@@ -5,8 +5,13 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{color}
+\usepackage{lmodern}
+\usepackage{sidecap}
+\usepackage[scaled]{helvet}
 
-\linespread{1.}
+\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+\usepackage[T1]{fontenc}
+\linespread{1.5}
 
 \title{Demonstrating Quantum Speed-Up with a 2 Transmon Quantum Processor.}
 \author{Andreas Dewes}
@@ -15,9 +20,11 @@
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{axiom}{Axiom}[theorem]
 
+\newcommand{\bracket}[1]{\left< #1 \right>} % for Dirac brackets
 \newcommand{\ket}[1]{\left| #1 \right>} % for Dirac bras
 \newcommand{\bra}[1]{\left< #1 \right|} % for Dirac kets
 \newcommand{\todo}[1]{\marginpar{\textcolor{red}{To Do: #1}}}
+\newcommand{\figcomment}[1]{\textcolor{red}{Comment: #1}}
 \newcommand{\comment}[1]{\marginpar{\textcolor{green}{To Do: #1}}}
 \newcommand{\advisorcomment}[1]{\marginpar{\textcolor{yellow}{To Do: #1}}}
 

@@ -13,7 +13,7 @@
 
 \begin{figure}
 	\centering
-		\includegraphics[width=1.\textwidth]{./material/papers/grover/submission1/Fig1}
+		\includegraphics[width=0.8\textwidth]{./material/papers/grover/submission1/Fig1}
 	\label{fig:Grover1}
 	\caption{The blueprint of a 2 qubit quantum processor. Shown a two qubits which can be manipulated individually ($U_1$) and which possess a universal two-qubit gate $U_2$. Each of the qubits can be read out individually.}
 \end{figure}
@@ -28,57 +28,28 @@ Another important recent breakthrough is the development of a qubit architecture
 
 This work wants to fit in this global picture by complementing the CQED approach with a single-shot, individual qubit readout. Such a readout is absolutely necessary when pursuing the long-term goal of a superconducting quantum computer but -up to now- was just not provided by ``classical'' CQED.
 
-\section{Building a Superconducting Quantum Processor}
+\subsection{Realizing a Two-Qubit Quantum Processor}
 
-To build a superconducting quantum processor, several ``ingredients'' have to be realized. The following section will therefore discuss the process of implementing the different elements of such a processor.
-
-\subsection{Building Blocks}
-
-According to \cite{divincenzo_physical_2000}, a quantum processor need to fulfill the following criteria:
-
-\begin{itemize}
-\item Well-defined qubits.
-\item A way to initialize the qubits to a well-defined state.
-\item High-fidelity readout of individual qubits.
-\item A universal set of 1- and 2-qubit gates.
-\end{itemize}
-
-The most basic system that can implement all of these requirements is a 2-qubit processor, which we therefore used in this work as a ``model'' quantum processor which -- to varying degrees -- demonstrates all of the above criteria.
-
-\subsection{Processor design}
-
-\begin{figure}
+\begin{figure}[htp]
 	\centering
-		\includegraphics[width=1.\textwidth]{./material/papers/grover/figures/2_qubit_processor_schematic}
+		\includegraphics[width=0.65\textwidth]{./material/papers/grover/figures/2_qubit_processor_schematic}
 	\label{fig:two_qubit_processor_schematic}
 	\caption{Circuit schematics of the two-qubit processor realized in this work, showing the two qubits in green, the qubit readouts in blue and the fast flux lines in red. Each qubit is embedded in its own nonlinear readout resonator and can be driven and read out through an individual microwave line. The simultaneous single-shot readout of the two qubits produces measurement outcomes in the basis $x \in \{00,01,10,11\}$.}
 \end{figure}
 
-The quantum processor implemented in this work is shown in fig. (\ref{fig:two_qubit_processor_schematic}) consists of two superconducting quantum bits of the Transmon-type, each equipped with its own drive and readout circuit consisting of a nonlinear coplanar-waveguide resonator used as a Josephson bifurcation amplifier (JBA). The qubit frequencies can be controlled individually by two fast flux lines. The coupling between the qubits is realized through a fixed capacitive coupling.
+The quantum processor implemented in this work is shown in fig. \ref{fig:two_qubit_processor_schematic}. It consists of two superconducting quantum bits of the Transmon-type, each equipped with its own drive and readout circuit. The qubit readout is realized by using a nonlinear coplanar-waveguide resonator that serves as a Josephson bifurcation amplifier (JBA) and allows for high-fidelity, single-shot readout of the qubit state. Each qubit can be manipulated by driving it with microwave pulses through its readout resonator, which allows for universal high-fidelity single-qubit operations. In addition, the qubit frequency can be tuned by a fast flux line, which allows for fast frequency control over the range of several GHz for each qubit. The coupling between the two qubits is realized through a fixed capacitor which connects the top electrodes of the two Transmons. This coupling scheme allows us to realize a universal 2-qubit gate with high fidelity and makes it possible to generate highly entangled states between the two qubits and to use these states for demonstrating simple quantum computation and quantum speed-up.
 
-In the following sections we will discuss the details of each element of this processor.
+\subsection{Demonstrating Simultaneous Single-Shot Readout}
 
-\subsection{Simultaneous Single-Shot Qubit Readout}
+%To do: Add figure to illustrate the simultaneous readout of the two qubits
 
-To read out the state of each qubit is done by using a so-called Josephson bifurcation amplifier \citep{siddiqi_dispersive_2006,mallet_single-shot_2009}. This readout works by capacitively coupling the qubit to a coplanar waveguide resonator which is rendered nonlinear by adding a Josephson junction at the center of the resonator. This nonlinear resonator can exhibit bistable behaviour for certain drive parameters, which we can use to map the state of the qubit to one of the bistable states of the resonator, thus obtaining a high-fidelity, single-shot readout of the qubit. In contrast to other CQED architectures, each of the two qubits of our processor possesses its own JBA readout, which follows the diVincenzo criteria by allowing a simultaneous measurement of the state of the whole qubit register. The fidelity attained with a JBA readout can be as high as 93 \% \citep{mallet_single-shot_2009}, but due to design contraints was usually around 83-85 \% for the quantum processor realized here.
+The read out of the state of each qubit is done by using a so-called Josephson bifurcation amplifier \citep{siddiqi_dispersive_2006,mallet_single-shot_2009}. This readout works by capacitively coupling the qubit to a coplanar waveguide resonator which is rendered nonlinear by adding a Josephson junction at the center of the resonator. This nonlinear resonator can exhibit bistable behaviour for certain drive parameters, which we can use to map the state of the qubit to one of the bistable states of the resonator, thus obtaining a high-fidelity, single-shot readout of the qubit. In contrast to other CQED architectures, each of the two qubits of our processor possesses its own JBA readout, which follows the diVincenzo criteria by allowing a simultaneous measurement of the state of the whole qubit register. The fidelity attained with a JBA readout can be as high as 93 \% \citep{mallet_single-shot_2009}, but due to design contraints was usually around 83-85 \% for the quantum processor realized here.
 
-\subsection{Operation of the Processor}
-
-The main functions of our two qubit processor consist in 
-
-\begin{itemize}
-\item Performing one-qubit operations, i.e. $\sigma_x$,$\sigma_y$,$\sigma_z$ rotations
-\item Performing a two-qubit quantum gate e.g. the $\sqrt{i\mathrm{SWAP}}$ gate
-\item Reading out the state of each qubit
-\end{itemize}
-
-To perform these different functions we tune the qubit frequencies to different values. For single-qubit manipulation, we chose a qubit working point which is sufficiently detuned from the readout resonator of each qubit and thus minimizes the relaxation of the qubit through the resonator. In addition, the qubit frequencies are sufficiently detuned from each other to completely supress an interaction between them. This detuning is lifted when implementing the two-qubit gate, as will be explained later. Finally, the readout of the qubits is done at a working point where each qubit frequency is close to the frequency of its corresponding readout resonator yet not close enough to produce too fast relaxation of the qubit, which allows for maximum readout fidelity.
-
-\subsection{Two-Qubit Quantum Operations}
+\subsection{Generating and Characterizating Entanglement}
 
 \begin{figure}
 	\centering
-		\includegraphics[width=0.9\textwidth]{./material/papers/iswap/submission1/Dewes_Figure2}
+		\includegraphics[width=0.7\textwidth]{./material/papers/iswap/submission1/Dewes_Figure2}
 	\label{fig:iSwap2}
 	\caption{An experiment showing the creation of entanglement between the two qubits and the realization of the universal $\sqrt{i\mathrm{SWAP}}$ quantum gate. The qubits start out seperated in frequency and are initialized to the state $\ket{10}$. Afterwards, the qubit frequencies are non-adiabatically tuned into resonance and held there for a well-defined time $\Delta t$. When measuring the $\sigma_z^1 \otimes \sigma_z^2$ operator of the system, an energy exchange between the states $\ket{01}$ and $\ket{10}$ can be observed. The reconstruction of the full quantum state of the system after an interaction time of $\Delta t = 31 \; \mathrm{ns} $ by quantum state tomography shows entanglement between the qubits. By adding compensating $\sigma_z^{1,2}$ pulses after the application of the entanglement gate one can implement the $\sqrt{i\mathrm{SWAP}}$ gate.}
 \end{figure}
@@ -89,35 +60,72 @@ The fixed coupling between the two qubits of our processor provides a $\sigma_{x
 	U(t)  =  \left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & \cos{2 \pi t g} & i\sin{2 \pi t g} & 0 \\ 0 & i\sin{2 \pi t g} & \cos{2 \pi t g} & 0 \\ 0 & 0 & 0 & 1 \end{array} \right) \label{eq:swap_evolution_operator}
 \end{equation}
 
+This evolution allows for the generation of entangled 2-qubit states.\comment{First discuss the dynamics of the SWAP} For this, we start in the state $\ket{00}$ and use a single-qubit pulse to generate the state $\ket{10}$. When switching on the interaction between the qubits as given in eq. (\ref{eq:swap_evolution_operator}) for a given amount of time we can observe oscillations in the state of the 2-qubit system as a function of the interaction time, as shown in fig. \ref{fig:iSwap2}. When stopping the interaction after the right amount of time we can create highly entangled 2-qubit states, which we can then characterize by using quantum state tomography. The experimental reconstruction of the density matrix of a Bell-type state of the form $\ket{\psi} = 1/\sqrt{2}(\ket{01}+i\ket{10})$ created by this method is shown in fig. \ref{fig:iSwap2}b. Besides performing quantum state tomography, we can also characterize the entanglement of this state by performing a Clauser-Horne-Shimony-Holt experiment\citep{clauser_proposed_1969}, where we measure the expectation value of the quantity
+
+\begin{equation}
+\mathrm{CHSH} = \mathrm{QS}+\mathrm{RS}+\mathrm{RT}-\mathrm{QT}
+\end{equation}
+, where the operators $\mathrm{Q,R,S,T}$ are given as
+
+\begin{eqnarray}
+	\begin{array}{cccccccc}
+		\mathrm{Q} & = & \sigma_z^1 &&& \mathrm{S} & = & \sigma_z^2\cdot \cos{\phi}+\sigma_x^2 \cdot \sin{\phi} \\
+		\mathrm{R} & = & \sigma_x^1 &&& \mathrm{T} & = & -\sigma_z^2\cdot \sin{\phi}+\sigma_x^2 \cdot \cos{\phi}
+	\end{array}
+\end{eqnarray} 
+
+\begin{figure}[htp]
+	\centering
+		\includegraphics[width=0.8\textwidth]{./material/papers/iswap/submission1/Dewes_Figure3}
+	\label{fig:chsh_measurement}
+	\caption{Measurement of the CHSH equation for an entangled 2-qubit state. The renormalized CHSH expectation value exceeds the classical boundary of $2$. Due to limited readout visibility, the raw measurement data (blue data points) lies below this critical threshold. The inset shows the standard deviation $\sigma$ at the highest point of the curve as a function of the sample size. For the highest sample count, the classical boundary is exceeded by $22$ standard deviations.\figcomment{p. 140 in cavities 6 labbook}}
+\end{figure}
+
+The expectation value $\bracket{CHSH}(\phi)$ will reach a maximum value of $\sqrt{2}\cdot 2$ for a superposition state $1/\sqrt{2}(\ket{01}+e^{i\phi}\ket{10})$ and provides a test of the quantum-mechanical character of the generated state. The result of a CHSH-type of measurement performed with our quantum processor is shown in fig. \ref{fig:chsh_measurement}. When correcting for readout errors, we observe a violation of the classical boundary $2$ by $22$ standard deviations. However, due to limited readout visibility we do not violate Bell's inequality for the uncorrected, raw data. Our measurement can therefore not serve as a definite proof of quantum mechanical behaviour in our system but nevertheless provides a strong indication of the presence of entanglement in the state that we characterized.
+
+\subsection{Realizing a Universal Two-Qubit Quantum Gate}
+
 When letting the qubits evolve according to eq. (\ref{eq:swap_evolution_operator}) for exactly $t = 1/8g$ one obtains the so called $\sqrt{i\mathrm{SWAP}}$ gate, which has the representation
 
 \begin{equation}
 	\sqrt{i\mathrm{SWAP}}  =  \left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 1/\sqrt{2} & i/\sqrt{2} & 0 \\ 0 & i/\sqrt{2} & 1/\sqrt{2} & 0 \\ 0 & 0 & 0 & 1 \end{array} \right) \label{eq:sqrt_iswap_gate}
 \end{equation}
 
-The pulse sequence used to realize this quantum gate is shown in fig. (\ref{fig:iSwap2}).  The attained fidelity of this gate was 90 \% for the realized quantum processor, which is goog enough to allow a simple demonstration of a benchmark quantum algorithm with the system.
+The pulse sequence used to realize this quantum gate is shown in fig. \ref{fig:iSwap2}.  The attained fidelity of this gate was 90 \% for the realized quantum processor, which is goog enough to allow a simple demonstration of a benchmark quantum algorithm with the system.
 
-\subsection{Running a Quantum Algorithm}
+\begin{SCfigure}
+		\includegraphics[width=0.65\textwidth]{./material/papers/iswap/figures/chi_matrix}
+	\label{fig:GateChiMatrixAndErrorProcess}
+	\caption{dd}
+\end{SCfigure}
 
-The demonstration of quantum speed-up is an important benchmark for any prospective quantum processor. In this work, we implemented a compiled version of Grover's search algorithm \citep{Grover_Quantum_1997}. Our version of the algorithm works in the basis of two qubits $x_i \in \{\ket{00},\ket{01},\ket{10},\ket{11}\}$and in theory can distinguish between four different ``oracle functions'' $f(x)$ which mark a given state $x_j$ and leave the other states unchanged. Since the algorithm requires only one evaluation of the function $f(x)$ to determine which state has been marked it is 50 \% faster than any conceivable algorithm using classical compuation \comment{discuss again if this should be 25 \% or 50 \%}. In this work, the single-run fidelity of the algorithm ranges between 52 and 67 \%, depending on the marked state $x_j$, which clearly demonstrates quantum speed-up in this system, although only on a quite artificial and practically irrelevant problem.
+\subsection{Running a Quantum-Search Algorithm}
 
-\section{Scaling Up To Multiple Qubits}
+\begin{figure}[ht!]
+	\centering
+		\includegraphics[width=1.\textwidth]{./material/papers/grover/figures/grover_algorithm_schematic}
+	\label{fig:GroverAlgorithmSchematic}
+	\caption{}
+\end{figure}
+
+The demonstration of quantum speed-up is an important benchmark for any prospective quantum processor. In this work, we implemented a compiled version of Grover's search algorithm \citep{Grover_Quantum_1997}. Our version of the algorithm works in the basis of two qubits $x_i \in \{\ket{00},\ket{01},\ket{10},\ket{11}\}$and in theory can distinguish between four different ``oracle functions'' $f(x)$ which mark a given state $x_j$ and leave the other states unchanged. Since the algorithm requires only one evaluation of the function $f(x)$ to determine which state has been marked it is 50 \% faster than any conceivable classical algorithm\comment{discuss again if this should be 25 \% or 50 \%}. 
+
+\subsection{Demonstrating Quantum Speed-Up}
+
+\begin{figure}[ht!]
+		\centering
+		\includegraphics[width=1.0\textwidth]{./material/papers/grover/figures/grover_algorithm_single_shot_probabilities}
+	\label{fig:GroverSingleShotProbabilities}
+	\caption{test}
+\end{figure}
+
+In the last section we discussed the implementation of Grover's search algorithm using our quantum processor and how we can characterize the operation of the algorithm using quantum state tomography. However, the main interest of running a quantum algorithm is to obtain an advantage in the run-time as compared to a classical algorithm, the so-called ``quantum-speedup''. To characterize this quantum speed-up as obtained with our processor, we simply run Grover's algorithm for all four possible oracle functions and directly look at the outcome of the final readout step, \textit{without} correcting for readout errors or performing additional tomography steps. By averaging the results of individual runs of our processor we can thus obtain the so-called single-run fidelity, which ranges between 52 and 67 \%, depending on the state marked by the given quantum oracle. This results therefore clearly demonstrates quantum speed-up in this system, although the achieved success probability is considerably lower than the theoretically possible value of 100 \% .
+
+\subsection{Designing a Scalable Quantum Computing Architecture}
 
 After having demonstrated the different building blocks of a superconducting, Transmon-based quantum processor it remains to be shown that larger-scale quantum-computing beyond two qubits is possible with this system. This work therefore pursued the realization of a more scalable qubit architecture using systems of up to six qubits coupled through a so-called ``quantum bus'' \citep{majer_coupling_2007}. The details of this novel architecture are discussed in the following sections.
 
-\subsection{Multi-Qubit Quantum Computing Architecture}
-
 The approach for scalable quantum computing with superconducting qubits pursued in this work consists of a system of many individual Transmon qubits equipped with individual JBA-based readouts, a multiplexed drive and readout circuit and a fixed qubit-qubit coupling mediated through a high-Q CPW resonator. As before, each qubit possesses a fluxline for fast frequency control. The readout and drive signals are send to all the qubits in parallel through a multiplexed 50 $\Omega$ transmission line. In this approach, the frequencies of the JBA readouts have to be chosen such that driving individual readouts at a given frequency does not induce crosstalk or spurious coupling to other readout resonators. Also, the transition frequencies of all qubits have to be chosen such that it becomes possible to individually address each of them without inducing transitions in the other qubit states.
-
-\subsection{Implementation}
-
-\begin{figure}
-	\centering
-		\includegraphics[width=1.\textwidth]{./material/papers/grover/figures/grover_algorithm_pulse_sequence}
-	\label{fig:Grover3}
-	\caption{The pulse sequence used in realizing Grover's quantum search algorithm. First, a $Y_{\pi/2}$ pulse is applied to each qubit to produce the fully superposed state $1/2(\ket{00}+\ket{01}+\ket{10}+\ket{11})$. Then, an $i\mathrm{SWAP}$ gate is applied, followed by a $Z_{\pm \pi /2}$ gate on each qubit, which corrsponds to the application of the oracle function. The resulting state is then analyzed using another $i\mathrm{SWAP}$ gate and two $Y_{\pi/2}$ gates to extract the state which has been marked by the oracle function. Optionally, a $Y^{12}_{\pi}$ pulse is used on each qubit to increase the readout fidelity.}
-\end{figure}
-
 
 %2 Qubit Paper Figures
 
@@ -125,19 +133,5 @@ The approach for scalable quantum computing with superconducting qubits pursued 
 	\centering
 %		\includegraphics[width=1.\textwidth]{./material/papers/iswap/submission1/Dewes_Figure1}
 	\label{fig:iSwap1}
-	\caption{}
-\end{figure}
-
-\begin{figure}
-	\centering
-		\includegraphics[width=1.\textwidth]{./material/papers/iswap/submission1/Dewes_Figure3}
-	\label{fig:iSwap3}
-	\caption{}
-\end{figure}
-
-\begin{figure}
-	\centering
-		\includegraphics[width=1.\textwidth]{./material/papers/iswap/submission1/Dewes_Figure4}
-	\label{fig:iSwap4}
 	\caption{}
 \end{figure}
