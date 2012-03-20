@@ -1,5 +1,5 @@
-%-A 2-Qubit Quantum Processor
-%-Building Blocks: Single Qubit Gates, Qubit Readout, 2-Qubit Gate
+%-A Two-Qubit Quantum Processor
+%-Building Blocks: Single Qubit Gates, Qubit Readout, Two-Qubit Gate
 %-Implementation
 %-Frequency Tunability of the Qubits
 %  -Decoherence Times
@@ -22,7 +22,7 @@
 
 %-Discuss all the experiments performed during the PhD thesis.
 
-\section{Realizing a 2-Qubit Quantum Processor}
+\section{Realizing a Two-Qubit Quantum Processor}
 
 %-Motivate the performed experiments.
 
@@ -42,12 +42,23 @@
 
 \subsection{Design \& Implementation}
 
-%-Discuss the design & realization of our 2-qubit processor:
+%-Discuss the design & realization of our Two-qubit processor:
 %  -Chip design
 %  -Analytical model and parameter design.
 %  -Measurement setup & RF chain
 
-\section{Characterization of the Processor}
+\subsection{Device Fabrication}
+
+\subsection{Measurement Setup}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.\textwidth]{"./material/figures/2-qubit-processor/measurement setup"}
+	\label{fig:QubitAnticrossing}
+	\caption{}
+\end{figure}
+
+\section{Processor Characterization}
 
 %-Show basic characteristics of the processor:
 %  -Qubit transition energies vs. fluxes
@@ -58,12 +69,47 @@
 
 %-Discuss the readout errors and crosstalk
 
-\subsection{Single-Qubit Manipulation}
+\subsection{Single-Qubit Operations}
 
 %-Discuss single qubit manipulation, gate fidelity and state tomography
 %Data: 14/12/2010
 
-\subsection{Implementing an Universal 2-Qubit Gate: $\sqrt{i\mathrm{SWAP}}$}
+\subsubsection{Microwave Driving of the Qubit}
+
+%discuss calibration of mixers, sideband pulses etc.
+
+\subsubsection{Frequency Displacement of the Qubit}
+
+%
+\subsection{Quantum State Tomography}
+
+Quantum state tomography is the procedure of experimentally determining an unknown quantum state\citep{michael_a._nielsen_quantum_2000}.
+
+The density matrix of an n-qubit system can be written in general form as
+\begin{eqnarray}
+\rho & = & \sum\limits_{v_1,v_2\hdots v_n} \frac{c_{v_1,v_2\hdots v_n} \sigma_{v_1}\otimes \sigma_{v_2}\hdots \sigma_{v_n}}{2^n} \label{eq:state_tomography_state_representation} \\
+c_{v_1,v_2\hdots v_n} & = & \mathrm{tr}\left(\sigma_{v_1}\otimes \sigma_{v_2}\hdots \otimes\sigma_{v_n} \; \rho \right)  \label{eq:state_tomography_coefficients}
+\end{eqnarray}
+where $v_i \in \left\{ X,Y,Z,I\right\}$ and $n$ gives the number of qubits in the system and where the $c_{v_1,v_2\hdots v_n}$ are real-valued coefficients that fully describe the given density matrix. To reconstruct the density matrix of an experimental quantum system in a well-prepared state it is therefore sufficient to measure the expectation values of these $n^2-1$ coefficients on an ensemble of identically prepared systems. However, statistical and systematic measurement errors can yield a set of coefficients that corresponds to a {\it non-physical} density matrix which violates either the positivity or unity-trace requirement. In the following paragraph we will therefore discuss a technique with which one can estimate the density matrix of a system in a more correct way.
+
+\subsubsection{Maximum Likelihood Estimation}
+
+A method which is often used in quantum state tomography is the so-called {\it maximum-likelihood} technique. Rather than directly calculating the density matrix of the system from the obtained expectation values $c_{v_1,v_2\hdots v_n}$, it calculates the joint probability of measuring a set $\{c_{X,X,\hdots,X},c_{Y,X,\hdots,X},\hdots,c_{I,I,\hdots,I}\}$ for a given estimate of the density matrix $\hat{\rho}$. By numerically or analytically maximizing this joint probability over the set of possible density matrices we obtain the density matrix which is most likely to have produced the set of measurement outcomes that we have observed.
+
+The joint measurement operators $\Sigma_j = \sigma_{v_1}\otimes \sigma_{v_2}\hdots \otimes\sigma_{v_n}$ have the eigenvalues $\pm 1$ and can thus be written as 
+\begin{equation}
+\sigma_{v_1}\otimes \sigma_{v_2}\hdots \otimes\sigma_{v_n} = \ket{+_j}\bra{+_j}-\ket{-_j}\bra{-_j}
+\end{equation}
+where $\ket{-_j}$ and $\ket{-_j}$ are the eigenstates corresponding to the eigenvalues $\pm 1$ of $\Sigma_j$. The expectation value $\langle \Sigma_j \rangle$ can be estimated by the quantity
+\begin{equation}
+\widehat{\langle \Sigma_j \rangle}_\rho = \frac{1}{l}\sum\limits_{i = 1}^l M_i(\Sigma_j,\rho) \label{eq:tomography_measurement_estimator}
+\end{equation}
+where $M_i(M,\rho)$ denotes the outcome of the $i$-th measurement of the operator $M$ on the state described by the density matrix $\rho$. This quantity is binomially distributed with the expectation value $E(\widehat{\langle \Sigma_j \rangle}_\rho) = \langle \Sigma_j \rangle_\rho$ and the variance $\sigma^2(\widehat{\langle \Sigma_j \rangle}_\rho) = 1/l \cdot (1-\langle \Sigma_j \rangle_\rho^2)$. For large sample sizes $l$, the binomial distribution can be well approximated by a normal distribution with the same expectation value and variance. The joint probability of obtaining a set of measurement values $\{s_1,\hdots,s_{n^2-1}\}$ for the set of operators $\{\widehat{\langle\Sigma_1 \rangle}_\rho,\hdots,\widehat{\langle\Sigma_{n^2-1} \rangle}_\rho\}$ is then given as
+\begin{equation}
+P\left(\widehat{\langle \Sigma_1 \rangle }_\rho = s_1;\hdots;\widehat{\langle \Sigma_{n^2-1} \rangle}_\rho =  s_{n^2-1}\right) = \prod\limits_{i = 1}^{n^2-1} \exp{\left(-\frac{l}{2}\frac{(s_i-\langle \Sigma_i \rangle_\rho)^2}{1-\langle \Sigma_i \rangle_\rho^2}\right)}
+\end{equation}
+
+\subsection{Two Qubit Operations}
 
 \begin{figure}
 	\centering
@@ -72,6 +118,7 @@
 	\caption{}
 \end{figure}
 
+\subsubsection{Creation of Entanglement}
 
 \begin{figure}
 	\centering
@@ -80,23 +127,7 @@
 	\caption{}
 \end{figure}
 
-
-%-Discuss the realization of a 2 qubit gate:
-%  -Principle
-%  -Implementation & Pulse Sequency
-%  -Characterization through Quantum Process Tomography:
-%     -Principles: State tomography, Pauli set, process tomography
-%     -Discuss alternative representations of the process information:
-%        -Chi matrix, Choi matrix, S, log S, Kraus operator representation
-%  		-Errors: Discuss simulations, error models and possible reasons for discrepancies
-
-%-Discuss the generation of Bell states, the measurement of entanglement witnesses and the measured violation of the CHSH equation.
-
-
-%To Do:
-% -Look through the swapping data and see if there's evidence for wavefunction collapse in qubit 2 when qubit 1 is measured and the two qubits are only partially entangled. Compare the Leo's proposition.
-
-\subsection{Violation of Bell's inequality}
+\subsubsection{Violation of Bell's inequality}
 
 \begin{figure}
 	\centering
@@ -105,24 +136,11 @@
 	\caption{}
 \end{figure}
 
-\subsection{Quantum State Tomography}
+\subsection{Characterizing Quantum Processes}
 
-Quantum state tomography is the procedure of experimentally determining an unknown quantum state\cite{michael_a._nielsen_quantum_2000}.
+\subsubsection{Introduction \& Principle}
 
-\begin{eqnarray}
-\rho & = & \sum\limits_{v_1,v_2\hdots v_n} \frac{c_{v_1,v_2\hdots v_n} \sigma_{v_1}\otimes \sigma_{v_2}\hdots \sigma_{v_n}}{2^n} \label{eq:state_tomography_state_representation} \\
-c_{v_1,v_2\hdots v_n} & = & \mathrm{tr}\left(\sigma_{v_1}\otimes \sigma_{v_2}\hdots \sigma_{v_n} \; \rho \right)  \label{eq:state_tomography_coefficients}
-\end{eqnarray}
-
-where $v_i \in \left\{ X,Y,Z,I\right\}$ and $n$ gives the number of qubits in the system. To determine the coefficients $c_{v_1,v_2\hdots v_n}$ we prepare an ensemble of identical states $\rho$ and measure the expectation value of the operator $\sigma_{v_1}\otimes \sigma_{v_2}\hdots \sigma_{v_n}$. However, this would involve measuring the expectation values of the operators $\sigma_{X}$ and $\sigma_{Y}$, which we cannot do in experiment. Therefore, instead of directly measuring $\sigma_x$ or $\sigma_y$, we perform a rotation $\Theta_{\pi /2}(Y)$ or $\Theta_{-\pi /2}(X)$ first and measure $\sigma_z$ afterwards, which yields the same result. \todo{check the signs of the rotations!}
-
-Repeating this method many times and averaging the result then gives an estimate of the coefficients $c_{v_1,v_2\hdots v_n}$. Unfortunately, when estimating these coefficients one-by-one, small measurement and preparation errors can yield a density matrix $\rho$ which is {\it non-physical} i.e. which violates the positivity or unity-trace properties of a physical density matrix. There, often we use techniques for jointly estimating all $c_{v_1,v_2\hdots v_n}$'s within the set of acceptable density matrices.
-
-\subsubsection{Maximum Likelihood Estimation}
-
-A method which is often used in quantum state tomography is the so-called {\it maximum-likelihood} technique, which works in the following way:
-
-\subsection{Process Tomography of the Quantum Gate}
+\subsubsection{Implementation}
 
 A quantum process can be described as a map $\mathcal{E} : \rho_\mathcal{H} \to \rho_\mathcal{H}$ that maps a density matrix $\rho$ defined in a Hilbert space $Q_1$ to another density matrix $\mathcal{E}(\rho)$ defined in a target Hilbert space $Q_2$ and fulfilling three axiomatic properties \cite{michael_a._nielsen_quantum_2000,haroche_exploring_2006}:
 
@@ -203,6 +221,26 @@ The last sum on the right side of eq. (\ref{eq:process_chi_transformed}) corresp
 \end{eqnarray}
 with $\lambda_l$ being the $l$-th eigenvalue of the $\chi$ matrix with the eigen-operator $\breve{E}_l$ and $M_{l} = \sqrt{\lambda_l} \breve{E}_l$.
 
+
+\subsection{Realizing a Two-Qubit Gate}
+
+\subsubsection{Principle}
+
+\subsubsection{Implementation}
+
+\subsubsection{Fidelity}
+
+\subsubsection{Error Analysis}
+
+%-Discuss the realization of a 2 qubit gate:
+%  -Principle
+%  -Implementation & Pulse Sequency
+%  -Characterization through Quantum Process Tomography:
+%     -Principles: State tomography, Pauli set, process tomography
+%     -Discuss alternative representations of the process information:
+%        -Chi matrix, Choi matrix, S, log S, Kraus operator representation
+%  		-Errors: Discuss simulations, error models and possible reasons for discrepancies
+
 \begin{figure}
 	\centering
 		\includegraphics[width=1.\textwidth]{./material/papers/iswap/figures/chi_matrix_and_error_process}
@@ -238,7 +276,7 @@ with $\lambda_l$ being the $l$-th eigenvalue of the $\chi$ matrix with the eigen
 	\item Measure the first n qubits to obtain $x_0$
 \end{enumerate}
 
-For the 2-qubit case, this algorithm can be drastically simplified -- or ``compiled'' -- such that it runs without the ancilla qubit and in one single step of the Grover iteration:
+For the Two-qubit case, this algorithm can be drastically simplified -- or ``compiled'' -- such that it runs without the ancilla qubit and in one single step of the Grover iteration:
 
 \begin{enumerate}
   \item {\textbf Inputs:} An oracle function $\mathcal{O}$ which performs the operation $O\ket{x} =(-1)^{\delta_{x,x_0}}\ket{x}$, where $x_0$ is the marked state that is searched.
@@ -279,6 +317,13 @@ For the 2-qubit case, this algorithm can be drastically simplified -- or ``compi
 	\label{fig:GroverAlgorithmExperimentalResults}
 	\caption{}
 \end{figure}
+
+\subsubsection{Algorithm Fidelity}
+
+
+\subsubsection{Single-Run Probabilities}
+
+\subsubsection{Error Analysis}
 
 \subsection{Conclusions}
 

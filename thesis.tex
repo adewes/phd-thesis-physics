@@ -1,4 +1,6 @@
-\documentclass{scrbook}
+\documentclass[12pt]{book}
+
+\usepackage[a4paper,outer=1.4in,inner=0.8in]{geometry}
 
 \usepackage{natbib}
 \usepackage{graphicx}
@@ -7,15 +9,21 @@
 \usepackage{setspace}
 \usepackage{color}
 \usepackage{lmodern}
+
 \usepackage{sidecap}
 \usepackage[scaled]{helvet}
 \usepackage{caption}
+
+
+\setlength{\marginparwidth}{1in}
 
 \newcounter{todos}
 \newcounter{comments}
 \newcounter{figcomments}
 \newcounter{advisorcomments}
 \newcounter{questions}
+
+\setcounter{tocdepth}{4}
 
 \definecolor{grey}{rgb}{0.4,0.4,0.4}
 \definecolor{brown}{rgb}{0.5,0.0,0.0}
@@ -27,7 +35,7 @@
 \usepackage[T1]{fontenc}
 \linespread{1.2}
 
-\title{Demonstrating Quantum Speed-Up with a 2 Transmon Quantum Processor.}
+\title{Demonstrating Quantum Speed-Up with a Two-Transmon Quantum Processor.}
 \author{Andreas Dewes}
 
 \theoremstyle{definition}
