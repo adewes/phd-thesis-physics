@@ -20,11 +20,20 @@
 
 \chapter{Experiments}
 
+This chapter discusses the main experimental results of this thesis. We start by discussing the implementation of a superconducting two-qubit processor, discussing the characteristics of the Transmon qubits used in the processor, the readout scheme, single-qubit manipulation, two-qubit gates as well as the experimental procedures used for quantum state and quantum process tomography. The last section of this chapter will discuss the implementation of a quantum algorithm -- so called Grover search algorithm -- using our two-qubit processor and the demonstration of quantum speed-up achieved with our system.
+
 %-Discuss all the experiments performed during the PhD thesis.
 
 \section{Realizing a Two-Qubit Quantum Processor}
 
-%-Motivate the performed experiments.
+\begin{figure}[ht!]
+  \centering
+	\includegraphics[width=1.\textwidth]{"./material/figures/2-qubit-processor/processor schematic"}
+	\caption[Circuit schematic of the two-qubit processor]{The circuit schematic of the two-qubit processor used in this work. Shown are the two Transmon qubits in green, the drive and readout circuit in blue, the fast flux lines in red and the coupling capacitance in magenta.}
+	\label{fig:2_qubit_chip_circuit_diagram}
+\end{figure}
+
+As discussed in the introduction, the most simple, usable quantum processor contains two qubits that are coupled by an universal two-qubit gate and which in addition can be manipulated and read out individually. We realized such a two-qubit processor using two Transmon qubits, coupled through a fixed capacitance and readout out by individual single-shot readout of the JBA type. The circuit diagram of our processor is shown in fig. \ref{fig:2_qubit_chip_circuit_diagram}, showing the qubits, the drive and readout circuit and the coupling element between them. The following sections we'll discuss the parameters of individual parts of the processor.
 
 \begin{figure}
 	\centering	
@@ -33,21 +42,11 @@
 	\caption{}
 \end{figure}
 
-\subsection{Requirements}
+\subsection{Sample Parameters}
 
-%-List requirements for diVincenzo-style quantum computation:
-%-Good 1 & 2 Qubit Gates
-%-Qubits can be reset
-%-Individual Single Shot Readout with High Fidelity
+\subsubsection{Qubits}
 
-\subsection{Design \& Implementation}
-
-%-Discuss the design & realization of our Two-qubit processor:
-%  -Chip design
-%  -Analytical model and parameter design.
-%  -Measurement setup & RF chain
-
-\subsection{Device Fabrication}
+\subsubsection{Readout}
 
 \subsection{Measurement Setup}
 
@@ -60,10 +59,7 @@
 
 \section{Processor Characterization}
 
-%-Show basic characteristics of the processor:
-%  -Qubit transition energies vs. fluxes
-%  -Qubit fast frequency controls
-%  -2 Qubit interaction
+This section discusses the detailed characterization of individual circuit parts that will be used later to realize two-qubit gate and to run a quantum algorithm on the processor. The discussion will focus on the readout and microwave manipulation of the qubits as well as  on the reconstruction of quantum states from measurement data, which will be used later for characterizing gate and processor operation.
 
 \subsection{Readout}
 
@@ -77,6 +73,13 @@
 \subsubsection{Microwave Driving of the Qubit}
 
 %discuss calibration of mixers, sideband pulses etc.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.\textwidth]{"./data/ct5/2010_12_01 - iq tomography/iq_tomographies"}
+	\label{fig:SingleQubitIQControl}
+	\caption{}
+\end{figure}
 
 \subsubsection{Frequency Displacement of the Qubit}
 
@@ -104,10 +107,21 @@ where $\ket{-_j}$ and $\ket{-_j}$ are the eigenstates corresponding to the eigen
 \begin{equation}
 \widehat{\langle \Sigma_j \rangle}_\rho = \frac{1}{l}\sum\limits_{i = 1}^l M_i(\Sigma_j,\rho) \label{eq:tomography_measurement_estimator}
 \end{equation}
-where $M_i(M,\rho)$ denotes the outcome of the $i$-th measurement of the operator $M$ on the state described by the density matrix $\rho$. This quantity is binomially distributed with the expectation value $E(\widehat{\langle \Sigma_j \rangle}_\rho) = \langle \Sigma_j \rangle_\rho$ and the variance $\sigma^2(\widehat{\langle \Sigma_j \rangle}_\rho) = 1/l \cdot (1-\langle \Sigma_j \rangle_\rho^2)$. For large sample sizes $l$, the binomial distribution can be well approximated by a normal distribution with the same expectation value and variance. The joint probability of obtaining a set of measurement values $\{s_1,\hdots,s_{n^2-1}\}$ for the set of operators $\{\widehat{\langle\Sigma_1 \rangle}_\rho,\hdots,\widehat{\langle\Sigma_{n^2-1} \rangle}_\rho\}$ is then given as
+ where $M_i(M,\rho)$ denotes the outcome of the $i$-th measurement of the operator $M$ on the state described by the density matrix $\rho$. This quantity is binomially distributed with the expectation value $E(\widehat{\langle \Sigma_j \rangle}_\rho) = \langle \Sigma_j \rangle_\rho$ and the variance $\sigma^2(\widehat{\langle \Sigma_j \rangle}_\rho) = 1/l \cdot (1-\langle \Sigma_j \rangle_\rho^2)$. For large sample sizes $l$, the binomial distribution can be well approximated by a normal distribution with the same expectation value and variance. The joint probability of obtaining a set of measurement values $\{s_1,\hdots,s_{n^2-1}\}$ for the set of operators $\{\widehat{\langle\Sigma_1 \rangle}_\rho,\hdots,\widehat{\langle\Sigma_{n^2-1} \rangle}_\rho\}$ is then given as
 \begin{equation}
 P\left(\widehat{\langle \Sigma_1 \rangle }_\rho = s_1;\hdots;\widehat{\langle \Sigma_{n^2-1} \rangle}_\rho =  s_{n^2-1}\right) = \prod\limits_{i = 1}^{n^2-1} \exp{\left(-\frac{l}{2}\frac{(s_i-\langle \Sigma_i \rangle_\rho)^2}{1-\langle \Sigma_i \rangle_\rho^2}\right)}
 \end{equation}
+By maximizing this probability (or the logarithm of it) we obtain an estimate of the density matrix $\rho$ of the quantum state. This technique also allows us to include further optimization parameters when calculating the joint probability. This is useful for modeling e.g. systematic errors of the measurement or preparation process, which can be described by modifying the operators contained in the probability sum. A common source of errors in our tomography measurements are errors in the microwave pulses used to drive the qubit. Since our measurement apparatus permits us only to measure the $\sigma_z$ operator of each qubit we have to perform $\pi/2$ rotations about the $Y$ or $-X$ axes of the Bloch sphere of each individual qubit in order to measure the values of the $\sigma_x$ and $\sigma_y$ operators, which we therefore replace with an effective measurement of each qubits $\sigma_z$ operator preceded by a rotation $R_{\nu_i}$ given as
+\begin{eqnarray}
+R_{X} & = & \exp{\left( -i \sigma_y \pi / 4\right)} \\
+R_{Y} & = & \exp{\left( +i \sigma_x \pi / 4\right)} 
+\end{eqnarray}
+Phase and amplitude errors can be modeled as
+\begin{eqnarray}
+R_{X} & = & \exp{\left( -i \left[+\sigma_y\cos{\alpha}+\sigma_x\sin{\alpha} \right] \left[\pi / 4+\gamma\right]\right)} \\
+R_{Y} & = & \exp{\left( +i \left[-\sigma_y\sin{\beta}+\sigma_x\cos{\beta}\right] \left[\pi / 4+\delta\right]\right)} 
+\end{eqnarray}
+Here, $\alpha$ and $\beta$ represent phase errors whereas $\gamma$ and $\delta$ represent amplitude errors in the drive pulses.
 
 \subsection{Two Qubit Operations}
 
@@ -223,6 +237,13 @@ with $\lambda_l$ being the $l$-th eigenvalue of the $\chi$ matrix with the eigen
 
 
 \subsection{Realizing a Two-Qubit Gate}
+
+\begin{figure}
+   \centering
+	 \includegraphics[width=1.\textwidth]{"./data/ct5/film of swap/pauli_set_vs_time_with_simulation"}
+	 \caption[test]{testcaption}
+	 \label{fig:swap_pauli_set_vs_time_with_simulation}
+\end{figure}
 
 \subsubsection{Principle}
 

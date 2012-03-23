@@ -119,8 +119,15 @@ and is a universal two-qubit quantum gate. The operation and errors of our imple
 	\label{fig:grover_algorithm_schematic}
 \end{figure}
 
-In this work we use the quantum gate implemented above to run a compiled version of Grover's search algorithm \citep{Grover_Quantum_1997}. The implemented version of the algorithm works in the basis of two qubits $x_i \in \{\ket{00},\ket{01},\ket{10},\ket{11}\}$ and  can distinguish between four different {\it oracle functions} $f(x)$ that each tag on one of the basis states $x_j$. Since the Grover algorithm for 2 qubits requires only one evaluation of the function $f(x)$ to determine which state has been marked it is faster than any conceivable classical algorithm, thus demonstrating the concept of quantum speed-up. The schematic of our version of Grover's algorithm is shown in fig. \ref{fig:grover_algorithm_schematic} and involves two $i\mathrm{SWAP}$ gates and three single-qubit operations along with a single-shot qubit readout at the end of the algorithm. The run time of the algorithm is approximately $160\;\mathrm{ns}$, the measured results will be discussed in the following section. 
-\todo{Add state tomographies after different steps of the algorithm and briefly discuss different error sources when running it.}
+In this work we use the quantum gate implemented above to run a compiled version of Grover's search algorithm \citep{Grover_Quantum_1997}. The implemented version of the algorithm works in the basis of two qubits $x_i \in \{\ket{00},\ket{01},\ket{10},\ket{11}\}$ and  can distinguish between four different {\it oracle functions} $f(x)$ that each tag on one of the basis states $x_j$. Since the Grover algorithm for 2 qubits requires only one evaluation of the function $f(x)$ to determine which state has been marked it is faster than any conceivable classical algorithm, thus demonstrating the concept of quantum speed-up. The schematic of our version of Grover's algorithm is shown in fig. \ref{fig:grover_algorithm_schematic} and involves two $i\mathrm{SWAP}$ gates and three single-qubit operations along with a single-shot qubit readout at the end of the algorithm. We implemented all steps of this algorithm with our two-qubit processor and performed quantum state tomography after each step to reconstruct the quantum state at different points in the algorithm. Fig. \ref{fig:grover_density_matrices_state_1} shows the experimentially measured density matrices when running the algorithm with an oracle that marks the state $\ket{00}$. State tomographies are shown after applying the generalized Hadamard transform, after applying the quantum oracle and after the final step of the algorithm. This reconstruction of the quantum state using quantum state tomography does not however allow to demonstrate quantum speed-up, which requires individual single-shot readout of the qubit register, which will be discussed in the following section.
+
+\begin{figure}[ht!]
+	\centering
+		\includegraphics[width=1.\textwidth]{./material/figures/2-qubit-processor/grover/grover-density-matrices-state-1}
+	\caption[Measured density matrices when running Grover's algorithm]{Measured density matrices when running Grover's search algorithm with a search oracle marking the state $\ket{00}$. 1) shows the state after the generalized Hadamard transform, 2) after applying the quantum oracle and 3) after the final step of Grover's algorithm.} 
+	\label{fig:grover_density_matrices_state_1}
+\end{figure}
+
 
 \section{Demonstrating Quantum Speed-Up}
 
@@ -138,3 +145,9 @@ The main interest of running a quantum algorithm is to obtain an advantage in th
 After having demonstrated the different building blocks of a superconducting, Transmon-based quantum processor it remains to be shown that larger-scale quantum-computing beyond two qubits is possible with this system. This work therefore pursued the realization of a more scalable qubit architecture using systems of up to six qubits coupled through a so-called ``quantum bus'' \citep{majer_coupling_2007}. The details of this novel architecture are discussed in the following sections.
 
 The approach for scalable quantum computing with superconducting qubits pursued in this work consists of a system of many individual Transmon qubits equipped with individual JBA-based readouts, a multiplexed drive and readout circuit and a fixed qubit-qubit coupling mediated through a high-Q CPW resonator. As before, each qubit possesses a fluxline for fast frequency control. The readout and drive signals are send to all the qubits in parallel through a multiplexed transmission line. In this approach, the qubit and readout parameters, couplings and frequencies have to be carefully to avoid unwanted coupling between individual qubits and readouts and to allow the implementation of robust quantum gates between individual qubits. In this work we realized a 4-qubit chip and characterized it experimentally. The results of these experiments will be discussed in the main text of this thesis.
+
+\begin{figure}[ht!]
+  \centering
+	\includegraphics[width=1.\textwidth]{"./material/figures/scalable-architecture/scalable architecture - schematic"}
+	\caption[...]{...}
+\end{figure}
