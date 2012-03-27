@@ -1,0 +1,231 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[      7032,        221]
+NotebookOptionsPosition[      6587,        202]
+NotebookOutlinePosition[      6928,        217]
+CellTagsIndexPosition[      6885,        214]
+WindowFrame->Normal
+ContainsDynamic->False*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"rho", "=", 
+   RowBox[{
+    FractionBox["1", "2"], " ", 
+    RowBox[{"(", GridBox[{
+       {"0", "0", "0", "0"},
+       {"0", "1", 
+        SuperscriptBox["\[ExponentialE]", 
+         RowBox[{"\[ImaginaryI]", " ", "phi"}]], "0"},
+       {"0", 
+        SuperscriptBox["\[ExponentialE]", 
+         RowBox[{
+          RowBox[{"-", "\[ImaginaryI]"}], " ", "phi"}]], "1", "0"},
+       {"0", "0", "0", "0"}
+      }], ")"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"xx", "=", 
+   RowBox[{"(", GridBox[{
+      {"0", "0", "0", "1"},
+      {"0", "0", "1", "0"},
+      {"0", "1", "0", "0"},
+      {"1", "0", "0", "0"}
+     }], ")"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"yy", "=", 
+   RowBox[{"(", GridBox[{
+      {"0", "0", "0", 
+       RowBox[{"-", "1"}]},
+      {"0", "0", "1", "0"},
+      {"0", "1", "0", "0"},
+      {
+       RowBox[{"-", "1"}], "0", "0", "0"}
+     }], ")"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"zz", "=", 
+   RowBox[{"(", GridBox[{
+      {"1", "0", "0", "0"},
+      {"0", 
+       RowBox[{"-", "1"}], "0", "0"},
+      {"0", "0", 
+       RowBox[{"-", "1"}], "0"},
+      {"0", "0", "0", "1"}
+     }], ")"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ii", "=", 
+   RowBox[{"(", GridBox[{
+      {"1", "0", "0", "0"},
+      {"0", "1", "0", "0"},
+      {"0", "0", "1", "0"},
+      {"0", "0", "0", "1"}
+     }], ")"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"wphiminus", "=", 
+  RowBox[{
+   FractionBox["1", "4"], " ", 
+   RowBox[{"(", 
+    RowBox[{"xx", "+", "yy", "+", "zz", "+", "ii"}], 
+    ")"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{"wphiplus", "=", 
+  RowBox[{
+   FractionBox["1", "4"], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "xx"}], "-", "yy", "+", "zz", "+", "ii"}], 
+    ")"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{"wphiminusobs", "=", 
+  RowBox[{"rho", " ", "wphiminus"}]}], "\[IndentingNewLine]", 
+ RowBox[{"wphiplusobs", "=", 
+  RowBox[{"rho", " ", "wphiplus"}]}]}], "Input",
+ CellChangeTimes->{{3.506317631274777*^9, 3.506317746573866*^9}, {
+  3.506317839825656*^9, 3.506317867498062*^9}, {3.5063178990299177`*^9, 
+  3.506318127737434*^9}, {3.5063182823185267`*^9, 3.5063184332901754`*^9}, {
+  3.5063188934083843`*^9, 3.5063189016585426`*^9}, {3.506319011723156*^9, 
+  3.506319037598653*^9}, {3.506319077755674*^9, 3.506319096037275*^9}, {
+  3.506319184179592*^9, 3.506319236743101*^9}, {3.5063193086819825`*^9, 
+  3.50631932860424*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     FractionBox["1", "2"], ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", 
+     FractionBox["1", "2"], ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", 
+     FractionBox["1", "2"], ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", 
+     FractionBox["1", "2"]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.506318433602681*^9, {3.506318894002146*^9, 3.506318902158552*^9}, {
+   3.5063190128325524`*^9, 3.5063190380517864`*^9}, {3.5063190862714624`*^9, 
+   3.5063190973185496`*^9}, {3.5063191955079346`*^9, 
+   3.5063192376649942`*^9}, {3.5063193109164004`*^9, 3.5063193288386197`*^9}}],\
+
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     FractionBox["1", "2"], ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", 
+     RowBox[{"-", 
+      FractionBox["1", "2"]}], ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", 
+     RowBox[{"-", 
+      FractionBox["1", "2"]}], ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", 
+     FractionBox["1", "2"]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.506318433602681*^9, {3.506318894002146*^9, 3.506318902158552*^9}, {
+   3.5063190128325524`*^9, 3.5063190380517864`*^9}, {3.5063190862714624`*^9, 
+   3.5063190973185496`*^9}, {3.5063191955079346`*^9, 
+   3.5063192376649942`*^9}, {3.5063193109164004`*^9, 3.5063193288386197`*^9}}],\
+
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", 
+     FractionBox[
+      SuperscriptBox["\[ExponentialE]", 
+       RowBox[{"\[ImaginaryI]", " ", "phi"}]], "4"], ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", 
+     FractionBox[
+      SuperscriptBox["\[ExponentialE]", 
+       RowBox[{
+        RowBox[{"-", "\[ImaginaryI]"}], " ", "phi"}]], "4"], ",", "0", ",", 
+     "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.506318433602681*^9, {3.506318894002146*^9, 3.506318902158552*^9}, {
+   3.5063190128325524`*^9, 3.5063190380517864`*^9}, {3.5063190862714624`*^9, 
+   3.5063190973185496`*^9}, {3.5063191955079346`*^9, 
+   3.5063192376649942`*^9}, {3.5063193109164004`*^9, 3.5063193288386197`*^9}}],\
+
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", 
+     RowBox[{"-", 
+      FractionBox[
+       SuperscriptBox["\[ExponentialE]", 
+        RowBox[{"\[ImaginaryI]", " ", "phi"}]], "4"]}], ",", "0"}], "}"}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", 
+     RowBox[{
+      RowBox[{"-", 
+       FractionBox["1", "4"]}], " ", 
+      SuperscriptBox["\[ExponentialE]", 
+       RowBox[{
+        RowBox[{"-", "\[ImaginaryI]"}], " ", "phi"}]]}], ",", "0", ",", "0"}],
+     "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.506318433602681*^9, {3.506318894002146*^9, 3.506318902158552*^9}, {
+   3.5063190128325524`*^9, 3.5063190380517864`*^9}, {3.5063190862714624`*^9, 
+   3.5063190973185496`*^9}, {3.5063191955079346`*^9, 
+   3.5063192376649942`*^9}, {3.5063193109164004`*^9, 3.5063193288386197`*^9}}]
+}, Open  ]]
+},
+WindowSize->{730, 879},
+WindowMargins->{{128, Automatic}, {0, Automatic}},
+FrontEndVersion->"6.0 for Microsoft Windows (32-bit) (June 19, 2007)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[590, 23, 2470, 75, 470, "Input"],
+Cell[3063, 100, 768, 19, 45, "Output"],
+Cell[3836, 122, 812, 21, 45, "Output"],
+Cell[4653, 146, 918, 23, 49, "Output"],
+Cell[5576, 172, 995, 27, 49, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
