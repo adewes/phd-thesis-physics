@@ -1,0 +1,2168 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[    102707,       2159]
+NotebookOptionsPosition[    101641,       2119]
+NotebookOutlinePosition[    102049,       2136]
+CellTagsIndexPosition[    102006,       2133]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"Remove", "[", "\"\<Global`*\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.513047392984528*^9, 3.513047410752928*^9}, {
+  3.5421043554088635`*^9, 3.542104355946398*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Remove", "::", "rmnsm"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"There are no symbols matching \
+\\\"\[NoBreak]\\!\\(\\\"Global`*\\\"\\)\[NoBreak]\\\". \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/Remove\\\", ButtonNote -> \
+\\\"Remove::rmnsm\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.542104377521407*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Complex Matrix Draw", "Section",
+ CellChangeTimes->{{3.5387276132070284`*^9, 3.53872761767575*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+ComplexMatrixDraw Code (copy to your Notebook, evaluate and use the \
+ComplexMatrixDraw function)\
+\>", "Subsection",
+ CellChangeTimes->{{3.511622464019841*^9, 3.51162246539485*^9}, {
+   3.5116303934752083`*^9, 3.5116303942396035`*^9}, {3.511630681527362*^9, 
+   3.511630694990076*^9}, 3.51218051420129*^9, {3.513043660053528*^9, 
+   3.513043660942728*^9}, {3.5142654575172544`*^9, 3.51426547796889*^9}, {
+   3.5142655093561454`*^9, 3.5142655473110123`*^9}, {3.514265850715945*^9, 
+   3.5142658749739876`*^9}, {3.5142888017474055`*^9, 
+   3.5142888027301865`*^9}, {3.538727580129115*^9, 3.53872758170723*^9}}],
+
+Cell[TextData[{
+ StyleBox["Introduction: ComplexMatrixDraw daws a rectangular matrix of \
+complex numbers cij as an array of cells, each cell having possibly:\n\t- a ",
+  FontSize->14],
+ StyleBox["frame",
+  FontSize->14,
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox[" and a central point;\n\t- a ",
+  FontSize->14],
+ StyleBox["2D shape",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[" with an area proportional to |cij| or given by the optional \
+function functionFor2DShapeArea(cij);\n\t- an ",
+  FontSize->14],
+ StyleBox["arrow",
+  FontSize->14,
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[" with angle arg(cij) and length  |cij| or given by the optional \
+function  functionForArrowLength(cij);\n\t- a ",
+  FontSize->14],
+ StyleBox["label",
+  FontSize->14,
+  FontColor->RGBColor[1, 0.5, 0]],
+ StyleBox[".\n\t\nSyntax: ComplexMatrixDraw[m,opts] with \n\tm: a number, a \
+vector (list of numbers) or a matrix (a list of list of numbers)\n\topts: \
+optional replacement rules of the type optionName->optionValue as described \
+below:\n\nSeveral options (with default behavior) are available:\n\t\n\t\
+Option for cell placement. The matrix cell i,j (i=1 to number of lines (top \
+to bottom), j=1 to number of columns (left to rigth) is drawn by default \
+between coordinates j-1 and j for x and  -i+1 and -i+1.5 for y.\n\t\t\
+ignoreCell:  function of the position {i,j} returning True or False to decide \
+whether to ignore the ij cell, or to draw it normally. Default is the pure \
+function False & giving always false.\n\t\toffset: a list {xOffset,yOffset} \
+(default is {0,0}) indicating how to shift the matrix. \t\n\tOptions for the ",
+  FontSize->14],
+ StyleBox["cell frame",
+  FontSize->14,
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox[":\n\t\t- ",
+  FontSize->14],
+ StyleBox["showFrame",
+  FontSize->14,
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox[": True (default) or False. Draw a black square around each matrix \
+cell\n\t\t- ",
+  FontSize->14],
+ StyleBox["frameFaceFunction",
+  FontSize->14,
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox[": function of the position {i,j} returning directives for \
+rendering the face of the square frame (default is ",
+  FontSize->14],
+ "{White, Opacity[0]}",
+ StyleBox["&, i.e. transparent)\n\t\t- ",
+  FontSize->14],
+ StyleBox["showCentralPoint",
+  FontSize->14,
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox[": True or False (default) ",
+  FontSize->14],
+ "wheter",
+ StyleBox[" to draw a central point in the cell.\n\t\t- ",
+  FontSize->14],
+ StyleBox["centralPointSize",
+  FontSize->14,
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox[": parameter of the PointSize directive (Tiny,Small, Medium, or a \
+relative size like 0.01 for example).\n\tOptions for the",
+  FontSize->14],
+ StyleBox[" 2D shape",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[" representing the complex number:\n\t\t- ",
+  FontSize->14],
+ StyleBox["show2DShape",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": True (default) or False. Whether to draw the 2D shape or not.\n\t\
+\t- ",
+  FontSize->14],
+ StyleBox["whatShape",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": \"circle\" (default) or \"square\".\n\t\t- ",
+  FontSize->14],
+ StyleBox["functionFor2DShapeAera",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": any  single argument function to be applied to cij to define the \
+area of the 2D shape (default is Abs).\n\t\t- ",
+  FontSize->14],
+ StyleBox["hide2DShapeSmallerThan",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": Value of functionFor2DShapeAera(cij) below which the 2D shape \
+should not be drawn  (default is 0).\n\t\t- ",
+  FontSize->14],
+ StyleBox["borderDirectives",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": graphics directive for the EdgeForm function (color, thickness, \
+type of line, etc): default is {Black, Thickness[0,001]",
+  FontSize->14],
+ "}",
+ StyleBox[".\n\t\t- ",
+  FontSize->14],
+ StyleBox["fill2DShape",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": whether to fill the 2Dshape (default is True);\n\t\t- ",
+  FontSize->14],
+ StyleBox["fillingColor",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": Filling color function  f[ |cij| , arg(cij)] of the 2D shape. \
+Default is Hue[#2/(2\[Pi])+0.5]&, i.e a cyclic color function of the phase \
+arg(cij) that is cyan for \[CurlyPhi]=0 and red for \[CurlyPhi]=\[Pi] .\n\t\
+Options for the ",
+  FontSize->14],
+ StyleBox["Arrow",
+  FontSize->14,
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[" representing the complex Number\n\t\t- ",
+  FontSize->14],
+ StyleBox["showArrow",
+  FontSize->14,
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[":  True (default) or False. ",
+  FontSize->14],
+ "wheter",
+ StyleBox[" to draw the arrow or not.\n\t\t- ",
+  FontSize->14],
+ StyleBox["functionForArrowLength",
+  FontSize->14,
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[": any  single argument function to be applied to cij to define the \
+length of the arrow (default is Abs).\n\t\t- ",
+  FontSize->14],
+ StyleBox["hideArrowSmallerThan",
+  FontSize->14,
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[": Value of functionForArrowLength(cij) below which the arrow \
+should not be drawn  (default is 0).\n\t\t- ",
+  FontSize->14],
+ StyleBox["arrowDirectives",
+  FontSize->14,
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[":  graphics directive before the Arrow function (color, thickness, \
+type of line, etc): Default is {Black, Thickness[0.001], Arrowheads[0.05]}\n\t\
+Options for the ",
+  FontSize->14],
+ StyleBox["label",
+  FontSize->14,
+  FontColor->RGBColor[1, 0.5, 0]],
+ StyleBox[" included in the cell\n\t\t- ",
+  FontSize->14],
+ StyleBox["showLabel",
+  FontSize->14,
+  FontColor->RGBColor[1, 0.5, 0]],
+ StyleBox[": True or False (default). Whether to write the number in the cell \
+or not.\n\t\t-",
+  FontSize->14],
+ StyleBox[" labelFunction",
+  FontSize->14,
+  FontColor->RGBColor[1, 0.5, 0]],
+ StyleBox[": Function to apply to the number to form the label. Default is \
+Identity\n\t\t- ",
+  FontSize->14],
+ StyleBox["labelStyle",
+  FontSize->14,
+  FontColor->RGBColor[1, 0.5, 0]],
+ StyleBox[": A directive for Style[], such as Small (default), Medium, Large, \
+Red ...\n\t\t- ",
+  FontSize->14],
+ StyleBox["labelShift",
+  FontSize->14,
+  FontColor->RGBColor[1, 0.5, 0]],
+ StyleBox[": a list {\[CapitalDelta]x,\[CapitalDelta]y} (default is {0,0}) \
+indicating how to shift the text in the cell. ",
+  FontSize->14]
+}], "Text",
+ CellChangeTimes->{{3.51218052387329*^9, 3.51218071035929*^9}, {
+   3.5130394174375277`*^9, 3.5130394486531277`*^9}, {3.513039520335128*^9, 
+   3.513039535981928*^9}, {3.513039570520328*^9, 3.5130401527767277`*^9}, {
+   3.5130401905131283`*^9, 3.513040961531528*^9}, {3.513041012854328*^9, 
+   3.513041036535128*^9}, {3.513041071588328*^9, 3.513041087094728*^9}, {
+   3.513041143519928*^9, 3.513041318629928*^9}, {3.513041398611128*^9, 
+   3.513041401325528*^9}, 3.5130414890443277`*^9, {3.513041813461928*^9, 
+   3.513041815162328*^9}, {3.513042040911928*^9, 3.513042041769928*^9}, {
+   3.5130422609811277`*^9, 3.5130422685159283`*^9}, {3.513043552304328*^9, 
+   3.513043555814328*^9}, {3.513083592932453*^9, 3.513083593868453*^9}, {
+   3.513084265466053*^9, 3.5130843490820527`*^9}, {3.513084475972453*^9, 
+   3.513084480278053*^9}, {3.513084523552453*^9, 3.513084550602853*^9}, {
+   3.5130845992972946`*^9, 3.513084719095148*^9}, {3.5130849234482713`*^9, 
+   3.5130850152613344`*^9}, {3.513085072607459*^9, 3.5130851018039837`*^9}, {
+   3.5130852265465436`*^9, 3.513085288083626*^9}, {3.5130853548920016`*^9, 
+   3.513085366731263*^9}, {3.513089131009492*^9, 3.513089175265892*^9}, {
+   3.5130892289142923`*^9, 3.5130892296006923`*^9}, {3.513089597512092*^9, 
+   3.513089605483692*^9}, {3.513092881942092*^9, 3.513092948086092*^9}, {
+   3.5130932259220924`*^9, 3.513093290069292*^9}, {3.5130933291004925`*^9, 
+   3.513093398100292*^9}, {3.513094307986892*^9, 3.513094327954892*^9}, {
+   3.5130943945210924`*^9, 3.5130945034402924`*^9}, {3.513094534624692*^9, 
+   3.513094539351492*^9}, {3.513094596619092*^9, 3.5130946146994925`*^9}, {
+   3.5141867053712006`*^9, 3.5141867881432085`*^9}, {3.5141868574682755`*^9, 
+   3.5141869375415354`*^9}, {3.514187000174331*^9, 3.514187013808469*^9}, {
+   3.5141918181482773`*^9, 3.5141919178147607`*^9}, {3.5141919881382084`*^9, 
+   3.5141920273090553`*^9}, {3.514193045813468*^9, 3.5141930581216316`*^9}, {
+   3.514264601481351*^9, 3.514264602074152*^9}, {3.5142655647518425`*^9, 
+   3.514265826707503*^9}, {3.5142664732074375`*^9, 3.5142664923642707`*^9}, {
+   3.5142690125506973`*^9, 3.5142690473387585`*^9}, {3.5142691835737977`*^9, 
+   3.5142692246798697`*^9}, {3.5148930364665337`*^9, 3.514893252917534*^9}, {
+   3.514893342763534*^9, 3.514893460210534*^9}, {3.514894225578534*^9, 
+   3.514894256501534*^9}, {3.515130512510667*^9, 3.5151305245069895`*^9}, {
+   3.515130636770423*^9, 3.5151307810284233`*^9}, {3.5151308504224234`*^9, 
+   3.5151309462834234`*^9}, {3.515131471615423*^9, 3.515131536858423*^9}, {
+   3.5151315685074234`*^9, 3.515131576791423*^9}, {3.5151317383184233`*^9, 
+   3.515131784108423*^9}, {3.5151318769504232`*^9, 3.515131932020423*^9}, {
+   3.5151323243284235`*^9, 3.515132325149423*^9}, {3.515132949343423*^9, 
+   3.515133025098423*^9}, {3.515134170181423*^9, 3.515134184786423*^9}, {
+   3.515134413176423*^9, 3.515134415994423*^9}, {3.5151558340353804`*^9, 
+   3.5151558534343805`*^9}, {3.5151558964723806`*^9, 
+   3.5151560633743806`*^9}, {3.5151563303513803`*^9, 3.515156552706381*^9}, {
+   3.5151566878193808`*^9, 3.5151566917073803`*^9}, 3.5151567921723804`*^9, {
+   3.5151580371493807`*^9, 3.5151580402693806`*^9}, 3.515162610029381*^9, {
+   3.515163951942381*^9, 3.5151639602833805`*^9}, {3.515254299407572*^9, 
+   3.5152543263487716`*^9}, {3.5198813384421463`*^9, 3.519881348348146*^9}, {
+   3.519881408267746*^9, 3.519881624124946*^9}, {3.519881740859746*^9, 
+   3.519881819296546*^9}, {3.5198819817549458`*^9, 3.519881982129346*^9}, {
+   3.519882068350546*^9, 3.519882084948946*^9}, {3.519884357482946*^9, 
+   3.519884441582546*^9}, {3.519886080574546*^9, 3.519886083025546*^9}, {
+   3.5198861398075457`*^9, 3.519886206659546*^9}, {3.519886246096546*^9, 
+   3.519886303902546*^9}, {3.5198863778005457`*^9, 3.519886452345546*^9}, {
+   3.519886487545546*^9, 3.519886649926546*^9}, {3.5198866970545464`*^9, 
+   3.519886751735546*^9}, {3.519886832982546*^9, 3.5198868427265463`*^9}, 
+   3.5198871519365463`*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "myPlotElement", "]"}], "=", "\[IndentingNewLine]", 
+   RowBox[{"{", " ", 
+    RowBox[{
+     RowBox[{
+      StyleBox["ignoreCell",
+       FontSize->14,
+       FontColor->GrayLevel[0]], 
+      StyleBox["\[Rule]",
+       FontSize->14], 
+      RowBox[{
+       StyleBox["(",
+        FontSize->14], 
+       RowBox[{"False", "&"}], ")"}]}], ",", 
+     RowBox[{
+      StyleBox["offset",
+       FontColor->GrayLevel[0]], "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"showFrame", "\[Rule]", "True"}], ",", 
+     RowBox[{
+      StyleBox["frameFaceFunction",
+       FontSize->14,
+       FontColor->RGBColor[0, 0, 1]], 
+      StyleBox["\[Rule]",
+       FontSize->14], 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"White", ",", 
+          RowBox[{"Opacity", "[", "0", "]"}]}], "}"}], 
+        StyleBox["&",
+         FontSize->14]}], 
+       StyleBox[")",
+        FontSize->14]}]}], 
+     StyleBox[",",
+      FontSize->14], 
+     StyleBox[
+      RowBox[{
+       StyleBox["showCentralPoint",
+        FontColor->RGBColor[0, 0, 1]], "\[Rule]", "False"}],
+      FontSize->14], 
+     StyleBox[",",
+      FontSize->14], 
+     RowBox[{
+      StyleBox["centralPointSize",
+       FontSize->14,
+       FontColor->RGBColor[0, 0, 1]], 
+      StyleBox["\[Rule]",
+       FontSize->14], "Small"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      StyleBox["show2DShape",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", "True"}], ",", 
+     RowBox[{
+      StyleBox["whatShape",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", "\"\<circle\>\""}], 
+     ",", 
+     RowBox[{
+      StyleBox["functionFor2DShapeAera",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", "Abs"}], ",", 
+     RowBox[{
+      StyleBox["hide2DShapeSmallerThan",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", "0"}], ",", 
+     RowBox[{
+      StyleBox["borderDirectives",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"Black", ",", 
+        RowBox[{"Thickness", "[", "0.001", "]"}]}], "}"}]}], ",", 
+     RowBox[{
+      StyleBox["fill2DShape",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", "True"}], ",", 
+     RowBox[{
+      StyleBox["fillingColor",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"Hue", "[", 
+         RowBox[{
+          RowBox[{"#2", "/", 
+           RowBox[{"(", 
+            RowBox[{"2", "\[Pi]"}], ")"}]}], "+", "0.5"}], "]"}], "&"}], 
+       ")"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      StyleBox["showArrow",
+       FontSize->14,
+       FontColor->RGBColor[1, 0, 0]], "\[Rule]", "True"}], ",", 
+     RowBox[{
+      StyleBox["functionForArrowLength",
+       FontSize->14,
+       FontColor->RGBColor[1, 0, 0]], "\[Rule]", "Abs"}], ",", 
+     RowBox[{
+      StyleBox["hideArrowSmallerThan",
+       FontSize->14,
+       FontColor->RGBColor[1, 0, 0]], "->", "0"}], ",", 
+     RowBox[{
+      StyleBox["arrowDirectives",
+       FontColor->RGBColor[1, 0, 0]], "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"Black", ",", 
+        RowBox[{"Thickness", "[", "0.001", "]"}], ",", 
+        RowBox[{"Arrowheads", "[", "0.05", "]"}]}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     StyleBox[
+      RowBox[{
+       StyleBox["showLabel",
+        FontColor->RGBColor[1, 0.5, 0]], "\[Rule]", "False"}],
+      FontSize->14], 
+     StyleBox[",",
+      FontSize->14], 
+     StyleBox[" ",
+      FontSize->14], 
+     RowBox[{
+      StyleBox["labelFunction",
+       FontSize->14,
+       FontColor->RGBColor[1, 0.5, 0]], 
+      StyleBox["\[Rule]",
+       FontSize->14], "Identity"}], ",", " ", 
+     RowBox[{
+      StyleBox["labelStyle",
+       FontSize->14,
+       FontColor->RGBColor[1, 0.5, 0]], 
+      StyleBox["\[Rule]",
+       FontSize->14], "Small"}], ",", 
+     RowBox[{
+      StyleBox["labelShift",
+       FontSize->14,
+       FontColor->RGBColor[1, 0.5, 0]], "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}]}]}], "\[IndentingNewLine]", "}"}]}], 
+  " ", ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"myPlotElement", "[", 
+    RowBox[{"c_", ",", "position_", ",", 
+     RowBox[{"OptionsPattern", "[", "]"}]}], "]"}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Block", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"center", "=", 
+        RowBox[{"position", "+", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "0.5"}], ",", "1.5"}], "}"}], "+", 
+         RowBox[{"OptionValue", "[", "offset", "]"}]}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"shapeAera", "=", 
+        RowBox[{
+         RowBox[{"OptionValue", "[", "functionFor2DShapeAera", "]"}], "[", 
+         "c", "]"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"arrowLength", "=", 
+        RowBox[{
+         RowBox[{"OptionValue", "[", "functionForArrowLength", "]"}], "[", 
+         "c", "]"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"\[CurlyPhi]", "=", 
+        RowBox[{"Arg", "[", "c", "]"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"frame", "=", 
+        RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"shape", "=", 
+        RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"arrow", "=", 
+        RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"centralPoint", "=", 
+        RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"number", "=", 
+        RowBox[{"{", "}"}]}]}], "\[IndentingNewLine]", "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"!", 
+         RowBox[{
+          RowBox[{"OptionValue", "[", 
+           StyleBox["ignoreCell",
+            FontSize->14,
+            FontColor->GrayLevel[0]], 
+           StyleBox["]",
+            FontSize->14]}], 
+          StyleBox["[",
+           FontSize->14], 
+          StyleBox["position",
+           FontSize->14], 
+          StyleBox["]",
+           FontSize->14]}]}], ",", 
+        RowBox[{
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"OptionValue", "[", "showFrame", "]"}], ",", 
+           RowBox[{"frame", "=", 
+            RowBox[{"{", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"EdgeForm", "[", "Dashed", "]"}], ",", 
+               RowBox[{"FaceForm", "[", 
+                RowBox[{
+                 RowBox[{"OptionValue", "[", 
+                  StyleBox["frameFaceFunction",
+                   FontSize->14], 
+                  StyleBox["]",
+                   FontSize->14]}], "[", 
+                 RowBox[{
+                  RowBox[{"position", "[", 
+                   RowBox[{"[", "1", "]"}], "]"}], ",", 
+                  RowBox[{"position", "[", 
+                   RowBox[{"[", "2", "]"}], "]"}]}], "]"}], "]"}], ",", 
+               RowBox[{"Rectangle", "[", 
+                RowBox[{
+                 RowBox[{"center", "-", 
+                  RowBox[{"0.5", 
+                   RowBox[{"{", 
+                    RowBox[{"1", ",", 
+                    RowBox[{"-", "1"}]}], "}"}]}]}], ",", 
+                 RowBox[{"center", "+", 
+                  RowBox[{"0.5", 
+                   RowBox[{"{", 
+                    RowBox[{"1", ",", 
+                    RowBox[{"-", "1"}]}], "}"}]}]}]}], "]"}]}], "}"}], 
+             "}"}]}]}], "]"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"OptionValue", "[", "showCentralPoint", "]"}], ",", 
+           RowBox[{"centralPoint", "=", 
+            RowBox[{"{", 
+             RowBox[{"Black", ",", 
+              RowBox[{"PointSize", "[", 
+               RowBox[{"OptionValue", "[", 
+                StyleBox["centralPointSize",
+                 FontSize->14], 
+                StyleBox["]",
+                 FontSize->14]}], "]"}], ",", 
+              RowBox[{"Point", "[", "center", "]"}]}], "}"}]}]}], "]"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"OptionValue", "[", "show2DShape", " ", "]"}], "&&", " ", 
+            RowBox[{"shapeAera", ">=", 
+             RowBox[{"OptionValue", "[", "hide2DShapeSmallerThan", "]"}]}]}], 
+           ",", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"shape", "=", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"EdgeForm", "[", 
+                RowBox[{"OptionValue", "[", "borderDirectives", "]"}], "]"}], 
+               ",", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{"OptionValue", "[", "fill2DShape", "]"}], ",", 
+                 RowBox[{"FaceForm", "[", 
+                  RowBox[{
+                   RowBox[{"OptionValue", "[", "fillingColor", "]"}], "[", 
+                   RowBox[{
+                    RowBox[{"Abs", "[", "c", "]"}], ",", "\[CurlyPhi]"}], 
+                   "]"}], "]"}], ",", 
+                 RowBox[{"FaceForm", "[", "]"}]}], "]"}]}], "}"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"shape", "=", 
+             RowBox[{"Append", "[", 
+              RowBox[{"shape", ",", "\[IndentingNewLine]", 
+               RowBox[{"Switch", "[", 
+                RowBox[{
+                 RowBox[{"OptionValue", "[", "whatShape", "]"}], ",", 
+                 "\[IndentingNewLine]", "\"\<square\>\"", ",", 
+                 RowBox[{"Rectangle", "[", 
+                  RowBox[{
+                   RowBox[{"center", "-", 
+                    RowBox[{
+                    RowBox[{"Sqrt", "[", "shapeAera", "]"}], "/", "2"}]}], 
+                   ",", 
+                   RowBox[{"center", "+", 
+                    RowBox[{
+                    RowBox[{"Sqrt", "[", "shapeAera", "]"}], "/", "2"}]}]}], 
+                  "]"}], ",", "\[IndentingNewLine]", "_", ",", 
+                 RowBox[{"Disk", "[", 
+                  RowBox[{"center", ",", 
+                   RowBox[{
+                    RowBox[{"Sqrt", "[", "shapeAera", "]"}], "/", "2"}]}], 
+                  "]"}]}], "]"}]}], "]"}]}]}]}], "]"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"OptionValue", "[", "showArrow", "]"}], " ", "&&", " ", 
+            RowBox[{"arrowLength", ">=", 
+             RowBox[{"OptionValue", "[", "hideArrowSmallerThan", "]"}]}]}], 
+           ",", "\[IndentingNewLine]", 
+           RowBox[{"arrow", "=", 
+            RowBox[{"Append", "[", 
+             RowBox[{
+              RowBox[{"OptionValue", "[", "arrowDirectives", "]"}], ",", 
+              RowBox[{"Arrow", "[", 
+               RowBox[{"{", 
+                RowBox[{"center", ",", 
+                 RowBox[{"center", "+", 
+                  RowBox[{"0.5", "arrowLength", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Cos", "[", "\[CurlyPhi]", "]"}], ",", 
+                    RowBox[{"Sin", "[", "\[CurlyPhi]", "]"}]}], "}"}]}]}]}], 
+                "}"}], "]"}]}], "]"}]}]}], "]"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"OptionValue", "[", "showLabel", "]"}], ",", 
+           RowBox[{"number", "=", 
+            RowBox[{"{", 
+             RowBox[{"Text", "[", 
+              RowBox[{
+               RowBox[{"Style", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"OptionValue", "[", 
+                   StyleBox["labelFunction",
+                    FontSize->14], "]"}], "[", "c", "]"}], ",", 
+                 RowBox[{"OptionValue", "[", 
+                  StyleBox["labelStyle",
+                   FontSize->14], "]"}]}], "]"}], ",", 
+               RowBox[{"center", "+", 
+                RowBox[{"OptionValue", "[", 
+                 StyleBox[
+                  RowBox[{
+                   StyleBox["label",
+                    FontSize->14], "Shift"}]], "]"}]}]}], "]"}], "}"}]}]}], 
+          "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Graphics", "[", 
+       RowBox[{
+       "frame", "~", "Join", "~", "centralPoint", "~", "Join", "~", "shape", 
+        "~", "Join", "~", "arrow", "~", "Join", "~", "centralPoint", "~", 
+        "Join", "~", "number"}], "]"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"complexMatrixDraw", "[", 
+    RowBox[{
+     RowBox[{"number_", "?", "NumberQ"}], ",", "opts___"}], "]"}], ":=", 
+   RowBox[{"complexMatrixDraw", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"{", "number", "}"}], "}"}], ",", "opts"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"complexMatrixDraw", "[", 
+    RowBox[{
+     RowBox[{"vector_", "?", "VectorQ"}], ",", "opts___"}], "]"}], ":=", 
+   RowBox[{"complexMatrixDraw", "[", 
+    RowBox[{
+     RowBox[{"List", "/@", "vector"}], ",", "opts"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"complexMatrixDraw", "[", 
+    RowBox[{"matrix_", ",", "opts___"}], "]"}], ":=", 
+   RowBox[{"Show", "[", 
+    RowBox[{"MapIndexed", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"myPlotElement", "[", 
+        RowBox[{"#1", ",", 
+         RowBox[{
+          RowBox[{"Reverse", "[", "#2", "]"}], 
+          RowBox[{"{", 
+           RowBox[{"1", ",", 
+            RowBox[{"-", "1"}]}], "}"}]}], ",", "opts"}], "]"}], "&"}], ",", 
+      "matrix", ",", 
+      RowBox[{"{", "2", "}"}]}], "]"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.511632593435506*^9, 3.511632825718017*^9}, {
+   3.5116328955587697`*^9, 3.5116328984291515`*^9}, {3.5116331399936028`*^9, 
+   3.51163314656116*^9}, {3.5116332112695456`*^9, 3.511633223328268*^9}, {
+   3.5116332677723837`*^9, 3.511633316974468*^9}, {3.5116333604357896`*^9, 
+   3.511633437624095*^9}, {3.511633471943875*^9, 3.511633535248269*^9}, {
+   3.5116335710656395`*^9, 3.511633575168413*^9}, {3.511633758983035*^9, 
+   3.5116338020543585`*^9}, {3.511633841038509*^9, 3.511633980252016*^9}, {
+   3.511634051777558*^9, 3.5116341446437626`*^9}, {3.5116341883390827`*^9, 
+   3.511634218181691*^9}, {3.511634312592286*^9, 3.511634314916671*^9}, {
+   3.511634450323803*^9, 3.5116346617648478`*^9}, 3.511634708049751*^9, {
+   3.511634740185545*^9, 3.5116349896747456`*^9}, {3.511635032558871*^9, 
+   3.5116350526203423`*^9}, 3.5116352099297333`*^9, {3.5116352888964276`*^9, 
+   3.5116353030611367`*^9}, {3.51163537894005*^9, 3.511635396302739*^9}, {
+   3.5116354798246036`*^9, 3.511635486173763*^9}, {3.51163557989316*^9, 
+   3.51163559268616*^9}, {3.51163578531116*^9, 3.5116358170669727`*^9}, {
+   3.511635870106632*^9, 3.511635894224078*^9}, {3.5116359598684573`*^9, 
+   3.5116359687604*^9}, {3.5116360570246344`*^9, 3.5116361316545563`*^9}, {
+   3.5116362181248016`*^9, 3.5116362493558016`*^9}, {3.5116362940807147`*^9, 
+   3.5116364127803535`*^9}, {3.5116364494869184`*^9, 3.511636480343521*^9}, {
+   3.5116365335079803`*^9, 3.5116365365811605`*^9}, 3.511636598528363*^9, {
+   3.511636673423483*^9, 3.511636793090316*^9}, {3.5116368381272273`*^9, 
+   3.511636956717667*^9}, {3.5116370226272445`*^9, 3.511637026761218*^9}, {
+   3.5116373362164345`*^9, 3.511637359975082*^9}, 3.511637560090599*^9, {
+   3.511637656856779*^9, 3.5116376628783407`*^9}, {3.5116380009437733`*^9, 
+   3.5116380241564245`*^9}, {3.511638278356795*^9, 3.5116382789339914`*^9}, {
+   3.511638608435079*^9, 3.511638613115049*^9}, {3.5116387105364246`*^9, 
+   3.5116387451214027`*^9}, {3.51163892498825*^9, 3.511638928201829*^9}, 
+   3.511639218734367*^9, {3.5121796261642904`*^9, 3.51217963659529*^9}, {
+   3.51217966781429*^9, 3.51217969285629*^9}, {3.5121797568272905`*^9, 
+   3.51217977960329*^9}, 3.51217982337529*^9, {3.51217985696429*^9, 
+   3.5121799024402905`*^9}, {3.51217993400429*^9, 3.5121800661972904`*^9}, {
+   3.5121801057562904`*^9, 3.5121801206592903`*^9}, {3.5121801770772905`*^9, 
+   3.51218021304929*^9}, {3.51218027569329*^9, 3.51218040535429*^9}, 
+   3.51218047492029*^9, {3.51218073410429*^9, 3.5121807543882904`*^9}, {
+   3.5121807858762903`*^9, 3.5121807887352905`*^9}, {3.512214397444519*^9, 
+   3.5122144071254873`*^9}, {3.512214597797553*^9, 3.512214600657839*^9}, {
+   3.51221856896763*^9, 3.512218594841217*^9}, {3.5122186393876715`*^9, 
+   3.512218702889021*^9}, {3.5122188341761484`*^9, 3.51221884689642*^9}, {
+   3.512218915780308*^9, 3.5122189322279525`*^9}, {3.5122200225959787`*^9, 
+   3.5122200342771463`*^9}, {3.5122201099917173`*^9, 3.512220126972415*^9}, {
+   3.5122204757662907`*^9, 3.5122205069044046`*^9}, {3.512220676239336*^9, 
+   3.5122206923359456`*^9}, {3.512220773700081*^9, 3.51222079359007*^9}, {
+   3.5122209254000187`*^9, 3.5122209366953783`*^9}, {3.5122209872959595`*^9, 
+   3.5122211458352857`*^9}, {3.512221189532026*^9, 3.5122212088290367`*^9}, {
+   3.512221283608699*^9, 3.512221313561702*^9}, {3.5122213689474983`*^9, 
+   3.512221369441756*^9}, {3.512221407239973*^9, 3.5122214923012185`*^9}, 
+   3.5122240310877256`*^9, {3.512224243210726*^9, 3.5122243069337254`*^9}, {
+   3.5122243754217253`*^9, 3.512224586104726*^9}, {3.5122246464597254`*^9, 
+   3.512224669939726*^9}, {3.5122247566717253`*^9, 3.5122247577247257`*^9}, {
+   3.5122248424247255`*^9, 3.5122248725207253`*^9}, {3.512224919748726*^9, 
+   3.5122249216357255`*^9}, {3.5122249851877255`*^9, 
+   3.5122249879857254`*^9}, {3.512225062557726*^9, 3.512225064682726*^9}, {
+   3.5122251265697255`*^9, 3.5122251584567256`*^9}, 3.5122253630997257`*^9, {
+   3.5122254658117256`*^9, 3.5122256615307255`*^9}, {3.5122257077707253`*^9, 
+   3.5122258217617254`*^9}, {3.5122258635167255`*^9, 
+   3.5122259469387255`*^9}, {3.5122260188417253`*^9, 3.512226020295726*^9}, {
+   3.5122260793967257`*^9, 3.5122261245587254`*^9}, {3.5122972596674566`*^9, 
+   3.5122974793943253`*^9}, {3.5122975270379763`*^9, 
+   3.5122975441815863`*^9}, {3.5122975939759803`*^9, 3.5122977442786846`*^9}, 
+   3.5122977939808464`*^9, {3.512298003490709*^9, 3.5122980593224316`*^9}, {
+   3.512298312705205*^9, 3.5122983553648367`*^9}, {3.512298478286772*^9, 
+   3.512298510874055*^9}, {3.512298585359274*^9, 3.5122986434102545`*^9}, {
+   3.5122989719620547`*^9, 3.5122989772897367`*^9}, {3.512299019989309*^9, 
+   3.512299020442396*^9}, {3.513041314745528*^9, 3.5130415176079283`*^9}, {
+   3.513041659552328*^9, 3.513041796535928*^9}, {3.5130418300447283`*^9, 
+   3.5130418317919283`*^9}, {3.5130418753315277`*^9, 3.513042066043528*^9}, {
+   3.513042133248328*^9, 3.5130421502367277`*^9}, {3.513042240077128*^9, 
+   3.513042240685528*^9}, {3.513042284537128*^9, 3.513042299918728*^9}, {
+   3.513042352755928*^9, 3.513042357591928*^9}, {3.513042390648328*^9, 
+   3.513042401568328*^9}, {3.5130424336419277`*^9, 3.513042500207128*^9}, {
+   3.513042572481928*^9, 3.5130425928399277`*^9}, {3.513042629109928*^9, 
+   3.5130426342423277`*^9}, 3.513042685082728*^9, 3.513042740384728*^9, {
+   3.513042778901128*^9, 3.513042816309928*^9}, 3.513042855419128*^9, {
+   3.513042895292728*^9, 3.513042921157528*^9}, 3.513042956741128*^9, {
+   3.513043036005728*^9, 3.5130430874857283`*^9}, {3.513043360393128*^9, 
+   3.513043393792728*^9}, 3.513043676745528*^9, {3.5130472958589277`*^9, 
+   3.513047315702128*^9}, {3.513048921990328*^9, 3.513048930398728*^9}, {
+   3.5130490544499283`*^9, 3.5130491016243277`*^9}, 3.513049991980728*^9, {
+   3.5130500358635283`*^9, 3.5130500382659283`*^9}, {3.5130501201503277`*^9, 
+   3.513050149759128*^9}, {3.513050224545528*^9, 3.513050265651528*^9}, {
+   3.5130519089636526`*^9, 3.5130519903423643`*^9}, {3.5130541622791834`*^9, 
+   3.5130541991887836`*^9}, {3.5130544598179836`*^9, 3.5130544677115836`*^9}, 
+   3.513055206044984*^9, {3.5130557500179834`*^9, 3.513055785961384*^9}, {
+   3.5130558743197837`*^9, 3.513055877720584*^9}, {3.513056002208584*^9, 
+   3.5130560433301835`*^9}, {3.5130676001205835`*^9, 3.513067650322384*^9}, 
+   3.513067792719184*^9, {3.5130685849064536`*^9, 3.5130685970246234`*^9}, {
+   3.513079413061453*^9, 3.513079413295453*^9}, 3.513083602448453*^9, {
+   3.513083753006053*^9, 3.513083917726453*^9}, 3.5130840870332527`*^9, {
+   3.513084164846053*^9, 3.513084183238453*^9}, {3.5130850260381017`*^9, 
+   3.513085027987589*^9}, {3.5130851435853996`*^9, 3.5130852027276344`*^9}, {
+   3.5130853192338305`*^9, 3.5130853411653214`*^9}, {3.513085392687167*^9, 
+   3.5130854094867516`*^9}, {3.5130854865599403`*^9, 3.513085518258082*^9}, {
+   3.513085930165629*^9, 3.5130859782130127`*^9}, {3.5130860289591618`*^9, 
+   3.5130860312523327`*^9}, {3.5130860816708865`*^9, 
+   3.5130860844788504`*^9}, {3.513086257138526*^9, 3.5130863497239323`*^9}, {
+   3.513086416148492*^9, 3.513086439361292*^9}, {3.5130888404282923`*^9, 
+   3.5130888570266924`*^9}, 3.513088907851492*^9, {3.5130891125702925`*^9, 
+   3.5130891130850925`*^9}, {3.513089202987092*^9, 3.5130892124718924`*^9}, {
+   3.5130893742906923`*^9, 3.5130893940870924`*^9}, {3.5130914184572926`*^9, 
+   3.513091420594492*^9}, {3.513091464524092*^9, 3.5130914709824924`*^9}, {
+   3.5130916031768923`*^9, 3.5130916039100924`*^9}, {3.513091928374492*^9, 
+   3.513091957328092*^9}, {3.513092182997692*^9, 3.513092242230892*^9}, {
+   3.513092310184492*^9, 3.513092319482092*^9}, {3.513092489446092*^9, 
+   3.513092534795292*^9}, {3.513092636210892*^9, 3.5130926523724923`*^9}, {
+   3.5130927820084925`*^9, 3.5130927996364923`*^9}, {3.513092840305692*^9, 
+   3.513092876357292*^9}, {3.5130934157282925`*^9, 3.513093461077492*^9}, {
+   3.5130936656256924`*^9, 3.513093798724892*^9}, {3.5130943673448925`*^9, 
+   3.513094367376092*^9}, {3.5134283825821886`*^9, 3.5134283885100746`*^9}, {
+   3.5141920445779233`*^9, 3.514192054327736*^9}, {3.514192128114317*^9, 
+   3.51419213781733*^9}, {3.5141922431621037`*^9, 3.514192268043626*^9}, {
+   3.5141923008653946`*^9, 3.514192359426668*^9}, {3.514264610794567*^9, 
+   3.5142647198387585`*^9}, 3.5142647683080435`*^9, {3.514265328598628*^9, 
+   3.5142653328886356`*^9}, {3.514265368425498*^9, 3.5142653729339056`*^9}, {
+   3.514265404726762*^9, 3.5142654075191665`*^9}, {3.5142692403110976`*^9, 
+   3.514269247908311*^9}, {3.5142692894043837`*^9, 3.514269301463205*^9}, {
+   3.5148090931788015`*^9, 3.514809095116314*^9}, {3.514891541982534*^9, 
+   3.5148915435375338`*^9}, {3.514891576656534*^9, 3.5148916044005337`*^9}, {
+   3.514891635034534*^9, 3.514891646982534*^9}, {3.514891688948534*^9, 
+   3.5148918009455338`*^9}, {3.514891854474534*^9, 3.514891878233534*^9}, {
+   3.514891951689534*^9, 3.514891957316534*^9}, 3.514892239015534*^9, {
+   3.514892295924534*^9, 3.5148923118715343`*^9}, {3.514892748872534*^9, 
+   3.5148927934775343`*^9}, {3.514893229740534*^9, 3.514893259840534*^9}, {
+   3.514893474278534*^9, 3.514893500082534*^9}, {3.514893665290534*^9, 
+   3.5148936678675337`*^9}, {3.5148942147605343`*^9, 3.514894215783534*^9}, {
+   3.514894268725534*^9, 3.514894273173534*^9}, {3.515130816195423*^9, 
+   3.5151308218234234`*^9}, {3.5151309726344233`*^9, 3.515131029194423*^9}, {
+   3.5151310683094234`*^9, 3.515131086675423*^9}, {3.5151323326654234`*^9, 
+   3.515132341869423*^9}, {3.515134194819423*^9, 3.5151344363564234`*^9}, {
+   3.515156640159381*^9, 3.515156642239381*^9}, {3.5151567059143806`*^9, 
+   3.515156713482381*^9}, {3.5151567448083806`*^9, 3.5151567612073803`*^9}, 
+   3.515158827277381*^9, {3.5151588826713805`*^9, 3.5151588916583805`*^9}, {
+   3.5151589921513805`*^9, 3.515159025541381*^9}, {3.515159056437381*^9, 
+   3.5151590762273808`*^9}, {3.5151639724403806`*^9, 
+   3.5151639889873805`*^9}, {3.5151664814723806`*^9, 
+   3.5151664883983803`*^9}, {3.5151666212363806`*^9, 
+   3.5151666680963807`*^9}, {3.5152541317387714`*^9, 3.5152541388055716`*^9}, 
+   3.515254169319172*^9, {3.519880734774146*^9, 3.5198808008361464`*^9}, {
+   3.519881694012946*^9, 3.5198816989737463`*^9}, 3.519881833554946*^9, {
+   3.519881867765746*^9, 3.5198819442525463`*^9}, {3.519881997744946*^9, 
+   3.519882057227746*^9}, {3.519882146802946*^9, 3.5198822691703463`*^9}, {
+   3.5198867810175457`*^9, 3.519886821723546*^9}, 3.519886859482546*^9, {
+   3.519886952832546*^9, 3.519887007699546*^9}, {3.519887088096546*^9, 
+   3.519887218848546*^9}, {3.519887291273546*^9, 3.519887341728546*^9}, {
+   3.519887384189546*^9, 3.5198873968665457`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"lowerTriangleComplexMatrixDraw", "[", 
+   RowBox[{"matrix_", ",", "opts___"}], "]"}], ":=", 
+  RowBox[{"complexMatrixDraw", "[", 
+   RowBox[{"matrix", ",", "opts", ",", 
+    RowBox[{
+     StyleBox["ignoreCell",
+      FontSize->14], 
+     StyleBox["\[Rule]",
+      FontSize->14], 
+     RowBox[{
+      StyleBox["(",
+       FontSize->14], 
+      RowBox[{
+       RowBox[{
+        RowBox[{"#", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], ">", 
+        RowBox[{"-", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}]}], "&"}], ")"}]}]}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"upperTriangleComplexMatrixDraw", "[", 
+   RowBox[{"matrix_", ",", "opts___"}], "]"}], ":=", 
+  RowBox[{"complexMatrixDraw", "[", 
+   RowBox[{"matrix", ",", "opts", ",", 
+    RowBox[{
+     StyleBox["ignoreCell",
+      FontSize->14], 
+     StyleBox["\[Rule]",
+      FontSize->14], 
+     RowBox[{
+      StyleBox["(",
+       FontSize->14], 
+      RowBox[{
+       RowBox[{
+        RowBox[{"#", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], "<", 
+        RowBox[{"-", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}]}], "&"}], ")"}]}]}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"diagonalComplexMatrixDraw", "[", 
+   RowBox[{"matrix_", ",", "opts___"}], "]"}], ":=", 
+  RowBox[{"complexMatrixDraw", "[", 
+   RowBox[{"matrix", ",", "opts", ",", 
+    RowBox[{
+     StyleBox["ignoreCell",
+      FontSize->14], 
+     StyleBox["\[Rule]",
+      FontSize->14], 
+     RowBox[{
+      StyleBox["(",
+       FontSize->14], 
+      RowBox[{
+       RowBox[{
+        RowBox[{"#", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], "!=", 
+        RowBox[{"-", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}]}], "&"}], ")"}]}]}], 
+   "]"}]}]}], "Input",
+ CellChangeTimes->{{3.511632593435506*^9, 3.511632825718017*^9}, {
+   3.5116328955587697`*^9, 3.5116328984291515`*^9}, {3.5116331399936028`*^9, 
+   3.51163314656116*^9}, {3.5116332112695456`*^9, 3.511633223328268*^9}, {
+   3.5116332677723837`*^9, 3.511633316974468*^9}, {3.5116333604357896`*^9, 
+   3.511633437624095*^9}, {3.511633471943875*^9, 3.511633535248269*^9}, {
+   3.5116335710656395`*^9, 3.511633575168413*^9}, {3.511633758983035*^9, 
+   3.5116338020543585`*^9}, {3.511633841038509*^9, 3.511633980252016*^9}, {
+   3.511634051777558*^9, 3.5116341446437626`*^9}, {3.5116341883390827`*^9, 
+   3.511634218181691*^9}, {3.511634312592286*^9, 3.511634314916671*^9}, {
+   3.511634450323803*^9, 3.5116346617648478`*^9}, 3.511634708049751*^9, {
+   3.511634740185545*^9, 3.5116349896747456`*^9}, {3.511635032558871*^9, 
+   3.5116350526203423`*^9}, 3.5116352099297333`*^9, {3.5116352888964276`*^9, 
+   3.5116353030611367`*^9}, {3.51163537894005*^9, 3.511635396302739*^9}, {
+   3.5116354798246036`*^9, 3.511635486173763*^9}, {3.51163557989316*^9, 
+   3.51163559268616*^9}, {3.51163578531116*^9, 3.5116358170669727`*^9}, {
+   3.511635870106632*^9, 3.511635894224078*^9}, {3.5116359598684573`*^9, 
+   3.5116359687604*^9}, {3.5116360570246344`*^9, 3.5116361316545563`*^9}, {
+   3.5116362181248016`*^9, 3.5116362493558016`*^9}, {3.5116362940807147`*^9, 
+   3.5116364127803535`*^9}, {3.5116364494869184`*^9, 3.511636480343521*^9}, {
+   3.5116365335079803`*^9, 3.5116365365811605`*^9}, 3.511636598528363*^9, {
+   3.511636673423483*^9, 3.511636793090316*^9}, {3.5116368381272273`*^9, 
+   3.511636956717667*^9}, {3.5116370226272445`*^9, 3.511637026761218*^9}, {
+   3.5116373362164345`*^9, 3.511637359975082*^9}, 3.511637560090599*^9, {
+   3.511637656856779*^9, 3.5116376628783407`*^9}, {3.5116380009437733`*^9, 
+   3.5116380241564245`*^9}, {3.511638278356795*^9, 3.5116382789339914`*^9}, {
+   3.511638608435079*^9, 3.511638613115049*^9}, {3.5116387105364246`*^9, 
+   3.5116387451214027`*^9}, {3.51163892498825*^9, 3.511638928201829*^9}, 
+   3.511639218734367*^9, {3.5121796261642904`*^9, 3.51217963659529*^9}, {
+   3.51217966781429*^9, 3.51217969285629*^9}, {3.5121797568272905`*^9, 
+   3.51217977960329*^9}, 3.51217982337529*^9, {3.51217985696429*^9, 
+   3.5121799024402905`*^9}, {3.51217993400429*^9, 3.5121800661972904`*^9}, {
+   3.5121801057562904`*^9, 3.5121801206592903`*^9}, {3.5121801770772905`*^9, 
+   3.51218021304929*^9}, {3.51218027569329*^9, 3.51218040535429*^9}, 
+   3.51218047492029*^9, {3.51218073410429*^9, 3.5121807543882904`*^9}, {
+   3.5121807858762903`*^9, 3.5121807887352905`*^9}, {3.512214397444519*^9, 
+   3.5122144071254873`*^9}, {3.512214597797553*^9, 3.512214600657839*^9}, {
+   3.51221856896763*^9, 3.512218594841217*^9}, {3.5122186393876715`*^9, 
+   3.512218702889021*^9}, {3.5122188341761484`*^9, 3.51221884689642*^9}, {
+   3.512218915780308*^9, 3.5122189322279525`*^9}, {3.5122200225959787`*^9, 
+   3.5122200342771463`*^9}, {3.5122201099917173`*^9, 3.512220126972415*^9}, {
+   3.5122204757662907`*^9, 3.5122205069044046`*^9}, {3.512220676239336*^9, 
+   3.5122206923359456`*^9}, {3.512220773700081*^9, 3.51222079359007*^9}, {
+   3.5122209254000187`*^9, 3.5122209366953783`*^9}, {3.5122209872959595`*^9, 
+   3.5122211458352857`*^9}, {3.512221189532026*^9, 3.5122212088290367`*^9}, {
+   3.512221283608699*^9, 3.512221313561702*^9}, {3.5122213689474983`*^9, 
+   3.512221369441756*^9}, {3.512221407239973*^9, 3.5122214923012185`*^9}, 
+   3.5122240310877256`*^9, {3.512224243210726*^9, 3.5122243069337254`*^9}, {
+   3.5122243754217253`*^9, 3.512224586104726*^9}, {3.5122246464597254`*^9, 
+   3.512224669939726*^9}, {3.5122247566717253`*^9, 3.5122247577247257`*^9}, {
+   3.5122248424247255`*^9, 3.5122248725207253`*^9}, {3.512224919748726*^9, 
+   3.5122249216357255`*^9}, {3.5122249851877255`*^9, 
+   3.5122249879857254`*^9}, {3.512225062557726*^9, 3.512225064682726*^9}, {
+   3.5122251265697255`*^9, 3.5122251584567256`*^9}, 3.5122253630997257`*^9, {
+   3.5122254658117256`*^9, 3.5122256615307255`*^9}, {3.5122257077707253`*^9, 
+   3.5122258217617254`*^9}, {3.5122258635167255`*^9, 
+   3.5122259469387255`*^9}, {3.5122260188417253`*^9, 3.512226020295726*^9}, {
+   3.5122260793967257`*^9, 3.5122261245587254`*^9}, {3.5122972596674566`*^9, 
+   3.5122974793943253`*^9}, {3.5122975270379763`*^9, 
+   3.5122975441815863`*^9}, {3.5122975939759803`*^9, 3.5122977442786846`*^9}, 
+   3.5122977939808464`*^9, {3.512298003490709*^9, 3.5122980593224316`*^9}, {
+   3.512298312705205*^9, 3.5122983553648367`*^9}, {3.512298478286772*^9, 
+   3.512298510874055*^9}, {3.512298585359274*^9, 3.5122986434102545`*^9}, {
+   3.5122989719620547`*^9, 3.5122989772897367`*^9}, {3.512299019989309*^9, 
+   3.512299020442396*^9}, {3.513041314745528*^9, 3.5130415176079283`*^9}, {
+   3.513041659552328*^9, 3.513041796535928*^9}, {3.5130418300447283`*^9, 
+   3.5130418317919283`*^9}, {3.5130418753315277`*^9, 3.513042066043528*^9}, {
+   3.513042133248328*^9, 3.5130421502367277`*^9}, {3.513042240077128*^9, 
+   3.513042240685528*^9}, {3.513042284537128*^9, 3.513042299918728*^9}, {
+   3.513042352755928*^9, 3.513042357591928*^9}, {3.513042390648328*^9, 
+   3.513042401568328*^9}, {3.5130424336419277`*^9, 3.513042500207128*^9}, {
+   3.513042572481928*^9, 3.5130425928399277`*^9}, {3.513042629109928*^9, 
+   3.5130426342423277`*^9}, 3.513042685082728*^9, 3.513042740384728*^9, {
+   3.513042778901128*^9, 3.513042816309928*^9}, 3.513042855419128*^9, {
+   3.513042895292728*^9, 3.513042921157528*^9}, 3.513042956741128*^9, {
+   3.513043036005728*^9, 3.5130430874857283`*^9}, {3.513043360393128*^9, 
+   3.513043393792728*^9}, 3.513043676745528*^9, {3.5130472958589277`*^9, 
+   3.513047315702128*^9}, {3.513048921990328*^9, 3.513048930398728*^9}, {
+   3.5130490544499283`*^9, 3.5130491016243277`*^9}, 3.513049991980728*^9, {
+   3.5130500358635283`*^9, 3.5130500382659283`*^9}, {3.5130501201503277`*^9, 
+   3.513050149759128*^9}, {3.513050224545528*^9, 3.513050265651528*^9}, {
+   3.5130519089636526`*^9, 3.5130519903423643`*^9}, {3.5130541622791834`*^9, 
+   3.5130541991887836`*^9}, {3.5130544598179836`*^9, 3.5130544677115836`*^9}, 
+   3.513055206044984*^9, {3.5130557500179834`*^9, 3.513055785961384*^9}, {
+   3.5130558743197837`*^9, 3.513055877720584*^9}, {3.513056002208584*^9, 
+   3.5130560433301835`*^9}, {3.5130676001205835`*^9, 3.513067650322384*^9}, 
+   3.513067792719184*^9, {3.5130685849064536`*^9, 3.5130685970246234`*^9}, {
+   3.513079413061453*^9, 3.513079413295453*^9}, 3.513083602448453*^9, {
+   3.513083753006053*^9, 3.513083917726453*^9}, 3.5130840870332527`*^9, {
+   3.513084164846053*^9, 3.513084183238453*^9}, {3.5130850260381017`*^9, 
+   3.513085027987589*^9}, {3.5130851435853996`*^9, 3.5130852027276344`*^9}, {
+   3.5130853192338305`*^9, 3.5130853411653214`*^9}, {3.513085392687167*^9, 
+   3.5130854094867516`*^9}, {3.5130854865599403`*^9, 3.513085518258082*^9}, {
+   3.513085930165629*^9, 3.5130859782130127`*^9}, {3.5130860289591618`*^9, 
+   3.5130860312523327`*^9}, {3.5130860816708865`*^9, 
+   3.5130860844788504`*^9}, {3.513086257138526*^9, 3.5130863497239323`*^9}, {
+   3.513086416148492*^9, 3.513086439361292*^9}, {3.5130888404282923`*^9, 
+   3.5130888570266924`*^9}, 3.513088907851492*^9, {3.5130891125702925`*^9, 
+   3.5130891130850925`*^9}, {3.513089202987092*^9, 3.5130892124718924`*^9}, {
+   3.5130893742906923`*^9, 3.5130893940870924`*^9}, {3.5130914184572926`*^9, 
+   3.513091420594492*^9}, {3.513091464524092*^9, 3.5130914709824924`*^9}, {
+   3.5130916031768923`*^9, 3.5130916039100924`*^9}, {3.513091928374492*^9, 
+   3.513091957328092*^9}, {3.513092182997692*^9, 3.513092242230892*^9}, {
+   3.513092310184492*^9, 3.513092319482092*^9}, {3.513092489446092*^9, 
+   3.513092534795292*^9}, {3.513092636210892*^9, 3.5130926523724923`*^9}, {
+   3.5130927820084925`*^9, 3.5130927996364923`*^9}, {3.513092840305692*^9, 
+   3.513092876357292*^9}, {3.5130934157282925`*^9, 3.513093461077492*^9}, {
+   3.5130936656256924`*^9, 3.513093798724892*^9}, {3.5130943673448925`*^9, 
+   3.513094367376092*^9}, {3.5134283825821886`*^9, 3.5134283885100746`*^9}, {
+   3.5141920445779233`*^9, 3.514192054327736*^9}, {3.514192128114317*^9, 
+   3.51419213781733*^9}, {3.5141922431621037`*^9, 3.514192268043626*^9}, {
+   3.5141923008653946`*^9, 3.514192359426668*^9}, {3.514264610794567*^9, 
+   3.5142647198387585`*^9}, 3.5142647683080435`*^9, {3.514265328598628*^9, 
+   3.5142653328886356`*^9}, {3.514265368425498*^9, 3.5142653729339056`*^9}, {
+   3.514265404726762*^9, 3.5142654075191665`*^9}, {3.5142692403110976`*^9, 
+   3.514269247908311*^9}, {3.5142692894043837`*^9, 3.514269301463205*^9}, {
+   3.5148090931788015`*^9, 3.514809095116314*^9}, {3.514891541982534*^9, 
+   3.5148915435375338`*^9}, {3.514891576656534*^9, 3.5148916044005337`*^9}, {
+   3.514891635034534*^9, 3.514891646982534*^9}, {3.514891688948534*^9, 
+   3.5148918009455338`*^9}, {3.514891854474534*^9, 3.514891878233534*^9}, {
+   3.514891951689534*^9, 3.514891957316534*^9}, 3.514892239015534*^9, {
+   3.514892295924534*^9, 3.5148923118715343`*^9}, {3.514892748872534*^9, 
+   3.5148927934775343`*^9}, {3.514893229740534*^9, 3.514893259840534*^9}, {
+   3.514893474278534*^9, 3.514893500082534*^9}, {3.514893665290534*^9, 
+   3.5148936678675337`*^9}, {3.5148942147605343`*^9, 3.514894215783534*^9}, {
+   3.514894268725534*^9, 3.514894273173534*^9}, {3.515130816195423*^9, 
+   3.5151308218234234`*^9}, {3.5151309726344233`*^9, 3.515131029194423*^9}, {
+   3.5151310683094234`*^9, 3.515131086675423*^9}, {3.5151323326654234`*^9, 
+   3.515132341869423*^9}, {3.515134194819423*^9, 3.5151344363564234`*^9}, {
+   3.515156640159381*^9, 3.515156642239381*^9}, {3.5151567059143806`*^9, 
+   3.515156713482381*^9}, {3.5151567448083806`*^9, 3.5151567612073803`*^9}, 
+   3.515158827277381*^9, {3.5151588826713805`*^9, 3.5151588916583805`*^9}, {
+   3.5151589921513805`*^9, 3.515159025541381*^9}, {3.515159056437381*^9, 
+   3.5151590762273808`*^9}, {3.5151639724403806`*^9, 
+   3.5151639889873805`*^9}, {3.5151664814723806`*^9, 
+   3.5151664883983803`*^9}, {3.5151666212363806`*^9, 
+   3.5151666680963807`*^9}, {3.5152541317387714`*^9, 3.5152541388055716`*^9}, 
+   3.515254169319172*^9, {3.519880734774146*^9, 3.5198808008361464`*^9}, {
+   3.519881694012946*^9, 3.5198816989737463`*^9}, 3.519881833554946*^9, {
+   3.519881867765746*^9, 3.5198819442525463`*^9}, {3.519881997744946*^9, 
+   3.519882057227746*^9}, {3.519882146802946*^9, 3.5198822841931458`*^9}, {
+   3.519882413548346*^9, 3.519882480784346*^9}, {3.519884021723146*^9, 
+   3.519884024921146*^9}, {3.519884559939746*^9, 3.5198845963033457`*^9}, {
+   3.5198846376745462`*^9, 3.519884679217346*^9}, 3.519884762948546*^9}]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["matrixDraw3D", "Subsection",
+ CellChangeTimes->{{3.511622464019841*^9, 3.51162246539485*^9}, {
+   3.5116303934752083`*^9, 3.5116303942396035`*^9}, {3.511630681527362*^9, 
+   3.511630694990076*^9}, 3.51218051420129*^9, {3.513043660053528*^9, 
+   3.513043660942728*^9}, {3.5142654575172544`*^9, 3.51426547796889*^9}, {
+   3.5142655093561454`*^9, 3.5142655473110123`*^9}, {3.514265850715945*^9, 
+   3.5142658749739876`*^9}, {3.5142888017474055`*^9, 3.5142888027301865`*^9}, 
+   3.519889131036172*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Options", "[", "myPlotElement3D", "]"}], "=", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", " ", 
+     RowBox[{
+      RowBox[{
+       StyleBox["ignoreCell",
+        FontSize->14,
+        FontColor->GrayLevel[0]], 
+       StyleBox["\[Rule]",
+        FontSize->14], 
+       RowBox[{
+        StyleBox["(",
+         FontSize->14], 
+        RowBox[{"False", "&"}], ")"}]}], ",", 
+      RowBox[{
+       StyleBox["offset",
+        FontColor->GrayLevel[0]], "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"showFrame", "\[Rule]", "True"}], ",", 
+      RowBox[{
+       StyleBox["frameFaceFunction",
+        FontSize->14,
+        FontColor->RGBColor[0, 0, 1]], 
+       StyleBox["\[Rule]",
+        FontSize->14], 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"White", ",", 
+           RowBox[{"Opacity", "[", "0", "]"}]}], "}"}], 
+         StyleBox["&",
+          FontSize->14]}], 
+        StyleBox[")",
+         FontSize->14]}]}], 
+      StyleBox[",",
+       FontSize->14], 
+      StyleBox[
+       RowBox[{
+        StyleBox["showCentralPoint",
+         FontColor->RGBColor[0, 0, 1]], "\[Rule]", "False"}],
+       FontSize->14], 
+      StyleBox[",",
+       FontSize->14], 
+      RowBox[{
+       StyleBox["centralPointSize",
+        FontSize->14,
+        FontColor->RGBColor[0, 0, 1]], 
+       StyleBox["\[Rule]",
+        FontSize->14], "Small"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       StyleBox["showBar",
+        FontSize->14,
+        FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", "True"}], ",", 
+      RowBox[{
+       StyleBox["whatBarShape",
+        FontSize->14,
+        FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", "\"\<circle\>\""}], 
+      ",", 
+      RowBox[{"barLengthFunction", "\[Rule]", "Abs"}], ",", 
+      RowBox[{"barDiameter", "\[Rule]", "0.99"}], ",", 
+      RowBox[{"hideBarSmallerThan", "\[Rule]", "0"}], ",", 
+      RowBox[{
+       StyleBox["barDirectives",
+        FontSize->14,
+        FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"Opacity", "[", "1", "]"}], "}"}]}], ",", 
+      RowBox[{"barColorFunction", "\[Rule]", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Hue", "[", 
+          RowBox[{
+           RowBox[{"#2", "/", 
+            RowBox[{"(", 
+             RowBox[{"2", "\[Pi]"}], " ", ")"}]}], "+", "0.5"}], "]"}], "&"}],
+         ")"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{"showArrow", "\[Rule]", "True"}], ",", 
+      RowBox[{"hideArrowSmallerThan", "->", "0"}], ",", 
+      RowBox[{"arrowDirectives", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"Black", ",", 
+         RowBox[{"Thickness", "[", "0.001", "]"}], ",", 
+         RowBox[{"Arrowheads", "[", "0.05", "]"}]}], "}"}]}], ",", 
+      RowBox[{"arrowLength", "\[Rule]", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"1", "/", "2"}], "&"}], ")"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{"showLabel", "\[Rule]", "False"}], ",", " ", 
+      RowBox[{"labelFunction", "\[Rule]", "Identity"}], ",", " ", 
+      RowBox[{"labelStyle", "\[Rule]", "Small"}], ",", 
+      RowBox[{"labelShift", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}]}]}], "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"myPlotElement3D", "[", 
+     RowBox[{"c_", ",", "position_", ",", 
+      RowBox[{"OptionsPattern", "[", "]"}]}], "]"}], ":=", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Block", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"center", "=", 
+         RowBox[{
+          RowBox[{"Append", "[", 
+           RowBox[{
+            RowBox[{"position", "+", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "0.5"}], ",", "1.5"}], "}"}]}], ",", "0"}], "]"}],
+           "+", 
+          RowBox[{"OptionValue", "[", "offset", "]"}]}]}], ",", 
+        RowBox[{"\[CurlyPhi]", "=", 
+         RowBox[{"Arg", "[", "c", "]"}]}], ",", 
+        RowBox[{"frame", "=", 
+         RowBox[{"{", "}"}]}], ",", 
+        RowBox[{"bar", "=", 
+         RowBox[{"{", "}"}]}], ",", 
+        RowBox[{"arrow", "=", 
+         RowBox[{"{", "}"}]}], ",", 
+        RowBox[{"centralPoint", "=", 
+         RowBox[{"{", "}"}]}], ",", 
+        RowBox[{"number", "=", 
+         RowBox[{"{", "}"}]}], ",", 
+        RowBox[{"val", "=", 
+         RowBox[{
+          RowBox[{"OptionValue", "[", "barLengthFunction", "]"}], "[", "c", 
+          "]"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"!", 
+          RowBox[{
+           RowBox[{"OptionValue", "[", 
+            StyleBox["ignoreCell",
+             FontSize->14,
+             FontColor->GrayLevel[0]], 
+            StyleBox["]",
+             FontSize->14]}], 
+           StyleBox["[",
+            FontSize->14], 
+           StyleBox["position",
+            FontSize->14], 
+           StyleBox["]",
+            FontSize->14]}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"OptionValue", "[", "showFrame", "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"frame", "=", 
+             RowBox[{"{", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"EdgeForm", "[", "Dashed", "]"}], ",", 
+                RowBox[{"FaceForm", "[", 
+                 RowBox[{
+                  RowBox[{"OptionValue", "[", 
+                   StyleBox["frameFaceFunction",
+                    FontSize->14], 
+                   StyleBox["]",
+                    FontSize->14]}], "[", 
+                  RowBox[{
+                   RowBox[{"position", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ",", 
+                   RowBox[{"position", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}]}], "]"}], "]"}], ",", 
+                RowBox[{"Polygon", "[", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"center", "+", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "0.5"}], ",", 
+                    RowBox[{"-", "0.5"}], ",", "0"}], "}"}]}], ",", 
+                   RowBox[{"center", "+", 
+                    RowBox[{"{", 
+                    RowBox[{"0.5", ",", 
+                    RowBox[{"-", "0.5"}], ",", "0"}], "}"}]}], ",", 
+                   RowBox[{"center", "+", 
+                    RowBox[{"{", 
+                    RowBox[{"0.5", ",", "0.5", ",", "0"}], "}"}]}], ",", 
+                   RowBox[{"center", "+", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "0.5"}], ",", "0.5", ",", "0"}], "}"}]}]}], 
+                  "}"}], "]"}]}], "}"}], "}"}]}]}], "]"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"OptionValue", "[", "showCentralPoint", "]"}], ",", 
+            RowBox[{"centralPoint", "=", 
+             RowBox[{"{", 
+              RowBox[{"Black", ",", 
+               RowBox[{"PointSize", "[", 
+                RowBox[{"OptionValue", "[", 
+                 StyleBox["centralPointSize",
+                  FontSize->14], 
+                 StyleBox["]",
+                  FontSize->14]}], "]"}], ",", 
+               RowBox[{"Point", "[", "center", "]"}]}], "}"}]}]}], "]"}], ";",
+           "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"OptionValue", "[", "showBar", "]"}], " ", "&&", 
+             RowBox[{
+              RowBox[{"Abs", "[", "val", "]"}], ">", 
+              RowBox[{"OptionValue", "[", "hideBarSmallerThan", "]"}]}]}], 
+            ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"bar", "=", 
+              RowBox[{"Append", "[", 
+               RowBox[{
+                RowBox[{"OptionValue", "[", "barDirectives", "]"}], ",", 
+                RowBox[{
+                 RowBox[{"OptionValue", "[", "barColorFunction", "]"}], "[", 
+                 RowBox[{"val", ",", 
+                  RowBox[{"Arg", "[", "c", "]"}]}], "]"}]}], "]"}]}], ";", 
+             "\[IndentingNewLine]", 
+             RowBox[{"bar", "=", 
+              RowBox[{"Append", "[", 
+               RowBox[{"bar", ",", "\[IndentingNewLine]", 
+                RowBox[{"Switch", "[", 
+                 RowBox[{
+                  RowBox[{"OptionValue", "[", "whatBarShape", "]"}], ",", 
+                  "\[IndentingNewLine]", "\"\<square\>\"", ",", 
+                  RowBox[{"Cuboid", "[", 
+                   RowBox[{
+                    RowBox[{"center", "-", 
+                    RowBox[{
+                    RowBox[{"OptionValue", "[", "barDiameter", "]"}], 
+                    RowBox[{"{", 
+                    RowBox[{"0.5", ",", "0.5", ",", "0"}], "}"}]}]}], ",", 
+                    RowBox[{"center", "+", 
+                    RowBox[{
+                    RowBox[{"OptionValue", "[", "barDiameter", "]"}], 
+                    RowBox[{"{", 
+                    RowBox[{"0.5", ",", "0.5", ",", "0"}], "}"}]}], "+", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "0", ",", "val"}], "}"}]}]}], "]"}], 
+                  ",", "\[IndentingNewLine]", "_", ",", 
+                  RowBox[{"Cylinder", "[", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"center", ",", 
+                    RowBox[{"center", "+", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "0", ",", "val"}], "}"}]}]}], "}"}], 
+                    ",", 
+                    RowBox[{
+                    RowBox[{"OptionValue", "[", "barDiameter", "]"}], "/", 
+                    "2"}]}], "]"}]}], "]"}]}], "]"}]}]}]}], "]"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"OptionValue", "[", "showArrow", "]"}], " ", "&&", " ", 
+             RowBox[{
+              RowBox[{"Abs", "[", "val", "]"}], ">", 
+              RowBox[{"OptionValue", "[", "hideArrowSmallerThan", "]"}]}]}], 
+            ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"arrow", "=", 
+              RowBox[{"OptionValue", "[", "arrowDirectives", "]"}]}], ";", 
+             "\[IndentingNewLine]", 
+             RowBox[{"AppendTo", "[", 
+              RowBox[{"arrow", ",", 
+               RowBox[{"Arrow", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"center", "+", 
+                   RowBox[{"{", 
+                    RowBox[{"0", ",", "0", ",", "val"}], "}"}]}], ",", 
+                  RowBox[{"center", "+", 
+                   RowBox[{"{", 
+                    RowBox[{"0", ",", "0", ",", "val"}], "}"}], "+", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"OptionValue", "[", "arrowLength", "]"}], "[", 
+                    "val", "]"}], 
+                    RowBox[{"{", " ", 
+                    RowBox[{
+                    RowBox[{"Cos", "[", 
+                    RowBox[{"Arg", "[", "c", "]"}], "]"}], ",", " ", 
+                    RowBox[{"Sin", "[", 
+                    RowBox[{"Arg", "[", "c", "]"}], "]"}], ",", "0"}], 
+                    "}"}]}]}]}], "}"}], "]"}]}], "]"}]}]}], "]"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"OptionValue", "[", "showLabel", "]"}], ",", 
+            RowBox[{"number", "=", 
+             RowBox[{"{", 
+              RowBox[{"Text", "[", 
+               RowBox[{
+                RowBox[{"Style", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"OptionValue", "[", 
+                    StyleBox["labelFunction",
+                    FontSize->14], "]"}], "[", "c", "]"}], ",", 
+                  RowBox[{"OptionValue", "[", 
+                   StyleBox["labelStyle",
+                    FontSize->14], "]"}]}], "]"}], ",", 
+                RowBox[{"center", "+", 
+                 RowBox[{"OptionValue", "[", 
+                  RowBox[{
+                   StyleBox["label",
+                    FontSize->14], "Shift"}], "]"}]}]}], "]"}], "}"}]}]}], 
+           "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{
+         RowBox[{
+         "frame", "~", "Join", "~", "centralPoint", "~", "Join", "~", "bar", 
+          "~", "Join", "~", "arrow", "~", "Join", "~", "centralPoint", "~", 
+          "Join", "~", "number"}], ",", 
+         RowBox[{"Lighting", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"{", 
+            RowBox[{"\"\<Ambient\>\"", ",", "White"}], "}"}], "}"}]}], ",", 
+         RowBox[{"Boxed", "\[Rule]", "False"}]}], "]"}]}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"matrixDraw3D", "[", 
+    RowBox[{
+     RowBox[{"number_", "?", "NumberQ"}], ",", "opts___"}], "]"}], ":=", 
+   RowBox[{"matrixDraw3D", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"{", "number", "}"}], "}"}], ",", "opts"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"matrixDraw3D", "[", 
+    RowBox[{
+     RowBox[{"vector_", "?", "VectorQ"}], ",", "opts___"}], "]"}], ":=", 
+   RowBox[{"matrixDraw3D", "[", 
+    RowBox[{
+     RowBox[{"List", "/@", "vector"}], ",", "opts"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"matrixDraw3D", "[", 
+    RowBox[{"matrix_", ",", "opts___"}], "]"}], ":=", 
+   RowBox[{"Show", "[", 
+    RowBox[{
+     RowBox[{"MapIndexed", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"myPlotElement3D", "[", 
+         RowBox[{"#1", ",", 
+          RowBox[{
+           RowBox[{"Reverse", "[", "#2", "]"}], 
+           RowBox[{"{", 
+            RowBox[{"1", ",", 
+             RowBox[{"-", "1"}]}], "}"}]}], ",", "opts"}], "]"}], "&"}], ",", 
+       "matrix", ",", 
+       RowBox[{"{", "2", "}"}]}], "]"}], ",", 
+     RowBox[{"BoxRatios", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "1", ",", "1"}], "}"}]}]}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.519906720470561*^9, 3.519906721156561*^9}, {
+   3.519906905904561*^9, 3.5199069917175612`*^9}, {3.519907046441561*^9, 
+   3.5199071510525613`*^9}, {3.5199072163425612`*^9, 3.519907216994561*^9}, {
+   3.5199076889345613`*^9, 3.5199076894215612`*^9}, {3.5199077434405613`*^9, 
+   3.519907805133561*^9}, {3.519907875849561*^9, 3.519907976521561*^9}, {
+   3.5199080094015613`*^9, 3.519908025021561*^9}, {3.519908088765561*^9, 
+   3.5199081007475615`*^9}, {3.5199081333205614`*^9, 
+   3.5199081842685614`*^9}, {3.519908224705561*^9, 3.519908281581561*^9}, {
+   3.5199083167665615`*^9, 3.5199083401245613`*^9}, {3.5199083911955614`*^9, 
+   3.519908413946561*^9}, {3.5199084514145613`*^9, 3.519908482797561*^9}, {
+   3.5199087943745613`*^9, 3.519908794991561*^9}, {3.5199088315985613`*^9, 
+   3.519908832307561*^9}, 3.519908941653561*^9, {3.519909016713561*^9, 
+   3.5199090185455613`*^9}, {3.519909219567561*^9, 3.5199092233555613`*^9}, {
+   3.519909283811561*^9, 3.5199092961885614`*^9}, {3.519909357392561*^9, 
+   3.519909367541561*^9}, {3.519909417705561*^9, 3.5199094423885612`*^9}, {
+   3.519909495672561*^9, 3.519909504567561*^9}, {3.519909540753561*^9, 
+   3.519909549033561*^9}, {3.519909709729561*^9, 3.519909763196561*^9}, {
+   3.519909801225561*^9, 3.5199098542105613`*^9}, 3.5199098845395613`*^9, {
+   3.519909929160561*^9, 3.519910065303561*^9}, {3.5199101153745613`*^9, 
+   3.519910115965561*^9}, {3.519910154404561*^9, 3.519910158875561*^9}, {
+   3.5199102719675612`*^9, 3.5199102765785613`*^9}, {3.5199105162765613`*^9, 
+   3.519910537305561*^9}, {3.519911254510561*^9, 3.519911339432561*^9}, {
+   3.5199114027735615`*^9, 3.5199114487095613`*^9}, 3.519911664642561*^9, {
+   3.519911817012561*^9, 3.519911886612561*^9}, {3.519912325890561*^9, 
+   3.5199123281975613`*^9}, 3.5199130318675613`*^9, {3.519913089977561*^9, 
+   3.5199130930915613`*^9}, {3.519914378474561*^9, 3.5199144322735615`*^9}, {
+   3.5199145060115614`*^9, 3.5199145333065615`*^9}, {3.519915559436561*^9, 
+   3.519915620204561*^9}, {3.519915659153561*^9, 3.519915676998561*^9}, 
+   3.519915712462561*^9, {3.519915743000561*^9, 3.5199157922895613`*^9}, {
+   3.5199159442565613`*^9, 3.519915973764561*^9}, 3.5199160890325613`*^9, {
+   3.519917179437561*^9, 3.5199174125425615`*^9}, {3.5199184129935613`*^9, 
+   3.519918421783561*^9}, {3.519918571660561*^9, 3.519918593389561*^9}, {
+   3.5321555723436546`*^9, 3.5321555725736547`*^9}, {3.5321556462976546`*^9, 
+   3.5321556598956547`*^9}, {3.5321557088336544`*^9, 
+   3.5321557510276546`*^9}, {3.532155807346655*^9, 3.5321559353856544`*^9}, {
+   3.5321559664986544`*^9, 3.532156100464655*^9}, {3.538732969500873*^9, 
+   3.5387329883288774`*^9}, {3.5387332097805853`*^9, 
+   3.5387334169980087`*^9}, {3.5387336574495955`*^9, 3.538733664871423*^9}, {
+   3.538733704793042*^9, 3.5387337054961624`*^9}, {3.5387337653864045`*^9, 
+   3.5387337854175262`*^9}, {3.5387338786825542`*^9, 3.538733893416835*^9}, {
+   3.538733953260202*^9, 3.5387341176966496`*^9}, {3.5387342906642923`*^9, 
+   3.538734319054736*^9}, {3.5387358490853195`*^9, 3.538735872641018*^9}, {
+   3.5421069932045145`*^9, 3.5421070024580593`*^9}, {3.542107101336817*^9, 
+   3.5421071695668025`*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Plot bell states", "Section",
+ CellChangeTimes->{{3.542104836662421*^9, 3.542104841934723*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"bellState1", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.468978712285", "+", 
+        RowBox[{"I", "*", "0.0"}]}], ",", 
+       RowBox[{"0.0787538679535", "+", 
+        RowBox[{"I", "*", "0.0"}]}], ",", 
+       RowBox[{
+        RowBox[{"-", "0.0167492524786"}], "+", 
+        RowBox[{"I", "*", "0.00172926959479"}]}], ",", 
+       RowBox[{
+        RowBox[{"-", "0.429774357449"}], "+", 
+        RowBox[{"I", "*", 
+         RowBox[{"-", "0.0209745013406"}]}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.0787538679535", "+", 
+        RowBox[{"I", "*", "0.0"}]}], ",", 
+       RowBox[{"0.013224847003", "+", 
+        RowBox[{"I", "*", "0.0"}]}], ",", 
+       RowBox[{"0.039923241353", "+", 
+        RowBox[{"I", "*", "0.0"}]}], ",", 
+       RowBox[{"0.0421108471208", "+", 
+        RowBox[{"I", "*", "0.0169003396462"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "0.0167492524786"}], "+", 
+        RowBox[{"I", "*", 
+         RowBox[{"-", "0.00172926959479"}]}]}], ",", 
+       RowBox[{"0.039923241353", "+", 
+        RowBox[{"I", "*", "0.0"}]}], ",", 
+       RowBox[{"0.120520502035", "+", 
+        RowBox[{"I", "*", "0.0"}]}], ",", 
+       RowBox[{"0.0517507073212", "+", 
+        RowBox[{"I", "*", 
+         RowBox[{"-", "0.00207416189043"}]}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "0.429774357449"}], "+", 
+        RowBox[{"I", "*", "0.0209745013406"}]}], ",", 
+       RowBox[{"0.0421108471208", "+", 
+        RowBox[{"I", "*", 
+         RowBox[{"-", "0.0169003396462"}]}]}], ",", 
+       RowBox[{"0.0517507073212", "+", 
+        RowBox[{"I", "*", "0.00207416189043"}]}], ",", 
+       RowBox[{"0.397275938677", "+", 
+        RowBox[{"I", "*", "0.0"}]}]}], "}"}]}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"bellState2", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.1", ",", "0.03", ",", "0.04", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.03", ",", "0.46", ",", "0.45", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.04", ",", "0.45", ",", "0.44", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "0.1"}], "}"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bellState3", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.47", ",", "0.05", ",", "0.05", ",", "0.41"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.05", ",", "0", ",", "0.03", ",", "0.04"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.05", ",", "0.03", ",", "0.15", ",", "0.04"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.41", ",", "0.04", ",", "0.04", ",", "0.37"}], "}"}]}], 
+    "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bellState4", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.47", ",", "0.06", ",", "0.02", ",", "0.43"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.06", ",", "0.01", ",", "0.04", ",", "0.07"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.02", ",", "0.04", ",", "0.12", ",", "0.06"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.43", ",", "0.07", ",", "0.06", ",", "0.4"}], "}"}]}], 
+    "}"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.5421050581713924`*^9, 3.5421052519525948`*^9}, {
+  3.542106404468809*^9, 3.542106417779585*^9}, {3.542106662588811*^9, 
+  3.542106662707817*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"states", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+    "bellState1", ",", "bellState2", ",", "bellState3", ",", "bellState4"}], 
+    "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"stateMatrices", "=", 
+   RowBox[{"Map", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"matrixDraw3D", "[", 
+       RowBox[{"#", ",", 
+        RowBox[{"whatBarShape", "\[Rule]", "\"\<square\>\""}], ",", 
+        RowBox[{"showFrame", "\[Rule]", "True"}], ",", 
+        RowBox[{"barDirectives", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Opacity", "[", "1", "]"}], "}"}]}], ",", 
+        RowBox[{"arrowDirectives", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Opacity", "[", "0.8", "]"}], ",", "Red", ",", 
+           RowBox[{"Thickness", "[", "0.005", "]"}], ",", 
+           RowBox[{"Arrowheads", "[", "0", "]"}]}], "}"}]}], ",", 
+        RowBox[{"barDiameter", "\[Rule]", "0.5"}], ",", 
+        RowBox[{"arrowLength", "\[Rule]", 
+         RowBox[{"(", 
+          RowBox[{"0.3", "&"}], ")"}]}], ",", 
+        RowBox[{"frameFaceFunction", "\[Rule]", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"GrayLevel", "[", 
+            RowBox[{"1", "-", 
+             RowBox[{"0.2", 
+              RowBox[{"KroneckerDelta", "[", 
+               RowBox[{"#1", ",", 
+                RowBox[{"-", "#2"}]}], "]"}]}]}], "]"}], "&"}], ")"}]}], ",", 
+        RowBox[{"barColorFunction", "\[Rule]", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"RGBColor", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"Cos", "[", 
+               RowBox[{"#2", "/", "2"}], "]"}], "^", "2"}], ",", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"Sin", "[", "#2", "]"}], "/", "2"}], "+", "0.5"}], ",", 
+             RowBox[{"1.0", "-", 
+              RowBox[{
+               RowBox[{"Cos", "[", 
+                RowBox[{"#2", "/", "2"}], "]"}], "^", "2"}]}]}], "]"}], "&"}],
+           ")"}]}]}], "]"}], "&"}], ",", "states"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.538728280921505*^9, 3.5387282811402535`*^9}, {
+   3.5387315076821036`*^9, 3.5387316504936895`*^9}, {3.53873169418091*^9, 
+   3.538731871257902*^9}, {3.5387320253506656`*^9, 3.538732036538094*^9}, {
+   3.5387321211625524`*^9, 3.5387321261781454`*^9}, {3.5387325622378545`*^9, 
+   3.5387325642847166`*^9}, {3.5387328926732397`*^9, 3.538732954657218*^9}, {
+   3.5387332876550865`*^9, 3.538733288545706*^9}, {3.5387333711076775`*^9, 
+   3.5387333733107886`*^9}, {3.5387337139336085`*^9, 3.538733717261712*^9}, {
+   3.538733794589342*^9, 3.5387338662138844`*^9}, {3.5387339053698835`*^9, 
+   3.5387339087604866`*^9}, {3.538734024181623*^9, 3.5387340250878673`*^9}, {
+   3.538734060712639*^9, 3.538734073446933*^9}, {3.538734153524545*^9, 
+   3.5387341614151196`*^9}, {3.5387343005236044`*^9, 
+   3.5387345553188486`*^9}, {3.5387345899280024`*^9, 3.538734705052265*^9}, {
+   3.538734740005167*^9, 3.5387347955516863`*^9}, {3.5387348414576426`*^9, 
+   3.5387348573481655`*^9}, {3.5387349156134176`*^9, 
+   3.5387350028628597`*^9}, {3.538735044800091*^9, 3.538735068049942*^9}, {
+   3.5387351011122303`*^9, 3.5387351565337505`*^9}, {3.538735209330288*^9, 
+   3.5387353972822104`*^9}, {3.538735508406499*^9, 3.538735514515835*^9}, 
+   3.53873590292023*^9, {3.5387387408659735`*^9, 3.5387387569049735`*^9}, {
+   3.538740991360087*^9, 3.538740992438205*^9}, {3.5388098550645504`*^9, 
+   3.5388098637988696`*^9}, {3.538829037582406*^9, 3.538829050582323*^9}, 
+   3.5421043323732386`*^9, {3.542104771151617*^9, 3.5421048162462378`*^9}, {
+   3.542104956955489*^9, 3.5421049872382913`*^9}, {3.5421064414149475`*^9, 
+   3.542106447585307*^9}, {3.5421064843824606`*^9, 3.5421064859945526`*^9}, {
+   3.542106528340999*^9, 3.5421065335463*^9}, {3.5421066820409327`*^9, 
+   3.5421066944326468`*^9}, {3.5421067326893997`*^9, 
+   3.5421067331454277`*^9}, {3.542106939198386*^9, 3.5421069443106813`*^9}, {
+   3.542107022214195*^9, 3.542107023270255*^9}, {3.5421106379729357`*^9, 
+   3.542110668060683*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Map", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Show", "[", 
+     RowBox[{"#", ",", 
+      RowBox[{"ViewPoint", "\[Rule]", 
+       RowBox[{"10000", 
+        RowBox[{"{", 
+         RowBox[{"1.1", ",", 
+          RowBox[{"-", "1.8"}], ",", "1.5"}], "}"}]}]}], ",", 
+      RowBox[{"BoxRatios", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "1", ",", "1.0"}], "}"}]}], ",", 
+      RowBox[{"PlotRange", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1.0"}], "}"}]}]}], "]"}], "&"}], ",", 
+   "stateMatrices"}], "]"}]], "Input",
+ CellChangeTimes->{{3.542107221523815*^9, 3.542107258188936*^9}, {
+  3.5421106181987658`*^9, 3.5421106310115366`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   Graphics3DBox[{{
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{0., 0., 0}, {1., 0., 0}, {1., 1., 0}, {0., 1., 0}}]}, 
+      {RGBColor[1., 0.5, 0.], Opacity[1], 
+       CuboidBox[{0.25, 0.25, 0.}, {0.75, 0.75, 0.468978712285}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, 0.5, 0.468978712285}, {0.8, 0.5, 
+        0.468978712285}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{1., 0., 0}, {2., 0., 0}, {2., 1., 0}, {1., 1., 0}}]}, 
+      {RGBColor[1., 0.5, 0.], Opacity[1], 
+       CuboidBox[{1.25, 0.25, 0.}, {1.75, 0.75, 0.0787538679535}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{1.5, 0.5, 0.0787538679535}, {1.8, 0.5, 
+        0.0787538679535}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{2., 0., 0}, {3., 0., 0}, {3., 1., 0}, {2., 1., 0}}]}, 
+      {RGBColor[
+       0.0026437440454087253`, 0.5513493394585665, 0.9973562559545913], 
+       Opacity[1], 
+       CuboidBox[{2.25, 0.25, 0.}, {2.75, 0.75, 0.016838284708465805`}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, 0.5, 0.016838284708465805`}, {2.201586246427245, 
+        0.5308096036751399, 0.016838284708465805`}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{3., 0., 0}, {4., 0., 0}, {4., 1., 0}, {3., 1., 0}}]}, 
+      {RGBColor[
+       0.0005943843243205606, 0.4756272481735122, 0.9994056156756794], 
+       Opacity[1], 
+       CuboidBox[{3.25, 0.25, 0.}, {3.75, 0.75, 0.4302858677985923}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{3.5, 0.5, 0.4302858677985923}, {3.2003566305945923`, 
+        0.48537634890410736`, 0.4302858677985923}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{0., -1., 0}, {1., -1., 0}, {1., 0., 0}, {0., 0., 0}}]}, 
+      {RGBColor[1., 0.5, 0.], Opacity[1], 
+       CuboidBox[{0.25, -0.75, 0.}, {0.75, -0.25, 0.0787538679535}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, -0.5, 0.0787538679535}, {0.8, -0.5, 
+        0.0787538679535}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{1., -1., 0}, {2., -1., 0}, {2., 0., 0}, {1., 0., 0}}]}, 
+      {RGBColor[1., 0.5, 0.], Opacity[1], 
+       CuboidBox[{1.25, -0.75, 0.}, {1.75, -0.25, 0.013224847003}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{1.5, -0.5, 0.013224847003}, {1.8, -0.5, 
+        0.013224847003}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{2., -1., 0}, {3., -1., 0}, {3., 0., 0}, {2., 0., 0}}]}, 
+      {RGBColor[1., 0.5, 0.], Opacity[1], 
+       CuboidBox[{2.25, -0.75, 0.}, {2.75, -0.25, 0.039923241353}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, -0.5, 0.039923241353}, {2.8, -0.5, 
+        0.039923241353}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{3., -1., 0}, {4., -1., 0}, {4., 0., 0}, {3., 0., 0}}]}, 
+      {RGBColor[0.9640252542606382, 0.6862271822488599, 0.03597474573936177], 
+       Opacity[1], 
+       CuboidBox[{3.25, -0.75, 0.}, {3.75, -0.25, 0.04537559834744121}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{3.5, -0.5, 0.04537559834744121}, {
+        3.778415152556383, -0.38826369065068406`, 0.04537559834744121}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{0., -2., 0}, {1., -2., 0}, {1., -1., 0}, {
+         0., -1., 0}}]}, 
+      {RGBColor[
+       0.0026437440454087253`, 0.44865066054143354`, 0.9973562559545913], 
+       Opacity[1], 
+       CuboidBox[{0.25, -1.75, 0.}, {0.75, -1.25, 0.016838284708465805`}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, -1.5, 0.016838284708465805`}, {
+        0.20158624642724526`, -1.53080960367514, 0.016838284708465805`}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{1., -2., 0}, {2., -2., 0}, {2., -1., 0}, {
+         1., -1., 0}}]}, 
+      {RGBColor[1., 0.5, 0.], Opacity[1], 
+       CuboidBox[{1.25, -1.75, 0.}, {1.75, -1.25, 0.039923241353}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{1.5, -1.5, 0.039923241353}, {1.8, -1.5, 
+        0.039923241353}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{2., -2., 0}, {3., -2., 0}, {3., -1., 0}, {
+         2., -1., 0}}]}, 
+      {RGBColor[1., 0.5, 0.], Opacity[1], 
+       CuboidBox[{2.25, -1.75, 0.}, {2.75, -1.25, 0.120520502035}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, -1.5, 0.120520502035}, {2.8, -1.5, 
+        0.120520502035}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{3., -2., 0}, {4., -2., 0}, {4., -1., 0}, {
+         3., -1., 0}}]}, 
+      {RGBColor[
+       0.9995988840998988, 0.47997613908019265`, 0.0004011159001011677], 
+       Opacity[1], 
+       CuboidBox[{3.25, -1.75, 0.}, {3.75, -1.25, 0.051792256716542244`}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{3.5, -1.5, 0.051792256716542244`}, {
+        3.7997593304599393`, -1.5120143165518845`, 
+        0.051792256716542244`}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{0., -3., 0}, {1., -3., 0}, {1., -2., 0}, {
+         0., -2., 0}}]}, 
+      {RGBColor[
+       0.0005943843243205606, 0.5243727518264878, 0.9994056156756794], 
+       Opacity[1], 
+       CuboidBox[{0.25, -2.75, 0.}, {0.75, -2.25, 0.4302858677985923}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, -2.5, 0.4302858677985923}, {
+        0.20035663059459236`, -2.4853763489041074`, 0.4302858677985923}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{1., -3., 0}, {2., -3., 0}, {2., -2., 0}, {
+         1., -2., 0}}]}, 
+      {RGBColor[0.9640252542606382, 0.3137728177511401, 0.03597474573936177], 
+       Opacity[1], 
+       CuboidBox[{1.25, -2.75, 0.}, {1.75, -2.25, 0.04537559834744121}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{1.5, -2.5, 0.04537559834744121}, {
+        1.778415152556383, -2.611736309349316, 0.04537559834744121}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{2., -3., 0}, {3., -3., 0}, {3., -2., 0}, {
+         2., -2., 0}}]}, 
+      {RGBColor[
+       0.9995988840998988, 0.5200238609198073, 0.0004011159001011677], 
+       Opacity[1], 
+       CuboidBox[{2.25, -2.75, 0.}, {2.75, -2.25, 0.051792256716542244`}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, -2.5, 0.051792256716542244`}, {
+        2.7997593304599393`, -2.4879856834481155`, 
+        0.051792256716542244`}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{3., -3., 0}, {4., -3., 0}, {4., -2., 0}, {
+         3., -2., 0}}]}, 
+      {RGBColor[1., 0.5, 0.], Opacity[1], 
+       CuboidBox[{3.25, -2.75, 0.}, {3.75, -2.25, 0.397275938677}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{3.5, -2.5, 0.397275938677}, {3.8, -2.5, 
+        0.397275938677}}]}}},
+    BoxRatios->{1, 1, 1.},
+    Boxed->False,
+    Lighting->{{"Ambient", 
+       GrayLevel[1]}},
+    PlotRange->{0, 1.},
+    ViewPoint->{11000., -18000., 15000.}], ",", 
+   Graphics3DBox[{{
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{0., 0., 0}, {1., 0., 0}, {1., 1., 0}, {0., 1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{0.25, 0.25, 0.}, {0.75, 0.75, 0.1}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, 0.5, 0.1}, {0.8, 0.5, 0.1}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{1., 0., 0}, {2., 0., 0}, {2., 1., 0}, {1., 1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{1.25, 0.25, 0.}, {1.75, 0.75, 0.03}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{1.5, 0.5, 0.03}, {1.8, 0.5, 0.03}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{2., 0., 0}, {3., 0., 0}, {3., 1., 0}, {2., 1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{2.25, 0.25, 0.}, {2.75, 0.75, 0.04}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, 0.5, 0.04}, {2.8, 0.5, 0.04}}]}}, 
+     {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+      Polygon3DBox[{{3., 0., 0}, {4., 0., 0}, {4., 1., 0}, {3., 1., 0}}]}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{0., -1., 0}, {1., -1., 0}, {1., 0., 0}, {0., 0., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{0.25, -0.75, 0.}, {0.75, -0.25, 0.03}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, -0.5, 0.03}, {0.8, -0.5, 0.03}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{1., -1., 0}, {2., -1., 0}, {2., 0., 0}, {1., 0., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{1.25, -0.75, 0.}, {1.75, -0.25, 0.46}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{1.5, -0.5, 0.46}, {1.8, -0.5, 0.46}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{2., -1., 0}, {3., -1., 0}, {3., 0., 0}, {2., 0., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{2.25, -0.75, 0.}, {2.75, -0.25, 0.45}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, -0.5, 0.45}, {2.8, -0.5, 0.45}}]}}, 
+     {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+      Polygon3DBox[{{3., -1., 0}, {4., -1., 0}, {4., 0., 0}, {3., 0., 0}}]}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{0., -2., 0}, {1., -2., 0}, {1., -1., 0}, {
+         0., -1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{0.25, -1.75, 0.}, {0.75, -1.25, 0.04}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, -1.5, 0.04}, {0.8, -1.5, 0.04}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{1., -2., 0}, {2., -2., 0}, {2., -1., 0}, {
+         1., -1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{1.25, -1.75, 0.}, {1.75, -1.25, 0.45}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{1.5, -1.5, 0.45}, {1.8, -1.5, 0.45}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{2., -2., 0}, {3., -2., 0}, {3., -1., 0}, {
+         2., -1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{2.25, -1.75, 0.}, {2.75, -1.25, 0.44}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, -1.5, 0.44}, {2.8, -1.5, 0.44}}]}}, 
+     {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+      Polygon3DBox[{{3., -2., 0}, {4., -2., 0}, {4., -1., 0}, {3., -1., 0}}]}, 
+     {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+      Polygon3DBox[{{0., -3., 0}, {1., -3., 0}, {1., -2., 0}, {0., -2., 0}}]}, 
+     {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+      Polygon3DBox[{{1., -3., 0}, {2., -3., 0}, {2., -2., 0}, {1., -2., 0}}]}, 
+     {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+      Polygon3DBox[{{2., -3., 0}, {3., -3., 0}, {3., -2., 0}, {
+        2., -2., 0}}]}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{3., -3., 0}, {4., -3., 0}, {4., -2., 0}, {
+         3., -2., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{3.25, -2.75, 0.}, {3.75, -2.25, 0.1}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{3.5, -2.5, 0.1}, {3.8, -2.5, 0.1}}]}}},
+    BoxRatios->{1, 1, 1.},
+    Boxed->False,
+    Lighting->{{"Ambient", 
+       GrayLevel[1]}},
+    PlotRange->{0, 1.},
+    ViewPoint->{11000., -18000., 15000.}], ",", 
+   Graphics3DBox[{{
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{0., 0., 0}, {1., 0., 0}, {1., 1., 0}, {0., 1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{0.25, 0.25, 0.}, {0.75, 0.75, 0.47}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, 0.5, 0.47}, {0.8, 0.5, 0.47}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{1., 0., 0}, {2., 0., 0}, {2., 1., 0}, {1., 1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{1.25, 0.25, 0.}, {1.75, 0.75, 0.05}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{1.5, 0.5, 0.05}, {1.8, 0.5, 0.05}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{2., 0., 0}, {3., 0., 0}, {3., 1., 0}, {2., 1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{2.25, 0.25, 0.}, {2.75, 0.75, 0.05}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, 0.5, 0.05}, {2.8, 0.5, 0.05}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{3., 0., 0}, {4., 0., 0}, {4., 1., 0}, {3., 1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{3.25, 0.25, 0.}, {3.75, 0.75, 0.41}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{3.5, 0.5, 0.41}, {3.8, 0.5, 0.41}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{0., -1., 0}, {1., -1., 0}, {1., 0., 0}, {0., 0., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{0.25, -0.75, 0.}, {0.75, -0.25, 0.05}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, -0.5, 0.05}, {0.8, -0.5, 0.05}}]}}, 
+     {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+      Polygon3DBox[{{1., -1., 0}, {2., -1., 0}, {2., 0., 0}, {1., 0., 0}}]}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{2., -1., 0}, {3., -1., 0}, {3., 0., 0}, {2., 0., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{2.25, -0.75, 0.}, {2.75, -0.25, 0.03}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, -0.5, 0.03}, {2.8, -0.5, 0.03}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{3., -1., 0}, {4., -1., 0}, {4., 0., 0}, {3., 0., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{3.25, -0.75, 0.}, {3.75, -0.25, 0.04}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{3.5, -0.5, 0.04}, {3.8, -0.5, 0.04}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{0., -2., 0}, {1., -2., 0}, {1., -1., 0}, {
+         0., -1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{0.25, -1.75, 0.}, {0.75, -1.25, 0.05}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, -1.5, 0.05}, {0.8, -1.5, 0.05}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{1., -2., 0}, {2., -2., 0}, {2., -1., 0}, {
+         1., -1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{1.25, -1.75, 0.}, {1.75, -1.25, 0.03}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{1.5, -1.5, 0.03}, {1.8, -1.5, 0.03}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{2., -2., 0}, {3., -2., 0}, {3., -1., 0}, {
+         2., -1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{2.25, -1.75, 0.}, {2.75, -1.25, 0.15}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, -1.5, 0.15}, {2.8, -1.5, 0.15}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{3., -2., 0}, {4., -2., 0}, {4., -1., 0}, {
+         3., -1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{3.25, -1.75, 0.}, {3.75, -1.25, 0.04}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{3.5, -1.5, 0.04}, {3.8, -1.5, 0.04}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{0., -3., 0}, {1., -3., 0}, {1., -2., 0}, {
+         0., -2., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{0.25, -2.75, 0.}, {0.75, -2.25, 0.41}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, -2.5, 0.41}, {0.8, -2.5, 0.41}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{1., -3., 0}, {2., -3., 0}, {2., -2., 0}, {
+         1., -2., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{1.25, -2.75, 0.}, {1.75, -2.25, 0.04}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{1.5, -2.5, 0.04}, {1.8, -2.5, 0.04}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{2., -3., 0}, {3., -3., 0}, {3., -2., 0}, {
+         2., -2., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{2.25, -2.75, 0.}, {2.75, -2.25, 0.04}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, -2.5, 0.04}, {2.8, -2.5, 0.04}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{3., -3., 0}, {4., -3., 0}, {4., -2., 0}, {
+         3., -2., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{3.25, -2.75, 0.}, {3.75, -2.25, 0.37}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{3.5, -2.5, 0.37}, {3.8, -2.5, 0.37}}]}}},
+    BoxRatios->{1, 1, 1.},
+    Boxed->False,
+    Lighting->{{"Ambient", 
+       GrayLevel[1]}},
+    PlotRange->{0, 1.},
+    ViewPoint->{11000., -18000., 15000.}], ",", 
+   Graphics3DBox[{{
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{0., 0., 0}, {1., 0., 0}, {1., 1., 0}, {0., 1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{0.25, 0.25, 0.}, {0.75, 0.75, 0.47}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, 0.5, 0.47}, {0.8, 0.5, 0.47}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{1., 0., 0}, {2., 0., 0}, {2., 1., 0}, {1., 1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{1.25, 0.25, 0.}, {1.75, 0.75, 0.06}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{1.5, 0.5, 0.06}, {1.8, 0.5, 0.06}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{2., 0., 0}, {3., 0., 0}, {3., 1., 0}, {2., 1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{2.25, 0.25, 0.}, {2.75, 0.75, 0.02}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, 0.5, 0.02}, {2.8, 0.5, 0.02}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{3., 0., 0}, {4., 0., 0}, {4., 1., 0}, {3., 1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{3.25, 0.25, 0.}, {3.75, 0.75, 0.43}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{3.5, 0.5, 0.43}, {3.8, 0.5, 0.43}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{0., -1., 0}, {1., -1., 0}, {1., 0., 0}, {0., 0., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{0.25, -0.75, 0.}, {0.75, -0.25, 0.06}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, -0.5, 0.06}, {0.8, -0.5, 0.06}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{1., -1., 0}, {2., -1., 0}, {2., 0., 0}, {1., 0., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{1.25, -0.75, 0.}, {1.75, -0.25, 0.01}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{1.5, -0.5, 0.01}, {1.8, -0.5, 0.01}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{2., -1., 0}, {3., -1., 0}, {3., 0., 0}, {2., 0., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{2.25, -0.75, 0.}, {2.75, -0.25, 0.04}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, -0.5, 0.04}, {2.8, -0.5, 0.04}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{3., -1., 0}, {4., -1., 0}, {4., 0., 0}, {3., 0., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{3.25, -0.75, 0.}, {3.75, -0.25, 0.07}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{3.5, -0.5, 0.07}, {3.8, -0.5, 0.07}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{0., -2., 0}, {1., -2., 0}, {1., -1., 0}, {
+         0., -1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{0.25, -1.75, 0.}, {0.75, -1.25, 0.02}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, -1.5, 0.02}, {0.8, -1.5, 0.02}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{1., -2., 0}, {2., -2., 0}, {2., -1., 0}, {
+         1., -1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{1.25, -1.75, 0.}, {1.75, -1.25, 0.04}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{1.5, -1.5, 0.04}, {1.8, -1.5, 0.04}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{2., -2., 0}, {3., -2., 0}, {3., -1., 0}, {
+         2., -1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{2.25, -1.75, 0.}, {2.75, -1.25, 0.12}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, -1.5, 0.12}, {2.8, -1.5, 0.12}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{3., -2., 0}, {4., -2., 0}, {4., -1., 0}, {
+         3., -1., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{3.25, -1.75, 0.}, {3.75, -1.25, 0.06}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{3.5, -1.5, 0.06}, {3.8, -1.5, 0.06}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{0., -3., 0}, {1., -3., 0}, {1., -2., 0}, {
+         0., -2., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{0.25, -2.75, 0.}, {0.75, -2.25, 0.43}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{0.5, -2.5, 0.43}, {0.8, -2.5, 0.43}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{1., -3., 0}, {2., -3., 0}, {2., -2., 0}, {
+         1., -2., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{1.25, -2.75, 0.}, {1.75, -2.25, 0.07}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{1.5, -2.5, 0.07}, {1.8, -2.5, 0.07}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[1.]], 
+       Polygon3DBox[{{2., -3., 0}, {3., -3., 0}, {3., -2., 0}, {
+         2., -2., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{2.25, -2.75, 0.}, {2.75, -2.25, 0.06}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{2.5, -2.5, 0.06}, {2.8, -2.5, 0.06}}]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[GrayLevel[0.8]], 
+       Polygon3DBox[{{3., -3., 0}, {4., -3., 0}, {4., -2., 0}, {
+         3., -2., 0}}]}, 
+      {RGBColor[1, 0.5, 0.], Opacity[1], 
+       CuboidBox[{3.25, -2.75, 0.}, {3.75, -2.25, 0.4}]}, 
+      {RGBColor[1, 0, 0], Thickness[0.005], Opacity[0.8], Arrowheads[0], 
+       Arrow3DBox[{{3.5, -2.5, 0.4}, {3.8, -2.5, 0.4}}]}}},
+    BoxRatios->{1, 1, 1.},
+    Boxed->False,
+    Lighting->{{"Ambient", 
+       GrayLevel[1]}},
+    PlotRange->{0, 1.},
+    ViewPoint->{11000., -18000., 15000.}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.542107225000016*^9, 3.5421072586459637`*^9}, 
+   3.542110632356613*^9, {3.5421106706868343`*^9, 3.5421106995435257`*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1272, 707},
+WindowMargins->{{Automatic, 43}, {31, Automatic}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+FrontEndVersion->"8.0 for Microsoft Windows (64-bit) (February 23, 2011)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 191, 3, 31, "Input"],
+Cell[761, 27, 452, 10, 21, "Message"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1250, 42, 105, 1, 71, "Section"],
+Cell[CellGroupData[{
+Cell[1380, 47, 619, 10, 36, "Subsection"],
+Cell[2002, 59, 10477, 235, 70, "Text"],
+Cell[12482, 296, 24328, 521, 70, "Input"],
+Cell[36813, 819, 12465, 206, 70, "Input"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[49315, 1030, 503, 7, 28, "Subsection"],
+Cell[49821, 1039, 17509, 416, 672, "Input"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[67379, 1461, 101, 1, 71, "Section"],
+Cell[67483, 1464, 3533, 94, 152, "Input"],
+Cell[71019, 1560, 4077, 81, 112, "Input"],
+Cell[CellGroupData[{
+Cell[75121, 1645, 691, 19, 31, "Input"],
+Cell[75815, 1666, 25798, 449, 228, "Output"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

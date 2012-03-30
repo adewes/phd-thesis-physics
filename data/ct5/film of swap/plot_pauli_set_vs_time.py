@@ -15,6 +15,20 @@ def startInstrumentsPanel():
 execInGui(startInstrumentsPanel)
 
 ##
+string = "{"
+for i in range(0,4):
+	if i!=0:
+		string+=","
+	string+="{"
+	for j in range(0,4):
+		if j!=0:
+			string+=","
+		value = gv.spins.parameters()["densityMatrix"][i][j]
+		string+=str(real(value))+"+I*"+str(imag(value))
+	string+="}"
+string+="}"
+print string
+##
 from matplotlib.pyplot import *
 from numpy import *
 from pyview.lib.datacube import Datacube
