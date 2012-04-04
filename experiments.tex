@@ -92,12 +92,12 @@ Both the offset and the sideband-amplitude and -phase corrections have been auto
 
 \subsection{Fast magnetic flux pulses}
 
-\begin{figure}[ht!]
-   \centering
-	 \includegraphics[width=1\textwidth]{"data/ct5/2010_06_15 - fluxline response/response_function_full"}
-	 \caption[]{}
+\begin{wrapfigure}{r}{0.6\textwidth}
+   \flushright
+	 \includegraphics[width=0.6\textwidth]{"./data/ct5/2011_04_04 - flux tomography/flux tomography"}
+	 \caption[]{(response function filtered with a Gaussian filter with a cut-off at 0.4 GHz)}
 	 \label{fig:FluxLineResponseFunction}
-\end{figure}
+\end{wrapfigure}
 
 The fast flux lines are implemented by a pair of superconducting 50 $\Omega$ transmission lines, which are attenuated by 20 dB and filtered at the 4K and 20 mK stages of the cryostat. The filtering at the 20 mK stage is realized through custom-made, highly absorptive Eccosorb filters. Fig. \ref{fig:EccosorbFilters} shows an image of these filters and the attenuation characteristic obtained. The heavy filtering of the flux line greatly reduces noise seen by the qubit but also distorts all signals sent through the line. This distortion is unwanted especially at high frequencies and needs to be corrected. To do this we need to measure and compensate the frequency response of the flux line at experimental conditions. In order to do this, we feed back the flux signal sent to the sample through a transmission line which is exactly equivalent to the input line. This allows us to measure the returning signal at room temperature and -- assuming symmetric distortion in the input and return line -- to calculate the response function of the input line. Fig. \ref{fig:FluxLineResponseFunction} shows the different parts of the response function of the flux line as measured in our experiment. After eliminating the response of the analog-to-digital converter we can calculate the response function between the input port of the flux line and the sample by solving the equation
 
