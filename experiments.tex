@@ -136,6 +136,13 @@ The following section discusses the parameters of our two-qubit processor that h
 
 \subsection{Qubit Parameters}
 
+\begin{figure}[ht!]
+   \centering
+	 \includegraphics[width=1\textwidth]{"./data/ct5/qubits - parameter surveys/qubit parameters"}
+	 \caption[]{}
+	 \label{fig:QubitParameters}
+\end{figure}
+
 \subsection{Readout Parameters}
 
 \begin{itemize}
@@ -380,25 +387,36 @@ with $\lambda_l$ being the $l$-th eigenvalue of the $\chi$ matrix with the eigen
 
 \section{Introduction \& Motivation}
 
-\begin{enumerate}
-  \item {\textbf Inputs:} An oracle function $\mathcal{O}$ which performs the operation $O\ket{x}\ket{q} = \ket{x}\ket{q\otimes f(x)}$, where $f(x) = \delta_{x,x_0}$
-  \item {\textbf Outputs:} The marked state $x_0$
-	\item Initialize the qubit register to the state: 
-	$$\ket{\psi} \to \ket{0}^{\otimes n}\ket{0}$$
-	\item Apply the Hadamard transformation to all of the qubits: 
-	$$\ket{psi}\to \frac{1}{\sqrt{2^n}}\sum\limits_{x=0}^{2^n-1} \ket{x} \left[ \frac{\ket{0}-\ket{1}}{\sqrt{2}} \right]$$
-	\item Apply the Grover iteration $R \approx [\pi \sqrt{2^n}/4]$ times:
-	$$ \ket{\psi} \to \left[(2 \ket{\psi}\bra{\psi}-I)\mathcal{O}\right]^R \frac{1}{\sqrt{2^n}} \sum\limits_{x=0}^{2^n-1}\ket{x} \left[ \frac{\ket{0}-\ket{1}}{\sqrt{2}} \right] \approx \ket{x_0}\left[\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right] $$
-	\item Measure the first n qubits to obtain $x_0$
-\end{enumerate}
-
-For the Two-qubit case, this algorithm can be drastically simplified -- or ``compiled'' -- such that it runs without the ancilla qubit and in one single step of the Grover iteration:
+The original algorithm by as given by \cite{Grover_Quantum_1997} is given as follows
 
 \begin{enumerate}
-  \item {\textbf Inputs:} An oracle function $\mathcal{O}$ which performs the operation $O\ket{x} =(-1)^{\delta_{x,x_0}}\ket{x}$, where $x_0$ is the marked state that is searched.
-  \item {\textbf Outputs:} The marked state $x_0$
-	\item 
+ \item Start with the qubit register in the state $\ket{\psi} = \ket{000\hdots 0}$
+ \item Apply the Hadamard operation to the qubit register, producing the equally superposed state $$\ket{\psi} = \frac{1}{\sqrt{n}}\sum\limits_i^n \ket{i}$$.
+ \item Repeat the following sequence $\begin{mathcal}O\end{mathcal}(\sqrt{n})$ times:
+ \subitem Apply the oracle operator $\ket{i}\to (-1)^{\delta_i^j}\ket{i}$ to the state $\ket{\psi}$, where $\ket{j}$ is the state marked by the oracle.
+ \subitem Apply the diffusion operator $\ket{i} \to -\ket{i}+\frac{2}{n}\sum\limits_i^n\ket{j}$ to the state $\ket{\psi}$.
+	\item Measure the state of the quantum register
 \end{enumerate}
+
+The seemingly elusive algorithm can be derived in a very clear way from Schrödinger's equation, as shown in the seminal paper by \cite{grover_schrodingers_2001}. Since the derivation given in this paper sheds some interesting light on the nature of the quantum search algorithm we will discuss it here. The derivation begins by considering a quantum system governed by Schrödinger's equation, which can be written as (omitting all physical constants for the sake of clarity)
+
+\begin{equation}
+-i\frac{\delta}{\delta t}\psi(x,t) = \frac{\delta^2}{\delta x^2}\psi(x,t)-V(x)\psi(x,t) \label{eq:grover_derivation}
+\end{equation}
+
+Here $\psi(x,t)$ describes the wave-function and $V$ is a time-indepenent potential. Let us assume that the potential $V(x)$ is shaped as in fig. \ref{fig:grover_derivation}a, i.e. possessing a local minimum of energy. When one initializes the system to a state $\psi_0(x,t_0)$ and lets it evolve for a given time, the resulting state $\psi(x,t)$ will have a tendency to have a high probability density in the local minimum of the potential, thus ``falling'' into the potential minimum much like a classical system would.
+
+It is thus interesting to ask if one could encode the solution to some hard problem as a point of minimum energy $x_0$ of a potential $V(x)$ and design an algorithm that would take an initial state $\psi_0(x,t_0)$ and let it evolve into a state that has a high probability around $x_0$. Most problems in classical computer science involve functions operating on binary numbers of fixed length, so to encode these numbers we can discretize our wavefunction $\psi(x,t)$ using a regular grid of points $x_i$ with a spacing $dx$, as shown in fig. \ref{fig:grover_derivation}b. When we discretize the time evolution of eq. \ref{eq:grover_derivation} in steps $dt$ as well and define $\epsilon = dt/dx^2$, we obtain a new equation of the form
+
+\begin{equation}
+-\frac{\psi_i^{t+dt}-\psi_x^{t}}{dt} = \frac{\psi_{i+1}^t+\psi_{i-1}^t-2\psi_x^t}{dx^2} -V(x_i)\psi_i^t
+\end{equation}
+
+where we have written $\psi(x_i,t)=\psi_i^t$. This equation can be written in matrix form as
+
+\begin{equation}
+\vec{\psi}^{t+dt} = S^t \cdot \vec{\psi}^t
+\end{equation}
 
 %-Explain the Grover experiment...
 %		-Theoretical interest
@@ -437,7 +455,15 @@ For the Two-qubit case, this algorithm can be drastically simplified -- or ``com
 \end{figure}
 
 \end{landscape}
+
 \subsection{Algorithm Fidelity}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.0\textwidth]{"./material/papers/grover/classical_reversible_algorithm"}
+	\label{fig:GroverAlgorithmExperimentalResults}
+	\caption{Classical reversible implementation of a search algorithm on a two-bit input register. The Oracle function can be implemented by two single-bit NOT operations and a Toffoli gate. R designates the generation of a random binary value at the beginning of the algorithm If the Oracle does not yield the correct answer, the test state gets incremented. The average success probability of the algorithm is 50 \%.}
+\end{figure}
 
 
 \subsection{Single-Run Probabilities}
