@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     29953,        846]
-NotebookOptionsPosition[     27978,        775]
-NotebookOutlinePosition[     28321,        790]
-CellTagsIndexPosition[     28278,        787]
+NotebookDataLength[     32067,        915]
+NotebookOptionsPosition[     29756,        832]
+NotebookOutlinePosition[     30099,        847]
+CellTagsIndexPosition[     30056,        844]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -771,6 +771,63 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellChangeTimes->{3.544100930803368*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"KroneckerProduct", "[", 
+   RowBox[{"swapGate", ",", "identityGate"}], "]"}], " ", "//", " ", 
+  "MatrixForm"}]], "Input",
+ CellChangeTimes->{{3.5441010457374887`*^9, 3.5441010589292507`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {"1", "0", "0", "0", "0", "0", "0", "0"},
+     {"0", "1", "0", "0", "0", "0", "0", "0"},
+     {"0", "0", "0", "0", "1", "0", "0", "0"},
+     {"0", "0", "0", "0", "0", "1", "0", "0"},
+     {"0", "0", "1", "0", "0", "0", "0", "0"},
+     {"0", "0", "0", "1", "0", "0", "0", "0"},
+     {"0", "0", "0", "0", "0", "0", "1", "0"},
+     {"0", "0", "0", "0", "0", "0", "0", "1"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.5441010592442684`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MatrixRank", "[", "rotationGate", "]"}]], "Input",
+ CellChangeTimes->{{3.5441010885229473`*^9, 3.544101098648526*^9}}],
+
+Cell[BoxData["8"], "Output",
+ CellChangeTimes->{3.5441010993105645`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MatrixRank", "[", 
+  RowBox[{"IdentityMatrix", "[", "8", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.5441011014026875`*^9, 3.5441011064569836`*^9}}],
+
+Cell[BoxData["8"], "Output",
+ CellChangeTimes->{3.5441011067109985`*^9}]
 }, Open  ]]
 },
 WindowSize->{707, 787},
@@ -847,6 +904,18 @@ Cell[25691, 716, 1114, 24, 132, "Input"],
 Cell[CellGroupData[{
 Cell[26830, 744, 160, 2, 31, "Input"],
 Cell[26993, 748, 969, 24, 146, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27999, 777, 227, 5, 31, "Input"],
+Cell[28229, 784, 971, 24, 146, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[29237, 813, 142, 2, 31, "Input"],
+Cell[29382, 817, 72, 1, 30, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[29491, 823, 174, 3, 31, "Input"],
+Cell[29668, 828, 72, 1, 30, "Output"]
 }, Open  ]]
 }
 ]

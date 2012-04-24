@@ -2,9 +2,9 @@
 
 The goal of this chapter is to provide the theoretical foundations needed to interpret and analyze the experiments discussed in the following chapters. We will therefore briefly introduce some basic concepts of quantum mechanics and quantum computing, discuss Transmon qubits and circuit quantum electrodynamics (CQED) and introduce the reader to the Josephson bifurcation amplifier that we use to read out the qubit state in our experiments. Further details on all the elements discussed here will be provided in the relevant sections of the ``Experiments'' chapter.
 
-\section{Quantum mechanics \& Quantum Computing}
+\section{Quantum Mechanics \& Quantum Computing}
 
-\section{Transmon qubits}
+\section{Transmon Qubits}
 
 A Transmon qubit is essentially a Cooper pair box (CPB) operated in the phase regime, where $E_J \gg E_C$. The Hamiltionian of the CPB can be written as \citep{cottet_implementation_2002}
 
@@ -21,7 +21,7 @@ E_m(n_g) = E_C a_{2[n_g+k(m,n_g)]}(-E_J/E_C)
 \end{equation}
 Here, $a_\nu(q)$ denotes  Mathieu's characteristic value and $k(m,n_g)$ is a function that sorts the eigenvalues. We'll denote the energy differences between individual eigenstates by $E_{ij} = E_j - E_i$. The absolute anharmonicity of the first two Transmon transitions is given as $\alpha \equiv E_{12}-E_{01}$, the relative anharmonicity as $\alpha_r \equiv \alpha / E_{01}$. In the limit $E_J \gg E_C$ these are well approximated by $\alpha \simeq -E_C$ and $\alpha_r \simeq -(8E_J / E_C)^{-1/2}$.
 
-\section{Circuit quantum electrodynamics}
+\section{Circuit Quantum Electrodynamics}
 
 For readout and noise protection, the Transmon qubit is usually coupled to a harmonic oscillator which is usually realized as a lumped-elements resonator or a coplanar waveguide resonator. In the limit where the resonator capacity $C_r \gg C_\Sigma$ we can write the effective Hamiltonian of the system as
 
@@ -37,7 +37,7 @@ When the coupling between the resonator and the Transmon is weak $g_{ij} \ll \om
 \hat{H} = \hbar \sum\limits_j \omega_j \ket{j}\bra{j}+\hbar \omega_r \hat{a}^\dagger \hat{a} + \left( \hbar \sum\limits_i g_{i,i+1} \ket{i}\bra{i+1}\hat{a}^\dagger +H.c.\right)
 \end{equation}
 
-\subsection{Dispersive limit \& qubit readout}
+\subsection{Dispersive Limit \& Qubit Readout}
 
 When the qubit frequency is far detuned from the resonator frequency direct qubit-resonator transition get exponentially supressed and the only interaction left between the two system is a dispersive shift of the transition frequencies. In this limit, the effective Hamiltonian of the system can be written as\citep{blais_cavity_2004,koch_charge-insensitive_2007}
 \begin{equation}
@@ -50,7 +50,7 @@ Here, the resonance frequencies of both the qubit and the resonator are shifted 
 \end{eqnarray}
 The fact that $\chi_{01}$ and $\chi_{12}$ contribute to the total dispersive shift can cause the overall dispersive shift to become negative and even diverge at some particular working points.
 
-\section{The Josephson bifurcation amplifier}
+\section{The Josephson Bifurcation Amplifier}
 
 \citep{palacios-laloy_superconducting_2010}
 
