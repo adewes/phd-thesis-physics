@@ -413,22 +413,72 @@ It is thus interesting to ask if one could encode the solution to some hard prob
 where we have written $\psi(x_i,t)=\psi_i^t$. This equation can be written in matrix form as
 
 \begin{equation}
-\vec{\psi}^{t+dt} = S^t \cdot \vec{\psi}^t
+\vec{\psi}^{t+dt} = S^t  \cdot \vec{\psi}^t
 \end{equation}
 
-%-Explain the Grover experiment...
-%		-Theoretical interest
-%		-First demonstration in NMR
-%   -Potential speed-up
-%   -Details of the algorithm:
-%     -Elementary operations
-%     -Pulse shapes, corrections, ...
+with $S$ being a state transition matrix of the form
+
+\begin{equation}
+S = \left(
+	\begin{array}{ccccc}
+		1-2i\epsilon-iV(x_1)dt & i\epsilon & 0 & \hdots &  i\epsilon \\
+		i \epsilon & 1-2i\epsilon -iV(x_2)dt & i\epsilon & \hdots & 0 \\
+		0 & i\epsilon & \ddots & & \vdots \\
+		\vdots & & & \ddots  & \vdots \\
+		i \epsilon & 0 & \hdots & i\epsilon & 1 - 2i\epsilon -iV(x_n)dt
+	\end{array}
+ \right) \label{eq:grover_iteration_matrix}
+\end{equation}
+
+where we have used cyclic boundary conditions and defined $\epsilon = dt/dx^2$. To calculate the wavefunction at a finite evolution time we make use the Lie-Trotter formula
+
+\begin{equation}
+\exp{\left(A+B\right)} = \lim\limits_{N\to\infty}\left(\exp{\left(A/N\right)}\exp{\left(B/N\right)}\right)^N
+\end{equation}
+
+to write $\exp{\left(S\right)} \approx D\cdot R$ with 
+
+\begin{eqnarray}
+D & = & \left( 
+		\begin{array}{cccccc}
+		1-2i \epsilon & i\epsilon & 0 & 0 & \hdots & i\epsilon \\
+		i \epsilon & 1 - 2i \epsilon & i \epsilon & 0 & \hdots & 0 \\
+		\hdots & \ddots & & & & \vdots \\
+		i \epsilon & 0 & 0 &  \hdots & i\epsilon & 1-2i \epsilon \\
+		\end{array}
+	\right) \\
+R & = & \left( \begin{array}{ccccc}
+	e^{-i V(x_1) dt} & 0 & \hdots & 0 \\
+	0 & e^{-i V (x_2) dt} & \hdots & 0 \\
+	0 & \hdots & & 0 & e^{-i V (x_n) dt} \\
+	\end{array}
+	\right)
+\end{eqnarray}
+
+This approximation is correct to $\begin{mathcal}O\end{mathcal}(\epsilon)$ up to an unrelevant renormalization factor. The technique of splitting up the full evolution operator into a product of two or more non-commuting evolution operators that are applied successively is widely used in digital quantum simulation \citep{lloyd_universal_1996,lanyon_universal_2011}. We can now repeatedly apply the matrix product $D\cdot R$ to the waveunction to obtain its state after a given finite time $\Delta t$ by writing
+
+\begin{equation}
+\vec{\psi}^{t+\Delta t} = \left(\prod\limits_{i = 1}^{\Delta t/dt} D\cdot R\right)\cdot \vec{\psi}^{t}
+\end{equation}
+
+Using this approach, the evolution of the wavefunction is governed by two processes: The interaction of the wavefunction with the potential $V$ and a diffusion process which mixes different spatial parts of the wavefunction. The operator $D$ resembles a Markov diffusion process since each row and column of the matrix sums up to unity, whereas $R$ changes the phase of each element of the wavefunction in accordance with the local potential seen by it. If we apply $R$ to an initial state of the form $\psi_i = 1$ (we omit the normalization factor for clarity) and assume that $V_i = 0$ for $i \ne j$ and $V_j dt = \phi$, the element $\psi_j$ will get turned according to $\psi_j \to \psi_j \exp{\left(i\phi\right)}$.. Applying the operator $D$ to the resulting state will transform $\psi_j$ according to $\psi_j \to \psi_j(i+2\epsilon(1+i))$ with a corresponding amplitude $\sqrt{1+4\epsilon+\begin{mathcal}O\end{mathcal}(\epsilon^2)}$ and the adjacent states $\psi_{j\pm 1}$ according to $\psi_{j\pm 1} \to \psi_{j\pm 1}(1-\epsilon(1+i))$ with an amplitude $\sqrt{1-2\epsilon +\begin{mathcal}O\end{mathcal}(\epsilon^2)}$. Hence there is a transfer of amplitude between the state whose phase has been turned and its neighboring states. If we could reset the phases of the components of $\vec{\psi}$ afterwards, we would be able to iterate the application of $D\cdot R$ until all of the amplitude would have been transferred to the $\psi_j$. This, in essence, is what the Grover algorithm accomplishes by replacing the matrix $D$ with an unitary matrix 
+
+\begin{equation}
+D' = \left( \begin{array}{ccccc}
+	-1+2/n & 2/n & 2/n & \hdots & 2/n \\
+	2/n & -1 + 2/n & 2/n & \hdots & 2/n \\
+	\vdots & & \ddots & 2/n & \vdots \\
+	2/n & 2/n & 2/n & \hdots & -1 + 2/n \\ 
+	\end{array} \right)
+\end{equation}
+
+and $R$ with an unitary matrix $R'_{kl} = \delta_{kl}-2\delta_{jk}\delta{jl}$, where $j$ is the index of the searched basis state. When applying $D\cdot R$ to a fully superposed state $\vec{\psi}$, a maximum amount of amplitude will be transferred to the basis state $\psi_j$ marked by $R$. By repeating the $D\cdot R$ sequence $\begin{mathcal}O\end{mathcal}(\sqrt{n})$ times we can transfer all the amplitude into this basis state, therefore solving the search problem.
 
 \begin{figure}
 	\centering
-		\includegraphics[width=1.\textwidth]{./material/papers/grover/figures/grover_algorithm_schematic}
+		\includegraphics[width=0.8\textwidth]{./material/papers/grover/grover_algorithm}
 	\label{fig:GroverAlgorithmSchematic}
-	\caption{}
+	\caption[Schematic of our implementation of the Grover search algorithm]{Schematic of our implementation of the Grover search algorithm. The algorithm consists in generating a fully superposed input state, applying the Oracle function to it and analyzing the resulting state by applying the Diffusion transform to it and reading out the value of the qubit register afterwards.}
 \end{figure}
 
 \section{Experimental Implementation}
