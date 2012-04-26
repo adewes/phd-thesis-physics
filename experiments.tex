@@ -376,13 +376,6 @@ with $\lambda_l$ being the $l$-th eigenvalue of the $\chi$ matrix with the eigen
 % -Benchmark for superconducting quantum computers
 % -Speed-up for searching in an unsorted database
 
-\begin{figure}
-	\centering
-		\includegraphics[width=1.\textwidth]{./material/papers/grover/figures/grover_algorithm_pulse_sequence}
-	\label{fig:Grover3}
-	\caption[Pulse sequence used for implementing Grovers search algorithm]{The pulse sequence used in realizing Grover's quantum search algorithm. First, a $Y_{\pi/2}$ pulse is applied to each qubit to produce the fully superposed state $1/2(\ket{00}+\ket{01}+\ket{10}+\ket{11})$. Then, an $i\mathrm{SWAP}$ gate is applied, followed by a $Z_{\pm \pi /2}$ gate on each qubit, which corrsponds to the application of the oracle function. The resulting state is then analyzed using another $i\mathrm{SWAP}$ gate and two $Y_{\pi/2}$ gates to extract the state which has been marked by the oracle function. Optionally, a $Y^{12}_{\pi}$ pulse is used on each qubit to increase the readout fidelity.}
-\end{figure}
-
 \section{Introduction \& Motivation}
 
 The original algorithm by as given by \cite{Grover_Quantum_1997} is given as follows
@@ -446,7 +439,10 @@ D & = & \left(
 		\hdots & \ddots & & & & \vdots \\
 		i \epsilon & 0 & 0 &  \hdots & i\epsilon & 1-2i \epsilon \\
 		\end{array}
-	\right) \\
+	\right)
+\end{eqnarray}
+and 
+\begin{eqnarray}
 R & = & \left( \begin{array}{ccccc}
 	e^{-i V(x_1) dt} & 0 & \hdots & 0 \\
 	0 & e^{-i V (x_2) dt} & \hdots & 0 \\
@@ -469,52 +465,158 @@ D' = \left( \begin{array}{ccccc}
 	2/n & -1 + 2/n & 2/n & \hdots & 2/n \\
 	\vdots & & \ddots & 2/n & \vdots \\
 	2/n & 2/n & 2/n & \hdots & -1 + 2/n \\ 
-	\end{array} \right)
+	\end{array} \right) \label{eq:GroverDiffusionOperator}
 \end{equation}
 
-and $R$ with an unitary matrix $R'_{kl} = \delta_{kl}-2\delta_{jk}\delta{jl}$, where $j$ is the index of the searched basis state. When applying $D\cdot R$ to a fully superposed state $\vec{\psi}$, a maximum amount of amplitude will be transferred to the basis state $\psi_j$ marked by $R$. By repeating the $D\cdot R$ sequence $\begin{mathcal}O\end{mathcal}(\sqrt{n})$ times we can transfer all the amplitude into this basis state, therefore solving the search problem.
+and $R$ with an unitary matrix 
 
-\begin{figure}
+\begin{eqnarray}
+R' & = & \mathrm{I}^{n\otimes n}-2\ket{j}\bra{j} \label{eq:GroverOracleFunction}
+\end{eqnarray}
+
+where $j$ is the index of the searched basis state. When applying $D\cdot R$ to a fully superposed state $\vec{\psi}$, a maximum amount of amplitude will be transferred to the basis state $\psi_j$ marked by $R$. By repeating the $D\cdot R$ sequence $\begin{mathcal}O\end{mathcal}(\sqrt{n})$ times we can transfer all the amplitude into this basis state, therefore solving the search problem.
+
+\subsection{Ancilla-based Implementation of the Algorithm}
+
+\begin{figure}[ht!]
 	\centering
-		\includegraphics[width=0.8\textwidth]{./material/papers/grover/grover_algorithm}
-	\label{fig:GroverAlgorithmSchematic}
-	\caption[Schematic of our implementation of the Grover search algorithm]{Schematic of our implementation of the Grover search algorithm. The algorithm consists in generating a fully superposed input state, applying the Oracle function to it and analyzing the resulting state by applying the Diffusion transform to it and reading out the value of the qubit register afterwards.}
+		\includegraphics[width=1\textwidth]{./material/papers/grover/different_oracle_implementations}
+	\caption[Implementations of the four possible Oracle functions used in the Grover search algorithm, using only reversible gate operations]{Implementations of the four possible Oracle functions used in the Grover search algorithm, using only reversible gate operations.}
+	\label{fig:GroverOracleImplementations}
 \end{figure}
+
+It is also possible to define a version of the Grover algorithm where the Oracle function does not encode the marked state directly in the input qubit register but where it uses an ancialla qubit to store the information on the marked state. Possible implementations of such ancilla-based Quantum oracle functions for the two-qubit case are shown in fig. \ref{fig:GroverOracleImplementations}. There, a two-qubit Tofolli gate in combination with several single-qubit NOT gates (which can be easily implemented as single-qubit $X_{\pi}$ rotations) is used to flip the state of an ancilla-qubit conditionally on the input state of the gate. This gate is fully reversible and operates on product- as well as superposition states. Representing the quantum Oracle in this form is quite useful since it will allow us to compare the Grover algorithm with a classical search algorithm implemented using reversible gates. This will in turn allow us to compare the fidelity and success probability with that of a classical algorithm and thereby quantify the quantum speed-up achieved with our system. 
+
+\begin{figure}[ht!]
+	\centering
+		\includegraphics[width=1\textwidth]{./material/papers/grover/quantum_algorithm_full}
+	\caption[Full version of an implementation of the two-qubit Grover search algorithm]{A full version of an implementation of the two-qubit Grover search algorithm. This algorithm works on a two-qubit input state and flips the state of a control qubit for one of the four possible input states in accordance to an unknown Oracle function. It then applies a 3-qubit control-phase operation of that maps $\ket{xx1}\to -\ket{xx1}$, $\ket{xx0}\to\ket{xx0}$ to encode the state of the control qubit directly in the two input qubits and then uses a diffusion operator to determine the state which has been marked by the Oracle function.}
+	\label{fig:GroverAlgorithmFullSchematic}
+\end{figure}
+
+\smallskip
+
+Fig. \ref{fig:GroverAlgorithmFullSchematic} shows an implementation of the two-qubit Grover algorithm which uses the ancilla-based Oracle function. This algorithm proceeds almost identically as the compiled version which we will present in the next section, with the difference that it uses a 3-qubit control-not gate $C$ of the form
+
+\begin{equation}
+C = \mathrm{I}^{n\otimes n}-2\sum\limits_{ij} \ket{ij1}\bra{ij1}
+\end{equation}
+
+which flips the sign of all states where the ancilla qubit is in state $\ket{1}$ and hence converts the ancilla-based quantum Oracle into the phase-encoded version that was outlined before. Here, the ancilla qubit must not be read out before the two input qubits since otherwise the algorithm will fail. One can verify that the Oracle function has really marked one of the basis states by reading out the value of the ancilla qubit after having read out the other qubits and checking for a value of $\ket{1}$.
 
 \section{Experimental Implementation}
 
-%-Show the implementation principle of the experiment.
-%  -Break down the algorithm using the universal quantum gates that we've implemented
+\begin{figure}[ht!]
+	\centering
+		\includegraphics[width=0.8\textwidth]{./material/papers/grover/grover_algorithm}
+	\caption[Schematic of our implementation of the Grover search algorithm]{Schematic of our implementation of the Grover search algorithm. The algorithm consists in generating a fully superposed input state, applying the Oracle function to it and analyzing the resulting state by applying the Diffusion transform to it and reading out the value of the qubit register afterwards.}
+	\label{fig:GroverAlgorithmSchematic}
+\end{figure}
 
-%To Do:
-%  -Create figures for all steps of the algorithm using Matplotlib
-%  -Re-Analyze the data using Denis' Mathematica
-%-Discuss the results and errors.
+In this work we implement a compiled version of the two-qubit Grover algorithm. The gate sequence of the algorithm is shown in fig. \ref{fig:GroverAlgorithmSchematic} and consists in two $i\mathrm{SWAP}$ gates and six single-qubit gates applied to an initial state $\ket{00}$. The first $i\mathrm{SWAP}$ gate together with the two single-qubit $Z_{\pm \pi}$ rotations implements the Oracle function $f(x)$ as given in eq. (\ref{eq:GroverOracleFunction}), where the signs of the rotation operations determines the state which is marked and can be either $\ket{00}$ (corresponding to a $Z^1_{-\pi/2}\cdot Z^2_{-\pi/2}$ rotation), $\ket{01}$ ($Z^1_{-\pi/2}\cdot Z^2_{\pi/2}$), $\ket{10}$ ($Z^1_{\pi/2}\cdot Z^2_{-\pi/2}$) or $\ket{11}$ ($Z^1_{\pi/2}\cdot Z^2_{\pi/2}$). The second $i\mathrm{SWAP}$ operation together with the following $X^1_{\pi/2}\cdot X^2_{\pi/2}$ operation implements the difussion operator as given by eq (\ref{eq:GroverDiffusionOperator}). The final step of the algorithm consists in reading out the two-qubit register.
 
-\begin{landscape}
+\subsection{Pulse Sequence}
+
+\begin{figure}[htb!]
+	\centering
+		\includegraphics[width=1.\textwidth]{./material/papers/grover/figures/grover_algorithm_pulse_sequence}
+	\label{fig:Grover3}
+	\caption[Pulse sequence used for implementing Grovers search algorithm]{The pulse sequence used in realizing Grover's quantum search algorithm. First, a $Y_{\pi/2}$ pulse is applied to each qubit to produce the fully superposed state $1/2(\ket{00}+\ket{01}+\ket{10}+\ket{11})$. Then, an $i\mathrm{SWAP}$ gate is applied, followed by a $Z_{\pm \pi /2}$ gate on each qubit, which corrsponds to the application of the oracle function. The resulting state is then analyzed using another $i\mathrm{SWAP}$ gate and two $Y_{\pi/2}$ gates to extract the state which has been marked by the oracle function. Optionally, a $Y^{12}_{\pi}$ pulse is used on each qubit to increase the readout fidelity.}
+\end{figure}
+
+
+%\begin{landscape}
 
 \begin{figure}
 	\centering
-		\includegraphics[width=1.2\textheight]{"./data/ct5/2011_04_21 - grover and tomo/good_data/grover algorithm - single run results"}
+		\rotatebox{90}{\includegraphics[width=1.2\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/grover algorithm - single run results"}}
+	\caption[Quantum state tomographies at different steps during the Grover search algorithm and single-run outcome probabilities]{Quantum state tomographies at different steps of the Grover search algorithm and single-run outcome probabilities. The density matrices show the experimentally measured states in color and the theoretical states in black. For each state, the trace fidelity $F_{tr}(\rho_A,\rho_B) = \mathrm{Tr}\{\rho_A\cdot\rho_B\}$ is shown above the density matrix.}
 	\label{fig:GroverAlgorithmExperimentalResults}
-	\caption{}
 \end{figure}
 
-\end{landscape}
+%\end{landscape}
 
 \section{Algorithm Fidelity}
 
-\begin{figure}
+Likewise we can define the average fidelity of the algorithm in a single run, which corresponds to the averaged success probabilities measured for all four Oracle functions and averaged over a large sample set. Table \ref{tab:Probabilities-for-obtaining} shows these single-run probabilities along with the so-called {\it user fidelities}, which are given as
+
+\begin{equation}
+f_{ab} = p(\ket{ab}|ab) = \frac{p(ab |\ket{ab})}{\sum\limits_{uv}p(uv|\ket{uv})} 
+\end{equation}
+
+and correspond to the probability of having obtained the correct answer given a certain outcome, averaged over all four possible Oracle functions. For all four, both the single-run and user fidelities are $> 50 \%$, hence providing a quantum speed-up in comparision with a classical query-and-guess algorithm.
+
+\begin{table}[H]
+\begin{centering}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline 
+$ab$/$|uv\rangle$ & $\left|00\right\rangle $ & $\left|01\right\rangle $ & $\left|10\right\rangle $ & $\left|11\right\rangle $ & $\sum$ & $f_{ab}$\tabularnewline
+\hline
+\hline 
+00 & \textcolor{red}{0.666} & 0.192 & 0.188 & 0.122 & 1.168 & 57.0 \%\tabularnewline
+\hline 
+01 & 0.127 & \textcolor{red}{0.554} & 0.071 & 0.122 & 0.874 & 63.4 \%\tabularnewline
+\hline 
+10 & 0.128 & 0.106 & \textcolor{red}{0.615} & 0.239 & 1.088 & 56.5 \%\tabularnewline
+\hline 
+11 & 0.079 & 0.148 & 0.126 & \textcolor{red}{0.517} & 0.870 & 59.4 \%\tabularnewline
+\hline
+\end{tabular}
+\par\end{centering}
+
+\caption{\label{tab:Probabilities-for-obtaining}Conditional probabilities
+$p_{ab/|uv\rangle}$ and statistical fidelities $f_{ab}$ for all
+possible outcomes $ab$, measured for our version of Grover's algorithm.}
+
+\end{table}
+
+\section{Comparision to a Classical Algorithm}
+
+\begin{figure}[ht!]
 	\centering
 		\includegraphics[width=1.0\textwidth]{"./material/papers/grover/classical_reversible_algorithm"}
-	\label{fig:GroverAlgorithmExperimentalResults}
 	\caption{Classical reversible implementation of a search algorithm on a two-bit input register. The Oracle function can be implemented by two single-bit NOT operations and a Toffoli gate. R designates the generation of a random binary value at the beginning of the algorithm If the Oracle does not yield the correct answer, the test state gets incremented. The average success probability of the algorithm is 50 \%.}
+	\label{fig:GroverClassicalReversibleAlgorithm}
 \end{figure}
 
+When quantifying the amount of speed-up of a quantum algorithm in comparision to a classical one, it is necessary to define a classical problem which is equivalent to the problem solved by the quantum algorithm and can be used to define a classical algorithm whose runtime can be compared to that of the quantum algorithm. For the case of the Grover search algorithm, we formulate the underlying problem in the following way:
 
-\section{Single-Run Fidelity}
+\begin{theorem}
+Given a black box $f(x)$ that works both on classical and on quantum states and takes a two-(qu)bit input value $x$. The black box marks one of the four possible input states $x_j$ by flipping the state of a third control bit. We search an algorithm that returns an estimate on the value of the Oracle function that has been used inside the black box, calling the Oracle function {\it only once}.
+\end{theorem}
 
 \section{Error Analysis}
+
+There are three kind of errors arising in our implementation of the Grover search algorithm which we will analyze in the following section. These errors are:
+
+\begin{enumerate}
+	\item Deterministic, unitary gate errors arising in the algorithm
+	\item Stochastic errors introduced due to qubit decoherence during the runtime of the algorithm.
+	\item Readout errors due to qubit relaxation during the readout of the qubit state, insufficient coupling between the qubit and the readout or retrapping of the readout state during latching.
+\end{enumerate}
+
+\subsection{Gate Errors \& Decoherence}
+
+Gate errors are unitary errors that arise due to misshaped or mistuned gate pulses. Usually the effect of these errors is combined with stochastic, non-unitary error sources arising due to qubit decoherence during the runtime of the algorithm. To quantify these errors we generate a model of our algorithm where we take into account both unitary as well as non-unitary error sources and perform numerical optimization of the error parameters to generate a quantitative model. We repeat this procedure for all four algorithm runs corresponding to the different Oracle functions.
+
+\subsection{Readout Errors}
+
+Another source of errors arises due to the imperfection of our qubit readout. Mostly, qubit relaxation during the readout process reduces the visibility of individual qubit states and introduces errors when reading out the qubit register in the final step of the algorithm. We can easily quantify those readout errors by using the readout matrix that was introduced in the last chapter. Fig. \ref{fig:GroverReadoutMatrix} shows this matrix for our experiment. We use the $\ket{1}\to\ket{2}$ shelving method described in the last chapter to increase the readout contrast, which reduces single-qubit readout but increases inter-qubit readout crosstalk. To quantify single-qubit and inter-qubit readout errors, we can split up the readout matrix $R$ such that $R=R_{v}\cdot R_{ct}$, where $R_{v}$ is the so-called {\it visibility matrix} that can be written as the Kronecker product $R_{v} = R_{v}^1 \otimes R_{v}^2$ of two single-qubit readout matrices of the form
+
+\begin{equation}
+R_{v}^{1,2} = \left(
+			\begin{array}{cc}
+				p_{00}^{1,2} & 1-p_{11}^{1,2} \\
+				1-p_{00}^{1,2} & p_{11}^{1,2}
+			\end{array}
+		\right)
+\end{equation}
+
+Here, $p_{00}^{1,2}$ ($p_{11}^{1,2}$) gives the probability to obtain the readout value $0$ ($1$) when the qubit has been prepared in state $\ket{0}$ ($\ket{1}$).
+
+\smallskip
+
+Fig. \ref{fig:GroverAlgorithmExperimentalResults}e shows the single-run probabilities when running the Grover algorithm for the four different Oracle functions. In blue, the expected readout outcome probabilities, as calculated using the state tomography of the final states given in fig. \ref{fig:GroverAlgorithmExperimentalResults}d and the measured readout matrix of our system are shown along the measured readout outcome probabilities. The readout error model shows good quantitative agreement with the measured data, with deviations most probably due to parameter drifts occured between the measurment of the quantum state tomography and the single-run experiment.
 
 \section{Conclusions}
 
