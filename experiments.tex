@@ -599,6 +599,98 @@ There are three kind of errors arising in our implementation of the Grover searc
 
 Gate errors are unitary errors that arise due to misshaped or mistuned gate pulses. Usually the effect of these errors is combined with stochastic, non-unitary error sources arising due to qubit decoherence during the runtime of the algorithm. To quantify these errors we generate a model of our algorithm where we take into account both unitary as well as non-unitary error sources and perform numerical optimization of the error parameters to generate a quantitative model. We repeat this procedure for all four algorithm runs corresponding to the different Oracle functions.
 
+\subsubsection{Decoherence}
+
+Usually we can model decoherence processes in our algorithm either by integrating an effective master equation. For our error model, however, we chose to use a set of discrete decoherence operators that model amplitude (i.e. $T_1$) and phase daming (i.e. $T_\phi$) processes. We can model the decoherence in our algorithm by applying these operators to the calculated quantum states after each individual step of the algorithm, taking into account the experimental runtime of the step. By this we can generate an error model incorporating the most relevant experimental decoherence processes without needing to numerically integrate a Lindblad equation, thereby greatly speeding up the paramter fitting.
+
+\smallskip
+
+The single-qubit operators describing amplitude-daming (i.e. energy relaxation) of the qubit state are given as \citep{michael_a._nielsen_quantum_2000}
+
+\begin{align}
+ E_1^{T_1} & = \left(\begin{array}{cc} 1 & 0 \\ 0 & \sqrt{1-\gamma_{T_1}} \end{array}\right)   &  E_2^{T_1}  & = \left( \begin{array}{cc} 0 & \sqrt{\gamma_{T_1}} \\ 0 & 0 \end{array} \right) \label{eq:grover_energy_relaxation}
+\end{align}
+
+The phase-daming (i.e. dephasing) operators can be written as
+
+\begin{align}
+ E_1^{T_{\phi 1}} & = \left(\begin{array}{cc} 1 & 0 \\ 0 & \sqrt{1-\gamma_\phi} \end{array}\right)   &  E_2^{T_{\phi 1}}  & = \left( \begin{array}{cc} 0 & 0 \\ 0 & \sqrt{\gamma_\phi}  \end{array} \right) \label{eq:grover_phase_decoherence}
+\end{align}
+
+Both operators are applied to $\rho$ according to
+
+\begin{equation}
+\rho \to E_1 \rho E_1^\dagger+E_2 \rho E_2^\dagger
+\end{equation}
+
+and result in a trace-preserving, non-unitary evolution of the quantum state of $\rho$. The decoherence factors $\gamma$ in the operators can be calculated from the corresponding relaxation and dephasing rates as $\gamma_{T_{1,2}}(t) = 1-\exp{\left(-t \Gamma_{1,2}^{T_1}\right)}$ and $\gamma_{\phi_{1,2}} = 1-\exp{\left(-t \Gamma_{1,2}^{T_\phi}/2\right)}$, where $t$ is the time during which the state is exposed to the decoherence process.
+
+\smallskip
+
+\begin{figure}[ht!]
+	\centering
+		\includegraphics[width=0.85\textwidth]{"./material/papers/grover/grover_error_model"}
+	\caption[Error model used for analyzing gate and decoherence errors for the Grover search algorithm]{The error model we use to analyze the different gate and decoherence errors present when running the Grover search algorithm.}
+	\label{fig:GroverErrorModel}
+\end{figure}
+
+
+The full error model that we use to model the algorithm is shown in fig. \ref{fig:GroverErrorModel}. In this model, we take into account the following errors
+
+\begin{itemize}
+ \item {\bf Energy relaxation and phase decoherence}: We model energy relaxation and phase relaxation of our qubit by using the processes given in eqs. (\ref{eq:grover_energy_relaxation}) and (\ref{eq:grover_phase_decoherence}), applying the energy relaxation operator after each step of the algorithm, taking into account gate time of the performed operation.
+ \item {\bf Single-qubit gate errors}: We model rotation angle and rotation phase errors of our single-qubit $X_\alpha$ and $Y_\alpha$ gates by replacing them with operators of the form $X_\alpha\to \phi_{\alpha'} = \cos{\phi}X_{\alpha'}+\sin{\phi}Y_{\alpha'}$ and $Y_\alpha \to \varphi_{\alpha'} = \sin{\varphi}X_{\alpha'}+\cos{\varphi}Y_{\alpha'}$. For $Z$-type single-qubit operators we model only rotation angle errors by replacing $Z_\alpha \to Z_{\alpha'}$ 
+ \item {\bf Two-qubit gate errors:} We model both detuning and gate-length errors of our $i\mathrm{SWAP}$ 2-qubit gates.
+\end{itemize}
+
+The evolution operator of a detuned iSWAP operation is given as
+
+\begin{equation}
+i\mathrm{SWAP}(t,\Delta) = \left(
+			\begin{array}{cccc}
+				1 & 0 & 0 & 0 \\
+				0 & \cos{t g_{e}}-i\frac{\Delta}{g_{e}}\sin{t g_{e}} & i \frac{g}{g_e}\sin{t g_{e}} & 0 \\
+				0 & i\frac{g}{g_e}\sin{t g_{e}} & \cos{t g_{e}}+i\frac{\Delta}{g_{e}}\sin{t g_{e}} & 0 \\
+				0 & 0 & 0 & 1 \\
+			\end{array}
+	\right) \label{eq:swap_with_detuning}
+\end{equation}
+
+\begin{figure}
+	\centering
+		\rotatebox{90}{\includegraphics[width=1.2\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/grover - simulated density matrices with errors"}}
+	\caption[Quantum state tomographies at different steps during the Grover search algorithm and single-run outcome probabilities]{Quantum state tomographies at different steps of the Grover search algorithm and single-run outcome probabilities. The density matrices show the experimentally measured states in color and the theoretical states in black. For each state, the trace fidelity $F_{tr}(\rho_A,\rho_B) = \mathrm{Tr}\{\rho_A\cdot\rho_B\}$ is shown above the density matrix.}
+	\label{fig:grover_error_model}
+\end{figure}
+
+where $g_e = \sqrt{g^2+\Delta^2}$ is the effective swap frequency at a qubit frequency detuning $f_{01}^1-f_{01}^2 = 2\Delta$. Often it is pratical to replace $t$ and $\Delta$ with $\beta = t g_{e}$ and $\delta = \Delta / g$. Using this notation of the iSWAP gate and the definition of the single-qubit gates as discussed before, the full algorithm with gate errors can be written as (for right-multiplication)
+
+\begin{equation}
+\mathrm{Grover} = \phi_{\gamma_1}^1\otimes \phi_{\gamma_2}^2\cdot i\mathrm{SWAP}(\epsilon_2,\delta_2)\cdot Z_{\beta_1}\otimes Z_{\beta_2}\cdot i\mathrm{SWAP}(\epsilon_1,\delta_1)\cdot\varphi_{\alpha_1}^1\otimes \varphi_{\alpha_2}^2 \label{eq:grover_error_model}
+\end{equation}
+
+In addition, we add a dephasing and relaxation error after each step of the algorithm to simulate the decoherence during the executing. Numerical optimization is used to produce a fit of all the gate error parameters, which is shown in tab. \ref{tab:grover_error_parameters}. The qubit relaxation and dephasing times have been measured independently and are not part of the fit.
+
+\begin{table}[ht!]
+\centering
+\footnotesize{
+\begin{tabular}{r|rrrrrrrrrrrrrr}
+state & $\delta_1$ & $\delta_2$ & $\alpha_1$ & $\alpha_2$ & $\varphi_1$ & $\varphi_2$ & $\epsilon_1$ & $\beta_1$ & $\beta_2$ & $\epsilon_2$ & $\gamma_1$ & $\gamma_2$ & $\phi_1$ & $\phi_2$ \\ \hline
+$\ket{00}$ & 0.06 & -0.06 & -2.5 & 2.7 & 6.1 & 3.1 & -7.3 & -3.3 & -4.1 & 7.5 & 29 & 9.3 & 0.66 & -1.7
+ \\
+$\ket{01}$ & 0.04 & -0.3 & -0.1 & 0.1 & 7.9 & 3.6 & -11 & -5.9 & 2.2 & -6.9 & 28 & -19 &  9 &  2
+ \\
+$\ket{10}$ & 0.09 & -0.2 & -3.1 & 1.7 &  1 & -2.5 & -6.5 & -15 & -22 & -7.5 & -15 & 32 & 3.6 & 5.2
+\\
+$\ket{11}$ & 0.16 & 0.13 & -6 & 3.9 & 2.2 & 0.9 & -9.5 & -20 & -15 & 17 & -12 & -32 & -7 & -8.9
+\end{tabular}
+}
+\caption[Fitted gate error parameters of the Grover algorithm]{Fitted error parameters for the measured density matrices, modeled according to the error model given in eq. (\ref{eq:grover_error_model})}
+\label{tab:grover_error_parameters}
+\end{table}
+
+Fig. \ref{fig:grover_error_model} shows again the measured density matrices for our realization of the Grover search algorithm, this time overlaid with the numerically optimized error model according to eq. (\ref{eq:grover_error_model}). As can be seen, our error model is able to capture most of the observed experimental errors and to reproduce to a very good accuracy the observed density matrices. The state fidelity according to eq. \ref{eq:state_fidelity} is shown above each density matrix and is higher than 98 \% on average.
+
 \subsection{Readout Errors}
 
 Another source of errors arises due to the imperfection of our qubit readout. Mostly, qubit relaxation during the readout process reduces the visibility of individual qubit states and introduces errors when reading out the qubit register in the final step of the algorithm. We can easily quantify those readout errors by using the readout matrix that was introduced in the last chapter. Fig. \ref{fig:GroverReadoutMatrix} shows this matrix for our experiment. We use the $\ket{1}\to\ket{2}$ shelving method described in the last chapter to increase the readout contrast, which reduces single-qubit readout but increases inter-qubit readout crosstalk. To quantify single-qubit and inter-qubit readout errors, we can split up the readout matrix $R$ such that $R=R_{v}\cdot R_{ct}$, where $R_{v}$ is the so-called {\it visibility matrix} that can be written as the Kronecker product $R_{v} = R_{v}^1 \otimes R_{v}^2$ of two single-qubit readout matrices of the form
