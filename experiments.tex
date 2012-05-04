@@ -125,7 +125,7 @@ This section discusses the detailed characterization of individual circuit parts
 
 \section{Qubit \& Readout Characterization}
 
-\begin{figure}
+\begin{figure}[ht!]
 	\centering
 		\includegraphics[width=1.\textwidth]{"./data/ct5/2011_04_11 - anticrossing/processor_spectroscopy"}
 	\label{fig:ProcessorSpectroscopy}
@@ -136,12 +136,7 @@ The following section discusses the parameters of our two-qubit processor that h
 
 \subsection{Qubit Parameters}
 
-\begin{figure}[ht!]
-   \centering
-	 \includegraphics[width=1\textwidth]{"./data/ct5/qubits - parameter surveys/qubit parameters"}
-	 \caption[]{}
-	 \label{fig:QubitParameters}
-\end{figure}
+To obtain all the relevant parameters of our two-qubit processor, we perform a set of measurements from which we obtain the qubit frequencies, anharmonicities, junction asymmetries, the inter-qubit coupling, the coupling to the microwave drive lines, the coupling of each qubit to its readout and the relaxation and dephasing times of the qubits. The drive and readout couplings as well as the relaxation and dephasing times are measured for a range of qubit frequencies, which will allow us later to pick an ideal working point for our two-qubit experiments. The qubit parameters obtained from spectroscopic measurements are as follows:
 
 \begin{itemize}
 \item \textit{Qubits}: Spectroscopic measurement of the qubit transitions yielded parameter values of $E_J^I / h = 36.2\; \mathrm{GHz}$, $E_c^I / h = 0.98 \; \mathrm{GHz}$ and $E_J^{II} / h = 43.1\; \mathrm{GHz}$, $E_C^{II} / h = 0.87 \; \mathrm{GHz}$ for the Josephson and charging energies of the two qubits and values of $d^I = 0.2$, $d^{II} =  0.35$ for the qubit junction asymmetries.
@@ -149,26 +144,33 @@ The following section discusses the parameters of our two-qubit processor that h
 \item \textit{Qubit-Resonator coupling}: The coupling of the qubits to the readout resonators has been spectroscopically determined as $g_0^I \simeq g_0^{II} = 50 \; \mathrm{MHz}$
 \end{itemize}
 
-\subsection{Readout Parameters}
+\subsubsection{Readout Parameters}
 
-%-Discuss the readout errors and crosstalk
+\subsubsection{Qubit Readout, Driving, Relaxation and Dephasing Time}
+
+\begin{figure}[ht!]
+   \centering
+	 \includegraphics[width=1\textwidth]{"./data/ct5/qubits - parameter surveys/qubit parameters"}
+	 \caption[A qubit parameter survey showing $T_1$, readout contrast and Rabi frequency of the two qubits over a large range of qubit frequencies]{A qubit parameter survey showing the relaxation time $T_1$, the readout contrast and the Rabi frequency at a fixed drive amplitude for the two qubits over a large range of qubit frequencies.}
+	 \label{fig:qubit_parameters}
+\end{figure}
+
+In order to obtain the relaxation time and the coupling of the qubit to the drive line, we perform an automated survey of qubit spectroscopies, qubit readout characterizations and $T_1$ measurements at different qubit frequencies. The results of such a parameter survey are summarized in fig \ref{fig:qubit_parameters}, showing the relaxation time $T_1$,  the readout contrast $c_{10}$ and the Rabi frequency $f_{Rabi}$ for a fixed drive amplitude for the two qubits in a frequency range between 5.2 and 6.5 GHz. As can be seen, the relaxation time of the qubits tends to increase the farther detuned each qubit is from its readout resonator. Not surprisingly, the drive frequency of the qubit also decreases when the qubit-resonator detuning increases as expected from the Purcell effect, which filters incoming microwave signals that are far-detuned from the resonator frequency. The inverse is true for the readout contrast, which increases near-linearly when reducing the qubit-resonator detuning due to the increase of the dispersive resonator frequency shift induced by the qubit that gets stronger the less the qubit is detuned from the readout resonator.
+
+\smallskip
+
+It is interesting to note the non-monotnous characteristic of the qubit relaxation time $T_1$ shown in fig. \ref{fig:qubit_parameters}, which cannot be explained by Purcell-filtering through the readout resonator and hints at a different qubit relaxation process present in the system. A possible explanation would be the coupling of the qubit to a spurious low-Q resonance in the environment. Coupling to volumetric resonance modes of the sample holder or non-CPW resonance modes of the readout resonator can be possible explanations for the data. Also, the overall dependency of the relaxation time $T_1$ on the qubit-resonator detuning --ignoring the ``fine-structure'' present in the system-- is not quadratic as would be expected from the Purcell theory but rather linear. Also, by comparing the qubit relaxation time to the Rabi drive frequency reveals that the increase in $T_1$ is cleary not proportional to the Purcell factor that determines the qubit relaxation rate through the readout resonator. However, the observed $T_1$ dependency can be partially explained by taking into account the qubit relaxation through the fast fluxline, which might be to strongly-coupled to the qubit on our chip, hence inducing additional qubit relaxation beyond the Purcell and intrinsic qubit relaxation rates. This effect will therefore be studied in more detail in the following sections.
 
 \section{Single-Qubit Operations}
 
-%-Discuss single qubit manipulation, gate fidelity and state tomography
-%Data: 14/12/2010
-
-
-%discuss calibration of mixers, sideband pulses etc.
-
-\begin{figure}
+\begin{figure}[ht!]
 	\centering
 		\includegraphics[width=1.\textwidth]{"./data/ct5/2010_12_01 - iq tomography/iq_tomographies"}
-	\label{fig:SingleQubitIQControl}
-	\caption{}
+	\caption[Demonstration of single-qubit IQ control]{Demonstration of single-qubit IQ control. The figures show the state probability of a single qubit when preparing it in one of the states $\ket{1}$, $1/\sqrt{2}(\ket{0}+\ket{1})$ or $1/\sqrt{2}(\ket{0}+i\ket{1})$ and subjecting the qubit to a microwave drive pulse of the form $a(t) = V_I\cdot\cos{\omega_{rf}t}+V_Q\cdot\sin{\omega_{rf}t}$.}
+	\label{fig:single_qubit_iq_control}
 \end{figure}
 
-%
+To perform arbitrary single-qubit operations -- as needed e.g. for implementing a quantum algorithm or performing quantum state tomography -- we need to implement a universal set of $X$, $Y$ and $Z$ qubit gates with our processor. Qubit rotations in the $XY$-plane are implemented through microwave drive pulses, where the phase of the drive pulse in reference to an arbitrary reference determines the rotation axis and the amplitude of the drive pulse the Rabi frequency of the gate. To characterize the drive pulses, we perform an experiment where we initialize a single-qubit in the states $\ket{1}$, $1/\sqrt{2}(\ket{0}+\ket{1})$ and $\sqrt{2}(\ket{0}+i\ket{1})$ and subject it afterwards to a single microwave pulse of the form $a(t) = V_I\cdot\cos{\omega_{rf}t}+V_Q\cdot\sin{\omega_{rf}t}$, which we tune by changing the input voltages $V_I$ and $V_Q$ to the $IQ$-mixer that generates the pulse from a continuous input micrwave-tone at frequency $\omega_{rf}$. We measure the qubit state at different values of $V_I$, $V_Q$, obtaining the graph shown in fig. \ref{fig:single_qubit_iq_control}. The qubit which was prepared in state $\ket{1}$ shows a perfectly cylinder-symmetric switching probability pattern when subjecting it to an IQ-pulse of a given phase, which is what one would expect for a qubit being prepared in either the $\ket{0}$ or $\ket{1}$ state. On the contrary, the switching probability distributions of the measured qubits prepared in the states $1/\sqrt{2}(\ket{0}+\ket{1})$ and $1/\sqrt{2}(\ket{0}+i\ket{1})$ are mirror-symmetric, where the switching probability does not vary at all along the drive axis which corresponds to the axis along which the qubit has been prepared. These measurements demonstrate therefore our ability to prepare and drive the qubit along arbitrary axes of the Bloch sphere. In the following sections we will analyze more in detail the drive errors inherent to our system and quantitatively analyze differnt error sources. 
 
 \section{Two Qubit Operations}
 
@@ -352,6 +354,54 @@ with $\lambda_l$ being the $l$-th eigenvalue of the $\chi$ matrix with the eigen
 \subsection{Gate Fidelity}
 
 \subsection{Gate Error Analysis}
+
+Tomographic errors are removed from the process map of our $\sqrt{iSWAP}$
+gate using the following method. The measured Pauli sets corresponding
+to the sixteen input states are first fitted by a model including
+errors both in the preparation of the state (index $prep$) and in
+the tomographic pulses (index $tomo$). The errors included are angular
+errors $\varepsilon_{\mathrm{I,II}}^{\mathrm{prep}}$ on the nominal
+$\pi$ rotations around $X_{\mathrm{I,II}}$, $\eta_{\mathrm{I,II}}^{\mathrm{prep,tomo}}$and
+$\delta_{\mathrm{I,II}}^{\mathrm{prep,tomo}}$ on the nominal $\pi/2$
+rotations around $X_{\mathrm{I,II}}$ and $Y_{\mathrm{I,II}}$, a
+possible departure $\xi_{\mathrm{I,II}}$ from orthogonality of $\left(\overrightarrow{X_{\mathrm{I}}},\overrightarrow{Y_{\mathrm{I}}}\right)$
+and $\left(\overrightarrow{X_{\mathrm{II}}},\overrightarrow{Y_{\mathrm{II}}}\right)$,
+and a possible rotation $\mu_{\mathrm{I,II}}$ of the tomographic
+$XY$ frame with respect to the preparation one. The rotation operators
+used for preparing the states and doing their tomography are thus
+given by
+
+\[
+\begin{array}{c}
+X_{\mathrm{I,II}}^{\mathrm{prep}}(\pi)=e^{-\mathrm{i}\left(\pi+\varepsilon_{\mathrm{I,II}}^{\mathrm{prep}}\right)\sigma_{\mathrm{x}}^{\mathrm{I,II}}/2},\\
+X_{\mathrm{I,II}}^{\mathrm{prep}}(-\pi/2)=e^{+\mathrm{i}\left(\pi/2+\eta_{\mathrm{I,II}}^{\mathrm{prep}}\right)\sigma_{\mathrm{x}}^{\mathrm{I,II}}/2},\\
+Y_{\mathrm{I,II}}^{\mathrm{prep}}(\pi/2)=e^{-\mathrm{i}\left(\pi/2+\delta_{\mathrm{I,II}}^{\mathrm{prep}}\right)\left[\mathrm{cos}\left(\xi_{\mathrm{I,II}}\right)\sigma_{\mathrm{y}}^{\mathrm{I,II}}\mathrm{-sin}\left(\xi_{\mathrm{I,II}}\right)\sigma_{\mathrm{x}}^{\mathrm{I,II}}\right]/2},\\
+X_{\mathrm{I,II}}^{\mathrm{tomo}}(\pi/2)=e^{-\mathrm{i}\left(\pi/2+\eta_{\mathrm{I,II}}^{\mathrm{tomo}}\right)\left[\mathrm{\mathrm{sin}\left(\mu_{I,II}\right)\sigma_{x}^{I,II}+cos}\left(\mu_{\mathrm{I,II}}\right)\sigma_{\mathrm{y}}^{\mathrm{I,II}}\right]/2},\\
+Y_{\mathrm{I,II}}^{\mathrm{tomo}}(-\pi/2)=e^{+\mathrm{i}\left(\pi/2+\delta_{\mathrm{I,II}}^{\mathrm{tomo}}\right)\left[\mathrm{cos}\left(\mu_{\mathrm{I,II}}+\xi_{\mathrm{I,II}}\right)\sigma_{\mathrm{y}}^{\mathrm{I,II}}\mathrm{-sin}\left(\mu_{\mathrm{I,II}}+\xi_{\mathrm{I,II}}\right)\sigma_{x}^{\mathrm{I,II}}\right]/2}.\end{array}\]
+The sixteen input states are then $\left\{ \rho_{\mathrm{in}}^{\mathrm{e}}=U\left|0\right\rangle \left\langle 0\right|U^{\dagger}\right\} $
+with $\left\{ U\right\} =\{I_{\mathrm{I}},X_{\mathrm{I}}^{\mathrm{prep}}(\pi),Y_{\mathrm{I}}^{\mathrm{prep}}(\pi/2),X_{\mathrm{I}}^{\mathrm{prep}}(-\pi/2)\}\otimes\{I_{\mathrm{II}},X_{\mathrm{II}}^{\mathrm{prep}}(\pi),Y_{\mathrm{II}}^{\mathrm{prep}}(\pi/2),X_{\mathrm{II}}^{\mathrm{prep}}(-\pi/2)\}$,
+and each input state yields a Pauli set $\left\{ \left\langle P_{\mathrm{k}}^{\mathrm{e}}\right\rangle =Tr\left(\rho_{\mathrm{in}}^{\mathrm{e}}P_{\mathrm{k}}^{\mathrm{e}}\right)\right\} $
+with $\left\{ P_{\mathrm{k}}^{\mathrm{e}}\right\} =\{I_{\mathrm{I}},X_{\mathrm{I}}^{\mathrm{e}},Y_{\mathrm{I}}^{\mathrm{e}},Z_{\mathrm{I}}\}\otimes\{I_{\mathrm{II}},X_{\mathrm{II}}^{\mathrm{e}},Y_{\mathrm{II}}^{\mathrm{e}},Z_{\mathrm{II}}\}$,
+$X^{\mathrm{e}}=Y^{\mathrm{tomo}}(-\pi/2)^{\dagger}\sigma_{z}Y^{\mathrm{tomo}}(-\pi/2)$,
+and $Y^{\mathrm{e}}=X^{\mathrm{tomo}}(\pi/2)^{\dagger}\sigma_{\mathrm{z}}X^{\mathrm{tomo}}(\pi/2)$.
+Figure S5.1 shows the best fit of the modelled $\left\{ \left\langle P_{k}^{e}\right\rangle \right\} $
+set to the measured input Pauli sets, yielding $\varepsilon_{\mathrm{I}}^{\mathrm{prep}}=-1\text{\textdegree}$,
+$\varepsilon_{\mathrm{II}}^{\mathrm{prep}}=-3\text{\textdegree}$,
+$\eta_{\mathrm{I}}^{\mathrm{prep}}=3\text{\textdegree}$, $\mathrm{\eta}_{\mathrm{II}}^{\mathrm{prep}}=4\text{\textdegree}$,
+$\delta_{\mathrm{I}}^{\mathrm{prep}}=-6\text{\textdegree}$, $\delta_{\mathrm{II}}^{\mathrm{prep}}=-3\text{\textdegree}$,
+$\eta_{\mathrm{I}}^{\mathrm{tomo}}=-6\text{\textdegree}$, $\eta_{\mathrm{II}}^{\mathrm{tomo}}=-4\text{\textdegree}$,
+$\lambda_{\mathrm{I}}^{t\mathrm{omo}}=12\text{\textdegree}$, $\lambda_{\mathrm{II}}^{\mathrm{tomo}}=5\text{\textdegree}$,
+$\xi_{\mathrm{I}}=1\text{\textdegree}$, $\xi_{\mathrm{II}}=-2\text{\textdegree}$,
+and $\mu_{\mathrm{I}}=\mu_{\mathrm{II}}=-11\text{\textdegree}$.
+
+Knowing the tomographic errors and thus $\left\{ \left\langle P_{\mathrm{k}}^{\mathrm{e}}\right\rangle \right\} $,
+we then invert the linear relation $\left\{ \left\langle P_{\mathrm{k}}^{\mathrm{e}}\right\rangle =Tr\left(\rho P_{\mathrm{k}}^{\mathrm{e}}\right)\right\} $
+to find the $16\times16$ matrix $B$ that links the vector $\overrightarrow{\left\langle P_{\mathrm{k}}^{\mathrm{e}}\right\rangle }$
+to the columnized density matrix $\overrightarrow{\rho}$, i.e. $\overrightarrow{\rho}=B.\overrightarrow{\left\langle P_{\mathrm{k}}^{\mathrm{e}}\right\rangle }$.
+The matrix $B$ is finally applied to the measured sixteen input and
+sixteen output Pauli sets to find the sixteen $(\rho_{\mathrm{in},},\rho_{\mathrm{out}})_{\mathrm{k}}$
+couples to be used for calculating the gate map.
+
 
 %-Discuss the realization of a 2 qubit gate:
 %  -Principle
@@ -630,7 +680,7 @@ and result in a trace-preserving, non-unitary evolution of the quantum state of 
 \begin{figure}[ht!]
 	\centering
 		\includegraphics[width=0.85\textwidth]{"./material/papers/grover/grover_error_model"}
-	\caption[Error model used for analyzing gate and decoherence errors for the Grover search algorithm]{The error model we use to analyze the different gate and decoherence errors present when running the Grover search algorithm.}
+	\caption[Error model used for analyzing gate and decoherence errors for the Grover search algorithm]{The error model we use to analyze the different gate and decoherence errors present when running the Grover search algorithm. The dotted lines indicate the points at which the quantum state has been measured by state tomography. Zigged arrows indicate the decoherence present in the system.}
 	\label{fig:GroverErrorModel}
 \end{figure}
 
@@ -685,13 +735,41 @@ $\ket{10}$ & 0.09 & -0.2 & -3.1 & 1.7 &  1 & -2.5 & -6.5 & -15 & -22 & -7.5 & -1
 $\ket{11}$ & 0.16 & 0.13 & -6 & 3.9 & 2.2 & 0.9 & -9.5 & -20 & -15 & 17 & -12 & -32 & -7 & -8.9
 \end{tabular}
 }
-\caption[Fitted gate error parameters of the Grover algorithm]{Fitted error parameters for the measured density matrices, modeled according to the error model given in eq. (\ref{eq:grover_error_model})}
+\caption[Fitted gate error parameters of the Grover algorithm]{Fitted error parameters for the measured density matrices, modeled according to the error model given in eq. (\ref{eq:grover_error_model}). Alle angles are given in $\deg$.}
 \label{tab:grover_error_parameters}
 \end{table}
 
 Fig. \ref{fig:grover_error_model} shows again the measured density matrices for our realization of the Grover search algorithm, this time overlaid with the numerically optimized error model according to eq. (\ref{eq:grover_error_model}). As can be seen, our error model is able to capture most of the observed experimental errors and to reproduce to a very good accuracy the observed density matrices. The state fidelity according to eq. \ref{eq:state_fidelity} is shown above each density matrix and is higher than 98 \% on average.
 
+\subsubsection{Fidelity of the Oracle and diffusion operators}
+
+It is interesting to analyze the individual fidelity of the Oracle and diffusion operators that make up the Grover algorithm. For this, we compare the action of the ideal operators $D'$ and $R'$ with that of the experimentally implemented versions $D'_{e}$ and $R'_{e}$, taking the measured quantum states before applying each of the operators as input. We take as the fidelity of each operator the average state fidelity of the measured output states as compared to the calculated ones, such that
+
+\begin{eqnarray}
+F(D'_{e}) & = & F(D'\rho_{in}D^{'\dagger},D'_e \rho_{in} D_{e}^{'\dagger}) \label{eq:grover_diffusion_fidelity} \\
+F(R'_{e}) & = & F(R'\rho_{in}R^{'\dagger},R'_e \rho_{in} R_{e}^{'\dagger}) \label{eq:grover_oracle_fidelity}
+\end{eqnarray}
+
+where we also use the state fidelity according to eq. \ref{eq:state_fidelity}. By this method, we obtain the following fidelities for the two gate operations:
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{r|rrrr|l}
+Operator / State & $\ket{00}$ & $\ket{01}$ & $\ket{10}$ & $\ket{11}$ & Average \\ \hline 
+$D'$ & 92.3 & 93.4 & 94.3 & 91.7 & 92.9 \\
+$R'$ & 94.5 & 93.6 & 88.5 & 87.7 & 91.1
+\end{tabular}
+\caption[Measured fidelities of the quantum Oracle and diffusion operators used in the Grover search algorithm]{Measured fidelities of the quantum Oracle and diffusion operators used in the Grover search algorithm according to eqs. (\ref{eq:grover_diffusion_fidelity}) and (\ref{eq:grover_oracle_fidelity}). All fidelities are given in percent.}
+\end{table}
+
 \subsection{Readout Errors}
+
+\begin{figure}[ht!]
+	\centering
+\includegraphics[width=0.2\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/single qubit readouts"}\includegraphics[width=0.8\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/readout and crosstalk - 2 plots"}
+	\caption[Measured single- and two-qubit readout matrices and crosstalk matrix for the Grover search algorithm experiment]{a.)The measured single-qubit readout matrices, showing the readout outcome probabilities as a function of the prepared state for both qubits. b.)The measured two-qubit radout matrix, showing again the detector outcome probabilities versus the prepared qubit states. c.) The crosstalk matrix, corresponding to the product of the two-qubit readout matrix and the Kronecker product of the single-qubit readout matrices. Note that the $\ket{1}\to\ket{2}$ shelving method is used for reading out the qubit state, which increases readout fidelity but also inter-qubit readout crosstalk.}
+	\label{fig:grover_readout_model}
+\end{figure}
 
 Another source of errors arises due to the imperfection of our qubit readout. Mostly, qubit relaxation during the readout process reduces the visibility of individual qubit states and introduces errors when reading out the qubit register in the final step of the algorithm. We can easily quantify those readout errors by using the readout matrix that was introduced in the last chapter. Fig. \ref{fig:GroverReadoutMatrix} shows this matrix for our experiment. We use the $\ket{1}\to\ket{2}$ shelving method described in the last chapter to increase the readout contrast, which reduces single-qubit readout but increases inter-qubit readout crosstalk. To quantify single-qubit and inter-qubit readout errors, we can split up the readout matrix $R$ such that $R=R_{v}\cdot R_{ct}$, where $R_{v}$ is the so-called {\it visibility matrix} that can be written as the Kronecker product $R_{v} = R_{v}^1 \otimes R_{v}^2$ of two single-qubit readout matrices of the form
 
@@ -711,5 +789,11 @@ Here, $p_{00}^{1,2}$ ($p_{11}^{1,2}$) gives the probability to obtain the readou
 Fig. \ref{fig:GroverAlgorithmExperimentalResults}e shows the single-run probabilities when running the Grover algorithm for the four different Oracle functions. In blue, the expected readout outcome probabilities, as calculated using the state tomography of the final states given in fig. \ref{fig:GroverAlgorithmExperimentalResults}d and the measured readout matrix of our system are shown along the measured readout outcome probabilities. The readout error model shows good quantitative agreement with the measured data, with deviations most probably due to parameter drifts occured between the measurment of the quantum state tomography and the single-run experiment.
 
 \section{Conclusions}
+
+To summarize, we have shown that we can implement the Grover search algorithm with our quantum processor and achieve a single-run fidelity that is sufficient to demonstrate simple probabilistic quantum speed-up as compared to a classical, reversible search algorithm. The error model formulated in this chapter is able to account for most of the observed imperfections and can explain the data we observed. The coherence times of our qubits does not permit the realization of more complex algorithm with this system, nevertheless it provides a proof-of-principle of our approach to build a superconducting quantum computer with individual-qubit single shot readout.
+
+\smallskip
+
+In the following chapter, we will discuss the extension of this approach to a system of four qubits and explain different strategies for scaling up such system to an even larger number of qubits.
 
 %-Conclusions regarding quantum speed-up and applicability of results to larger-scale quantum computing.
