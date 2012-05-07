@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     32010,        887]
-NotebookOptionsPosition[     30575,        835]
-NotebookOutlinePosition[     30921,        850]
-CellTagsIndexPosition[     30878,        847]
+NotebookDataLength[     32178,        892]
+NotebookOptionsPosition[     30704,        839]
+NotebookOutlinePosition[     31050,        854]
+CellTagsIndexPosition[     31007,        851]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -831,7 +831,11 @@ Cell[BoxData[
    MatrixForm[BoxForm`e$]]]], "Output",
  CellChangeTimes->{{3.5449625540291805`*^9, 3.544962571694191*^9}, 
    3.5449626090773287`*^9, {3.544962740116824*^9, 3.5449627627121162`*^9}}]
-}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"NIntegrate", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.5453848573556566`*^9, 3.545384859336771*^9}}]
 },
 WindowSize->{707, 690},
 WindowMargins->{{49, Automatic}, {Automatic, -57}},
@@ -888,7 +892,8 @@ Cell[25005, 664, 2567, 76, 134, "Output"]
 Cell[CellGroupData[{
 Cell[27609, 745, 138, 2, 31, "Input"],
 Cell[27750, 749, 2809, 83, 146, "Output"]
-}, Open  ]]
+}, Open  ]],
+Cell[30574, 835, 126, 2, 31, "Input"]
 }
 ]
 *)

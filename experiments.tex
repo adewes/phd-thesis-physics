@@ -115,7 +115,36 @@ In this section we will discuss the techniques used to characterize and manipula
 
 \section{Qubit Readout}
 
+\begin{SCfigure}
+\centering
+\includegraphics[width=0.5\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/example - qubit 2 s curves"}
+\caption[]{Example of a single-qubit s-curve measurement. Shown is the switching probability of the readout for a range of readout drive attenuations, for the different qubit states $\ket{0}$, $\ket{1}$ and $\ket{2}$. The difference in switching probability between individual curves defines the readout contrast between the corresponding qubit states at a given readout power attenuation.}
+\label{fig:qubit_scurves_example}
+\end{SCfigure}
+
 \section{Qubit Manipulation}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/example - qubit 2 spectroscopy"}
+\caption[]{Example of a measured qubit spectroscopy. Shown is the switching probability of the qubit readout when driving the qubit with a very long drive pulse (typically 1 $\mu$s) at a given drive frequency. The resonance to the right corresponds to the $\ket{0}\to\ket{1}$ (at frequency $f_{01}$)transition of the qubit, the resonance on the left to the 2-photon $\ket{0}\to\ket{2}$ (at frequency $f_{02}/2$) transition. We perform a Lorentzian fit of the two resonances to obtain the $\ket{0}\to\ket{1}$ and $\ket{0}\to\ket{2}/2$ resonance frequencies, from which we can calculate all other qubit transition frequencies.}
+\label{fig:qubit_spectroscopy_example}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/example - qubit 2 rabi"}
+\caption[]{Example of a measured qubit Rabi experiment. Shown is the switching probability of the qubit readout when driving the qubit at $f_{01}$ with a Gaussian drive pulse of varying duration. The measurement results are not corrected for readout errors.}
+\label{fig:qubit_rabi_example}
+\end{figure}
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/example - qubit 2 ramsey"}
+\caption[]{Example of a measured qubit Ramsey experiment. Shown is the switching probability of the qubit readout after performing a $X_{\pi/2}$-wait-$X_{\pi/2}$ drive sequence at a frequency $f_{01}-\delta f$. Fitting the resulting curve with an attenuated sine-wave model allows us to determine the $f_{01}$ frequency of the Qubit with high accuracy.}
+\label{fig:qubit_ramsey_example}
+\end{figure}
 
 \section{Decoherence Time Measurement}
 
