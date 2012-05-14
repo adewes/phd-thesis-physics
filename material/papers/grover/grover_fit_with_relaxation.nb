@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     32178,        892]
-NotebookOptionsPosition[     30704,        839]
-NotebookOutlinePosition[     31050,        854]
-CellTagsIndexPosition[     31007,        851]
+NotebookDataLength[     32200,        892]
+NotebookOptionsPosition[     30725,        839]
+NotebookOutlinePosition[     31072,        854]
+CellTagsIndexPosition[     31029,        851]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -833,12 +833,12 @@ Cell[BoxData[
    3.5449626090773287`*^9, {3.544962740116824*^9, 3.5449627627121162`*^9}}]
 }, Open  ]],
 
-Cell[BoxData[
- RowBox[{"NIntegrate", "[", "]"}]], "Input",
- CellChangeTimes->{{3.5453848573556566`*^9, 3.545384859336771*^9}}]
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.5453848573556566`*^9, 3.545384859336771*^9}, {
+  3.5455397299805193`*^9, 3.5455397328966866`*^9}}]
 },
 WindowSize->{707, 690},
-WindowMargins->{{49, Automatic}, {Automatic, -57}},
+WindowMargins->{{Automatic, 143}, {Automatic, -39}},
 FrontEndVersion->"8.0 for Microsoft Windows (64-bit) (February 23, 2011)",
 StyleDefinitions->"Default.nb"
 ]
@@ -893,7 +893,7 @@ Cell[CellGroupData[{
 Cell[27609, 745, 138, 2, 31, "Input"],
 Cell[27750, 749, 2809, 83, 146, "Output"]
 }, Open  ]],
-Cell[30574, 835, 126, 2, 31, "Input"]
+Cell[30574, 835, 147, 2, 31, "Input"]
 }
 ]
 *)

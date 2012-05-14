@@ -201,6 +201,22 @@ It is interesting to note the non-monotnous characteristic of the qubit relaxati
 
 To perform arbitrary single-qubit operations -- as needed e.g. for implementing a quantum algorithm or performing quantum state tomography -- we need to implement a universal set of $X$, $Y$ and $Z$ qubit gates with our processor. Qubit rotations in the $XY$-plane are implemented through microwave drive pulses, where the phase of the drive pulse in reference to an arbitrary reference determines the rotation axis and the amplitude of the drive pulse the Rabi frequency of the gate. To characterize the drive pulses, we perform an experiment where we initialize a single-qubit in the states $\ket{1}$, $1/\sqrt{2}(\ket{0}+\ket{1})$ and $\sqrt{2}(\ket{0}+i\ket{1})$ and subject it afterwards to a single microwave pulse of the form $a(t) = V_I\cdot\cos{\omega_{rf}t}+V_Q\cdot\sin{\omega_{rf}t}$, which we tune by changing the input voltages $V_I$ and $V_Q$ to the $IQ$-mixer that generates the pulse from a continuous input micrwave-tone at frequency $\omega_{rf}$. We measure the qubit state at different values of $V_I$, $V_Q$, obtaining the graph shown in fig. \ref{fig:single_qubit_iq_control}. The qubit which was prepared in state $\ket{1}$ shows a perfectly cylinder-symmetric switching probability pattern when subjecting it to an IQ-pulse of a given phase, which is what one would expect for a qubit being prepared in either the $\ket{0}$ or $\ket{1}$ state. On the contrary, the switching probability distributions of the measured qubits prepared in the states $1/\sqrt{2}(\ket{0}+\ket{1})$ and $1/\sqrt{2}(\ket{0}+i\ket{1})$ are mirror-symmetric, where the switching probability does not vary at all along the drive axis which corresponds to the axis along which the qubit has been prepared. These measurements demonstrate therefore our ability to prepare and drive the qubit along arbitrary axes of the Bloch sphere. In the following sections we will analyze more in detail the drive errors inherent to our system and quantitatively analyze differnt error sources. 
 
+\subsection{Estimation of drive errors}
+
+Since the Transmon is a weakly anharmonic multi-level system and thus no real qubit, driving the $\ket{0}\to\ket{1}$ transition with high power can induce transitions to higher Transmon levels. It is important to estimate and reduce these errors when performing fast qubit gates e.g. for state preparation or tomography. To model the driving of a Transmon, we use the simple drive model in the rotating-frame approximation and as used e.g. in \cite{motzoi_simple_2009}:
+
+\begin{equation}
+\hat{H} = \left(
+						 \begin{array}{ccc}
+						0 & \epsilon^*(t) & 0 \\
+						\epsilon(t) & \delta & \sqrt{2}\epsilon^*(t) \\
+						0 & \sqrt{2}\epsilon(t) & 2\delta + \alpha
+						\end{array}
+					\right)
+\end{equation}
+
+Here, $\epsilon(t) = \epsilon_x(t)+i\epsilon_y(t)$ is the complex drive IQ amplitude in the rotating qubit frame, $\delta$ is the detuning of the microwave drive from the Transmon $\omega_{01}$ transition frequency and $\alpha$ is the Tranmon anharmonicity. To estimate the leakage
+
 \section{Two Qubit Operations}
 
 \subsection{Creation of Entanglement}
@@ -228,6 +244,19 @@ To perform arbitrary single-qubit operations -- as needed e.g. for implementing 
 	\caption{}
 \end{figure}
 
+\begin{equation}
+\mathrm{CHSH} = \mathrm{QS}+\mathrm{RS}+\mathrm{RT}-\mathrm{QT}
+\end{equation}
+with the operators $\mathrm{Q,R,S,T}$ being defined as
+
+\begin{eqnarray}
+	\begin{array}{cccccccc}
+		\mathrm{Q} & = & \sigma_z^1 &&& \mathrm{S} & = & \sigma_z^2\cdot \cos{\phi}+\sigma_x^2 \cdot \sin{\phi} \\
+		\mathrm{R} & = & \sigma_x^1 &&& \mathrm{T} & = & -\sigma_z^2\cdot \sin{\phi}+\sigma_x^2 \cdot \cos{\phi}
+	\end{array}
+\end{eqnarray} 
+
+Here, the angle $\phi$ is a parameter that should be chosen in accordance to the phase of the Bell state on which it is applied.
 
 \subsection{Quantum State Tomography of Two-Qubit States}
 
@@ -795,7 +824,8 @@ $R'$ & 94.5 & 93.6 & 88.5 & 87.7 & 91.1
 
 \begin{figure}[ht!]
 	\centering
-\includegraphics[width=0.2\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/single qubit readouts"}\includegraphics[width=0.8\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/readout and crosstalk - 2 plots"}
+\includegraphics[width=0.2\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/single qubit readouts"}
+\includegraphics[width=0.8\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/readout and crosstalk - 2 plots"}
 	\caption[Measured single- and two-qubit readout matrices and crosstalk matrix for the Grover search algorithm experiment]{a.)The measured single-qubit readout matrices, showing the readout outcome probabilities as a function of the prepared state for both qubits. b.)The measured two-qubit radout matrix, showing again the detector outcome probabilities versus the prepared qubit states. c.) The crosstalk matrix, corresponding to the product of the two-qubit readout matrix and the Kronecker product of the single-qubit readout matrices. Note that the $\ket{1}\to\ket{2}$ shelving method is used for reading out the qubit state, which increases readout fidelity but also inter-qubit readout crosstalk.}
 	\label{fig:grover_readout_model}
 \end{figure}
