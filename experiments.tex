@@ -480,24 +480,49 @@ couples to be used for calculating the gate map.
 
 \chapter{Running the Grover Search Algorithm}
 
-%Motivate this experiment:
-% -Benchmark for superconducting quantum computers
-% -Speed-up for searching in an unsorted database
+This chapter will describe the experimental implementation of the so-called {\it Grover search algorithm} with our two-qubit quantum processor. The first section will provide a short introduction of the algorithm and motivate the interest in realizing it. The following sections will then discuss the details of the experimental realization of this algorithm. We will discuss the results that we obtained and compare the algorithm fidelity and runtime to that of an equivalent, classical algorithm. Finally, we will analyze all relevant errors made in our experiment.
 
 \section{Introduction \& Motivation}
 
-The original algorithm by as given by \cite{Grover_Quantum_1997} is given as follows
+Search algorithm are of great importance in many domains of mathematics and computer science. The search problem that will be discussed in the following sections can be formulated in simple terms as follows:
+
+\begin{theorem}
+Assume that we have a search space $\begin{mathcal}S\end{mathcal}$ that consists of a finite number $N$ of states $s \in \begin{mathcal}S\end{mathcal}$. The solution to our search problem corresponds to a finite subset of $M$ states of the search space $\begin{mathcal}T\end{mathcal} \subset \begin{mathcal}S\end{mathcal}$. We can then define a search function $\Or(s):\begin{mathcal}S\end{mathcal}\to \{0,1\}$ that discriminates between states that solve the search problem and states that don't, such that $\Or(s) = 1$ for $s \in \begin{mathcal}T\end{mathcal}$ and $\Or(s) = 0$ otherwise.
+\end{theorem}
+
+Using this definition of the search problem, the goal of a search algorithm is to find all states $t\in\begin{mathcal}S\end{mathcal}$ for which $\Or(s) = 1$. For the sake of simplicity, we will assume in the following sections that the solution set $\begin{mathcal}T\end{mathcal}$ contains only one single state $t$.
+
+\smallskip
+
+To map the search problem above to a form suitable for solution by a digital (quantum) computer, we can also number and encode the $N$ input states $s_i \in \begin{mathcal}S\end{mathcal}$ in binary form such that $s_i = \sum\limits_{j=0}^l s_{ij}2^j $, where $l$ is the minimum required length of a binary register that can hold all $N$ input states. With this definition, it is then also trivial to reformulate $\Or$ such that the function operates on a binary input register instead of the original states. 
+
+\smallskip
+
+Using these assumptions and definitions, it can then be shown that the most efficient classical search algorithm for solving the search problem above will use $\begin{mathcal}O\end{mathcal}(N)$ calls of the function $\Or$ to find the solution $t$ to the search problem. Assuming that the time to evaluate the function $\Or$ is far superior to the time needed to perform any other operation during the search algorithm, the number of calls to $\Or$ corresponds approximately to the runtime of the whole search algorithm.
+
+\smallskip
+
+Amazingly, in 1997, \cite{Grover_Quantum_1997} found a quantum algorithm that could solve the same search problem with only $\begin{mathcal}O\end{mathcal}(\sqrt{N})$ calls to the function $\Or$. His algorithm achieves this by repeatedly calling a quantum-mechanical implementation of the function $\Or$ with a highly superposed qubit state and applying a special operator to the output state afterwards. The individual steps of the algorithm are as follows:
 
 \begin{enumerate}
- \item Start with the qubit register in the state $\ket{\psi} = \ket{000\hdots 0}$
- \item Apply the Hadamard operation to the qubit register, producing the equally superposed state $$\ket{\psi} = \frac{1}{\sqrt{n}}\sum\limits_i^n \ket{i}$$.
- \item Repeat the following sequence $\begin{mathcal}O\end{mathcal}(\sqrt{n})$ times:
- \subitem Apply the oracle operator $\ket{i}\to (-1)^{\delta_i^j}\ket{i}$ to the state $\ket{\psi}$, where $\ket{j}$ is the state marked by the oracle.
- \subitem Apply the diffusion operator $\ket{i} \to -\ket{i}+\frac{2}{n}\sum\limits_i^n\ket{j}$ to the state $\ket{\psi}$.
+ \item Start with a qubit register in the state $\ket{\psi} = \ket{000\hdots 0}$.
+ \item Apply the Hadamard operation to the qubit register, producing the equally superposed state $$\ket{\psi} = \frac{1}{\sqrt{N}}\sum\limits_i^N \ket{i}$$.
+ \item Repeat the following sequence $\begin{mathcal}O\end{mathcal}(\sqrt{N})$ times:
+ \subitem a) Apply the so-called {\it Oracle operator} $\ket{i}\to (-1)^{\Or(i)}\ket{i}$ to the state $\ket{\psi}$.
+ \subitem b) Apply the so-called {\it diffusion operator} $\ket{i} \to -\ket{i}+\frac{2}{N}\sum\limits_i^N\ket{j}$ to the state $\ket{\psi}$.
 	\item Measure the state of the quantum register
 \end{enumerate}
 
-The seemingly elusive algorithm can be derived in a very clear way from Schrödinger's equation, as shown in the seminal paper by \cite{grover_schrodingers_2001}. Since the derivation given in this paper sheds some interesting light on the nature of the quantum search algorithm we will discuss it here. The derivation begins by considering a quantum system governed by Schrödinger's equation, which can be written as (omitting all physical constants for the sake of clarity)
+As can be seen, the algorithm makes use of quantum parallelism to solve the search problem faster than any classically conceivable algorithm. The different steps of the algorithm can be explained in the following, more intuitive way:
+
+\begin{enumerate}
+\item First, the algorithm creates a fully superposed quantum state which contains all possible solutions to the search problem at once. The amplitudes and phases of each individual state are all equal in the beginning.
+\item Then, the algorithm applies the so-called Oracle operator to this superposed state. The effect of the Oracle is that it flips the sign of the basis state that corresponds to the solution of the search problem. As will be shown later, such an Oracle operator can be easily implemented for any possible classical search function.
+\item In the next step, the diffusion operator transfers a fraction of the amplitude of those states with positive signs to the state with negative sign, giving that state thereby a higher overall amplitude compared to the other states and also flipping back its sign to positive.
+\item By repeating these two operations, the amplitude of the state which corresponds to the solution of the search problem will increase in a mononous way until the amplitudes of all the other states are zero.
+\end{enumerate}
+
+A rather interesting and intuitive derivation of the algorithm starting from Schrödinger's equation has been given in a seminal paper by \cite{grover_schrodingers_2001} and shall be briefly rediscussed here. The derivation begins by considering a quantum system governed by Schrödinger's equation, which can be written as (omitting all physical constants for the sake of clarity)
 
 \begin{equation}
 -i\frac{\delta}{\delta t}\psi(x,t) = \frac{\delta^2}{\delta x^2}\psi(x,t)-V(x)\psi(x,t) \label{eq:grover_derivation}
@@ -565,7 +590,7 @@ This approximation is correct to $\begin{mathcal}O\end{mathcal}(\epsilon)$ up to
 \vec{\psi}^{t+\Delta t} = \left(\prod\limits_{i = 1}^{\Delta t/dt} D\cdot R\right)\cdot \vec{\psi}^{t}
 \end{equation}
 
-Using this approach, the evolution of the wavefunction is governed by two processes: The interaction of the wavefunction with the potential $V$ and a diffusion process which mixes different spatial parts of the wavefunction. The operator $D$ resembles a Markov diffusion process since each row and column of the matrix sums up to unity, whereas $R$ changes the phase of each element of the wavefunction in accordance with the local potential seen by it. If we apply $R$ to an initial state of the form $\psi_i = 1$ (we omit the normalization factor for clarity) and assume that $V_i = 0$ for $i \ne j$ and $V_j dt = \phi$, the element $\psi_j$ will get turned according to $\psi_j \to \psi_j \exp{\left(i\phi\right)}$.. Applying the operator $D$ to the resulting state will transform $\psi_j$ according to $\psi_j \to \psi_j(i+2\epsilon(1+i))$ with a corresponding amplitude $\sqrt{1+4\epsilon+\begin{mathcal}O\end{mathcal}(\epsilon^2)}$ and the adjacent states $\psi_{j\pm 1}$ according to $\psi_{j\pm 1} \to \psi_{j\pm 1}(1-\epsilon(1+i))$ with an amplitude $\sqrt{1-2\epsilon +\begin{mathcal}O\end{mathcal}(\epsilon^2)}$. Hence there is a transfer of amplitude between the state whose phase has been turned and its neighboring states. If we could reset the phases of the components of $\vec{\psi}$ afterwards, we would be able to iterate the application of $D\cdot R$ until all of the amplitude would have been transferred to the $\psi_j$. This, in essence, is what the Grover algorithm accomplishes by replacing the matrix $D$ with an unitary matrix 
+Using this approach, the evolution of the wavefunction is governed by two processes: The interaction of the wavefunction with the potential $V$ and a diffusion process which mixes different spatial parts of the wavefunction. The operator $D$ resembles a Markov diffusion process since each row and column of the matrix sums up to unity, whereas $R$ changes the phase of each element of the wavefunction in accordance with the local potential seen by it. If we apply $R$ to an initial state of the form $\psi_i = 1$ (we omit the normalization factor for clarity) and assume that $V_i = 0$ for $i \ne j$ and $V_j dt = \phi$, the element $\psi_j$ will get turned according to $\psi_j \to \psi_j \exp{\left(i\phi\right)}$.. Applying the operator $D$ to the resulting state will transform $\psi_j$ according to $\psi_j \to \psi_j(i+2\epsilon(1+i))$ with a corresponding amplitude $\sqrt{1+4\epsilon+\begin{mathcal}O\end{mathcal}(\epsilon^2)}$ and the adjacent states $\psi_{j\pm 1}$ according to $\psi_{j\pm 1} \to \psi_{j\pm 1}(1-\epsilon(1+i))$ with an amplitude $\sqrt{1-2\epsilon +\begin{mathcal}O\end{mathcal}(\epsilon^2)}$. Hence there is a transfer of amplitude between the state whose phase has been turned and its neighboring states. If we could reset the phases of the components of $\vec{\psi}$ afterwards, we would be able to iterate the application of $D\cdot R$ until all of the amplitude has been transferred to the $\psi_j$. This, in essence, is what the Grover algorithm accomplishes by replacing the matrix $D$ with an unitary matrix 
 
 \begin{equation}
 D' = \left( \begin{array}{ccccc}
@@ -582,7 +607,7 @@ and $R$ with an unitary matrix
 R' & = & \mathrm{I}^{n\otimes n}-2\ket{j}\bra{j} \label{eq:GroverOracleFunction}
 \end{eqnarray}
 
-where $j$ is the index of the searched basis state. When applying $D\cdot R$ to a fully superposed state $\vec{\psi}$, a maximum amount of amplitude will be transferred to the basis state $\psi_j$ marked by $R$. By repeating the $D\cdot R$ sequence $\begin{mathcal}O\end{mathcal}(\sqrt{n})$ times we can transfer all the amplitude into this basis state, therefore solving the search problem.
+where $j$ is the index of the searched basis state. When applying $D\cdot R$ to a fully superposed state $\vec{\psi}$, a maximum amount of amplitude will be transferred to the basis state $\psi_j$ marked by $R$. By repeating the $D\cdot R$ sequence $\begin{mathcal}O\end{mathcal}(\sqrt{n})$ times, all the amplitude can be transferred into this basis state, hence solving the search problem.
 
 \subsection{Ancilla-based Implementation of the Algorithm}
 
@@ -593,7 +618,7 @@ where $j$ is the index of the searched basis state. When applying $D\cdot R$ to 
 	\label{fig:GroverOracleImplementations}
 \end{figure}
 
-It is also possible to define a version of the Grover algorithm where the Oracle function does not encode the marked state directly in the input qubit register but where it uses an ancialla qubit to store the information on the marked state. Possible implementations of such ancilla-based Quantum oracle functions for the two-qubit case are shown in fig. \ref{fig:GroverOracleImplementations}. There, a two-qubit Tofolli gate in combination with several single-qubit NOT gates (which can be easily implemented as single-qubit $X_{\pi}$ rotations) is used to flip the state of an ancilla-qubit conditionally on the input state of the gate. This gate is fully reversible and operates on product- as well as superposition states. Representing the quantum Oracle in this form is quite useful since it will allow us to compare the Grover algorithm with a classical search algorithm implemented using reversible gates. This will in turn allow us to compare the fidelity and success probability with that of a classical algorithm and thereby quantify the quantum speed-up achieved with our system. 
+It is also possible to define a version of the Grover algorithm where the Oracle function does not encode the marked state directly in the input qubit register but uses an ancialla qubit to store the information on the marked state. Possible implementations of such ancilla-based Quantum oracle functions for the two-qubit case are shown in fig. \ref{fig:GroverOracleImplementations}. There, a two-qubit Tofolli gate in combination with several single-qubit NOT gates (which can be easily implemented as single-qubit $X_{\pi}$ rotations) is used to flip the state of an ancilla-qubit conditionally on the input state of the gate. The Toffoli gate is fully reversible and can operate on product- and superposition states. Representing the quantum Oracle in this form is quite useful since it allow us to make a direct comparision of the Grover algorithm to a classical search algorithm implemented using reversible logic gates. This will in turn allow us to measure the fidelity and success probability of our algorithm againsts that of a classical search algorithm and thereby quantify the quantum speed-up achieved with our system. 
 
 \begin{figure}[ht!]
 	\centering
@@ -604,13 +629,13 @@ It is also possible to define a version of the Grover algorithm where the Oracle
 
 \smallskip
 
-Fig. \ref{fig:GroverAlgorithmFullSchematic} shows an implementation of the two-qubit Grover algorithm which uses the ancilla-based Oracle function. This algorithm proceeds almost identically as the compiled version which we will present in the next section, with the difference that it uses a 3-qubit control-not gate $C$ of the form
+Fig. \ref{fig:GroverAlgorithmFullSchematic} shows such an ancilla-based implementation of the two-qubit Grover algorithm. This algorithm proceeds almost identically as the compiled version which we will present in the next section, with the difference that it uses a 3-qubit control-not (CNOT) gate $C$ of the form
 
 \begin{equation}
 C = \mathrm{I}^{n\otimes n}-2\sum\limits_{ij} \ket{ij1}\bra{ij1}
 \end{equation}
 
-which flips the sign of all states where the ancilla qubit is in state $\ket{1}$ and hence converts the ancilla-based quantum Oracle into the phase-encoded version that was outlined before. Here, the ancilla qubit must not be read out before the two input qubits since otherwise the algorithm will fail. One can verify that the Oracle function has really marked one of the basis states by reading out the value of the ancilla qubit after having read out the other qubits and checking for a value of $\ket{1}$.
+which flips the sign of all the states for which the ancilla qubit is in state $\ket{1}$ and hence converts the ancilla-based quantum Oracle into the phase-encoded version that was outlined before. Here, the ancilla qubit must not be read out before the two input qubits at the end of the algorithm since it will destroy the prepared state of the first two qubits otherwise. Reading out the value of the ancilla qubit after having read out the input qubits allows one to check that there exists indeed a solution to the search problem, in which case the ancilla qubit should have a value of $\ket{1}$.
 
 \section{Experimental Implementation}
 
@@ -625,24 +650,29 @@ In this work we implement a compiled version of the two-qubit Grover algorithm. 
 
 \subsection{Pulse Sequence}
 
+To implement the gate sequence described above we need to realize a sequence of microwave and flux pulses which realize the individual quantum gates of the sequence. To eliminate possible gate errors, we perform a series of calibration measurements before to tune-up the individual single- and two-qubit gates needed for the algorithm. In addition, we run individual parts of the algorithm successively and perform quantum state tomography to characterize the state of the quantum register after each step of the algorithm and correct the gate operations applied to the qubit in order to maximize the fidelity of the measured states in respect to the ideal ones. Fig. \ref{fig:GroverPulseSequence} shows an experimental pulse sequence for the Grover algorithm with an Oracle operator marking the state $\ket{00}$. Shown are the frequencies of the two qubits during the runtime of the algorithm and the microwave drive and readout pulses applied to them.
+
 \begin{figure}[htb!]
 	\centering
 		\includegraphics[width=1.\textwidth]{./material/papers/grover/figures/grover_algorithm_pulse_sequence}
-	\label{fig:Grover3}
 	\caption[Pulse sequence used for implementing Grovers search algorithm]{The pulse sequence used in realizing Grover's quantum search algorithm. First, a $Y_{\pi/2}$ pulse is applied to each qubit to produce the fully superposed state $1/2(\ket{00}+\ket{01}+\ket{10}+\ket{11})$. Then, an $i\mathrm{SWAP}$ gate is applied, followed by a $Z_{\pm \pi /2}$ gate on each qubit, which corrsponds to the application of the oracle function. The resulting state is then analyzed using another $i\mathrm{SWAP}$ gate and two $Y_{\pi/2}$ gates to extract the state which has been marked by the oracle function. Optionally, a $Y^{12}_{\pi}$ pulse is used on each qubit to increase the readout fidelity.}
+	\label{fig:GroverPulseSequence}
 \end{figure}
 
+\section{Results}
 
-%\begin{landscape}
+Fig. \ref{fig:GroverAlgorithmExperimentalResults} shows the results when running the Grover search algorithm for the four possible Oracle functions. Shown are quantum state tomographies after each step of the algorithm and the single-run results obtained when measuring the qubit register after the final step of the algorithm. In subfigures  (a)-(d) The black outlined circles in the density matrices represent the ideal theoretical states, whereas the colored, solid circles represent the experimentially measured states. The trace fidelities of all states with the ideal ones are noted above each density matrix. As can be seen, the fidelity diminshes as a function of the runtime of the algorithm due to dephasing and relaxation of the qubit register. The experimental single-shot probabilities in subfigure (e) are shown along with the expected probabilities, which are calculated based on the readout matrix of our two-qubit system and the state tomographies after the final state of the algorithm. 
+
+\begin{landscape}
 
 \begin{figure}
 	\centering
-		\rotatebox{90}{\includegraphics[width=1.2\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/grover algorithm - single run results"}}
+		\includegraphics[width=1.35\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/grover algorithm - single run results"}
 	\caption[Quantum state tomographies at different steps during the Grover search algorithm and single-run outcome probabilities]{Quantum state tomographies at different steps of the Grover search algorithm and single-run outcome probabilities. The density matrices show the experimentally measured states in color and the theoretical states in black. For each state, the trace fidelity $F_{tr}(\rho_A,\rho_B) = \mathrm{Tr}\{\rho_A\cdot\rho_B\}$ is shown above the density matrix.}
 	\label{fig:GroverAlgorithmExperimentalResults}
 \end{figure}
 
-%\end{landscape}
+\end{landscape}
 
 \section{Algorithm Fidelity}
 
