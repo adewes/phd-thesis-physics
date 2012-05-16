@@ -11,10 +11,14 @@ import sys
 import quantum.plotting
 reload(sys.modules["quantum.plotting"])
 from quantum.plotting import plotDensityMatricesContour
-
+from pyview.lib.datacube import *
 import quantum.qulib
 reload(sys.modules["quantum.qulib"])
 from quantum.qulib import *
+
+densityMatrices = Datacube()
+groverSingleRunData = Datacube()
+spins = Datacube()
 
 ##
 def generateDensityMatrix(params):
@@ -99,9 +103,9 @@ from pyview.lib.datacube import *
 datacube = Datacube("iswap gate - maximum likelihood density matrices",dtype = complex128)
 datacube.toDataManager()
 
-spinMatrix = gv.spins
+spinMatrix = spins
 
-for i in range(0,len(gv.spins)):
+for i in range(0,len(spins)):
 
 	row = i
 
@@ -190,7 +194,7 @@ fig.set_size_inches((12,10))
 gs = gridspec.GridSpec(4, 5)
 fidelityCube = Datacube("grover algorithm - fidelities")
 fidelityCube.toDataManager()
-for i in range(0,len(gv.densityMatrices)):
+for i in range(0,len(densityMatrices)):
 	if i % 5 == 1:
 		continue
 	if i % 5 >=1:
@@ -204,8 +208,8 @@ for i in range(0,len(gv.densityMatrices)):
 	else:
 		ax = subplot(gs[i/5,i % 5 + a])
 	#subplot(4,5,i+1+a)
-	densityMatrix = fromDatacube(gv.densityMatrices,i)
-	simulatedDensityMatrix = fromDatacube(gv.simulatedDensityMatrices,i)
+	densityMatrix = fromDatacube(densityMatrices,i)
+	simulatedDensityMatrix = fromDatacube(simulatedDensityMatrices,i)
 	if i == 0:
 		annotate = True
 	else:
@@ -231,7 +235,7 @@ detector1 = matrix([[0.9515,1-0.8843],[1-0.9515,0.8843]])
 detector2 = matrix([[0.9563,1-0.8737],[1-0.9563,0.8737]])
 detector = tensor(detector1,detector2)
 
-detectorReal = matrix(gv.groverSingleRunData.parameters()["qubit1"]["detectorFunction"])
+detectorReal = matrix(groverSingleRunData.parameters()["qubit1"]["detectorFunction"])
 
 figure(12)
 clf()
@@ -244,8 +248,8 @@ rc('font',size = 10)
 rc('axes', edgecolor=(0.5,0.5,0.5),facecolor = 'white')
 
 for state in range(0,4):
-	densityMatrix = fromDatacube(gv.densityMatrices,4+5*state)
-	measuredProbs = map(lambda i:float(gv.groverSingleRunData.children()[state]["zzp"+i][0]),["00","10","01","11"])
+	densityMatrix = fromDatacube(densityMatrices,4+5*state)
+	measuredProbs = map(lambda i:float(groverSingleRunData.children()[state]["zzp"+i][0]),["00","10","01","11"])
 	probs = matrix(map(lambda i:float(densityMatrix[i,i]),range(0,4)))
 	if state == 1:
 		ax = subplot(gs[2,4])
@@ -259,7 +263,7 @@ for state in range(0,4):
 
 	ax.set_xlim(0,1)
 	ax.barh([3.25,2.25,1.25,0.25],measuredProbs,color = 'red',lw = 1,height = 0.3)
-	ax.barh([3.65,2.65,1.65,0.65],(probs*detector).tolist()[0],lw = 1,height = 0.1,color = 'blue',fill = True)
+	ax.barh([3.65,2.65,1.65,0.65],(probs*detectorReal).tolist()[0],lw = 1,height = 0.1,color = 'blue',fill = True)
 	ax.axhline(1,color = 'black',ls = 'dotted',zorder = -10)
 	ax.axhline(2,color = 'black',ls = 'dotted',zorder = -10)
 	ax.axhline(3,color = 'black',ls = 'dotted',zorder = -10)
