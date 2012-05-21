@@ -4,7 +4,104 @@ The goal of this chapter is to provide the theoretical foundations needed to int
 
 \section{Quantum Mechanics \& Quantum Computing}
 
-\section{Transmon Qubits}
+\section{Superconduting Quantum Circuits}
+
+\begin{SCfigure}
+	\includegraphics[width=7cm]{"./material/figures/introduction/circuit_elements"}
+	\caption{The three main circuit elements that are used to construct superconducting quantum circuits. Shown are a)a Josephson junction, b) an inductor and c)a capacitor.}
+	\label{fig:SuperconductingCircuitElements}
+\end{SCfigure}
+
+In this section we will discuss several types of superconducting circuits that are most relevant to this work. We will start our discussion by introducing a general framework for treating classical circuit components such as inductances and capacitors quantum-mechanically and introduce the Josephson junction, the key element used to realize superconducting qubits.
+
+\subsection{The Josephson junction}
+
+The core element used to construct quantum circuits is the so-called {\it Josephson junction}, being equivalent to the transitor in classical circuits in significance. A Josephson junction is based on a disovery of Brian Josephson, which published a now-classical paper on quantum tunneling between weakly coupled superconductors \citep{josephson_possible_1962}. He found, that such a {\it weak link} between two superconductors could support a supercurrent $I$ described by the simple formula
+%
+\begin{equation}
+I = I_c\sin{\phi}
+\end{equation}
+%
+where $\phi = \phi_2-\phi$ and $\phi_1$ and $\phi_2$ are the superconducting phases at each side of the link. This simple equation, together with the current-phase relation of a Josephson junction,
+%
+\begin{equation}
+U = \frac{\hbar}{2e}\frac{\partial \phi}{\partial t}
+\end{equation}
+%
+yields a system exhibiting a  wealth of interesting physical phenomena that are used today in various applications in physics. The energy associated with the Josephson junction is given as
+%
+\begin{equation}
+E = E_J(1-\cos{\phi})
+\end{equation}
+%
+where $E_J = I_c \Phi_0/2\pi$ is the so-called {\it Joesephson energy}.
+
+\subsection{Transmission lines}
+
+Another common element in both classical and quantum circuits is the transmission line. In this section we will discuss the basic properties of transmission lines and point out various appliations in circuit theory that will be useful for the points discussed in the remainder of this chapter.
+
+\subsection{Quantization of Electrical Circuits}
+
+Here we will outline a general method to treat arbitary electrical circuits in a quantum-mechanical way. An interesting introduction to circuit quantization that we will follow in this chapter can be found in \cite{devoret_quantum_1995}.
+
+\begin{SCfigure}
+	\includegraphics[width=8cm]{"./material/figures/introduction/sample_circuit"}
+	\caption{An exemplatory superconducing circuit made of a Josephson junction, a capacitor and a voltage source. The circuit topology can be described by one node (plus ground) and one branch.}
+	\label{fig:SampleCircuit}
+\end{SCfigure}
+
+Fig. \ref{fig:SampleCircuit} shows an exemplatory circuit made of a Josephson junction, a capacitor and a voltage source. A circuit as this one is fully characterized by the parameters of its elements and its toplogy. The latter can be described -- following the laws of Kirchhoff -- as a set of nodes connected by a number of branches. In classical circuit theory, each branch $i$ is described by a voltage $V_i$ and a current $I_{i}$ flowing through it. The Kirchhoff laws demand that the sum of the branch voltages $V_i$ along any closed path must be zero, i.e. $\sum\limits_{\oint} V_i = 0$. Equivalently one may demand that the sum of currents flowing in and out of each node must be zero. For the quantization of electrical circuits it is usually more convenient to replace voltages and currents with branch charges and fluxes that are defined as
+%
+\begin{eqnarray}
+\Phi_i(t) & = & \int\limits_{-\infty}^t V_i(t') dt' \\
+Q_i(t) & = & \int\limits_{-\infty}^t I_i(t') dt'
+\end{eqnarray}
+%
+In analogy with the Kirchhoff laws for the sums of currents and voltages along a closed branch, we can formulate a Kirchhoff law for the charges $Q_i$ at each node of the circuit, given as
+%
+\begin{eqnarray}
+\sum\limits_{i} Q_i & = & Q_0 \label{eq:kirchhoff_charge}
+\end{eqnarray}
+%
+where $Q_0$ is constant . To quantize such a circuit made up of non-dissipative elements we can follow the method given in \cite{yurke_quantum_1984}, writing the Lagrangian of the circuit as 
+%
+\begin{equation}
+\begin{mathcal}L\end{mathcal} = \sum\limits_i V_i - \sum\limits_i T_i
+\end{equation}
+%
+where $V_i$ and $T_i$ are the potential and kinetic energies associated to each circuit element. \todo{Clarify why kintetic energy is mapped to capacitive energy and potential energy to inductive energy}. For a circuit composed entirely of capacitors and inductor, the Lagrangian is given as
+%
+\begin{equation}
+\begin{mathcal}L\end{mathcal} = \frac{1}{2}\sum\limits_i \frac{Q_i^2}{C_i}-\frac{1}{2}\sum\limits_i L \left( \frac{dQ_i}{dt}\right)^2 \label{eq:circuit_lagrangian}
+\end{equation}
+%
+If needed, resistors can be described within the Lagrangian formalism by modeling them as transmission lines with a characteristic impedance matching their resistance \citep{yurke_quantum_1984}. From the Lagrangian as given in eq. (\ref{eq:circuit_lagrangian}) we obtain then the equations of motion of the system by variation of the action
+%
+\begin{equation}
+\frac{\partial}{\partial t}\left( \frac{\partial \begin{mathcal}L\end{mathcal}}{\partial(\partial_t Q_i)}\right)-\frac{\partial \begin{mathcal}L\end{mathcal}}{\partial Q_i} = 0
+\end{equation}
+%
+By imposing the charge-conservation equations as given by eq. (\ref{eq:kirchhoff_charge}) we obtain then a complete description of the underlying circuit. From the variable $Q_i$ we obtain the canonically conjugate momentum $\Phi_i$ by solving the equation
+%
+\begin{equation}
+\Phi_i = \frac{\partial \begin{mathcal}L\end{mathcal}}{\partial(\partial_t Q_i)}
+\end{equation}
+%
+First Quantization of the circuit variables can then be done by imposing commutation relations between the set of canonical variables $Q_i$ and $\Phi_i$ such that
+%
+\begin{eqnarray}
+\left[Q_i(t),Q_j(t')\right] & = & 0 \\
+\left[\Phi_i(t),\Phi_j(t') \right] & = & 0 \\
+\left[Q_i(t),\Phi_i(t')\right] & = & i\hbar\delta_{ij}\delta(t-t') \label{eq:quantization_commutation_relations}
+\end{eqnarray}
+%
+Having obtained $\Phi_i$ and $Q_i$, it is also trivial to obtain the Hamiltonian $\begin{mathcal}H\end{mathcal}$ of the system by applying the transformation
+%
+\begin{equation}
+\begin{mathcal}H\end{mathcal} = \sum\limits_j \Phi_i \dot{Q}_i - \begin{mathcal}L\end{mathcal}
+\end{equation}
+%
+\subsection{The Cooper Pair Box}
 
 A Transmon qubit is essentially a Cooper pair box (CPB) operated in the phase regime, where $E_J \gg E_C$. The Hamiltionian of the CPB can be written as \citep{cottet_implementation_2002}
 
@@ -20,6 +117,8 @@ This Hamiltonian can be solved exactly in the phase basis with the solutions bei
 E_m(n_g) = E_C a_{2[n_g+k(m,n_g)]}(-E_J/E_C)
 \end{equation}
 Here, $a_\nu(q)$ denotes  Mathieu's characteristic value and $k(m,n_g)$ is a function that sorts the eigenvalues. We'll denote the energy differences between individual eigenstates by $E_{ij} = E_j - E_i$. The absolute anharmonicity of the first two Transmon transitions is given as $\alpha \equiv E_{12}-E_{01}$, the relative anharmonicity as $\alpha_r \equiv \alpha / E_{01}$. In the limit $E_J \gg E_C$ these are well approximated by $\alpha \simeq -E_C$ and $\alpha_r \simeq -(8E_J / E_C)^{-1/2}$.
+
+\section{The Transmon Qubit}
 
 \section{Circuit Quantum Electrodynamics}
 
