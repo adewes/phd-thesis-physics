@@ -2,7 +2,50 @@
 
 The goal of this chapter is to provide the theoretical foundations needed to interpret and analyze the experiments discussed in the following chapters. We will therefore briefly introduce some basic concepts of quantum mechanics and quantum computing, discuss Transmon qubits and circuit quantum electrodynamics (CQED) and introduce the reader to the Josephson bifurcation amplifier that we use to read out the qubit state in our experiments. Further details on all the elements discussed here will be provided in the relevant sections of the ``Experiments'' chapter.
 
-\section{Quantum Mechanics \& Quantum Computing}
+\section{Clasical \& Quantum Information Processing}
+
+\begin{SCfigure}
+	\includegraphics[width=8cm]{"./material/figures/introduction/bloch_sphere"}
+	\caption{The Bloch sphere representation of a qubit state $\ket{\psi} = \cos{\frac{\theta}{2}}\ket{0}+e^{i\phi}\sin{\frac{\theta}{2}}\ket{1}$. The state $\ket{\psi}$ is fully characterized by specifying its ``altitude'' and ``azimuth'' angles $\theta$ and $\phi$. Pure quantum states will always lie on the surface of the Bloch sphere, whereas mixed quantum states can also lie anywhere inside the sphere.}
+	\label{fig:BlochSphere}
+\end{SCfigure}
+
+By definition, computing designates the activity of using computer hardware and software to process information, or {\it data}. Classical information processing can be divided in so-called {\it analog and digital information processing}, the former being based on continously changeable physical quantities whereas the latter is based on incrementally changeable quantities. The fundamental unit of digital information processing is the so-called {\it bit}, which represents a boolean (true/false) information. The discipline of theoretical computer science has been created to investigate the fundamental limits and properties of classical information processing. One of the main foundational theorems of theoretical computer science is the so-called {\it Church-Turing thesis} which provides a universal computing model by saying (basically) that everything which is computable can be efficiently computed using a {\it Turing machine}. Such a Turing machine, in turn, is a simple theoretical devices which is able to run programs that operates on a discrete set of data using a well-specified set of operations. The Turing machine is universal in the sense that any other classical computing device can be efficiently simulated using a Turing machine with the appropriate program and data.
+
+\smallskip
+
+Surprisingly, Richard Feynman discovered in the early 1980 that a classical Turing machine as described above would be unable to efficiently simulate a quantum-mechanical system \citep{feynman_simulating_1982}. A few years later, David Deutsch took up Feynman's idea and developed an information processing framework based on quantum mechanics. He showed that by using this so-called {\it quantum computing} or {\it quantum information processing} framwork one could solve certain problems faster than would be possible with any classical Turing machine \citep{deutsch_quantum_1985}. The work by Feynman and Deutsch created a large interest in the physics community and led to a huge experimental and theoretical effort aimed at realizing a working quantum computer. 
+
+\section{Principles of Quantum Computing}
+
+\subsection{Quantum Bits}
+
+Similar to classical computing, in quantum computing one can define a fundamental unit of information, the so called {\it quantum bit} or {\it qubit}. Such a qubit is a quantum-mechanical two-level system described by the wavefunction
+%
+\begin{equation}
+\ket{\psi} = \cos{\frac{\theta}{2}}\ket{0}+e^{i\phi}\sin{\frac{\theta}{2}}\ket{1}
+\end{equation}
+%
+As can be seen, the state of such a qubit can be described by a pair of real numbers $\theta$ and $\phi$ that characterize the occupation probability of each of the two basis states $\ket{0}$ and $\ket{1}$ and the phase between them. A useful and intuitive representation of such a single-qubit state is the so-called {\it Bloch sphere representation} of a quantum state, which is shown in fig. \ref{fig:BlochSphere}. In this representation, the state $\ket{\psi}$ is located on a unit sphere. The north and south poles of this sphere correspond to the qubit states $\ket{0}$ and $\ket{0}$. All states lying between those two correspond to superposition states, which are characterized by their ``altitude'' and ``azimuth'' angles $\theta$ and $\phi$.
+
+\subsection{Quantum Gates}
+
+Analogously to classical information processing it is necessary to define {\it quantum gates} which act on individual or multiple qubits and allow us to process information with them. In the most general sense, a quantum gate is a unitary quantum operator that acts on one or several qubits. Theoretically there is an infinite number of possible quantum gates, however in order to describe all possible quantum operations that can be performed on a register of qubits it is sufficient to defined an {\it universal set of quantum gates}. Such a universal gate set that will be especially relevant to this work consists of the three single-qubit rotation matrices
+%
+\begin{eqnarray}
+   R_x(\theta)  & = & \left( \begin{array}{cc} \cos{\theta/2} & -i\sin{\theta/2} \\ -i\sin{\theta/2}  & \cos{\theta/2} \end{array} \right) \\ 
+   R_y(\theta)  & = & \left( \begin{array}{cc} \cos{\theta/2} & -\sin{\theta/2} \\ +\sin{\theta/2} & \cos{\theta/2} \end{array} \right) \\
+   R_z(\theta)  & = & \left( \begin{array}{cc} e^{-i\theta/2} & 0 \\ 0  & e^{+i\theta/2} \end{array} \right) 
+\label{eq:grover_phase_decoherence}
+\end{eqnarray}
+%
+togehter with the so-called $i\mathrm{SWAP}$ two-qubit operator, which has the representation
+%
+\begin{equation}
+i\mathrm{SWAP} = \left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 0 & -i & 0 \\ 0 & -i & 0 & 0 \\ 0 & 0 & 0 & 1  \end{array}  \right)
+\end{equation}
+%
+in the basis $(\ket{00},\ket{01},\ket{10},\ket{11})$. Often we will represent these gates schematically as shown in fig. \ref{fig:quantum_gates}.
 
 \section{Superconduting Quantum Circuits}
 
@@ -34,15 +77,121 @@ yields a system exhibiting a  wealth of interesting physical phenomena that are 
 E = E_J(1-\cos{\phi})
 \end{equation}
 %
-where $E_J = I_c \Phi_0/2\pi$ is the so-called {\it Joesephson energy}.
+where $E_J = I_c \Phi_0/2\pi$ is the so-called {\it Joesephson energy}. In addition to this Josephson energy, the junction usually has an energy associated to the capacitance formed by the two seperated electrodes of the junction and given as $E_c = Q^2/2C$. 
 
-\subsection{Transmission lines}
+\smallskip
 
-Another common element in both classical and quantum circuits is the transmission line. In this section we will discuss the basic properties of transmission lines and point out various appliations in circuit theory that will be useful for the points discussed in the remainder of this chapter.
+For currents $I\ll I_c$, a Josephson junction behaves approximatively like a nonlinear inductor with inductance 
+%
+\begin{equation}
+L_J = \frac{\Phi_0}{2\pi I_c \cos{\phi}}
+\end{equation}
+%
+where $\Phi_0 = h/2e \approx 2.05 \times 10^{-15}\; \mathrm{Wb}$ is the so-called {\it magnetic flux quantum}. Later we will show how to make use of the properties of the Josephson junction to construct a qubit with it.
+
+\subsection{Transmission Lines}
+
+\begin{SCfigure}
+	\includegraphics[width=6cm]{"./material/figures/introduction/transmission_lines"}
+	\caption{a) The circuit diagram of a grounded tranmission line. b) The circuit diagram of a grounded coaxial tranmission line.}
+	\label{fig:SampleCircuit}
+\end{SCfigure}
+
+Another circuit element that we will encounter many times in this work is the so-called {\it transmission line}. In the most general way, a transmission line is a structure with a large extension in one direction which is capable of transmitting electromagnetic waves along itself. Two possible symbols by which one usually designates tranmission lines in a circuit schematic are shown in fig. \ref{fig:tline_schematic}. A detailed treatment of the physics of tranmission lines can be found e.g. \cite{pozar_microwave_2011}. For this introduction we will skip these basics and start directly with the equation that describes the propagation of an electromagnetic wave along the extended dimension $z$ of the tranmission line and which is given as
+%
+\begin{eqnarray}
+V(z,t) & = & \exp{\left(i\omega t\right)}\cdot\left(V^+ \exp{\left(-i\gamma z\right)}+V^-\exp{\left(i\gamma z\right)}\right) \\
+I(z,t) & = & \frac{1}{Z_0}\exp{\left(i\omega t\right)}\cdot\left(V^+ \exp{\left(-i\gamma z\right)}-V^-\exp{\left(i\gamma z\right)}\right)
+\end{eqnarray}
+%
+Here, $\gamma = \alpha+i\beta = \sqrt{(R+i\omega L)(G+i\omega C)}$ is the so-called {\it propagation constant} which describes the dispersion and damping of electromagnetic waves along the transmission line and $\omega$ the circular frequency of the electromagnetic wave. The voltages $V^+$ and $V^-$ correspond to waves traveling in different directions along the waveguide.
+
+\smallskip
+
+If we regard a CPW of fixed length $l$, we can model the voltages and currents at its end by using the formula\citep{pozar_microwave_2011}
+%
+\begin{equation}
+\left( \begin{array}{c} V_1 \\ I_1 \end{array}\right) = \left( 
+		\begin{array}{cc}
+			\cos{\gamma l} & iZ_r \cos{\gamma l} \\
+			i Y_r \sin{\gamma l} & \cos{\gamma l}
+		\end{array}
+		\right) \cdot \left(
+		\begin{array}{c}
+			V_2 \\ I_2
+		\end{array}
+		\right) \label{eq:cpw_abcd_matrix}
+\end{equation}
+%
+
+\subsection{Transmission Line Resonators}
+
+One can easily create a resonator using a coplanar waveguide as described in the last section. As an example, we will discuss an open-ended $\lambda / 2$ CPW resonator that is used in our experiments as well and thus highly relevant to this work. To create a resonator out of a CPW line, we terminate the line by an open and and connect it to a drive line through an input capacitance $C$, as shown in fig. \ref{fig:cpw_resonator}. To calculate the voltages and currents going into the CPW resonator, we can use eq. (\ref{eq:cpw_abcd_matrix}). Since the far end of the resonator is open we demand that $I_2=$ and thus obtain for the voltage $V_1$ and current $I_2$ the relation
+%
+\begin{eqnarray}
+V_1 & = & \cos{\gamma l} V_2 \\
+I_1 & = & i Y_r \sin{\gamma l} V_2
+\end{eqnarray}
+%
+Hence, the impedance of the resonator is given as $Z_{res} = V_1/I_1 = i Z_r \cot{\gamma l}$, where $Z_r$ is the impedance of the tranmission line of which the resonator is made of. We couple this resonator to an input line through a gate capacitance $C_g$, thus the impendance seen from the input of the circuit is given as
+%
+\begin{equation}
+Z_{in} = i Z_r \cot{\gamma l}-\frac{i}{\omega C_g} \label{eq:cpw_impedance}
+\end{equation}
+%
+It is straightforward to calculate the $S_{11}$ reflection coefficient of the resonator when coupling it to an input line with impedance $Z_0$ as
+%
+\begin{equation}
+S_{11} = \frac{Z_{in}-Z_0}{Z_{in}+Z_0} = \frac{Z_r\cot{\gamma l}-/\omega C_g-Z_0}{Z_r\cot{\gamma l}-/\omega C_g + Z_0}
+\end{equation}
+%
+Now, when measuring the reflection of an incoming signal with voltage $V^+$ at frequency $f=2\pi \omega$ and phase $\phi_0$, the phase of the relected signal $\phi_{ref}$ will be simply given as $\phi_{ref}=\mathrm{Arg}[V^-/V^+]-\phi_0 = \mathrm{Arg}[S_{11}]-\phi_0$. Fig \ref{fig:cpw_resonator_phase} shows this phase for an exemplatory resonator, plotted for $f=2\pi\omega$ in reduced units of $[l/v]$, with impendances $Z_r,Z_0=50\;\mathrm{\Omega}$, $\alpha=0$ and with the resonator coupled to the input line through a normalized capacitance $C_g=10^{-3}/\omega\;[\mathrm{Hz}\cdot \mathrm{F}]$.
+
+\begin{SCfigure}
+	\includegraphics[width=10cm]{"./material/mathematica/cpw_lambda_over_4_phase_and_z"}
+	\caption{This is the side caption which is maybe already to small to support such long text..}
+	\label{fig:LambdaOver4ResonatorResponse}
+\end{SCfigure}
+
+We can calculate the quality factor of such an open-ended CPW resonator by modeling it as a series-LC circuit. Indeed,  if we regard the input impedance of the resonator in the vicinity of $\omega_0$ such that $\Delta \omega = \omega -\omega_0$ with $\Delta \omega \ll \omega_0$ and $\beta l = \pi +\pi\Delta \omega /\omega_0$, we obtain an effective impedance
+%
+\begin{equation}
+Z_{in} = \frac{Z_{r}}{\alpha l + i(\Delta \omega \pi / \omega_0)}
+\end{equation}
+%
+We can identify the quantities in this equation with the input impedance of a parallel LCR-resonator, which at $\omega\approx \omega_0$ is approximatively given as
+%
+\begin{equation}
+Z_{in} = \frac{R}{1+2i Q \Delta \omega / \omega_0}
+\end{equation}
+%
+with $W=\omega_0 RC$. This yields an effective resistance, inductance and capacitance for the transmission line resonator of
+%
+\begin{eqnarray}
+R_{r} & = & \frac{Z_r}{\alpha l} \\
+L_{r} & = & \frac{1}{\omega_0^2 C} \\
+C_{r} & = & \frac{\pi}{2\omega_0 Z_r}
+\end{eqnarray}
+%
+When coupling this resonator to an input transmission line of impedance $Z_0$ through a gate capacitance $C_g$ as before, the quality factor of the coupled (or {\it loaded}) resonator will be given as \citep{goppl_coplanar_2008}
+%
+\begin{equation}
+Q_L = \omega_0^* \frac{C+C^*}{1/R_{r}+1/R^*}
+\end{equation}
+%
+where we have introduced an effective resistance, capacitance and resonance frequency given as
+%
+\begin{eqnarray}
+R^* & = & \frac{1+\omega_0^2 C_g^2 Z_0^2}{\omega_0^2 C_g^2 Z_0} \\
+C^* & = & \frac{C_g}{1+\omega_0^2 C_g^2 Z_0^2} \\
+\omega_0^* & = & \frac{1}{\sqrt{L_r(C_r+C_g)}}
+\end{eqnarray}
+%
+Thus, we can effectively tune the quality factor of the resonator by changing the gate capacitance by which we couple it to the input tranmission line. 
 
 \subsection{Quantization of Electrical Circuits}
 
-Here we will outline a general method to treat arbitary electrical circuits in a quantum-mechanical way. An interesting introduction to circuit quantization that we will follow in this chapter can be found in \cite{devoret_quantum_1995}.
+In this section we will outline a general method to treat arbitary electrical circuits as the ones discussed before within the framework of quantum-mechanics, hence {\it quantizing} them. This introduction on circuit quantization presented in this chapter is based on an article by \cite{devoret_quantum_1995}.
 
 \begin{SCfigure}
 	\includegraphics[width=8cm]{"./material/figures/introduction/sample_circuit"}

@@ -8,7 +8,7 @@
 *.emf
 *.wmf
 *.dat
-*.pxp
+#*.pxp
 *.hdf
 *.ai
 *.opj
