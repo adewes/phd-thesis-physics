@@ -50,7 +50,7 @@ in the basis $(\ket{00},\ket{01},\ket{10},\ket{11})$. Often we will represent th
 \section{Superconduting Quantum Circuits}
 
 \begin{SCfigure}
-	\includegraphics[width=7cm]{"./material/figures/introduction/circuit_elements"}
+	\includegraphics[width=6cm]{"./material/figures/introduction/circuit_elements"}
 	\caption{The three main circuit elements that are used to construct superconducting quantum circuits. Shown are a)a Josephson junction, b) an inductor and c)a capacitor.}
 	\label{fig:SuperconductingCircuitElements}
 \end{SCfigure}
@@ -194,7 +194,7 @@ Thus, we can effectively tune the quality factor of the resonator by changing th
 In this section we will outline a general method to treat arbitary electrical circuits as the ones discussed before within the framework of quantum-mechanics, hence {\it quantizing} them. This introduction on circuit quantization presented in this chapter is based on an article by \cite{devoret_quantum_1995}.
 
 \begin{SCfigure}
-	\includegraphics[width=8cm]{"./material/figures/introduction/sample_circuit"}
+	\includegraphics[width=6cm]{"./material/figures/introduction/sample_circuit"}
 	\caption{An exemplatory superconducing circuit made of a Josephson junction, a capacitor and a voltage source. The circuit topology can be described by one node (plus ground) and one branch.}
 	\label{fig:SampleCircuit}
 \end{SCfigure}
@@ -252,6 +252,12 @@ Having obtained $\Phi_i$ and $Q_i$, it is also trivial to obtain the Hamiltonian
 %
 \subsection{The Cooper Pair Box}
 
+\begin{SCfigure}
+	\includegraphics[width=6cm]{"./material/figures/introduction/cooper_pair_box"}
+	\caption{The circuit schematic of a Split Cooper Pair Box. The device consists of two Josephson junctions arranged in a loop, where the capacitance of the junctions is modeled as the extra capacitor indicated on the left. By putting the two junctions in series with a gate capacitance one creates an island one which charges can accumulate. The gate voltage can be controlled by an external voltage source.}
+	\label{fig:SampleCircuit}
+\end{SCfigure}
+
 A Transmon qubit is essentially a Cooper pair box (CPB) operated in the phase regime, where $E_J \gg E_C$. The Hamiltionian of the CPB can be written as \citep{cottet_implementation_2002}
 
 \begin{equation}
@@ -260,14 +266,63 @@ A Transmon qubit is essentially a Cooper pair box (CPB) operated in the phase re
 
 where $E_C = e^2 / C_\Sigma$ is the charging energy with $C_\Sigma = C_J+C_B+C_g$ the total gate capacitance of the system, $\hat{n}$ is the number of Cooper pairs transferred between the islands, $n_g$ the gate charge, $E_J$ the Josephson energy of the junction and $\hat{\phi}$ the quantum phase across the junction.
 
+\smallskip
+
+The corresponding wavefunction $\Psi_k(\theta) = \bracket{\theta,k}$ will then satisfy the Schrödinger equation
+%
+\begin{equation}
+E_k \Psi_k(\theta) = E_C(\frac{1}{i}\frac{\partial}{\partial \theta}-n_g)^2 \Psi_k(\theta) - E_J \cos{\left(\theta\right)}\Psi_k(\theta) \label{eq:cpb_schroedinger_equation}
+\end{equation}
+%
+Since the potential $E_J\cos{(\theta)}\Psi_k(\theta)$ is periodic, we may demand that the solution will also exhibit a periodicity of the form
+%
+\begin{equation}
+\Psi_k(\theta) = \Psi_k(\theta+2\pi)
+\end{equation}
+%
+As it turns out, eq. (\ref{eq:cpb_schroedinger_equation}) can be mapped easily to the so-called {\it Mathieu differential equation}, which is given as
+%
+\begin{equation}
+\frac{d^2y}{dx^2}+\left[a-2q\cos{(2x)}\right]y = 0
+\end{equation}
+%
+Applying {\it Floquet's theorem} to this equation it can be shown that there exist solutions of the form
+%
+\begin{equation}
+F(a,q,x) = \exp{\left(i\mu x\right)}P(a,q,x)
+\end{equation}
+%
+The most general solutions to eq. (\ref{eq:cpb_schroedinger_equation}) are given as \citep{cottet_implementation_2002}
+%
+\begin{equation}
+\Psi_k(r,q,\theta) = \mcal{C}_1\exp{\left(i n_g \theta \right)}\mcal{M}_C\left(\frac{4E_k}{E_C},-\frac{2E_J}{E_C},\frac{\theta}{2}\right)+\mcal{C}_2\exp{\left(i n_g \theta \right)}\mcal{M}_S \left(\frac{4 E_k}{E_C},-\frac{2 E_J}{E_C},\frac{\theta}{2}\right)
+\end{equation}
+%
+with 
+%
+\begin{equation}
+E_k = \frac{E_C}{4}\mcal{M}_A \left(r,-\frac{2 E_J}{E_C} \right)
+\end{equation}
+%
+Here, $\mcal{M}_C$, $\mcal{M}_S$ are the {\it Mathieu functions} and $\mcal{M}_A$ corresponds to the eigenvalue.
 This Hamiltonian can be solved exactly in the phase basis with the solutions being given as\citep{koch_charge-insensitive_2007,cottet_implementation_2002}
 
+\begin{figure}[ht!]
+	\includegraphics[width=\textwidth]{"./material/mathematica/cooper_pair_box_energies"}
+	\caption{Energies of the first four energy level of the Cooper pair box for different ratios $E_J/E_C$, plotted as a function of the gate charge $n_g$. As can be seen, for $E_J \ll E_C$, the charge-dispersion curve becomes almost completely flat.}
+	\label{fig:CooperPairBoxEnergies}
+\end{figure}
+
+%
 \begin{equation}
 E_m(n_g) = E_C a_{2[n_g+k(m,n_g)]}(-E_J/E_C)
 \end{equation}
-Here, $a_\nu(q)$ denotes  Mathieu's characteristic value and $k(m,n_g)$ is a function that sorts the eigenvalues. We'll denote the energy differences between individual eigenstates by $E_{ij} = E_j - E_i$. The absolute anharmonicity of the first two Transmon transitions is given as $\alpha \equiv E_{12}-E_{01}$, the relative anharmonicity as $\alpha_r \equiv \alpha / E_{01}$. In the limit $E_J \gg E_C$ these are well approximated by $\alpha \simeq -E_C$ and $\alpha_r \simeq -(8E_J / E_C)^{-1/2}$.
+%
+Here, $a_\nu(q)$ denotes  Mathieu's characteristic value and $k(m,n_g)$ is a function that sorts the eigenvalues. We denote the energy differences between individual energy level by $E_{ij} = E_j - E_i$. We also define the absolute and relative anharmonicities of the first two energy levels as $\alpha{12} \equiv E_{12}-E_{01}$ and $\alpha_r \equiv \alpha / E_{01}$. In the limit $E_J \gg E_C$ these anharmonicities are well approximated by $\alpha \simeq -E_C$ and $\alpha_r \simeq -(8E_J / E_C)^{-1/2}$.
 
 \section{The Transmon Qubit}
+
+The Transmon qubit is a Cooper pair box operated in the regime where $E_J \gg E_C$. As shown above, in this regime the charge dispersion of the energy levels of the Cooper pair box becomes flat, thus rendering the transition frequency $E_{01}$ almost insensitive to the value of the gate charge $n_g$. This reduced sensitivity to charge noise is highly advantageous in experiments. However, when increasing the ratio $E_J/E_C$, we also reduce the anharmonicity $\alpha_r$ of the qubit, therefore limiting the speed of gate operations that can be realized with this system (driving errors related to weak anharmonicity will be discussed more thoroughly in the Experiments section of this thesis). Remarkably though, $\alpha_r$ decreases only geometrically with $E_J/E_C$, whereas the sensitivity of the qubit to charge noise decreases exponentially with the ratio of Josephson and charging energy. Fig \ref{fig:TransmonAlphaAndT2} shows the relaxation rate and relative anharmonicity of  a Cooper Pair box for different values of $E_J/E_C$. As can be seen,
 
 \section{Circuit Quantum Electrodynamics}
 
