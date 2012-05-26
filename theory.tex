@@ -326,6 +326,13 @@ The Transmon qubit is a Cooper pair box operated in the regime where $E_J \gg E_
 
 \section{Circuit Quantum Electrodynamics}
 
+\begin{SCfigure}
+	\includegraphics[width=11cm]{"./material/figures/introduction/cqed/cqed"}
+	\caption{A typical circuit QED setup consisting of a Transmon qubit capacitively coupled to a $\lambda/2$ resonator.}
+	\label{fig:CQED}
+\end{SCfigure}
+
+
 For readout and noise protection, the Transmon qubit is usually coupled to a harmonic oscillator which is usually realized as a lumped-elements resonator or a coplanar waveguide resonator. In the limit where the resonator capacity $C_r \gg C_\Sigma$ we can write the effective Hamiltonian of the system as
 
 \begin{equation}
@@ -355,6 +362,19 @@ The fact that $\chi_{01}$ and $\chi_{12}$ contribute to the total dispersive shi
 
 \section{The Josephson Bifurcation Amplifier}
 
+\begin{SCfigure}
+	\includegraphics[width=5cm]{"./material/figures/introduction/nonlinear resonator"}
+	\caption{The circuit model of the JBA.}
+	\label{fig:jba_schematic}
+\end{SCfigure}
+
+
+\begin{SCfigure}
+	\includegraphics[width=10cm]{"./material/figures/introduction/jba"}
+	\caption{The Joesphson Bifurcation Amplifier used in this work.}
+	\label{fig:CQED}
+\end{SCfigure}
+
 \citep{palacios-laloy_superconducting_2010}
 
 \begin{equation}
@@ -372,3 +392,29 @@ Defining the total inductance $L_t = L_e+L_J$, the participation ratio $p=L_J/L_
 \begin{equation}
 \ddot{q}+\frac{\omega_r}{Q}\dot{q}+\omega_r^2 q + \frac{p \dot{q}^2 \ddot{q}}{2 I_0} = \frac{V_e}{L_t}\cos{\left(\omega_m t \right)}
 \end{equation}
+
+We can rewrite this equation in dimensionless units introducing the reduced variables $Q = \pi Z_0 / 2 R_e$, $\omega_r = \sqrt{1/(L_e+\phi_0/I_0)C_e}$, $\beta = (V_e/\phi_0 \omega_m)^2(pQ/2\Omega)^3$, $\Delta_m = \omega_r-\omega_m$, $\tau = t\Delta_m$ and $u(t) = \sqrt{pQ/2\Omega}\cdot q(t)\omega_m/I_0$, obtaining
+%
+\begin{align}
+\frac{\Delta_m}{\omega_m}\frac{d^2 u}{d\tau^2}+\left(\frac{1}{Q \omega_m}+2i\right)\frac{du}{d\tau} \notag \\
+ + \left[ 2\left(\frac{\omega_r^2-\omega_m^2}{2\omega_m \Delta_m}\right)+\frac{1}{Q\Delta m}-2|u|^2\right]u & =  2\sqrt{\beta} \label{eq:jba_theory_1}
+\end{align}
+%
+In the limit where $Q \gg 1$, $\Delta_m\omega_m \ll 1$ such that $\omega_m+\omega_r \approx 2\omega_m$ and $\ddot{u}\ll\omega_m \dot{u}$ we can simplify eq. (\ref{eq:jba_theory_1}) to obtain
+%
+\begin{equation}
+\frac{du}{d\tau} = -\frac{u}{\Omega}-iu\left(|u|^2-1\right)-i\sqrt{\beta}
+\end{equation}
+%
+where we have defined $\Omega = 2Q\Delta_m/\omega_r$. The stationary solutions of this equation have the form
+%
+\begin{equation}
+\frac{|u|^2}{\Omega^2}+|u|^2\left(|u|^2-1\right)^2 = \beta(\Omega)
+\end{equation}
+%
+This equation can have one or two solutions depending on the parameter $\beta(\Omega)$. The region where multiple solutions exist is usually called the {\it bistability region} and is limited by the the two parameter boundaries $\beta^\pm(\Omega)$ that are given as
+%
+\begin{equation}
+\beta^\pm(\Omega) = \frac{2}{27}\left[1+\left(\frac{3}{\Omega}\right)^2\pm\left(1-\frac{3}{\Omega^2}\right)^{3/2}\right]
+\end{equation}
+%

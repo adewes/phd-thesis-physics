@@ -17,7 +17,7 @@
 *.tcp
 *.toc
 *.tps
-*.pptx
+#*.pptx
 *.log
 *.aux
 *.dvi
