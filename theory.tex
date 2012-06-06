@@ -1,6 +1,6 @@
 \chapter{Theoretical Foundations}
 
-The goal of this chapter is to provide the theoretical foundations needed to interpret and analyze the experiments discussed in the following chapters. We will therefore briefly introduce some basic concepts of quantum mechanics and quantum computing, discuss Transmon qubits and circuit quantum electrodynamics (CQED) and introduce the reader to the Josephson bifurcation amplifier that we use to read out the qubit state in our experiments. Further details on all the elements discussed here will be provided in the relevant sections of the ``Experiments'' chapter.
+The goal of this chapter is to provide the theoretical foundations needed to interpret and analyze the experiments discussed in the following chapters. We will therefore briefly introduce some basic concepts of quantum mechanics and quantum computing, discuss Transmon qubits and circuit quantum electrodynamics (CQED) and introduce the reader to the {\it cavity bifurcation amplifier (CBA)} that we use in our experiments. More detailed discussions of the properties of all the circuit components discussed here will be provided in the relevant sections of the ``Experiments'' chapter.
 
 \section{Clasical \& Quantum Information Processing}
 
@@ -17,6 +17,8 @@ By definition, computing designates the activity of using computer hardware and 
 Surprisingly, Richard Feynman discovered in the early 1980 that a classical Turing machine as described above would be unable to efficiently simulate a quantum-mechanical system \citep{feynman_simulating_1982}. A few years later, David Deutsch took up Feynman's idea and developed an information processing framework based on quantum mechanics. He showed that by using this so-called {\it quantum computing} or {\it quantum information processing} framwork one could solve certain problems faster than would be possible with any classical Turing machine \citep{deutsch_quantum_1985}. The work by Feynman and Deutsch created a large interest in the physics community and led to a huge experimental and theoretical effort aimed at realizing a working quantum computer. 
 
 \section{Principles of Quantum Computing}
+
+In this section we will discuss the basic principles of quantum computing, including quantum bits and quantum gates. We will also briefly dicsuss some examples of quantum algorithms that are relevant to this work.
 
 \subsection{Quantum Bits}
 
@@ -47,15 +49,26 @@ i\mathrm{SWAP} = \left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 0 & -i & 0 \\ 0
 %
 in the basis $(\ket{00},\ket{01},\ket{10},\ket{11})$. Often we will represent these gates schematically as shown in fig. \ref{fig:quantum_gates}.
 
+\subsection{Quantum Algorithms}
+
+The interest in quantum computing is mainly due to the fact that certain problems can be solved faster on a quantum computer than on a classical computer. By faster we mean here that the order $\cal{O}$ of the runtime of the algorithm increases faster on a classical computer than on a quantum computer as a function of the problem size. Up to this day it has not been shown that a quantum computer can perform all tasks faster than a classical computer, however certain real-world problems have been found that can be solved exponentially to polynomially faster on a quantum computer. Here we will briefly discuss some of them:
+
+\begin{enumerate}
+\item \textbf{Grover's Search Algorithm}: Discovered by Lev Grover in 1996 \citep{grover_fast_1996}, this search algorithm can find a single well-defined state in an unsorted database of size $N$ in $\cal{O}(N)$ steps, being hence quadratically faster than a classical search algorithm.
+\item \textbf{Shor's Factorization Algorithm} Discovered by Peter Shor in ???? \citep{}, this algorithm can factorize a binary number of length $N$ into its prime factors in $\cal{O}(???)$ steps, therefore exponentially outperforming any known classical factorization algorithm. There is large interest in this algorithm since products of large prime numbers are routinely used in asymmetric cryptography.
+\end{enumerate}
+
+\subsection{Quantum Simulation}
+
+Another domain of interest for quantum computers is so called {\it quantum simulation}. Here the goal is to simulate the behaviour of an arbitrary quantum system using a quantum computer by either engineering the quantum computer in direct analogy with the system being modeled (so called {\it analog quantum simulation}) or by numerically simulating the Hamiltonian of the quantum system on a general-purpose quantum computer (so-called {\it digital quantum simulation}). Since no classical computer can simulate a quantum system efficiently, there is a large interest in quantum simulation, especially in the fields of biology and chemistry (e.g. for protein folding\cite{}\todo{include references!})
+
+\subsection{Realization of a Quantum Computer}
+
+To realize a working quantum computer it is necessary to implement highly coherent qubits that can be manipulated, read out and coupled with high fidelity. So far, no fully working quantum computer has been experimentially demonstrated. However, larger progress towards the realization of such a quantum computer has been achieved in the last decade. Promising approaches for the realization of a quantum computer include --among others-- ions trapped in magnetic and electric fields \citep{}, cold atomic gases \citep{}, photonic circuits \citep{}, semiconductor structures \citep{} and, last but not least, superconducting structures. Since this work treats only superconducting qubits of the Transmon type we will focus our attention on them in the following sections. We will explain how we can realize a reliable qubit using superconducting structures and how we can implement circuits to manipulate, couple and read out the qubit state.
+
 \section{Superconduting Quantum Circuits}
 
-\begin{SCfigure}
-	\includegraphics[width=6cm]{"./material/figures/introduction/circuit_elements"}
-	\caption{The three main circuit elements that are used to construct superconducting quantum circuits. Shown are a)a Josephson junction, b) an inductor and c)a capacitor.}
-	\label{fig:SuperconductingCircuitElements}
-\end{SCfigure}
-
-In this section we will discuss several types of superconducting circuits that are most relevant to this work. We will start our discussion by introducing a general framework for treating classical circuit components such as inductances and capacitors quantum-mechanically and introduce the Josephson junction, the key element used to realize superconducting qubits.
+In this section we will discuss several types of superconducting circuit elements that are most relevant to this work. We will introduce the reader to the Josephson junction, discuss the properties of transmission lines and tranmission line resonators and introduce a general method for the quantization of arbitrary circuits. Afterwards we will discuss the Cooper pair box and the Transmon qubit, give a short overview of circuit quantum electrodynamics and finally introduce the reader to the Josephson and cavity bifurcation amplifier.
 
 \subsection{The Josephson junction}
 
@@ -84,17 +97,17 @@ where $E_J = I_c \Phi_0/2\pi$ is the so-called {\it Joesephson energy}. In addit
 For currents $I\ll I_c$, a Josephson junction behaves approximatively like a nonlinear inductor with inductance 
 %
 \begin{equation}
-L_J = \frac{\Phi_0}{2\pi I_c \cos{\phi}}
+L_J = \frac{\Phi_0}{2\pi I_c \cos{\phi}} \label{eq:josephson_inductance}
 \end{equation}
 %
-where $\Phi_0 = h/2e \approx 2.05 \times 10^{-15}\; \mathrm{Wb}$ is the so-called {\it magnetic flux quantum}. Later we will show how to make use of the properties of the Josephson junction to construct a qubit with it.
+where $\Phi_0 = h/2e \approx 2.05 \times 10^{-15}\; \mathrm{Wb}$ is the so-called {\it magnetic flux quantum}. Later we will show how to make use of these properties of the Josephson junction to construct a qubit with it.
 
 \subsection{Transmission Lines}
 
 \begin{SCfigure}
 	\includegraphics[width=6cm]{"./material/figures/introduction/transmission_lines"}
 	\caption{a) The circuit diagram of a grounded tranmission line. b) The circuit diagram of a grounded coaxial tranmission line.}
-	\label{fig:SampleCircuit}
+	\label{fig:tline_schematic}
 \end{SCfigure}
 
 Another circuit element that we will encounter many times in this work is the so-called {\it transmission line}. In the most general way, a transmission line is a structure with a large extension in one direction which is capable of transmitting electromagnetic waves along itself. Two possible symbols by which one usually designates tranmission lines in a circuit schematic are shown in fig. \ref{fig:tline_schematic}. A detailed treatment of the physics of tranmission lines can be found e.g. \cite{pozar_microwave_2011}. For this introduction we will skip these basics and start directly with the equation that describes the propagation of an electromagnetic wave along the extended dimension $z$ of the tranmission line and which is given as
@@ -126,7 +139,7 @@ If we regard a CPW of fixed length $l$, we can model the voltages and currents a
 
 \subsection{Transmission Line Resonators}
 
-One can easily create a resonator using a coplanar waveguide as described in the last section. As an example, we will discuss an open-ended $\lambda / 2$ CPW resonator that is used in our experiments as well and thus highly relevant to this work. To create a resonator out of a CPW line, we terminate the line by an open and and connect it to a drive line through an input capacitance $C$, as shown in fig. \ref{fig:cpw_resonator}. To calculate the voltages and currents going into the CPW resonator, we can use eq. (\ref{eq:cpw_abcd_matrix}). Since the far end of the resonator is open we demand that $I_2=$ and thus obtain for the voltage $V_1$ and current $I_2$ the relation
+One can easily create a resonator using a coplanar waveguide as described in the last section. As an example, we will discuss an open-ended $\lambda / 2$ CPW resonator that is used in our experiments as well and thus highly relevant to this work. To create a resonator out of a CPW line, we terminate the line by an open and and connect it to a drive line through an input capacitance $C$. To calculate the voltages and currents going into the CPW resonator, we can use eq. (\ref{eq:cpw_abcd_matrix}). Since the far end of the resonator is open we demand that $I_2=$ and thus obtain for the voltage $V_1$ and current $I_2$ the relation
 %
 \begin{eqnarray}
 V_1 & = & \cos{\gamma l} V_2 \\
@@ -145,12 +158,12 @@ It is straightforward to calculate the $S_{11}$ reflection coefficient of the re
 S_{11} = \frac{Z_{in}-Z_0}{Z_{in}+Z_0} = \frac{Z_r\cot{\gamma l}-/\omega C_g-Z_0}{Z_r\cot{\gamma l}-/\omega C_g + Z_0}
 \end{equation}
 %
-Now, when measuring the reflection of an incoming signal with voltage $V^+$ at frequency $f=2\pi \omega$ and phase $\phi_0$, the phase of the relected signal $\phi_{ref}$ will be simply given as $\phi_{ref}=\mathrm{Arg}[V^-/V^+]-\phi_0 = \mathrm{Arg}[S_{11}]-\phi_0$. Fig \ref{fig:cpw_resonator_phase} shows this phase for an exemplatory resonator, plotted for $f=2\pi\omega$ in reduced units of $[l/v]$, with impendances $Z_r,Z_0=50\;\mathrm{\Omega}$, $\alpha=0$ and with the resonator coupled to the input line through a normalized capacitance $C_g=10^{-3}/\omega\;[\mathrm{Hz}\cdot \mathrm{F}]$.
+Now, when measuring the reflection of an incoming signal with voltage $V^+$ at frequency $f=2\pi \omega$ and phase $\phi_0$, the phase of the relected signal $\phi_{ref}$ will be simply given as $\phi_{ref}=\mathrm{Arg}[V^-/V^+]-\phi_0 = \mathrm{Arg}[S_{11}]-\phi_0$. Fig \ref{fig:lambda_over_4_response} shows this phase for an exemplatory resonator, plotted for $f=2\pi\omega$ in reduced units of $[l/v]$, with impendances $Z_r,Z_0=50\;\mathrm{\Omega}$, $\alpha=0$ and with the resonator coupled to the input line through a normalized capacitance $C_g=10^{-3}/\omega\;[\mathrm{Hz}\cdot \mathrm{F}]$.
 
 \begin{SCfigure}
 	\includegraphics[width=10cm]{"./material/mathematica/cpw_lambda_over_4_phase_and_z"}
 	\caption{This is the side caption which is maybe already to small to support such long text..}
-	\label{fig:LambdaOver4ResonatorResponse}
+	\label{fig:lambda_over_4_response}
 \end{SCfigure}
 
 We can calculate the quality factor of such an open-ended CPW resonator by modeling it as a series-LC circuit. Indeed,  if we regard the input impedance of the resonator in the vicinity of $\omega_0$ such that $\Delta \omega = \omega -\omega_0$ with $\Delta \omega \ll \omega_0$ and $\beta l = \pi +\pi\Delta \omega /\omega_0$, we obtain an effective impedance
@@ -194,12 +207,12 @@ Thus, we can effectively tune the quality factor of the resonator by changing th
 In this section we will outline a general method to treat arbitary electrical circuits as the ones discussed before within the framework of quantum-mechanics, hence {\it quantizing} them. This introduction on circuit quantization presented in this chapter is based on an article by \cite{devoret_quantum_1995}.
 
 \begin{SCfigure}
-	\includegraphics[width=6cm]{"./material/figures/introduction/sample_circuit"}
+	\includegraphics[width=5cm]{"./material/figures/introduction/sample_circuit"}
 	\caption{An exemplatory superconducing circuit made of a Josephson junction, a capacitor and a voltage source. The circuit topology can be described by one node (plus ground) and one branch.}
 	\label{fig:SampleCircuit}
 \end{SCfigure}
 
-Fig. \ref{fig:SampleCircuit} shows an exemplatory circuit made of a Josephson junction, a capacitor and a voltage source. A circuit as this one is fully characterized by the parameters of its elements and its toplogy. The latter can be described -- following the laws of Kirchhoff -- as a set of nodes connected by a number of branches. In classical circuit theory, each branch $i$ is described by a voltage $V_i$ and a current $I_{i}$ flowing through it. The Kirchhoff laws demand that the sum of the branch voltages $V_i$ along any closed path must be zero, i.e. $\sum\limits_{\oint} V_i = 0$. Equivalently one may demand that the sum of currents flowing in and out of each node must be zero. For the quantization of electrical circuits it is usually more convenient to replace voltages and currents with branch charges and fluxes that are defined as
+Fig. \ref{fig:SampleCircuit} shows an exemplatory circuit made of an inductance, a capacitor and a voltage source. A circuit as this one is fully characterized by the parameters of its elements and its toplogy. The latter can be described -- following the laws of Kirchhoff -- as a set of nodes connected by a number of branches. In classical circuit theory, each branch $i$ is described by a voltage $V_i$ between its ends and a current $I_{i}$ flowing through it. The Kirchhoff laws demand that the sum of the branch voltages $V_i$ along any closed path must be zero, i.e. $\sum\limits_{\oint} V_i = 0$. Equivalently one may demand that the sum of currents flowing in and out of each node must be zero. For the quantization of electrical circuits it is usually more convenient to replace voltages and currents with branch charges and fluxes that are defined as
 %
 \begin{eqnarray}
 \Phi_i(t) & = & \int\limits_{-\infty}^t V_i(t') dt' \\
@@ -218,7 +231,7 @@ where $Q_0$ is constant . To quantize such a circuit made up of non-dissipative 
 \begin{mathcal}L\end{mathcal} = \sum\limits_i V_i - \sum\limits_i T_i
 \end{equation}
 %
-where $V_i$ and $T_i$ are the potential and kinetic energies associated to each circuit element. \todo{Clarify why kintetic energy is mapped to capacitive energy and potential energy to inductive energy}. For a circuit composed entirely of capacitors and inductor, the Lagrangian is given as
+where $V_i$ and $T_i$ are the potential and kinetic energies associated to each circuit element. \todo{Clarify why kintetic energy is mapped to capacitive energy and potential energy to inductive energy}. For a circuit composed entirely of capacitors and inductor, this Lagrangian is given as
 %
 \begin{equation}
 \begin{mathcal}L\end{mathcal} = \frac{1}{2}\sum\limits_i \frac{Q_i^2}{C_i}-\frac{1}{2}\sum\limits_i L \left( \frac{dQ_i}{dt}\right)^2 \label{eq:circuit_lagrangian}
@@ -230,7 +243,7 @@ If needed, resistors can be described within the Lagrangian formalism by modelin
 \frac{\partial}{\partial t}\left( \frac{\partial \begin{mathcal}L\end{mathcal}}{\partial(\partial_t Q_i)}\right)-\frac{\partial \begin{mathcal}L\end{mathcal}}{\partial Q_i} = 0
 \end{equation}
 %
-By imposing the charge-conservation equations as given by eq. (\ref{eq:kirchhoff_charge}) we obtain then a complete description of the underlying circuit. From the variable $Q_i$ we obtain the canonically conjugate momentum $\Phi_i$ by solving the equation
+Finally, by imposing the charge-conservation equations as given by eq. (\ref{eq:kirchhoff_charge}) we obtain then a complete description of the underlying circuit. From the variable $Q_i$ we obtain the canonically conjugate momentum $\Phi_i$ by solving the equation
 %
 \begin{equation}
 \Phi_i = \frac{\partial \begin{mathcal}L\end{mathcal}}{\partial(\partial_t Q_i)}
@@ -250,49 +263,51 @@ Having obtained $\Phi_i$ and $Q_i$, it is also trivial to obtain the Hamiltonian
 \begin{mathcal}H\end{mathcal} = \sum\limits_j \Phi_i \dot{Q}_i - \begin{mathcal}L\end{mathcal}
 \end{equation}
 %
+In the next section we will use this method to quantize the Cooper pair box circuit.
+
 \subsection{The Cooper Pair Box}
 
 \begin{SCfigure}
 	\includegraphics[width=6cm]{"./material/figures/introduction/cooper_pair_box"}
 	\caption{The circuit schematic of a Split Cooper Pair Box. The device consists of two Josephson junctions arranged in a loop, where the capacitance of the junctions is modeled as the extra capacitor indicated on the left. By putting the two junctions in series with a gate capacitance one creates an island one which charges can accumulate. The gate voltage can be controlled by an external voltage source.}
-	\label{fig:SampleCircuit}
+	\label{fig:cpb_circuit}
 \end{SCfigure}
 
-A Transmon qubit is essentially a Cooper pair box (CPB) operated in the phase regime, where $E_J \gg E_C$. The Hamiltionian of the CPB can be written as \citep{cottet_implementation_2002}
-
+The {\it Cooper pair box (CPB)} is a device containing a (split) Josephson junction coupled to an input voltage source through a gate capacitance $C_g$, as shown in fig. \ref{fig:cpb_circuit}. Following the circuit quantization method outlined in the last section, we obtain the following Hamiltonian for the CPB \citep{cottet_implementation_2002}
+%
 \begin{equation}
-\hat{H} = 4 E_C \left( \hat{n} - n_g\right)^2-E_J \cos{\hat{\phi}}
+\hat{H} = 4 E_C \left( \hat{n} - n_g\right)^2-E_J \cos{\hat{\theta}}
 \end{equation}
-
-where $E_C = e^2 / C_\Sigma$ is the charging energy with $C_\Sigma = C_J+C_B+C_g$ the total gate capacitance of the system, $\hat{n}$ is the number of Cooper pairs transferred between the islands, $n_g$ the gate charge, $E_J$ the Josephson energy of the junction and $\hat{\phi}$ the quantum phase across the junction.
+%
+Here we have defined $E_C = e^2 / C_\Sigma$ as the charging energy of the system, with $C_\Sigma = C_J+C_B+C_g$ the total gate capacitance, $\hat{n}=\hat{Q}/2e$ the number of Cooper pairs transferred between the islands, $n_g=V_g C_g /2e $ the gate charge, $E_J$ the Josephson energy of the junction and $\hat{\phi}$ the quantum phase across the junction.
 
 \smallskip
 
-The corresponding wavefunction $\Psi_k(\theta) = \bracket{\theta,k}$ will then satisfy the Schrödinger equation
+$\hat{n}$ and $\theta$ are conjugate variables such that $[\theta,\hat{n}]=-i$, the corresponding wavefunction $\Psi_k(\theta) = \bracket{\theta,k}$ will therefore satisfy a Schrödinger equation of the form
 %
 \begin{equation}
 E_k \Psi_k(\theta) = E_C(\frac{1}{i}\frac{\partial}{\partial \theta}-n_g)^2 \Psi_k(\theta) - E_J \cos{\left(\theta\right)}\Psi_k(\theta) \label{eq:cpb_schroedinger_equation}
 \end{equation}
 %
-Since the potential $E_J\cos{(\theta)}\Psi_k(\theta)$ is periodic, we may demand that the solution will also exhibit a periodicity of the form
+Since the potential $E_J\cos{(\theta)}$ is periodic, we may demand that the solution also possesses a periodicity of the form
 %
 \begin{equation}
 \Psi_k(\theta) = \Psi_k(\theta+2\pi)
 \end{equation}
 %
-As it turns out, eq. (\ref{eq:cpb_schroedinger_equation}) can be mapped easily to the so-called {\it Mathieu differential equation}, which is given as
+Using this assumption it is possible to map eq. (\ref{eq:cpb_schroedinger_equation}) to a simular and well-known differential equation, the so-called {\it Mathieu  equation}, that is given as
 %
 \begin{equation}
 \frac{d^2y}{dx^2}+\left[a-2q\cos{(2x)}\right]y = 0
 \end{equation}
 %
-Applying {\it Floquet's theorem} to this equation it can be shown that there exist solutions of the form
+The {\it Floquet theorem} states that all solutions to this equation can be written in the form
 %
 \begin{equation}
 F(a,q,x) = \exp{\left(i\mu x\right)}P(a,q,x)
 \end{equation}
 %
-The most general solutions to eq. (\ref{eq:cpb_schroedinger_equation}) are given as \citep{cottet_implementation_2002}
+Using such a Floquet ansatz for eq. (\ref{eq:schroedinger_equation}), the most general solutions that one obtains are given as \citep{cottet_implementation_2002}
 %
 \begin{equation}
 \Psi_k(r,q,\theta) = \mcal{C}_1\exp{\left(i n_g \theta \right)}\mcal{M}_C\left(\frac{4E_k}{E_C},-\frac{2E_J}{E_C},\frac{\theta}{2}\right)+\mcal{C}_2\exp{\left(i n_g \theta \right)}\mcal{M}_S \left(\frac{4 E_k}{E_C},-\frac{2 E_J}{E_C},\frac{\theta}{2}\right)
@@ -301,11 +316,15 @@ The most general solutions to eq. (\ref{eq:cpb_schroedinger_equation}) are given
 with 
 %
 \begin{equation}
-E_k = \frac{E_C}{4}\mcal{M}_A \left(r,-\frac{2 E_J}{E_C} \right)
+E_k = \frac{E_C}{4}\mcal{M}_A \left(r_k,-\frac{2 E_J}{E_C} \right)
 \end{equation}
 %
-Here, $\mcal{M}_C$, $\mcal{M}_S$ are the {\it Mathieu functions} and $\mcal{M}_A$ corresponds to the eigenvalue.
-This Hamiltonian can be solved exactly in the phase basis with the solutions being given as\citep{koch_charge-insensitive_2007,cottet_implementation_2002}
+Here, $\mcal{M}_C$, $\mcal{M}_S$ are the so-called {\it Mathieu functions} and $\mcal{M}_A$ corresponds to the eigenvalue corresponding to each solution. Following the convention in \citep{cottet_implementation_2002} we order the $E_k$ such that the energy increases with increasing k, yielding
+%
+\begin{equation}
+r_k = k+1-\left[(k+1)\mathrm{mod}2\right]+2n_g(-1)^k
+\end{equation}
+%
 
 \begin{figure}[ht!]
 	\includegraphics[width=\textwidth]{"./material/mathematica/cooper_pair_box_energies"}
@@ -313,12 +332,7 @@ This Hamiltonian can be solved exactly in the phase basis with the solutions bei
 	\label{fig:CooperPairBoxEnergies}
 \end{figure}
 
-%
-\begin{equation}
-E_m(n_g) = E_C a_{2[n_g+k(m,n_g)]}(-E_J/E_C)
-\end{equation}
-%
-Here, $a_\nu(q)$ denotes  Mathieu's characteristic value and $k(m,n_g)$ is a function that sorts the eigenvalues. We denote the energy differences between individual energy level by $E_{ij} = E_j - E_i$. We also define the absolute and relative anharmonicities of the first two energy levels as $\alpha{12} \equiv E_{12}-E_{01}$ and $\alpha_r \equiv \alpha / E_{01}$. In the limit $E_J \gg E_C$ these anharmonicities are well approximated by $\alpha \simeq -E_C$ and $\alpha_r \simeq -(8E_J / E_C)^{-1/2}$.
+We denote the energy differences between individual energy level by $E_{ij} = E_j - E_i$. We also define the absolute and relative anharmonicities of the first two energy levels as $\alpha{12} \equiv E_{12}-E_{01}$ and $\alpha_r \equiv \alpha / E_{01}$. In the limit $E_J \gg E_C$ these anharmonicities are well approximated by $\alpha \simeq -E_C$ and $\alpha_r \simeq -(8E_J / E_C)^{-1/2}$. An in-depth treatment of the Cooper pair box can be found e.g. in \citep{cottet_implementation_2002} \todo{cite original paper by Zorin?}.
 
 \section{The Transmon Qubit}
 
@@ -333,32 +347,84 @@ The Transmon qubit is a Cooper pair box operated in the regime where $E_J \gg E_
 \end{SCfigure}
 
 
-For readout and noise protection, the Transmon qubit is usually coupled to a harmonic oscillator which is usually realized as a lumped-elements resonator or a coplanar waveguide resonator. In the limit where the resonator capacity $C_r \gg C_\Sigma$ we can write the effective Hamiltonian of the system as
-
+{\it Cavity quantum electrodynamics} is a research domain where one investigates the physics of an atom (or a large number of atoms) coupled to a high-Q microwave cavity. Analogously, {\it circuit quantum electrodynamics} investigates the coupling of an articial atom (e.g. a Transmon qubit) coupled to a microwave resonator that is realized on the surface of a chip. Usually, such a qubit-resonator system can be represented as in fig. \ref{fig:CQED}. There, a Transmon qubit is capacitively coupled to a $\lambda/2$ resonator which itself is capacitively coupled to an input tranmission line. Due to the capacitance between the qubit and the resonator, a coupling energy of the form
+%
+\begin{equation}
+E_{rq} = \frac{1}{2}C_{g}\hat{V}_g^2 = \frac{1}{2}C_g\left(V^0_{rms}(a^\dagger+a)-\hat{V}\right)^2
+\end{equation}
+%
+arises, where $V_g$ is the voltage across the coupling capacitance $C_g$, $\hat{V}=2e/C_\Sigma \cdot(n_g-\hat{n})$ is the voltage across the Transmon electrodes and $V^0_{rms} = \sqrt{\hbar \omega_r/2C_r}$ is the root mean square voltage corresponding to one photon in the resonator. Hence the coupling energy can be rewritten as
+%
+\begin{eqnarray}
+E_{rq} & = & \frac{1}{2}C_g\left(V_{rms}^0(a^\dagger+a)-\frac{2e}{C_\Sigma}\left[n_g-\hat{n}\right]\right)^2 \notag \\
+       & = & 2e \beta V_{rms}^0\hat{n}(a^\dagger+a) + \hdots \label{eq:cqed_coupling}
+\end{eqnarray}
+%
+where we defined $\beta = C_g/C_\Sigma$. The terms ommitted in eq. (\ref{eq:cqed_coupling}) correspond to energy shifts of the qubit and the resonator which are not directly relevant for the coupling between them. 
+ In the limit where the resonator capacity $C_r \gg C_\Sigma$ we can write the effective Hamiltonian of the system using the uncoupled basis states $\ket{i}$ as
+%
 \begin{equation}
 \hat{H} = \hbar \sum\limits_j \omega_j \ket{j}\bra{j} + \hbar \omega_r \hat{a}^\dagger \hat{a} + \hbar \sum\limits_{i,j} g_{ij} \ket{i}\bra{j}(\hat{a}+\hat{a}^\dagger) \label{eq:cqed_hamiltonian}
 \end{equation}
-Here, $\omega_r = 1/\sqrt{L_r C_r}$ gives the resonator frequency and $\hat{a}$ ($\hat{a}^\dagger$) are annihilation (creation) operators acting on oscillator states. The voltage of the oscillator is given by $V_{rms}^0 = \sqrt{\hbar \omega_r / 2 C_r}$ and the parameter $\beta$ gives the ratio between the gate capacitance and total capacitance, $\beta = C_g/C_\Sigma$. The coupling energies $g_{ij}$ are given as
+%
+Here, $\omega_r = 1/\sqrt{L_r C_r}$ gives the resonator frequency of the resonator. The coupling energies $g_{ij}$ are given as
+%
 \begin{equation}
 \hbar g_{ij} = 2\beta e V_{rms}^0 \bra{i}\hat{n}\ket{j} = \hbar g_{ji}^*
 \end{equation}
-When the coupling between the resonator and the Transmon is weak $g_{ij} \ll \omega_r,E_{01}/h$ we can ignore the terms in eq. (\ref{eq:cqed_hamiltonian}) that describe simultaneous excitation or deexcitation of the Transmon and the resonator and obtain a simpler Hamiltonian in the so-called {\it rotating wave approximation} given as
+%
+When the coupling between the resonator and the Transmon is weak, such that $g_{ij} \ll \omega_r,E_{01}/h$ we can ignore the terms in eq. (\ref{eq:cqed_hamiltonian}) that describe simultaneous excitation or deexcitation of the Transmon and the resonator and obtain the so-called {\it rotating wave approximation}, which is given as
+%
 \begin{equation}
-\hat{H} = \hbar \sum\limits_j \omega_j \ket{j}\bra{j}+\hbar \omega_r \hat{a}^\dagger \hat{a} + \left( \hbar \sum\limits_i g_{i,i+1} \ket{i}\bra{i+1}\hat{a}^\dagger +H.c.\right)
+\hat{H} = \hbar \sum\limits_j \omega_j \ket{j}\bra{j}+\hbar \omega_r \hat{a}^\dagger \hat{a} + \hbar \sum\limits_i \left(g_{i,i+1} \ket{i}\bra{i+1}\hat{a}^\dagger +H.c.\right) \label{eq:cqed_rotating_wave}
 \end{equation}
+%
+This Hamiltonian describes a multi-level quantum system coupled to a resonator through a capacitive interaction. The first two terms correspond to the energies of the n-level system and the resonator, respectively. The term $\ket{i}\bra{i+1}\hat{a}^\dagger$ describes the creation of a photon in the resonator accompanied by the deexcitation of the n-level system by one energy level.
 
 \subsection{Dispersive Limit \& Qubit Readout}
 
-When the qubit frequency is far detuned from the resonator frequency direct qubit-resonator transition get exponentially supressed and the only interaction left between the two system is a dispersive shift of the transition frequencies. In this limit, the effective Hamiltonian of the system can be written as\citep{blais_cavity_2004,koch_charge-insensitive_2007}
+When the qubit frequency is far detuned from the resonator frequency such that $|\omega_{ij}-\omega_r| \gg g_{ij}$, direct qubit-resonator interactions are almost completely supressed and the only a dispersive shift of the transition frequency of both systems remains as an effect of the coupling between them. This effect has been discussed e.g. in \cite{koch_charge-insensitive_2007} and yields an effective Hamiltonian of the form
+%
 \begin{equation}
-\hat{H}_{eff} = \frac{\hbar \omega'_{01}}{2}\hat{\sigma}_z+\hbar(\omega_r' +\chi \hat{\sigma}_z)\hat{a}^\dagger \hat{a}
+\hat{H}_{eff} = \frac{\hbar\omega_{01}'}{2}\hat{\sigma}_z+(\hbar\omega_r'+\hbar \chi \hat{\sigma}_z)\hat{a}^\dagger \hat{a}
 \end{equation}
-Here, the resonance frequencies of both the qubit and the resonator are shifted and given as $\omega_r' = \omega_r-\chi_{12}/2$ and $\omega_{01}' = \omega_{01}+\chi_{01}$. The dispersive shift $\chi$ itself is given as
+%
+Here, the resonance frequencies of the qubit and the resonator are shifted as $\omega_{01}'=\omega_{01}+\chi_{01}$ and $\omega_r' = \omega_{r}-\chi_{12}/2$ and the dispersive shift is given as $\chi=\chi_{01}-\chi_{12}/2$, where $\chi_{ij}=g_{ij}^2/(\omega_{ij}-\omega_r)$. As can be seen, for a state with $n$ photons, the energy difference between the two qubit levels is given as
+%
+\begin{equation}
+\omega_{01}^n = \omega_{01}'+2\chi n
+\end{equation}
+%
+Thus, there is a dispersive shift of the qubit transition frequency that is proportional to the number of photons in the resonator. Likewise, the resonance frequency of the resonator gets also shifted by $2\chi$ depending on the state of the qubit. The latter effect is very useful since it allows us to read out the state of the qubit by measuring the state-dependent frequency displacement of the resonator, as will be explained later.
+\subsection{Qubit-Qubit Interaction}
+
+In this section we will discuss possible qubit-qubit coupling schemes. We will regard a direct coupling scheme involving a capacitive coupling between two qubits and an indirect scheme involving the coupling of multiple qubits to a resonator which acts as a ``quantum bus''.
+
+\subsubsection{Coupling Bus}
+
+\citep{blais_quantum-information_2007} showed that extending the single-qubit rotating-wave Hamiltonian as given in eq. (\ref{eq:cqed_rotating_wave}) to the case of two qubits yields an effective qubit-qubit coupling Hamiltonian of the form
+%
 \begin{eqnarray}
-\chi & = & \chi_{01}-\chi_{12}/2 \\
-\chi_{ij} & = & \frac{g_{ij}^2}{\omega_{ij}-\omega_r} = \frac{(2\beta e V_{rms}^0)^2}{\hbar^2 \Delta_i}|\bra{i}\hat{n}\ket{i+1}|^2
+H_{2q} & = & \hbar\frac{g_1 g_2(\Delta_1+\Delta_2)}{2\Delta}(\sigma_1^+\sigma_2^-+\sigma_1^-\sigma_2^+) \label{eq:cqed_bus_coupling}
 \end{eqnarray}
-The fact that $\chi_{01}$ and $\chi_{12}$ contribute to the total dispersive shift can cause the overall dispersive shift to become negative and even diverge at some particular working points.
+%
+This approximation is valid in the limit of large qubit-resonator detuning where $\Delta_1 \gg g_1,\Delta_2 \gg g_2$. Here $\Delta_{1,2} = \omega_{01}^{1,2}-\omega_r$ is the detuning of the $\ket{0}\to\ket{1}$ transition frequency of each qubit to the bus resonator. Full energy-exchange between the qubits is achieved when the qubit frequencies are in resonance. By detuning the qubits from the resonator, the effective coupling constant can be varied, which is advantageous in many settings. 
+\subsubsection{Direct Capacitive Coupling}
+
+A direct capacitive coupling $C_{qq}$ between two qubits yields a coupling Hamiltonian of the form
+%
+\begin{eqnarray}
+\hat{H}_{qq} & = & \frac{1}{2}C_{qq}\hat{V}_{qq}^2 = \frac{1}{2}C_{qq}\left(\frac{2e}{C_{\Sigma 1}}(n_{g1}-\hat{n}_1)-\frac{2e}{C_{\Sigma 2}}(n_{g2}-\hat{n}_2)\right)^2 \\
+& = & \frac{4e^2 C_{qq}}{C_{\Sigma 1}C_{\Sigma_2}}\hat{n}_1\hat{n}_2+\hdots \label{eq:cqed_capacitive_coupling}
+\end{eqnarray}
+%
+This equation is valid in the limit where $C_{qq} \ll C_{\Sigma 1},C_{\Sigma 2}$, otherwise the coupling gets renormalized by a factor $\alpha = 1/(1-C_{qq}^2/[C_{\Sigma 1}C_{\Sigma 2}])$ \citep{nguyen_cooper_2008}. Rewriting it in the basis of uncoupled qubit states yields the effective Hamiltonian
+%
+\begin{equation}
+\hat{H}_{qq} = \hbar g_{qq}\left(\sigma^+_1\sigma^-_2+\sigma^-_1\sigma^+_2\right)
+\end{equation}
+%
+where we have defined the effective qubit-qubit coupling as $\hbar g_{qq} = 4e^2 C_{qq}/C_{\Sigma 1}C_{\Sigma 2}$. As before, full energy exchange between the qubits is achieved when the qubit frequencies are in resonance. Directly coupling two qubits can be advantageous since it simplifies the circuit layout and does not require an auxiliary quantum system. However, since the coupling is always turned on it is difficult to achieve a sufficiently good ON/OFF ratio that is needed for many applications (e.g. to realize a quantum gate).
 
 \section{The Josephson Bifurcation Amplifier}
 
@@ -368,53 +434,62 @@ The fact that $\chi_{01}$ and $\chi_{12}$ contribute to the total dispersive shi
 	\label{fig:jba_schematic}
 \end{SCfigure}
 
+In this section we will briefly discuss the physics of superconducting nonlinear bifurcation amplifiers. The two devices that we will discuss are the so-called {\it Josephson bifurcation amplifier (JBA)} as shown in fig. \ref{fig:jba_schematic} and the so-called {\it cavity bifurcation amplifier (CBA)} as shown in fig. \ref{fig:cba_schematic}. The JBA typically consists of a Josephson junction in parallel with a capacitor and (optionally) an inductor. The CBA, on the other hand, consists of a tranmission line resonator with a Josephson junction embedded in its central conductor. As shown in one of the last sections, a transmission line resonator can be treated mathematically as a lumped elements resonator, hence the physics of the CBA can be mapped to that of the JBA. Hence we will restrict our discussion in this section to the JBA. A more detailed comparision between the JBA and CBA can be found e.g. in \cite{palacios-laloy_superconducting_2010}.
+
 
 \begin{SCfigure}
 	\includegraphics[width=10cm]{"./material/figures/introduction/jba"}
-	\caption{The Joesphson Bifurcation Amplifier used in this work.}
-	\label{fig:CQED}
+	\caption{The Cavity Bifurcation Amplifier used in this work.}
+	\label{fig:cba_schematic}
 \end{SCfigure}
 
-\citep{palacios-laloy_superconducting_2010}
-
+The circuit in fig. \ref{fig:jba_schematic} can be modeled as
+%
 \begin{equation}
 [L_e+L_J (i)]\ddot{q}+R_e \dot{q}+\frac{q}{C_e} = V_e \cos{\left(\omega_m t\right)}
 \end{equation}
-
-Expanding this to second order in $L_J$ leads to the expression
-
+%
+Here, $L_J$ the Josephson inductance as given by eq. (\ref{eq:josephson_inductance}) and $L_e$, $C_e$ and $R_e$ are the resistance, inductance and capacitance parallel to the Josephson junction in the circuit. $V_e$ is the amplitude of the driving voltage, which oscillates at a frequency $\omega_m$. Expanding the Josephson inductance in this equation to second order leads to the equation
+%
 \begin{equation}
 \left(L_e+L_J\left[1+\frac{\dot{q}^2}{2 I_0^2}\right]\right)\ddot{q}+R_e \dot{q}+\frac{q}{C_e} = V_e \cos{\left( \omega_m t\right)}
 \end{equation}
-
+%
 Defining the total inductance $L_t = L_e+L_J$, the participation ratio $p=L_J/L_t$, the resonance frequency $\omega_r = 1/\sqrt{L_t C_e}$ and the quality factor $Q = \omega_r L_t / R_e$ we can rewrite this as
 
 \begin{equation}
 \ddot{q}+\frac{\omega_r}{Q}\dot{q}+\omega_r^2 q + \frac{p \dot{q}^2 \ddot{q}}{2 I_0} = \frac{V_e}{L_t}\cos{\left(\omega_m t \right)}
 \end{equation}
 
-We can rewrite this equation in dimensionless units introducing the reduced variables $Q = \pi Z_0 / 2 R_e$, $\omega_r = \sqrt{1/(L_e+\phi_0/I_0)C_e}$, $\beta = (V_e/\phi_0 \omega_m)^2(pQ/2\Omega)^3$, $\Delta_m = \omega_r-\omega_m$, $\tau = t\Delta_m$ and $u(t) = \sqrt{pQ/2\Omega}\cdot q(t)\omega_m/I_0$, obtaining
+Introducing the reduced variables $\beta = (V_e/\phi_0 \omega_m)^2(pQ/2\Omega)^3$, $\Delta_m = \omega_r-\omega_m$, $\tau = t\Delta_m$, $\Omega=2Q\Delta_m/\omega_r$ and $u(t) = \sqrt{pQ/2\Omega}\cdot q(t)\omega_m/I_0$ we can further rewrite this equation to obtain
 %
 \begin{align}
 \frac{\Delta_m}{\omega_m}\frac{d^2 u}{d\tau^2}+\left(\frac{1}{Q \omega_m}+2i\right)\frac{du}{d\tau} \notag \\
  + \left[ 2\left(\frac{\omega_r^2-\omega_m^2}{2\omega_m \Delta_m}\right)+\frac{1}{Q\Delta m}-2|u|^2\right]u & =  2\sqrt{\beta} \label{eq:jba_theory_1}
 \end{align}
 %
-In the limit where $Q \gg 1$, $\Delta_m\omega_m \ll 1$ such that $\omega_m+\omega_r \approx 2\omega_m$ and $\ddot{u}\ll\omega_m \dot{u}$ we can simplify eq. (\ref{eq:jba_theory_1}) to obtain
+In the limit where $Q \gg 1$, $\Delta_m\omega_m \ll 1$ such that $\omega_m+\omega_r \approx 2\omega_m$ and $\ddot{u}\ll\omega_m \dot{u}$ we can simplify this equation to obtain
 %
 \begin{equation}
-\frac{du}{d\tau} = -\frac{u}{\Omega}-iu\left(|u|^2-1\right)-i\sqrt{\beta}
+\frac{du}{d\tau} = -\frac{u}{\Omega}-iu\left(|u|^2-1\right)-i\sqrt{\beta} \label{eq:jba_reduced_equation}
 \end{equation}
 %
-where we have defined $\Omega = 2Q\Delta_m/\omega_r$. The stationary solutions of this equation have the form
+The stationary solutions of this equation describe stable oscillator states and have the form
 %
 \begin{equation}
 \frac{|u|^2}{\Omega^2}+|u|^2\left(|u|^2-1\right)^2 = \beta(\Omega)
 \end{equation}
 %
-This equation can have one or two solutions depending on the parameter $\beta(\Omega)$. The region where multiple solutions exist is usually called the {\it bistability region} and is limited by the the two parameter boundaries $\beta^\pm(\Omega)$ that are given as
+This equation can have one or two physical solutions depending on the parameter $\beta(\Omega)$. The region where multiple solutions exist is usually called the {\it bistability region} and is limited by the the two parameter boundaries $\beta^\pm(\Omega)$ that are given as
 %
 \begin{equation}
-\beta^\pm(\Omega) = \frac{2}{27}\left[1+\left(\frac{3}{\Omega}\right)^2\pm\left(1-\frac{3}{\Omega^2}\right)^{3/2}\right]
+\beta^\pm(\Omega) = \frac{2}{27}\left[1+\left(\frac{3}{\Omega}\right)^2\pm\left(1-\frac{3}{\Omega^2}\right)^{3/2}\right] \label{eq:jba_beta}
 \end{equation}
 %
+Fig. \ref{fig:jba_curves} shows the values of $\beta^\pm(\Omega)$ as well as the phase $\phi\simeq \mathrm{arg}(u(t))$ and the amplitude $\sqrt{B}\propto A \simeq |u(t)|$ of different stable solutions of eq. (\ref{eq:jba_reduced_equation}) for a JBA with $\alpha=0.05$ and $\gamma=0.01$, where $\alpha=V_ep^{3/2}/\phi_0 \omega_r$ and $\gamma = R_e/L_t\omega_r$ characterize the drive strength and dissipation in the JBA, respectively.
+
+\begin{SCfigure}
+	\includegraphics[width=9cm]{"./material/mathematica/jba_curves"}
+	\caption{a)The bistability boundaries $\beta^\pm$ of a JBA, plotted as a function of $\Omega/\Omega_c$. b/c)The phase $\phi=\mathrm{arg}(u(t))$ and amplitude $A\simeq |u(t)|$ of different solutions of eq. (\ref{eq:jba_reduced_equation}) for the JBA parameters $\alpha=0.05$ and $\gamma=0.01$. In the hysteretic region, three solutions exists, two of which are stable. The solution realized at a given moment depends thus on the history of the system, allowing for hysteretic behaviour.}
+	\label{fig:jba_curves}
+\end{SCfigure}
