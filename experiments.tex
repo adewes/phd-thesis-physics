@@ -20,9 +20,7 @@
 
 \chapter{Realizing a Two-Qubit Processor}
 
-This chapter discusses the main experimental results of this thesis. We start by discussing the implementation of a superconducting two-qubit processor, discussing the characteristics of the Transmon qubits used in the processor, the readout scheme, single-qubit manipulation, two-qubit gates as well as the experimental procedures used for quantum state and quantum process tomography. The last section of this chapter will discuss the implementation of a quantum algorithm -- so called Grover search algorithm -- using our two-qubit processor and the demonstration of quantum speed-up achieved with our system.
-
-%-Discuss all the experiments performed during the PhD thesis.
+This chapter discusses in depth the design process for the realization of the 2-qubit processor which was used in this work. We will start by introducing the general constraints we face when designing a two-qubit processor, followed by a component-wise discussion of the individual parts of the processor and the associated parameters we need to choose.
 
 \section{Introduction \& Motivation}
 
@@ -33,15 +31,17 @@ This chapter discusses the main experimental results of this thesis. We start by
 	\label{fig:2_qubit_chip_circuit_diagram}
 \end{figure}
 
-As discussed in the introduction, the most simple, usable quantum processor contains two qubits that are coupled by an universal two-qubit gate and which in addition can be manipulated and read out individually. We realized such a two-qubit processor using two Transmon qubits, coupled through a fixed capacitance and readout out by individual single-shot readout of the JBA type. The circuit diagram of our processor is shown in fig. \ref{fig:2_qubit_chip_circuit_diagram}, showing the qubits, the drive and readout circuit and the coupling element between them. The following sections we'll discuss the parameters of individual parts of the processor.
+As discussed in the introduction, the most simple, usable quantum processor contains two qubits that can be manipulated and read out individually and between which one can realize a universal 2-qubit gate. We implement such a two-qubit processor using two Transmon qubits that are coupled by a fixed capacitance and that can be read out out individually by a pair of Josephson bifurcation amplifiers (JBAs). The circuit diagram of our processor is shown in fig. \ref{fig:2_qubit_chip_circuit_diagram}, it shows the two qubits in green, the drive and readout circuit in red, the coupling capacitance between them in magenta and the fast flux lines in read. Also shown is the basic microwave setup used for manipulating and reading out the qubits. In the following sections we will discuss each of these components and the parameters we have chosen for them individually.
 
 \section{Qubit Design}
 
-The parameters of the sample have been chosen in accordance to various design constraints of the quantum processor. For the qubits, the main design goals were high coherence time, good frequency tunability and fast drivability. As we will show later, the coherence time of the qubit is limited by relaxation to the ground state and coupling to external noise sources. The relaxation component of the Transmon qubit is ultimately limited by internal losses of the Josephson junction but usually is bound by coupling to the electromagnetic environment, as will be discussed later. The frequency tunability is important for the realization of fast two-qubit gates but can also limit the relaxation and coherence time of the qubit by coupling to external noise sources. The drivability speed on the other hand is limited by the anharmonicity of the qubit, which can however not be increased arbitrarily since it will make the qubit sensitive to charge noise when chosen too high. For the readout, the main design goals were readout speed and fidelity. The speed of the readout is limited by the quality factor of the readout resonator, which however also can induce qubit relaxation through the Purcell effect and may therefore not be chosen too small.
+For the qubits, the main design goal is high coherence time, good frequency tunability and the possibility of fast qubit driving. The coherence time of the qubits is limited by relaxation to the ground state and dephasing due to coupling to external noise sources. The dephasing of the qubit state is caused mainly by noise-induced fluctuations of the qubit frequency, which we will discuss in the next section. The relaxation is caused mainly by the coupling of the Transmon to its environment and by internal losses inside the Josephson junctions and the capacitor of the qubit. 
 
-In the following paragraphs we'll therefore discuss the parameter design for our two-qubit processor and analyze the sample parameters that have been obtained.
+Frequency tunability is important since it will allow us to implement two-qubit gates and to position the qubit ideally for readout or manipulation, as will be explained later. However, strongly coupling the qubit to a fast flux line can induce relaxation and dephasing as well. In the following sections we discuss therefore which coupling strength is adequate and how much the flux coupling contributes to the decoherence time of the qubit.
 
-The main parameters we need to choose for the qubits are
+The drive speed of the qubit --i.e. the frequency at which we can drive qubit transitions-- is ultimately limited by its anharmonicity. When the drive frequency becomes comparable to the anharmonicity we start to induce transitions to higher Transmon levels, therefore ``leaking'' out of the computational basis and producing unitary errors. As we will see, the anharmonicity of the Transmon cannot be chosen arbitarily high since the sensitivity of the Transmon to charge noise increases exponentially with its anharmonicity, it is therefore necessary to find a compromise.
+
+We will start our discussion of the qubit design by discussing the choice of the following qubit parameters:
 
 \begin{enumerate}
 \item The maximum qubit transition frequency $f_{01}$
@@ -52,11 +52,11 @@ The main parameters we need to choose for the qubits are
 
 \subsection{Qubit Transition Frequency and Anharmonicity}
 
-The maximum transition frequency $f_{01}^0 = \sqrt{E_J E_C/2}/h$ \todo{verify constants!} is chosen such that it is possible to tune the qubit frequency sufficiently close to the frequency of the readout resonator yet not to big such that it can still be sufficiently detuned from the resonator frequency.
+The maximum transition frequency $f_{01}^0 = \sqrt{E_J E_C/2}/h$ \todo{verify constants!} of the qubit should be chosen in function of the readout resonator frequency such that it is possible to tune the two of them sufficiently close, thereby achieving the optimal readout fidelity. Chosing a qubit frequency above the cavity frequency should therefore be avoided, since it implies a stronger flux dependence of the qubit frequency at frequencies below the resonator frequency, thus increasing qubit dephasing when operating the qubit there. Hence, ideally the maximum qubit frequency should be chosen such that it corresponds to the optimal frequency for the qubit readout, as will be discussed later.
 
 \smallskip
 
-The anharmonicity $\alpha_r=-(8E_J/E_C)^{-1/2}$ of the qubit can be tuned by changing the ratio of charging and Josephson energy $E_J/E_C$. In general, one aims to have as much anharmonicity as possible in order to avoid inducing leakage transitions to higher level of the quantum system when driving the qubit with a large amplitude drive. On the other hand, increasing the anharmonicity (and thus decreasing $E_J/E_C$) will also induce more charge-induced dephasing of the qubit, thus limiting its coherence time. For our setup, we chose an anharmonicity of the order of $240\;\mathrm{MHz}$ which allows for a single qubit gate time of $\approx 10 \;\mathrm{ns}$ without inducing too much leakage to the higher qubit states. A detailed analysis of the leakage to higher qubit levels induced by the weak qubit anharmonicity will be given in the main section of this thesis.
+The anharmonicity $\alpha_r=-(8E_J/E_C)^{-1/2}$ of the qubit can be tuned by changing the ratio of charging and Josephson energy $E_J/E_C$. In general, one aims to have as much anharmonicity as possible in order to avoid inducing leakage to higher level of the quantum system when driving the qubit at high transition frequencies. On the other hand, increasing the anharmonicity (and thus decreasing $E_J/E_C$) will also lead to more charge-induced dephasing of the qubit, thus limiting the coherence time. For our setup, we chose an anharmonicity of the order of $-240\;\mathrm{MHz}$ which allows us to perform single qubit gates at $\approx 100 \;\mathrm{MHz}$ transition frequency without inducing too much leakage to the higher qubit states (a detailed analysis of this leakage will be given in the main section of this thesis). 
 
 \smallskip
 
@@ -67,19 +67,24 @@ E_C & = & -\alpha \\
 E_J & = & \frac{(4\pi\hbar f_{01}^0)^2}{|\alpha|}
 \end{eqnarray}
 %
-The dephasing time of the qubit as a function of the charging and Josephson energies is given as \citep{koch_charge-insensitive_2007}
+For our processor, we chose values $f_{01}^0=7.0\;\mathrm{GHz}$ and $\alpha=-240\;\mathrm{MHz}$, respectively, which yields a Josephson energy $E_J=$ and a charging energy $E_C=$.
+
+\smallskip
+
+We can estimate the dpehasing time of the qubit as a function of these energies by using an equation given in \cite{koch_charge-insensitive_2007}:
 %
 \begin{equation}
 T_2 \simeq \frac{\hbar}{A}\left|\frac{\partial E_{01}}{\partial n_g}\right|^{-1} \simeq \frac{\hbar}{A\pi |\epsilon_1|}
 \end{equation}
 %
-where the parameter $\epsilon_m$ is given as
+where $A$ is an empirical parameter and $\epsilon_m$ depends exponentially on $E_J/E_C$ and is given as
 %
 \begin{equation}
 \epsilon_m \simeq (-1)^m E_C \frac{2^{4m+5}}{m!}\sqrt{\frac{2}{\pi}}\left(\frac{E_J}{2E_C}\right)^{m/2+3/4}e^{-\sqrt{8 E_J / E_C}}
 \end{equation}
 %
-The dephasing time of the qubit is thus increasing exponentially with the ratio $E_J/E_C$ for the case when $E_J \gg E_C$.
+The dephasing time of the qubit is thus increasing exponentially with the ratio $E_J/E_C$ if $E_J \gg E_C$, whereas the anharmonicity decreases only geometrically with $E_J/E_C$. For our values of $E_J$ and $E_C$ and for a value $A=$, we obtain a dephasing time $T_2=$.
+
 \subsection{Qubit Critical Current Asymmetry}
 
 The critical current asymmetry of the qubit SQUID determines the modulation depth of the transition frequency as a function of the flux applied to the SQUID loop. The interest of choosing a non-zero $d$ (and thus a reduced frequency modulation depth) is to reduce the flux-induced dephasing of the qubit state, which is given as \citep{koch_charge-insensitive_2007}
@@ -88,42 +93,71 @@ The critical current asymmetry of the qubit SQUID determines the modulation dept
 T_2 = \frac{\hbar}{A}\left|\frac{\partial E_{01}}{\partial \Phi}\right|^{-1}
 \end{equation}
 %
-where $A$ is an emperical parameter. Hence, the coherence rate increases proportional to the derivative of the qubit energy as a function of the applied flux. On the other hand, cricital current asymmetries can open additional relaxation channels \citep{} such that the overall effect of increasing $d$ is not necessarily monotonous. \todo{cite relevant sections of the Koch paper!}
+where $A$ is an emperical parameter. Hence, the coherence rate increases proportional to the derivative of the qubit energy as a function of the applied flux. On the other hand, cricital current asymmetries can open additional relaxation channels \citep{} such that the overall effect of increasing $d$ is not necessarily monotonous. For our qubits, we chose values of the asymmetry of $d_{I}=0.2$ and $d_{II}=0.35$. However, as we will show later this choice did not led to increased dephasing times of the qubits and should generally be avoided.\todo{cite relevant sections of the Koch paper!}
 
 \subsection{Coupling of the Qubit to the Fast Flux Line}
 
-Another critical parameter to chose is the coupling of the qubit the fast flux line. This coupling must be sufficiently strong to allow large frequency displacements of the qubit during operation of the processor but not so strong as to induce additional qubit relaxation or dephasing. A comprehensive summary of fluxline-induced dephasing and relaxation mechanism can be found in \cite{koch_charge-insensitive_2007}. For our qubit chip, we chose a geometry as depicted in fig. \ref{fig:}. Here, the distance between the qubit SQUID loop and the flux line is approx. $20\;\mathrm{\mu m}$, thus the flux coupling to the qubit is given as approx. $1 \Phi_0 / 20\;\mathrm{mA}$. The capacitive coupling between the qubit electrodes and the fluxline is $C_{qf}=??\;\mathrm{fF}$. This capacitive coupling yields an additional contribution to the qubit relaxation rate of the order of $\Gamma_{qf}\approx$. \todo{add more info on the relevant relaxation}.
+\begin{SCfigure}
+\centering
+	\includegraphics[width=6cm]{"./material/figures/2-qubit-processor/fluxline design"}
+	\caption[]{Image of the fast flux line used in our 2-qubit processor. The fluxline is separated from the qubit SQUID loop through a stretch of ground plane, the seperation between the fluxline and the qubit is $\approx 20\;\mathrm{\mu m}$. The flux coupling coefficient is given as $1\Phi_0/20\;\mathrm{mA}$.}
+	\label{fig:fluxline_design}
+\end{SCfigure}
 
+Another critical parameter to chose is the coupling of the qubit the fast flux line. This coupling must be sufficiently strong to allow large frequency displacements of the qubit during operation of the processor but not so strong as to induce additional qubit relaxation or dephasing. A comprehensive summary of fluxline-induced dephasing and relaxation mechanism can be found in \cite{koch_charge-insensitive_2007}. For our qubit chip, we chose a geometry as depicted in fig. \ref{fig:fluxline_design}. Here, the distance between the qubit SQUID loop and the flux line is approx. $20\;\mathrm{\mu m}$, thus the flux coupling to the qubit is given as approx. $1 \Phi_0 / 20\;\mathrm{mA}$. The capacitive coupling between the qubit electrodes and the fluxline is $C_{qf}=??\;\mathrm{fF}$. This capacitive coupling yields an additional contribution to the qubit relaxation rate of the order of $\Gamma_{qf}\approx$. \todo{add more info on the relevant relaxation}.
+
+\subsection{Qubit-Qubit Coupling}
+
+To realize universal two-qubit gate operations it is necessary to provide a kind of coupling between the two qubits of our processor. As discussed before, we use direct capacitive coupling to achieve this for our processor. The coupling strength $g_{qq}$ between the two qubits can be calculated by using eq. (\ref{eq:cqed_capacitive_coupling}). This coupling strength must be chosen such that the interaction between the qubits is sufficiently fast to realize two-qubit gate operations with adequate fidelity but not too strong in order to still allow us to controllably switch on and off the coupling by detuning the qubit frequencies. In general, by diagonalizing the Hamiltonian given in eq. (\ref{eq:cqed_qubit_interaction_hamiltonian}) we find for the swapping frequency $f_{qq}$ and the swap amplitude $a_{qq}$ of the two coupled qubits as a function of the qubit-qubit detuning $\Delta=f_{01}^I-f_{01}^{II}$ the values
+%
+\begin{eqnarray}
+f_{qq} & = & \frac{1}{2}\sqrt{16g^2+\Delta^2} \notag \\
+a_{qq} & = & \frac{4g}{\sqrt{16g^2+\Delta^2}} \label{eq:qubit_coupling_amplitude_and_frequency}
+\end{eqnarray}
+%
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=1\textwidth]{./material/mathematica/qubit_coupling_amplitude_and_frequency}
+	\caption[]{The swapping amplitude $a_{qq}$ and frequency $f_{qq}$ as given by eq. (\ref{eq:qubit_coupling_amplitude_and_frequency}). For $\Delta \gg g$, the amplitude of the swap decreases $\propto 1/\Delta$ and the frequency increases $\propto \Delta$. To effectively switch of the qubit-qubit level below the 1 \% error level, a detuning of $\Delta \approx 40 g$ is required.}
+	\label{fig:qubit_coupling_amplitude_and_frequency}
+\end{figure}
+
+Fig. \ref{fig:qubit_coupling_amplitude_and_frequency} shows this amplitude and frequency as a function of the normalized qubit-qubit detuning $\Delta/g$. As can be seen, for $\Delta \gg g$ the swap amplitude decreases $\propto 1/\Delta$ whereas the swap frequency increases $\propto \Delta$. To turn off the qubit-qubit coupling below the 1 \% level it is necessary to detune the qubits by $\Delta \approx 40 g$. It is therefore important to choose $g$ such that it is possible to tune the qubits in and out of resonance sufficiently fast in order to realize a reliable two-qubit gate and switch of the qubit-qubit interaction if wanted. For our processor, we chose $2g = 10\;\mathrm{MHz}$, hence we need to detune the qubits by only $200\;\mathrm{MHz}$ to switch off the coupling between them, which is easily achievable using our fast flux lines. In resonance, the swap frequency of $100\;\mathrm{MHz}$ allows us to realize an $\sqrt{i\mathrm{SWAP}}$ gate in $25\;\mathrm{ns}$ and an $i\mathrm{SWAP}$ gate in $50\;\mathrm{ns}$, which is sufficiently fast compared to the estimated relaxation and dephasing times of the qubits.
 \section{Readout Design}
 
-In the following section we will discuss the design of the qubit readout. The main parameters that we need to choose for the readout are
+In the following section we discuss the design of the qubit readout. The main parameters that we need to choose for the readout are
 
 \begin{enumerate}
 \item The frequency $\omega_r$, quality factor $Q$ and nonlinearity $K$ of the readout resonator
 \item The coupling $g_{qr}$ between the qubit and the readout resonator
 \end{enumerate}
 
-The frequency $f_r$ of the resonator is chosen such that at the operating temperature $T=20\;\mathrm{mK}$ of our experiment there exists a negligibly small population of thermal photons in the resonator. Another important design constraint is the availability of sufficiently good low-temperature microwave components at the chosen frequency.
+The frequency $f_r$ of the resonator is chosen high enough to have a negligibly low thermal photon occupation probability at the operating temperature $T=20\;\mathrm{mK}$ of our experiment. Also, the choice of frequency is limited by the availability of sufficiently good cryogenic microwave components (especially circulators) in the chosen frequency band. For our qubit processor, we chose resonator frequencies of $f_r^I = 6.7\;\mathrm{GHz}$ and $f_r^{II}=7.85\;\mathrm{GHz}$. The resonance frequencies of the two resonators are detuned by $150\;\mathrm{MHz}$ in order to reduce the effect of unwanted microwave crosstalk between them.
 
 \smallskip
 
-The other relevant parameters of the readout resonator are the Kerr nonlinearity $\kappa$ and its quality factor $Q$. The choice of the quality factor influences the relaxation rate of the qubit through Purcell relaxation through the readout resonator as well as the rate by which photons can be created in or extracted from the cavity, which ultimately determines also the speed and fidelity of the qubit readout. A comprehensive review of the interplay between qubit relaxation and readout speed and fidelity can be found in \cite{mallet_single-shot_2009}. The Purcell relaxation rate for different qubit levels is given as \citep{koch_charge-insensitive_2007}
+The other relevant parameters of the readout resonator are its quality factor $Q$ and its Kerr constant $K$. The choice of the quality factor influences the relaxation rate of the qubit through the Purcell effect as well as the rate at which photons can be created in or extracted from the resonator, which in turn also determines the speed of the qubit readout. A comprehensive review of the interplay between qubit relaxation, readout speed and readout fidelity can be found in \cite{mallet_single-shot_2009}. To quantify the Purcell relaxation of the qubit trough the readout resonator we can use an equation given in \citep{koch_charge-insensitive_2007}:
 %
 \begin{equation}
 \gamma_k^{(i,i+1)} = \kappa \frac{g_{i,i+1}^2}{(\omega_{i,i+1}-\omega_r)^2}
 \end{equation}
 %
-The choice of the Kerr nonlinearity $\kappa$ determines the number of photons in the low- and high-amplitude oscillation state of the resonator and therefore also the associated dispersive shift $\chi$ of the resonator frequency, which in turn influences the fidelity of the readout. For our qubit readout, we chose $f_r= 6.8\cdot 10^9\;\mathrm{GHz}$, $Q_{r}=800$, $g_{rq}= 50\;\mathrm{MHz}$ and $\kappa=-2.5\times 10^{-5}$. Theoretically, maximum fidelity is achieved when the bifurcation point of the resonator is shifted by more than its linewidth as a function of the qubit state. We can estimate \todo{add more detail about the readout contrast at a given detuning for the chosen set of parameters.}
+Here, $\omega_r$ is the frequency of the readout resonator, $\omega_{i,i+1}$ is the $\ket{i}\to\ket{i+1}$ transition frequency of the Transmon and $g_{i,i+1}$ is the qubit-resonator coupling strength for this transition. As can be seen, the Purcell relaxation rate decreases quadratically with the qubit-resonator detuning and increases quadratically with the qubit-resonator coupling strength $g_{i,i+1}$\todo{choose consistent notation, e.g. $g_{qr}^{i,i+1}$!}. For our resonators, we chose $Q=800$ which yields $\kappa_I = 52.6\;\mathrm{MHz}$ and $\kappa_{II} = 53.8\;\mathrm{MHz}$. Thus, for the above quality factors, a qubit-resonator coupling $2g_{qr}^{01}=2\pi \cdot 50\;\mathrm{MHz}$ and a detuning of $\omega_{01}-\omega_r = 2\pi \cdot 500 \;\mathrm{MHz}$ we obtain a Purcell relaxation time of $T_{1}^{01} \approx 7.5\;\mathrm{\mu s}$, which is bigger than the intrinsic relaxation time of a typical Transmon qubit by a large factor (however, certain new types of Transmon qubits can surpass this relaxation time).
+
+\smallskip
+
+The choice of the Kerr nonlinearity $K$ determines the number of photons in the low- and high-amplitude oscillation state of the resonator and the size of the ``bifurcation region'' of the JBA. It is important to choose $K$ sufficiently high in order to be able to achieve reliable readout operation. On the other hand, the photons present in the resonator during the readout can induce decoherence in the qubit and will shift its resonance frequency proportional to the number of photons. This frequency shift can create unwanted effects such as recoupling of the two qubits of our processor and should therefore be minimized. Theoretically, the maximum readout fidelity is achieved when the bifurcation point of the resonator is shifted by more than its linewidth, as a function of the qubit state. The linewidth of the switching probability distribution of the JBA as a function of the incident microwave power can be calculated numerically but usually we use experimental values to characterize it. In our case, this measured linewidth in dB was given as $\Delta p = xx\;\mathrm{dB}$. \todo{add more detail about the readout contrast at a given detuning for the chosen set of parameters.}
 
 \section{Processor Fabrication}
 
-We fabricate the processor on a 100-oriented silicon substrate with a 50 nm thermal oxide layer. First, we depose a 150 nm layer of Niobium by magentron sputtering, spin a photoresist and perform optical lithography to pattern the film. It is then dry-etched in a$\mathrm{SF}_6$ plasma, defining the readout resonators, tranmission lines and qubit flux lines on the chip. This optical patterning is performed for the wafer as a whole. Afterwards, we spin a bilayer of MAA/PMMA electron beam resist (typically obtaining $1050\;\mathrm{nm}$ of MMA and $115\;\mathrm{nm}$ of PMMA) is deposited and baked. Next, the wafer is diced and the qubits and JBA junctions are patterned using electron beam lithography. A double-angle shadow evaporation process is used to define the Josephson junctions and capacitances on the chip. The e-beam resist is lifted off chemically in an Acetone bath. Optical, SEM and electrical characterization of the chip is used to obtain all relevant sample parameters, most notably the resistance-area product $RS$ and the Josephson energy of the qubit and JBA junctions, which is determined through the normal-state resistance using the Ambegaokar-Baratoff formula
+We fabricate the processor on a silicon substrate with a 50 nm thermal oxide layer. First, we depose a 150 nm layer of Niobium by magentron sputtering. Afterwards, we spin a photoresist and define an etch mask through optical lithography. Then we dry-etch in a$\mathrm{SF}_6$ plasma, defining the readout resonators, tranmission lines and qubit flux lines on the chip. This optical patterning is performed for the wafer as a whole. Afterwards, we spin a bilayer of MAA/PMMA electron beam resist (with typically $1050\;\mathrm{nm}$ of MMA and $115\;\mathrm{nm}$ of PMMA thickness). Then the wafer gets diced and the qubits and JBA junctions are patterned per chip using electron beam lithography, using a double-angle shadow evaporation technique to define the Josephson junctions and capacitances on the chip. The e-beam resist is then lifted off chemically in an Acetone bath. We characterize the chip optically afterwards. In addition, we place ``twin'' structures of the Transmon qubits and the JBAs on each chip whose normal state resistance we measure at room temperature. Giving the normal-state resistance of a Josephson junction we can calculate the Josephson energy by using the Ambegaokar-Baratoff relation
 %
 \begin{equation}
 E_J = \frac{2\pi^2 \Delta}{R_n h}
 \end{equation}
 %
-where we used $E_J = h I_0 / 4\pi e$. Furthermore, we use electromagnetic simulations to extract all relevant capacitances of our design, allowing us to calculate all sample parameters discussed above.
+,where $E_J = h I_c / 4\pi e$. Furthermore, we perform numerical microwave simulations to extract the values of all relevant capacitances and inductances on the chip, which allows us to calculate all relevant parameters of our qubit chip.
 
 \begin{SCfigure}
 	\includegraphics[width=10cm]{"./material/figures/2-qubit-processor/processor photos"}
@@ -133,46 +167,64 @@ where we used $E_J = h I_0 / 4\pi e$. Furthermore, we use electromagnetic simula
 
 \chapter{Measurement Setup \& Techniques}
 
-In this chapter we will discuss the measurement setup and techniques that we use in our experiments. We will first discuss the individual part of our signal generation and measurement chain and all the components involved in it. Afterwards we will briefly discuss the calibration and compensation techniques that we use to correct imperfections of our signals.
+In this chapter we will discuss the measurement setup and techniques that we use in our experiments. We will discuss all individual parts of our signal generation and measurement chain, putting emphasis on the generation and measurement of high-frequency signals. Afterwards we will briefly discuss the calibration and compensation techniques that we use to correct signal imperfections.
 
-Afterwards we will introduce the reader to the different measurement techniques that we use in this work, including the qubit readout and driving techniques as well as more advanced measurement sequences used for characterizing qubit decoherence.
+Finally we will introduce the reader to the different measurement techniques that we use in this work, including techniques used for qubit readout and driving as well as more advanced measurement methods that we use to characterize the qubits and their decoherence times.
+
+\section{Sample Holder \& PCB}
+
+\begin{SCfigure}[1][ht!]
+	\centering
+		\includegraphics[width=5cm]{"./material/photos/sample_holder"}
+	\caption[]{The sample holder with the mounted PCB carrying the qubit chip. Bond wires are used to connect the on-chip tranmission lines to the PCB, which in turn uses a Mini-SMP connector to connect the bondwire to a set of external coaxial SMP cables. The top part of the sample holder is screwed to the bottom part, forming a closed box with cavities only for the tranmission lines and the qubit chip. The whole sample holder is screwed to the 20 mK stage of the dilution cryostat.}
+	\label{fig:sample_holder_and_pcb}
+\end{SCfigure}
+
+The qubit chip is first glued to a high-frequency PCB. The coplanar transmission lines present on the chip are bond-wired to their counterparts on the microwave PCB, where they are terminated by a set of Mini-SMA\comment{SMP???} connectors. Additional bond wires are used to connect ground planes of the chip to the PCB. Also, bond wires are used to connect different parts of the on-chip ground plane that are isolated from each other due to the circuit topology. As \cite{schuster_circuit_2007} showed, non-connected on-chip ground planes can induce parasitic resonances on the qubit chip and should therefore be avoided. The mounted chip on the PCB is then placed in a Copper or Aluminium sample holder that fully encloses the PCB and provides electromagnetic shielding of the environment. The inner dimensions of the sample holder are chosen such that no spurious box resonances in the frequency range relevant to our experiment can arise.
+
+\section{Cryogenic Wiring}
 
 \begin{figure}[ht!]
 	\centering
 		\includegraphics[width=1.\textwidth]{"./material/figures/2-qubit-processor/measurement setup"}
 	\caption[The measurement setup used for the two-qubit experiments]{The measurement setup used for the two-qubit experiments. Exactly the same drive and readout scheme is used for both qubits with phase-locked microwave sources and arbitrary waveform generators.}
-	\label{fig:MeasurementSetup}
+	\label{fig:measurement_setup}
 \end{figure}
 
-\section{Sample Holder \& PCB}
-
-The qubit chip is first glued to a high-frequency PCB that is equipped with six 50 $\Omega$ coplanar transmission lines terminated with angled Mini-SMA connectors. Wirebonds are used to connect the groundplane and the center conductors of the on-chip transmission lines to their counterparts on the PCB. In addition, further bond wires are used to connect ground planes on the chip that are isolated from each other due to the circuit topology. The realization of a good and uniform groundplane on the qubit chip and around is very important to supress unwanted resonance modes that can be created when the connection between isolated ground planes is not good enough \todo{Add references e.g. to Schuster's thesis}. The mounted chip on the PCB is then placed in a Copper or Aluminium sample holder that fully encloses the PCB and provides electromagnetic shielding of the environment. The inner dimensions of the sample holder are chosen such that no spurious box resonances at the qubit frequency can arise.
-
-\section{Cryogenic Wiring}
-
-For the transmission of microwave signals to our sample we use various types of coaxial transmission lines. Superconducting cables are used where adequate to minimize signal attenuation, in addition lossy cables made from special compounds (e.g. CuNi) are used to minimize heat transfer into the dilution cryostat, which is especially critical between the 4K and 300 mK and the 300 mK and 20 mK states of the cryostat. Fig. \ref{fig:setup_wiring} shows the full wiring of our setup, including all microwave and high frequency transmission lines.
+Microwave signals that are generated at room temperature are sent to the qubit chip through a series of transmission lines. Fig. \ref{fig:measurement_setup} shows the wiring of our experiment from room temperature down to the 20 mK state of the dilution cryostat. Superconducting cables are used where adequate to minimize signal attenuation, in addition lossy cables made from special compounds (e.g. CuNi) are used to minimize heat transfer into the dilution cryostat, which is especially critical between the 4K and 300 mK and the 300 mK and 20 mK states of the cryostat. In addition to high frequency transmission lines we also use a pair of bifilar cables to power a superconducting Nb coil which is used for flux biasing the qubits.
 
 \section{Signal Generation \& Acquisition}
 
-Here we discuss the generation and acquisition of the different signals used to manipulate and read out our quantum processor. The experiments that have been performed require the generation, measurement and demodulation of microwave signals, the generation of fast flux control pulses and the application of DC currents to our magnetic coils.
+For the experiments prsented below we need to generate pulsed high-frequency signals with a well-defined frequency, amplitude and phase. In addition we need to characterize microwave signals measured using microwave reflectometry using standard microwave demodulation techniques. In the following sections we discuss in detail the signal generation and measurement chain used for our experiments.
 
 \subsection{Driving and Measurement of the Qubit}
 
-Each of the two qubit/readout resonator pairs on our chip possesses its own driving and readout circuit. At room temperature, we generate qubit and resonator drive waveforms using two single-tone microwave sources whose continous output is mixed with fast control pulses generated by two arbitrary waveform generators. The drive and readout signals are then combined and sent to the qubit chip through a series of cryogenic attenuators and filters. A cryogenic circulator at the 20 mK sample chamber routes the incoming pulses to the qubit chip where they are reflected. Using the same circulator the reflected signal gets routed through a double isolator and a band-pass filter which isolates the reflected pulse close to the resonator frequency. This signal gets then amplified by a cryogenic HEMT amplifier and several room-temperature amplifiers. Finally, it gets demodulated with the original continous measurement tone and fed to an ADC board through a pair of low-noise amplifiers.
+Each of the qubits together with the corresponding readout resonator on our chip is fitted with an individual drive and readout circuit. At room temperature we generate qubit and resonator drive waveforms using phase-locked single-tone microwave sources whose continous output is mixed with fast control pulses generated by two arbitrary waveform generators (the details of this microwave mixing will be discussed in the following paragraph). The drive and readout signals are then combined and sent to the qubit chip through a series of (cryogenic) attenuators and filters. A cryogenic circulator at the 20 mK sample stage of the dilution cryostat routes the incoming pulses to the qubit chip where they are sent to the qubit readout resonator and finally reflected by it. The reflected signal passes again through the input microwave circulator and gets routed through a double isolator and a band-pass filter to a cryogenic HEMT amplifier with a gain of 40 dB. The amplified signal gets transmissted to the room temperature electronics, where it gets filtered and amplified further. Finally, the signal is demodulated with a continous microwave reference tone and fed to an ADC board through a pair of low-noise amplifiers.
 
-In addition, each qubit possesses a pair of fast flux lines that are equipped with 20 dB attenuation, a conventional Microtronics low-pass filter as well as a custom-made high-frequency powder filter that uses a highly absorptive commercial material (Eccosorb) to attenuate high-frequency noise.
+\smallskip
+
+In addition to this, each qubit is equipped with a pair of fast flux lines. High-frequency and DC flux pulses are generated using an arbitrary waveform generator at room temperature. The flux signal is then sent to the qubit chip through 20 dB of attenuation, a conventional Microtronics low-pass filter as well as a custom-made high-frequency powder filter that uses an absorptive material (Eccosorb) to attenuate high-frequency noise. After passing through the transmission line on the qubit chip, the outgoing flux signal gets routed to room temperature through a tranmission line identical to the input line. There, the signal can be measured, which is useful for correcting possible signal imperfections caused by the non-ideal character of the tranmsission line (we will detail in one of the following sections how to numerically compensate the imperfect frequency response of the flux line).
 
 \subsection{Microwave Sideband Mixing}
 
-For qubit manipulation it is often advantageous to use single-sideband mixing for driving the qubit since it can provide higher ON/OFF ratios for microwave pulses and allow the driving of higher qubit-levels using a single, phase-coherent microwave source. To realize this, we use IQ mixers (Hittite \todo{Add exact type number}) that we drive with a continous single-frequency microwave tone and two time-synchronized fast control signals generated by an arbitrary waveform generator (Tektronix AWG5014b). When feeding a signal $LO(t) = i_0 \cos{(\omega_{rf} t )}$ to the LO port of the mixer and two signals $I(t)$, $Q(t)$ to the I and Q ports of the mixer one obtains a signal
+To generate the qubit drive pulses we use single-sideband mixing techniques. We use a pair of IQ mixers (Hittite \todo{Add exact type number}) that we drive with a continous single-frequency microwave tone and two synchronized fast control signals generated by an arbitrary waveform generator (Tektronix AWG5014b). In general, when feeding a signal $LO(t) = i_0 \cos{(\omega_{rf} t )}$ to the LO port of an IQ mixer and two signals $I(t)$, $Q(t)$ to the I and Q ports of the mixer, we obtain a signal
 
 \begin{equation}
 RF(t) = I(t)\cos{(\omega_{rf} t)}+Q(t)\sin{(\omega_{rf} t)} \label{eq:iqMixer}
 \end{equation}
 
-at the LO port of the mixer. Since the IQ mixer that we use is a passive, reciprocal device one can as well feed two input signals to the LO and RF ports and obtain the demodulated signal quadratures at the I and Q ports, a technique that we'll make use of for our qubit readout scheme.
+at the RF port of the mixer. Since the IQ mixer that we use is a passive, reciprocal device one can as well feed two input signals to the LO and RF ports and obtain the demodulated signal quadratures at the I and Q ports, a technique that we make use in our qubit readout scheme, as will be detailed later in this chapter.
 
-Commercially available IQ mixers often deviate from the ideal behavior as given by eq. (\ref{eq:iqMixer}). Typical imperfections include large insertion losses --i.e. loss of signal power between the different ports of the mixer--, RF signal leakage at zero IQ-input and frequency-dependent phase and amplitude errors of the mixed sideband signals. In order to achieve reliable single-qubit operations we need to correct the signal leakage and quadrature-specific amplitude and phase errors. The signal leakage causes a small part of the LO signal to leak through to the RF port even when the IQ inputs are zeroed. This leakage can be compensated by adding center-frequency $\omega_c$ dependent DC offset voltages to the IQ ports. The appropriate offset voltages can be determined by applying a continuous input signal at a frequency $\omega_c$ to the LO port of the mixer and minimizing the signal power at the RF port by varying the IQ offset voltages. To correct the sideband amplitude and phase errors we apply another correction procedure that we outline here. First, for the signals at the IQ inputs of the mixer we introduce the notation
+Typically we use sideband mixing to generate drive pulses that are displaced in frequency in respect to the original LO (carrier) waveform. This if often advantageous since it eliminates microwave leakage at the signal frequency for zero voltage on the IQ inputs, which is often a big problem for commercially available IQ mixer, as we will discuss below.
+
+\begin{SCfigure}[1][ht!]
+	\centering
+	\includegraphics[width=10cm]{"./data/ct5/iq mixers/iq_offsets"}
+	\caption[...]{a) The offset voltages that we need to apply to the IQ ports of the mixer to eliminate unwanted leakage from the LO to the RF port of the device, plotted as a function of the carrier frequency $f_{c}$. b)The measured remaining signal power at the RF port of the mixer at the optimal IQ bias point.}
+	\label{fig:iq_mixer_offset}
+\end{SCfigure}
+
+Commercially available IQ mixers often deviate from the ideal behavior as given by eq. (\ref{eq:iqMixer}). Typical imperfections include large insertion losses --i.e. loss of signal power between the different ports of the mixer--, RF signal leakage at zero IQ-input and frequency-dependent phase and amplitude errors of the mixed sideband signals. In order to achieve reliable single-qubit operations we need to correct the signal leakage and quadrature-specific amplitude and phase errors. The signal leakage causes a small part of the LO signal to leak through to the RF port even when the IQ inputs are zeroed. This leakage can be compensated by adding center-frequency $\omega_c$ dependent DC offset voltages to the IQ ports. The appropriate offset voltages can be determined by applying a continuous input signal at a frequency $\omega_c$ to the LO port of the mixer and minimizing the measured signal power at the RF port by varying the IQ offset voltages. To correct the sideband amplitude and phase errors we apply another correction procedure that we outline here. First, for the signals at the IQ inputs of the mixer we introduce the notation
 
 \begin{equation}
 A(t) = I(t)+iQ(t) = a(t)\exp{(-i\phi(t))}
@@ -180,7 +232,7 @@ A(t) = I(t)+iQ(t) = a(t)\exp{(-i\phi(t))}
 
 We consider an IQ signal at a single sideband frequency $\omega_{sb}$ and at fixed complex amplitude $a(t) = a = a_0\exp{(i\phi_0)}$ such that $A(t) = a\exp{(-i \omega_{sb} t)}$. The effect of the gain and phase imperfections of the IQ mixers can then be modeled by assuming that the mixer adds another IQ signal $\epsilon(\omega_{sb},\omega_c)A^*(t)$ at the mirrored sideband frequency $-\omega_{sb}$. We can correct this unwanted signal by adding a small correction $c(\omega_{sb},\omega_c)A^*(t)$ to our IQ input signal. The correction coefficient $c(\omega_{sb},\omega_c)$ usually depends both on the carrier frequency $\omega_c$ and the sideband frequency $\omega_{sb}$. We determine the correction coefficients by generating a continuous waveform at a given center and sideband frequency, measuring the amplitude of the unwanted sideband signal with a fast spectrum analyzer and minimizing its amplitude by varying the correction coefficient $c(\omega_sb,\omega_c)$.
 
-Both the offset and the sideband-amplitude and -phase corrections have been automatized using our data acquisition software, the resulting correction coefficients are summarized in fig. \ref{fig:IQMixerCorrection}.	
+Both the offset and the sideband-amplitude and -phase corrections have been automatized using our data acquisition software, the resulting correction coefficients are summarized in fig. \ref{fig:iq_mixer_offset}. By using the optimization techniques described above we can achieve $-80\;\mathrm{dBm}$ residual power at the RF port of the mixer when no input IQ signal is present and a supression of the unwanted mirror sideband in heterodyne modulation $>70\;\mathrm{dB}$ \todo{verify this number!}.
 
 \subsection{Fast Magnetic Flux Pulses}
 
@@ -191,13 +243,13 @@ Both the offset and the sideband-amplitude and -phase corrections have been auto
 	 \label{fig:FluxLineResponseFunction}
 \end{wrapfigure}
 
-The fast flux lines are implemented by a pair of superconducting 50 $\Omega$ transmission lines, which are attenuated by 20 dB and filtered at the 4K and 20 mK stages of the cryostat. The filtering at the 20 mK stage is realized through custom-made, highly absorptive Eccosorb filters. Fig. \ref{fig:EccosorbFilters} shows an image of these filters and the attenuation characteristic obtained. The heavy filtering of the flux line greatly reduces noise seen by the qubit but also distorts all signals sent through the line. This distortion is unwanted especially at high frequencies and needs to be corrected. To do this we need to measure and compensate the frequency response of the flux line at experimental conditions. In order to do this, we feed back the flux signal sent to the sample through a transmission line which is exactly equivalent to the input line. This allows us to measure the returning signal at room temperature and -- assuming symmetric distortion in the input and return line -- to calculate the response function of the input line. Fig. \ref{fig:FluxLineResponseFunction} shows the different parts of the response function of the flux line as measured in our experiment. We can obtain the response function on the input part of the fluxline by measuring the Fourier spectrum of the returning flux pulse and solving the equation
+For the fast flux lines we use superconducting transmission lines which are attenuated by 20 dB and filtered at the 4K and 20 mK stages of the cryostat. The filtering at the 20 mK stage is realized using custom-built, highly absorptive high-frequency microwave filters. Fig. \ref{fig:EccosorbFilters} shows an image of such a filter and the attenuation characteristic obtained for it. As can be seen, the filter shows an exponential attenuation and filters very effectively at high frequencies. This heavy filtering of the flux line is helpful since it greatly reduces high-frequency noise seen by the qubit but it also distorts all deterministic signals sent through the flux line. This distortion is unwanted especially at high frequencies and needs to be corrected. To do this we need to measure and compensate the frequency response of the flux line. In order to do this, we make use of the return line of the flux line and feed back the flux signal sent to the sample to room temperature. This allows us to measure the returning signal and -- assuming symmetric distortion in the input and return line -- to calculate the response function of the input line. Fig. \ref{fig:FluxLineResponseFunction} shows the different parts of the response function of the flux line as measured in our experiment. We can obtain the response function of the input part of the fluxline by sending a step-pulse through the flux line, measuring the Fourier spectrum of the returning  signal and solving
 %
 \begin{equation}
-\chi_{out}(\omega) = \chi_{ideal}(\omega)\cdot \chi_{DAC}\cdot \chi_{in} \cdot \chi_{out}\cdot\chi_{ADC}
+\chi_{out}(\omega) = \chi_{ideal}(\omega)\cdot \chi_{DAC}\cdot \chi_{in} \cdot \chi_{out}\cdot\chi_{ADC} \label{eq:flux_response}
 \end{equation}
 %
-Here, $\chi_{ADC}$ and $\chi_{DAC}$ describe the response functions of the DAC and ADC, $\chi_{in}$ corresponds to the Fourier spectrum of the ideal input waveform and $\chi_{out}$ corresponds to the Fourier transform of the digitized return signal. As said before, we assume that $\chi_{in}\approx\chi_{out}$. By measuring $\chi_{out}$ and correcting the measured Fourier spectrum for the response function of the ADC $\chi_{ADC}$ we obtain the input line response $\chi_{DAC}\chi_{in}$ including the DAC response. We can then correct our digital input waveforms by applying
+Here, $\chi_{ADC}$ and $\chi_{DAC}$ describe the response functions of the DAC and ADC, $\chi_{in}$ corresponds to the Fourier spectrum of the ideal input waveform and $\chi_{out}$ corresponds to the Fourier transform of the digitized return signal. We assume that $\chi_{in}\approx\chi_{out}$. By measuring $\chi_{out}$ and correcting the measured Fourier spectrum for the response function of the ADC $\chi_{ADC}$ we obtain the input line response $\chi_{DAC}\chi_{in}$ including the DAC response. We can then correct our digital input waveforms by applying
 %
 \begin{equation}
 \chi_{in}^{corr} = \chi_{in}\cdot (\chi_{DAC}\cdot\chi_{in})^{-1}\cdot \mathrm{G}(f_0)
@@ -215,7 +267,7 @@ In this section we will discuss the techniques used to characterize and manipula
 
 \section{Qubit Readout}
 
-\begin{wrapfigure}[20]{r}{6cm}
+\begin{wrapfigure}[24]{r}{6cm}
 \centering
 \includegraphics[width=6cm]{./material/figures/measurement/readout}
 \caption{...}
@@ -251,7 +303,8 @@ In the following chapter we will discuss more in detail the calibration of these
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=0.5\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/example - qubit 2 spectroscopy"}
+\includegraphics[width=0.49\textwidth]{"./material/figures/measurement/qubit_spectroscopy"}
+\includegraphics[width=0.49\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/example - qubit 2 spectroscopy"}
 \caption[]{Example of a measured qubit spectroscopy. Shown is the switching probability of the qubit readout when driving the qubit with a very long drive pulse (typically 1 $\mu$s) at a given drive frequency. The resonance to the right corresponds to the $\ket{0}\to\ket{1}$ (at frequency $f_{01}$)transition of the qubit, the resonance on the left to the 2-photon $\ket{0}\to\ket{2}$ (at frequency $f_{02}/2$) transition. We perform a Lorentzian fit of the two resonances to obtain the $\ket{0}\to\ket{1}$ and $\ket{0}\to\ket{2}/2$ resonance frequencies, from which we can calculate all other qubit transition frequencies.}
 \label{fig:qubit_spectroscopy_example}
 \end{figure}
@@ -268,7 +321,8 @@ Fig. \ref{fig:qubit_spectroscopy_example} shown an exemplatory qubit spectroscop
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=0.5\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/example - qubit 2 rabi"}
+\includegraphics[width=0.49\textwidth]{"./material/figures/measurement/qubit_rabi_oscillation"}
+\includegraphics[width=0.49\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/example - qubit 2 rabi"}
 \caption[]{Example of a measured qubit Rabi experiment. Shown is the switching probability of the qubit readout when driving the qubit at $f_{01}$ with a Gaussian drive pulse of varying duration. The measurement results are not corrected for readout errors.}
 \label{fig:qubit_rabi_example}
 \end{figure}
@@ -279,7 +333,8 @@ After having obtained the proper qubit transition frequency $f_{01}$ using the t
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=0.5\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/example - qubit 2 ramsey"}
+\includegraphics[width=0.49\textwidth]{"./material/figures/measurement/qubit_ramsey_oscillation"}
+\includegraphics[width=0.49\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/example - qubit 2 ramsey"}
 \caption[]{Example of a measured qubit Ramsey experiment. Shown is the switching probability of the qubit readout after performing a $X_{\pi/2}$-wait-$X_{\pi/2}$ drive sequence at a frequency $f_{01}-\delta f$. Fitting the resulting curve with an attenuated sine-wave model allows us to determine the $f_{01}$ frequency of the Qubit with high accuracy.}
 \label{fig:qubit_ramsey_example}
 \end{figure}
@@ -290,13 +345,14 @@ After having obtained the transition frequency $f_{01}$ of the qubit and the Rab
 \ket{\phi_f} = \left(\begin{array}{cc} 1 & -1 \\ 1 & 1 \end{array} \right)\cdot\left(\begin{array}{c} 1 \\ e^{i\Delta\phi} \end{array}\right) = \left( \begin{array}{c} i\sin{\Delta\phi/2} \\ -\cos{\Delta\phi/2}\end{array}\right)
 \end{equation}
 %
-Hence, the resulting state $\ket{\phi_f}$ will oscillate between the state $\ket{0}$ and $\ket{1}$ with a frequency $\Delta f/2$. As before, due to dephasing and relaxation during the free evolution of the qubit state, the amplitude of these oscillations will decay. If the system dephasing time is limited by qubit relaxation, the decay will follow a Gaussian decay of the form $\exp{-\Gamma t^2}$, otherwise it will also exhibit an exponential decay $\simeq \exp{-\Gamma t}$ \citep{}. In the Ramsey sequence, instead of detuning the qubit frequency during the free evolution phase we can also detune the qubit drive frequency instead. If this detuning is small in comparision to the Rabi frequency $\Omega$, we will induce only a negligible error when applying the first $Y_{\pi/2}$ pulse. But since the drive frequency is detuned, the qubit will also acquire a phase $\Delta f \Delta t$ during the free evolution phase. Fitting the experimental data obtained for such an experiment to a model of the form $p(\ket{1}) = p_0 +a\cos{(\Delta f \Delta t+\phi_0)}\exp{-\Gamma_2 t^2/2}$ we can obtain an estimate of $\Delta f$. Since we know the frequency detuning of the drive during the free evolution of the qubit we can substract it from the fitted value in order to obtain the remaining detuning of the qubit from the drive frequeny at zero drive detuning. This method allows us thus to make a precise fit of the qubit frequency and to correct drive frequency errors with an accuracy of typically $100\;\mathrm{kHz}$. 
+Hence, the resulting state $\ket{\phi_f}$ will oscillate between the state $\ket{0}$ and $\ket{1}$ with a frequency $\Delta f/2$. As before, due to dephasing and relaxation during the free evolution of the qubit state, the amplitude of these oscillations will decay. If the system dephasing time is limited by qubit relaxation, the decay will follow a Gaussian decay of the form $\exp{(-\Gamma t^2)}$, otherwise it will also exhibit an exponential decay $\simeq \exp{(-\Gamma t)}$ \citep{}. In the Ramsey sequence, instead of detuning the qubit frequency during the free evolution phase we can also detune the qubit drive frequency instead. If this detuning is small in comparision to the Rabi frequency $\Omega$, we will induce only a negligible error when applying the first $Y_{\pi/2}$ pulse. But since the drive frequency is detuned, the qubit will also acquire a phase $\Delta f \Delta t$ during the free evolution phase. Fitting the experimental data obtained for such an experiment to a model of the form $p(\ket{1}) = p_0 +a\cos{(\Delta f \Delta t+\phi_0)}\exp{-\Gamma_2 t^2/2}$ we can obtain an estimate of $\Delta f$. Since we know the frequency detuning of the drive during the free evolution of the qubit we can substract it from the fitted value in order to obtain the remaining detuning of the qubit from the drive frequeny at zero drive detuning. This method allows us thus to make a precise fit of the qubit frequency and to correct drive frequency errors with an accuracy of typically $100\;\mathrm{kHz}$. 
 
 \section{Relaxation Time Measurement}
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=0.5\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/example - qubit 2 t1"}
+\includegraphics[width=0.49\textwidth]{"./material/figures/measurement/qubit_t1_measurement"}
+\includegraphics[width=0.49\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/example - qubit 2 t1"}
 \caption[]{Example of a qubit relaxation time measurement. Shown is the probability of measuring the qubit in state $\ket{1}$ as a function of the delay time between the preparation of the state $\ket{1}$ and the actual measurement of the qubit state. The decay of this probability follows an exponential law of the form $p(\ket{1})\simeq\exp{(-\Gamma_1 t)}$}
 \label{fig:qubit_t1_example}
 \end{figure}
