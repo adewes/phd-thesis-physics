@@ -1,0 +1,379 @@
+\chapter{Characterizing the Two-Qubit Processor}
+
+This section discusses the detailed characterization of individual circuit parts that will be used later to realize two-qubit gate and to run a quantum algorithm on the processor. The discussion will focus on the readout and microwave manipulation of the qubits as well as  on the reconstruction of quantum states from measurement data, which will be used later for characterizing gate and processor operation.
+
+\section{Qubit \& Readout Characterization}
+
+\begin{figure}[ht!]
+	\centering
+		\includegraphics[width=1.\textwidth]{"./data/ct5/qubit frequencies/qubit_spectroscopy"}
+	\label{fig:ProcessorSpectroscopy}
+	\caption[Spectroscopy of the Two-Qubit Processor]{Spectroscopy of the realized two-qubit processor. $\ket{0}\to\ket{1}$ and $(\ket{0}\to\ket{2})/2$ transition frequencies of the two qubits with fitted dependence and cavity frequencies.}
+\end{figure}
+
+The following section discusses the parameters of our two-qubit processor that have been obtained by various measurements.
+
+\subsection{Qubit Parameters}
+
+To obtain all the relevant parameters of our two-qubit processor, we perform a set of measurements from which we obtain the qubit frequencies, anharmonicities, junction asymmetries, the inter-qubit coupling, the coupling to the microwave drive lines, the coupling of each qubit to its readout and the relaxation and dephasing times of the qubits. The drive and readout couplings as well as the relaxation and dephasing times are measured for a range of qubit frequencies, which will allow us later to pick an ideal working point for our two-qubit experiments. The qubit parameters obtained from spectroscopic measurements are as follows:
+
+\begin{itemize}
+\item \textit{Qubits}: Spectroscopic measurement of the qubit transitions yielded parameter values of $E_J^I / h = 36.2\; \mathrm{GHz}$, $E_c^I / h = 0.98 \; \mathrm{GHz}$ and $E_J^{II} / h = 43.1\; \mathrm{GHz}$, $E_C^{II} / h = 0.87 \; \mathrm{GHz}$ for the Josephson and charging energies of the two qubits and values of $d^I = 0.2$, $d^{II} =  0.35$ for the qubit junction asymmetries.
+\item \textit{Readout resonator}: The frequencies of the readout resonators have been measured as $\nu_R^I = 6.84 \; \mathrm{GHz}$ and $\nu_R^{II} = 6.70 \; \mathrm{GHz}$ with quality factors $Q^I \simeq Q^{II} = 730$, independent measurements of the Kerr nonlinearities yielded $K^I / \nu_R^I \simeq K^{II} / \nu_R^{II} = -2.3\pm 0.5 \times 10^{-5}$ \todo{add junction parameters inferred from the bare resonator frequencies}.
+\item \textit{Qubit-Resonator coupling}: The coupling of the qubits to the readout resonators has been spectroscopically determined as $g_0^I \simeq g_0^{II} = 50 \; \mathrm{MHz}$
+\end{itemize}
+
+\subsubsection{Readout Parameters}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=1\textwidth]{"./data/ct5/cavity anticrossing/qubits_anticrossing_bw"}
+	\caption[Spectroscopic measurement of the avoided level crossing between the two qubits and their corresponding readout resonator]{Spectroscopic measurement of the avoided level crossing between the two qubits and their corresponding readout resonator, corresponding to an effective qubit-resonator coupling strength $2g\approx 50\;\mathrm{MHz}$.}
+	\label{fig:qubit_resonator_anticrossing}
+\end{figure}
+
+To measure the qubit-resonator coupling, we measure the S-parameter of the resonator using microwave reflectometry while tuning the qubit transition frequency through the resonance frequency of the resonator. The results of such a measurement are shown in fig. \ref{fig:qubit_resonator_anticrossing} for the two qubits of our processor. From these measurements we can extract the qubit-resonator coupling strengths, which for both qubits are given as $g_{qr}\approx 50\;\mathrm{MHz}$.
+
+
+\subsubsection{Qubit Parameter Survey}
+
+\begin{figure}[ht!]
+   \centering
+	 \includegraphics[width=1\textwidth]{"./data/ct5/qubits - parameter surveys/qubit parameters"}
+	 \caption[A qubit parameter survey showing $T_1$, readout contrast and Rabi frequency of the two qubits over a large range of qubit frequencies]{A qubit parameter survey showing the relaxation time $T_1$, the readout contrast and the Rabi frequency at a fixed drive amplitude for the two qubits over a large range of qubit frequencies.}
+	 \label{fig:qubit_parameters}
+\end{figure}
+
+In order to determine the optimal working point for our processor we need to characterize the properties of the qubits and readouts at many different qubit frequencies. In order to do this we perform an automated survey of qubit spectroscopies, qubit readout characterizations and $T_1$ measurements at different qubit frequencies. The results of such a parameter survey are summarized in fig \ref{fig:qubit_parameters}, showing the relaxation time $T_1$,  the readout contrast $c_{10}$ and the Rabi frequency $f_{Rabi}$ for a fixed drive amplitude for the two qubits in a frequency range between 5.2 and 6.5 GHz. As can be seen, the relaxation time of the qubits tends to increase the farther detuned each qubit is from its readout resonator. Not surprisingly, the drive frequency of the qubit also decreases when the qubit-resonator detuning increases as expected from the Purcell effect, which filters incoming microwave signals that are far-detuned from the resonator frequency. The inverse is true for the readout contrast, which increases near-linearly when reducing the qubit-resonator detuning due to the increase of the dispersive resonator frequency shift induced by the qubit that gets stronger the less the qubit is detuned from the readout resonator.
+
+\smallskip
+
+It is interesting to note the non-monotnous characteristic of the qubit relaxation time $T_1$ shown in fig. \ref{fig:qubit_parameters}, which cannot be explained by Purcell-filtering through the readout resonator and hints at a different qubit relaxation process present in the system. A possible explanation would be the coupling of the qubit to a spurious low-Q resonance in the environment. Coupling to volumetric resonance modes of the sample holder or non-CPW resonance modes of the readout resonator can be possible explanations for the data. Also, the overall dependency of the relaxation time $T_1$ on the qubit-resonator detuning --ignoring the ``fine-structure'' present in the system-- is not quadratic as would be expected from the Purcell theory but rather linear. Also, by comparing the qubit relaxation time to the Rabi drive frequency reveals that the increase in $T_1$ is cleary not proportional to the Purcell factor that determines the qubit relaxation rate through the readout resonator. However, the observed $T_1$ dependency can be partially explained by taking into account the qubit relaxation through the fast fluxline, which might be to strongly-coupled to the qubit on our chip, hence inducing additional qubit relaxation beyond the Purcell and intrinsic qubit relaxation rates. This effect will therefore be studied in more detail in the following sections.
+
+\section{Single-Qubit Operations}
+
+\begin{figure}[ht!]
+	\centering
+		\includegraphics[width=1.\textwidth]{"./data/ct5/2010_12_01 - iq tomography/iq_tomographies"}
+	\caption[Demonstration of single-qubit IQ control]{Demonstration of single-qubit IQ control. The figures show the state probability of a single qubit when preparing it in one of the states $\ket{1}$, $1/\sqrt{2}(\ket{0}+\ket{1})$ or $1/\sqrt{2}(\ket{0}+i\ket{1})$ and subjecting the qubit to a microwave drive pulse of the form $a(t) = V_I\cdot\cos{\omega_{rf}t}+V_Q\cdot\sin{\omega_{rf}t}$.}
+	\label{fig:single_qubit_iq_control}
+\end{figure}
+
+To perform arbitrary single-qubit operations -- as needed e.g. for implementing a quantum algorithm or performing quantum state tomography -- we need to implement a universal set of $X$, $Y$ and $Z$ qubit gates with our processor. Qubit rotations in the $XY$-plane are implemented through microwave drive pulses, where the phase of the drive pulse in reference to an arbitrary reference determines the rotation axis and the amplitude of the drive pulse the Rabi frequency of the gate. To characterize the drive pulses, we perform an experiment where we initialize a single-qubit in the states $\ket{1}$, $1/\sqrt{2}(\ket{0}+\ket{1})$ and $\sqrt{2}(\ket{0}+i\ket{1})$ and subject it afterwards to a single microwave pulse of the form $a(t) = V_I\cdot\cos{\omega_{rf}t}+V_Q\cdot\sin{\omega_{rf}t}$, which we tune by changing the input voltages $V_I$ and $V_Q$ to the $IQ$-mixer that generates the pulse from a continuous input micrwave-tone at frequency $\omega_{rf}$. We measure the qubit state at different values of $V_I$, $V_Q$, obtaining the graph shown in fig. \ref{fig:single_qubit_iq_control}. The qubit which was prepared in state $\ket{1}$ shows a perfectly cylinder-symmetric switching probability pattern when subjecting it to an IQ-pulse of a given phase, which is what one would expect for a qubit being prepared in either the $\ket{0}$ or $\ket{1}$ state. On the contrary, the switching probability distributions of the measured qubits prepared in the states $1/\sqrt{2}(\ket{0}+\ket{1})$ and $1/\sqrt{2}(\ket{0}+i\ket{1})$ are mirror-symmetric, where the switching probability does not vary at all along the drive axis which corresponds to the axis along which the qubit has been prepared. These measurements demonstrate therefore our ability to prepare and drive the qubit along arbitrary axes of the Bloch sphere. In the following sections we will analyze more in detail the drive errors inherent to our system and quantitatively analyze differnt error sources. 
+
+\subsection{Estimation of drive errors}
+
+\begin{figure}[htp!]
+	\centering
+	\includegraphics[width=\textwidth]{"./material/mathematica/three_level_driving_errors"}
+	\caption[Single-qubit $\pi$-pulse gate time, gate fidelity and AC stark detuning as a function of drive strength]{The Single-qubit $\pi$-pulse gate time, gate fidelity and AC stark detuning, plotted as a function of the drive strength $\epsilon$ applied to the three-level Transmon. As the drive strength increases, the gate time decreases as $1/\epsilon$ whereas the gate fidelity decreases approximately quadratically.}
+	\label{fig:three_level_driving_errors}
+\end{figure}
+
+Since the Transmon is a weakly anharmonic multi-level system and thus no real qubit, driving the $\ket{0}\to\ket{1}$ transition with high power can induce transitions to higher Transmon levels. It is important to estimate and reduce these errors when performing fast qubit gates e.g. for state preparation or tomography. To model the driving of a Transmon, we use the simple drive model in the rotating-frame approximation and as used e.g. in \cite{motzoi_simple_2009}:
+%
+\begin{equation}
+\hat{H} = \left(
+						 \begin{array}{ccc}
+						0 & \epsilon^*(t) & 0 \\
+						\epsilon(t) & \delta & \sqrt{2}\epsilon^*(t) \\
+						0 & \sqrt{2}\epsilon(t) & 2\delta + \alpha
+						\end{array}
+					\right) \label{eq:qubit_three_level_driving_hamiltonian}
+\end{equation}
+%
+Here, $\epsilon(t) = \epsilon_x(t)+i\epsilon_y(t)$ is the complex drive IQ amplitude in the rotating qubit frame, $\delta$ is the detuning of the microwave drive from the Transmon $\omega_{01}$ transition frequency and $\alpha$ is the Tranmon anharmonicity. To estimate the leakage to higher Transmon levels, we calculate the eigenvalues and eigenvectors of the Hamiltonian given in eq. (\ref{eq:qubit_three_level_driving_hamiltonian}). We then decompose an initial state $\ket{0}$ in the basis of eigenstates and let it evolve under a given constant drive amplitude $\epsilon_0$. By maximizing the occupation probability of the state $\ket{1}$ as a function of the evolution time and drive detuning $\delta$ we obtain the gate time, state fidelity and AC-Stark shift for the applied drive strength. These quantities are shown in fig. \ref{fig:three_level_driving_errors}, which shows the numerically obtained gate time, gate fidelity and AC-stark shift of the qubit frequency as a function of the applied drive frequency. As can be seen, the gate error increases almost quadratically with the drive frequency. Typically, in our experiments we use drive frequencies between 100 - 200 MHz, inducing thus single-qubit drive errors between 1-3 \%. In general, it is possible to correct these errors using optimized drive pulses \cite{}, thereby eliminating leakage to the third qubit level. In this work, we did not use such techniques butw we will  include possible errors arising due to this leakage to higher Transmon levels in our error models when discussing our experimental data.
+
+\section{Two Qubit Operations}
+
+\begin{figure}[ht!]
+	\centering
+		\includegraphics[width=0.7\textwidth]{"./data/ct5/2011_04_11 - anticrossing/qubit_anticrossing_modified"}
+	\caption[Spectroscopic measurement of the avoided level crossing between the two qubits of our processor]{a) Spectroscopy measurement of the avoided level crossing between the two qubits of our processor. b) Single spectroscopy of qubit I when in resonance with qubit II. From this spectroscopic measurement, a qubit-qubit strength of $2g=8.9\;\mathrm{MHz}$ can be deduced. }
+	\label{fig:qubit_anticrossing}
+\end{figure}
+
+We use the capacitive coupling between the qubits to implement 2-qubit gates and create entangled states between the two qubits. To characterize the qubit-qubit interaction, we first perform a spectroscopic measurement of the system. For this, we measure a spectroscopy of one of the qubits for a range of qubit frequencies such that the frequency of qubit I gets tuned through the frequency of qubit II. When these two frequencies are sufficiently close we observe an avoided level crossing between the qubits. At resonance, the gap between the two spectroscopic lines that appear corresponds to the qubit-qubit coupling strength $2g$. Fig \ref{fig:qubit_anticrossing} shows the results of such a measurements. Here, qubit II was positioned at a $5.125\;\mathrm{GHz}$ and the frequency of qubit II was tuned from $5.1-5.15\;\mathrm{GHz}$. At resonance we measure a coupling strength of $2g = 8.9\;\mathrm{MHz}$.
+
+\smallskip
+
+If the two qubit frequencies $\omega_{01}^I$, $\omega_{01}^{II}$ are far detuned such that $|\omega_{01}^I-\omega_{01}^{II}|\gg 2g$, the eigenstates of the coupled two-qubit Hamiltonian correspond to a very good accuracy to the independent qubit states $\ket{01}$ and $\ket{10}$. Therefore, far from the resonance we observe only one spectroscopic line corresponding to the transition $\ket{00}\to\ket{10}$ (we drive the first qubit). However, close to resonance the eigenstates approach the Bell states $\ket{\phi\pm} = 1/\sqrt{2}(\ket{10}\pm\ket{01})$, which can both be excited by driving qubit I. Hence we observe two spectroscopic lines corresponding to the two transition $\ket{00}\to 1/\sqrt{2}(\ket{01}+\ket{10})$ and $\ket{00}\to 1/\sqrt{2}(\ket{01}-\ket{10})$.
+
+\subsection{Creation of Entanglement}
+
+\begin{SCfigure}[1][ht!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{"./material/figures/measurement/qubit_swap"}
+	\caption[Pulse sequence used to create an entangled two-qubit state]{Pulse sequence used to create an entangled two-qubit state using a non-adiabatic transfer from an off-resonant to a resonant two-qubit state.}
+	\label{fig:qubit_swap_pulse_sequence}
+\end{SCfigure}
+
+After having characterized the qubit-qubit interaction using a spectroscopic measurement we perform a coherent swapping operation between the qubits. We implement this operation by non-adiabatically changing the resonance frequency of the qubits from an off-resonance to an on-resonance condition. When doing this after preparing the qubits in one of the states $\ket{01}$ or $\ket{10}$ we induce a coherent energy swap between the qubits. We then terminate the interaction after a well-defined time and measure the state of the two-qubit register directly afterwards. Fig. \ref{fig:qubit_swap_pulse_sequence} summarizes the frequency, drive and measurement pulse sequence that we use for this experiment. When varying the time during which the qubits are in resonance we can observe the coherent swapping of energy between them by measuring the state directly after the swap. Fig. \ref{fig:} shows these probabilities as a function of the interaction time $\Delta t$. As can be seen, as expected the frequency of the energy swap $2g=8.9\;\mathrm{MHz}$ agrees with the value obtained from the spectroscopic measurement. 
+
+\begin{figure}[p!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{"./material/papers/iswap/figures/swap_raw_and_corrected"}
+	\caption[]{Raw, visibility corrected and fully corrected state occupation probabilities for the two-qubit register during a coherent energy swap. a) Shows the raw state probabilities corresponding to the states $\ket{00}$, $\ket{01}$, $\ket{10}$ and $\ket{11}$, b) shows the same data corrected for the limited visibility of each qubit readout and c) shows the fully corrected readout data where we account for both visibility and inter-qubit readout crosstalk.}
+	\label{fig:swap_raw_and_corrected}
+\end{figure}
+
+\subsection{Violation of the Bell Inequality}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.8\textwidth]{./material/papers/iswap/figures/chsh}
+	\caption{}
+	\label{fig:CHSH}
+\end{figure}
+
+\begin{equation}
+\mathrm{CHSH} = \mathrm{QS}+\mathrm{RS}+\mathrm{RT}-\mathrm{QT}
+\end{equation}
+with the operators $\mathrm{Q,R,S,T}$ being defined as
+
+\begin{eqnarray}
+	\begin{array}{cccccccc}
+		\mathrm{Q} & = & \sigma_z^1 &&& \mathrm{S} & = & \sigma_z^2\cdot \cos{\phi}+\sigma_x^2 \cdot \sin{\phi} \\
+		\mathrm{R} & = & \sigma_x^1 &&& \mathrm{T} & = & -\sigma_z^2\cdot \sin{\phi}+\sigma_x^2 \cdot \cos{\phi}
+	\end{array}
+\end{eqnarray} 
+
+Here, the angle $\phi$ is a parameter that should be chosen in accordance to the phase of the Bell state on which it is applied.
+
+\subsection{Quantum State Tomography of Two-Qubit States}
+
+Quantum state tomography is the procedure of experimentally determining an unknown quantum state\cite{nielsen_quantum_2000}.
+
+The density matrix of an n-qubit system can be written in general form as
+\begin{eqnarray}
+\rho & = & \sum\limits_{v_1,v_2\hdots v_n} \frac{c_{v_1,v_2\hdots v_n} \sigma_{v_1}\otimes \sigma_{v_2}\hdots \sigma_{v_n}}{2^n} \label{eq:state_tomography_state_representation} \\
+c_{v_1,v_2\hdots v_n} & = & \mathrm{tr}\left(\sigma_{v_1}\otimes \sigma_{v_2}\hdots \otimes\sigma_{v_n} \; \rho \right)  \label{eq:state_tomography_coefficients}
+\end{eqnarray}
+where $v_i \in \left\{ X,Y,Z,I\right\}$ and $n$ gives the number of qubits in the system and where the $c_{v_1,v_2\hdots v_n}$ are real-valued coefficients that fully describe the given density matrix. To reconstruct the density matrix of an experimental quantum system in a well-prepared state it is therefore sufficient to measure the expectation values of these $n^2-1$ coefficients on an ensemble of identically prepared systems. However, statistical and systematic measurement errors can yield a set of coefficients that corresponds to a {\it non-physical} density matrix which violates either the positivity or unity-trace requirement. In the following paragraph we will therefore discuss a technique with which one can estimate the density matrix of a system in a more correct way.
+
+\subsubsection{Maximum Likelihood Estimation of Quantum States}
+
+A method which is often used in quantum state tomography is the so-called {\it maximum-likelihood} technique. Rather than directly calculating the density matrix of the system from the obtained expectation values $c_{v_1,v_2\hdots v_n}$, it calculates the joint probability of measuring a set $\{c_{X,X,\hdots,X},c_{Y,X,\hdots,X},\hdots,c_{I,I,\hdots,I}\}$ for a given estimate of the density matrix $\hat{\rho}$. By numerically or analytically maximizing this joint probability over the set of possible density matrices we obtain the density matrix which is most likely to have produced the set of measurement outcomes that we have observed.
+
+The joint measurement operators $\Sigma_j = \sigma_{v_1}\otimes \sigma_{v_2}\hdots \otimes\sigma_{v_n}$ have the eigenvalues $\pm 1$ and can thus be written as 
+\begin{equation}
+\sigma_{v_1}\otimes \sigma_{v_2}\hdots \otimes\sigma_{v_n} = \ket{+_j}\bra{+_j}-\ket{-_j}\bra{-_j}
+\end{equation}
+where $\ket{-_j}$ and $\ket{-_j}$ are the eigenstates corresponding to the eigenvalues $\pm 1$ of $\Sigma_j$. The expectation value $\langle \Sigma_j \rangle$ can be estimated by the quantity
+\begin{equation}
+\widehat{\langle \Sigma_j \rangle}_\rho = \frac{1}{l}\sum\limits_{i = 1}^l M_i(\Sigma_j,\rho) \label{eq:tomography_measurement_estimator}
+\end{equation}
+ where $M_i(M,\rho)$ denotes the outcome of the $i$-th measurement of the operator $M$ on the state described by the density matrix $\rho$. This quantity is binomially distributed with the expectation value $E(\widehat{\langle \Sigma_j \rangle}_\rho) = \langle \Sigma_j \rangle_\rho$ and the variance $\sigma^2(\widehat{\langle \Sigma_j \rangle}_\rho) = 1/l \cdot (1-\langle \Sigma_j \rangle_\rho^2)$. For large sample sizes $l$, the binomial distribution can be well approximated by a normal distribution with the same expectation value and variance. The joint probability of obtaining a set of measurement values $\{s_1,\hdots,s_{n^2-1}\}$ for the set of operators $\{\widehat{\langle\Sigma_1 \rangle}_\rho,\hdots,\widehat{\langle\Sigma_{n^2-1} \rangle}_\rho\}$ is then given as
+\begin{equation}
+P\left(\widehat{\langle \Sigma_1 \rangle }_\rho = s_1;\hdots;\widehat{\langle \Sigma_{n^2-1} \rangle}_\rho =  s_{n^2-1}\right) = \prod\limits_{i = 1}^{n^2-1} \exp{\left(-\frac{l}{2}\frac{(s_i-\langle \Sigma_i \rangle_\rho)^2}{1-\langle \Sigma_i \rangle_\rho^2}\right)}
+\end{equation}
+By maximizing this probability (or the logarithm of it) we obtain an estimate of the density matrix $\rho$ of the quantum state. This technique also allows us to include further optimization parameters when calculating the joint probability. This is useful for modeling e.g. systematic errors of the measurement or preparation process, which can be described by modifying the operators contained in the probability sum. A common source of errors in our tomography measurements are errors in the microwave pulses used to drive the qubit. Since our measurement apparatus permits us only to measure the $\sigma_z$ operator of each qubit we have to perform $\pi/2$ rotations about the $Y$ or $-X$ axes of the Bloch sphere of each individual qubit in order to measure the values of the $\sigma_x$ and $\sigma_y$ operators, which we therefore replace with an effective measurement of each qubits $\sigma_z$ operator preceded by a rotation $R_{\nu_i}$ given as
+\begin{eqnarray}
+R_{X} & = & \exp{\left( -i \sigma_y \pi / 4\right)} \\
+R_{Y} & = & \exp{\left( +i \sigma_x \pi / 4\right)} 
+\end{eqnarray}
+Phase and amplitude errors can be modeled as
+\begin{eqnarray}
+R_{X} & = & \exp{\left( -i \left[+\sigma_y\cos{\alpha}+\sigma_x\sin{\alpha} \right] \left[\pi / 4+\gamma\right]\right)} \\
+R_{Y} & = & \exp{\left( +i \left[-\sigma_y\sin{\beta}+\sigma_x\cos{\beta}\right] \left[\pi / 4+\delta\right]\right)} 
+\end{eqnarray}
+Here, $\alpha$ and $\beta$ represent phase errors whereas $\gamma$ and $\delta$ represent amplitude errors in the drive pulses.
+
+\subsection{Creation of Bell states}
+
+\begin{figure}[ht!]
+  \flushright
+	\includegraphics[width=1\textwidth]{"./data/ct5/2011_02_09 preparation of bell states/bell matrices"}
+	\caption{Experimentially created $\ket{\psi_+}$ ($F = 0.91$) and $\ket{\psi_-}$ ($F=0.93$) states}
+	\label{fig:BellStates}
+\end{figure}
+
+
+\section{Realizing a Two-Qubit Gate}
+
+\begin{figure}
+   \centering
+	 \includegraphics[width=1.\textwidth]{"./data/ct5/film of swap/pauli_set_vs_time_with_simulation"}
+	 \caption[test]{Measured Pauli operators $\sigma_i \otimes \sigma_j$ with $i,j \in \{X,Y,Z,I\}$ as a function of the interaction time. Shown are the 6 single-qubit operators as well as the 9 two-qubit correlation operators. The dashed line represents a master-equation simulation of the experiment.}
+	 \label{fig:swap_pauli_set_vs_time_with_simulation}
+\end{figure}
+
+\subsection{Principle}
+
+\begin{figure}[p]
+	\centering
+		\includegraphics[width=1.0\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/process -matrices 1"}
+	\label{fig:ProcessInputOutputMatrices1}
+	\caption{The input-output density matrix of the quantum process tomography of the $\sqrt{i\mathrm{SWAP}}$ gate. Shown are the measured density matrices of 16 different input states and the corresponding output matrices with their state fidelities. The ideal matrices are overlaid in red.}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+		\includegraphics[width=1\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/process -matrices 2"}
+	\label{fig:ProcessInputOutputMatrices2}
+	\caption{The input-output density matrix of the quantum process tomography of the $\sqrt{i\mathrm{SWAP}}$ gate. Shown are the measured density matrices of 16 different input states and the corresponding output matrices with their state fidelities. The ideal matrices are overlaid in red.}
+\end{figure}
+
+\subsection{Experimental Implementation}
+
+\begin{figure}[ht!]
+	\centering
+		\includegraphics[width=0.8\textwidth]{./material/papers/iswap/figures/iswap_gate_pulse_sequence}
+	\caption{}
+	\label{fig:ISwapPulseSequence}
+\end{figure}
+
+
+\subsection{Quantum Process Tomography of the Gate}
+
+\subsubsection{Introduction \& Principle}
+
+\subsubsection{Implementation}
+
+A quantum process can be described as a map $\mathcal{E} : \rho_\mathcal{H} \to \rho_\mathcal{H}$ that maps a density matrix $\rho$ defined in a Hilbert space $Q_1$ to another density matrix $\mathcal{E}(\rho)$ defined in a target Hilbert space $Q_2$ and fulfilling three axiomatic properties \cite{nielsen_quantum_2000,haroche_exploring_2006}:
+
+\begin{axiom}
+$\mathrm{tr}\left[\mathcal{E}(\rho)\right]$ is the probability that the process represented by $\mathcal{E}$ occurs, when $\rho$ is the initial state.
+\end{axiom}
+
+\begin{axiom}
+$\mathcal{E}$ is a {\it convex-linear map} on the set of density matrices, that is, for probabilities $\left\{p_i\right\}$,
+
+  \begin{equation}
+	  \mathcal{E}\left(\sum\limits_i p_i \rho_i\right) = \sum\limits_i p_i \mathcal{E}(\rho_i)
+	\end{equation}
+\end{axiom}
+
+\begin{axiom}
+$\mathcal{E}$ is a {\it completely-positive} map. That is, if $\mathcal{E}$  maps density operators of system $Q_1$ to density operators of system $Q_2$, then $\mathcal{E}(A)$ must be positive for any positive operator $A$. Furthermore, if we introduce an extra system $R$ of arbitrary dimensionality, it must be true that $(\mathcal{I}\otimes \mathcal{E})(A)$ is positive for any positive operator $A$ on the combined system $RQ_1$, where $\mathcal{I}$ denotes the identity map on system $R$.
+\end{axiom}
+As shown in \cite{nielsen_quantum_2000}, any quantum process fulfilling these criteria can be written in the form
+
+\begin{equation}
+  \mathcal{E}(\rho) = \sum\limits_i E_i \rho E_i^\dagger \label{eq:process_operator_sum_representation}
+\end{equation}
+for some set of operators $\{ E_i \}$ which map the input Hilbert space to the output Hilbert space, and $\sum_i E_i^\dagger E_i \le I$.
+
+Now, if we express the operators $E_i$ in a different operator basis $\tilde{E}_j$ such that $E_i = \sum_j a_{ij} \tilde{E}_{j}$ and insert into eq. (\ref{eq:process_operator_sum_representation}), we obtain
+
+\begin{eqnarray}
+ \mathcal{E}(\rho) & = & \sum\limits_i \sum\limits_j a_{ij} \tilde{E}_j \;\rho\; \sum\limits_k a_{ik}^* \tilde{E}_k^\dagger \\
+& = & \sum\limits_{j,k}\tilde{E}_j \; \rho \; \tilde{E}_k^\dagger \sum\limits_i a_{ij} a_{ik}^* \\
+& = & \sum\limits_{j,k}\tilde{E}_j \; \rho \; \tilde{E}_k^\dagger \; \chi_{jk} \label{eq:process_chi_representation}
+\end{eqnarray}
+where we defined $\chi_{jk} = \sum\limits_i a_{ij} a_{ik}^*$. This is the so-called $\chi$-matrix representation of the quantum process. Here, all the information on the process is contained in the $\chi$ matrix, which controls the action of the process-independent operators $\tilde{E}_i$ on the initial density matrix $\rho$.
+
+Now, the goal of {\it quantum process tomography} is to obtain the coefficients of the $\chi$-matrix -- or any other complete representation of the process -- from a set of experimentally measured density matrices $\rho$ and $\mathcal{E}(\rho)$.
+
+To achieve this, several techniques have been developed. The technique used in this work is the so-called {\it standard quantum process tomography (SQPT)}. This technique proceeds as follows:
+
+\begin{enumerate}
+\item Choose a set of operators $E_i$ that forms a full basis of $\mathcal{M}: Q_1 \to Q_2$. For n-qubit process tomography we usually choose $E_{i_1,i_2 \hdots i_n} = \sigma_{i_1}\otimes \sigma_{i_2}\hdots\otimes\sigma_{i_n}$, where $\sigma_i$ are the single-qubit Pauli operators and $i\in\{I,X,Y,Z\}$. 
+\item Choose a set of pure quantum states $\ket{\phi_i}$ such that $\ket{\phi_i}\bra{\phi_i}$ span the whole space of input density matrices $\rho$. Usually, for a n-qubit system we choose $\phi = \{\ket{0},\ket{1},(\ket{0}+\ket{1})/\sqrt{2},(\ket{0}+i\ket{1})/\sqrt{2}\}^{\otimes n}$, where $^{\otimes n}$ denotes the n-dimensional Kronecker product of all possible permutations.
+\item For each of the $\ket{\phi_i}$, determine $\mathcal{E}(\ket{\phi_i}\bra{\phi_i})$ by quantum state tomography. Usually we also determine $\ket{\phi_i}\bra{\phi_i}$ experimentally since the preparation of this state already entails small preparation errors that should be taken into account when performing quantum process tomography. 
+\end{enumerate}
+
+After having obtained the $\rho_i$ and $\mathcal{E}(\rho_i)$ one obtains the $\chi$-matrix by writing $\mathcal{E}(\rho_i) = \sum_j \lambda_{ij} \tilde{\rho}_j$, with some arbitrary basis $\tilde{\rho}_j$ and
+letting $\tilde{E}_m \tilde{\rho}_j \tilde{E}_n^\dagger = \sum_k \beta_{jk}^{mn}\tilde{\rho}_k$. We can then insert into eq. (\ref{eq:process_chi_representation}) and obtain
+\begin{eqnarray}
+\sum\limits_k \lambda_{ik} \tilde{\rho}_k & = & \sum\limits_{m,n} \chi_{mn} \sum\limits_k \beta_{ik}^{mn} \tilde{\rho}_k  
+\end{eqnarray}
+This directly yields $\lambda_{ik} = \sum_{m,n}\beta_{ik}^{mn}\; \chi_{mn}$, which, by linear inversion,  gives $\chi$.
+
+\subsubsection{The Kraus Representation of the Quantum Process}
+
+Besides the $\chi$-matrix representation, there is another useful way of expressing a quantum map, the so called {\it Kraus representation}, which is given as
+
+\begin{equation}
+ \mathcal{E}(\rho) = \sum\limits_i M_i \; \rho \; M_i^\dagger \label{eq:process_kraus_representation}
+\end{equation}
+
+It can be shown \citep{haroche_exploring_2006} that this sum contains at most $N$ elements, where $N$ is the dimension of the Hilbert space of the density matrix $\rho$. We can go from the $\chi$ representation to the Kraus representation by changing the basis $\tilde{E}_i$ such that
+
+\begin{equation}
+	\tilde{E}_i = \sum\limits_l a_{il}\; \breve{E}_l
+\end{equation}
+
+which, for eq. (\ref{eq:process_chi_representation}), yields
+
+\begin{eqnarray}
+ \mathcal{E}(\rho) & = & \sum\limits_{j,k} \sum\limits_l a_{jl} \breve{E}_l \; \rho \sum\limits_m a_{km}^* \breve{E}_m^\dagger \; \chi_{jk} \\
+ & = & \sum\limits_{l,m}  \breve{E}_l \; \rho \; \breve{E}_m^\dagger \; \sum\limits_{j,k} a_{jl} a_{km}^* \chi_{jk} \label{eq:process_chi_transformed}
+\end{eqnarray}
+
+The last sum on the right side of eq. (\ref{eq:process_chi_transformed}) corresponds to a change of coordinates of the matrix $\chi$. Now, we can pick the $a$ such that $\chi$ is diagonal in the new basis $\breve{E}$ and obtain
+
+\begin{eqnarray}
+ \mathcal{E}(\rho) & = &  \sum\limits_{l} \lambda_l \breve{E}_l \; \rho \; \breve{E}_l^\dagger \\
+& = &  \sum\limits_{l} M_l \; \rho \; M_l^\dagger
+\end{eqnarray}
+with $\lambda_l$ being the $l$-th eigenvalue of the $\chi$ matrix with the eigen-operator $\breve{E}_l$ and $M_{l} = \sqrt{\lambda_l} \breve{E}_l$.
+
+\subsection{Gate Fidelity}
+
+\subsection{Gate Error Analysis}
+
+Tomographic errors are removed from the process map of our $\sqrt{iSWAP}$
+gate using the following method. The measured Pauli sets corresponding
+to the sixteen input states are first fitted by a model including
+errors both in the preparation of the state (index $prep$) and in
+the tomographic pulses (index $tomo$). The errors included are angular
+errors $\varepsilon_{\mathrm{I,II}}^{\mathrm{prep}}$ on the nominal
+$\pi$ rotations around $X_{\mathrm{I,II}}$, $\eta_{\mathrm{I,II}}^{\mathrm{prep,tomo}}$and
+$\delta_{\mathrm{I,II}}^{\mathrm{prep,tomo}}$ on the nominal $\pi/2$
+rotations around $X_{\mathrm{I,II}}$ and $Y_{\mathrm{I,II}}$, a
+possible departure $\xi_{\mathrm{I,II}}$ from orthogonality of $\left(\overrightarrow{X_{\mathrm{I}}},\overrightarrow{Y_{\mathrm{I}}}\right)$
+and $\left(\overrightarrow{X_{\mathrm{II}}},\overrightarrow{Y_{\mathrm{II}}}\right)$,
+and a possible rotation $\mu_{\mathrm{I,II}}$ of the tomographic
+$XY$ frame with respect to the preparation one. The rotation operators
+used for preparing the states and doing their tomography are thus
+given by
+
+\[
+\begin{array}{c}
+X_{\mathrm{I,II}}^{\mathrm{prep}}(\pi)=e^{-\mathrm{i}\left(\pi+\varepsilon_{\mathrm{I,II}}^{\mathrm{prep}}\right)\sigma_{\mathrm{x}}^{\mathrm{I,II}}/2},\\
+X_{\mathrm{I,II}}^{\mathrm{prep}}(-\pi/2)=e^{+\mathrm{i}\left(\pi/2+\eta_{\mathrm{I,II}}^{\mathrm{prep}}\right)\sigma_{\mathrm{x}}^{\mathrm{I,II}}/2},\\
+Y_{\mathrm{I,II}}^{\mathrm{prep}}(\pi/2)=e^{-\mathrm{i}\left(\pi/2+\delta_{\mathrm{I,II}}^{\mathrm{prep}}\right)\left[\mathrm{cos}\left(\xi_{\mathrm{I,II}}\right)\sigma_{\mathrm{y}}^{\mathrm{I,II}}\mathrm{-sin}\left(\xi_{\mathrm{I,II}}\right)\sigma_{\mathrm{x}}^{\mathrm{I,II}}\right]/2},\\
+X_{\mathrm{I,II}}^{\mathrm{tomo}}(\pi/2)=e^{-\mathrm{i}\left(\pi/2+\eta_{\mathrm{I,II}}^{\mathrm{tomo}}\right)\left[\mathrm{\mathrm{sin}\left(\mu_{I,II}\right)\sigma_{x}^{I,II}+cos}\left(\mu_{\mathrm{I,II}}\right)\sigma_{\mathrm{y}}^{\mathrm{I,II}}\right]/2},\\
+Y_{\mathrm{I,II}}^{\mathrm{tomo}}(-\pi/2)=e^{+\mathrm{i}\left(\pi/2+\delta_{\mathrm{I,II}}^{\mathrm{tomo}}\right)\left[\mathrm{cos}\left(\mu_{\mathrm{I,II}}+\xi_{\mathrm{I,II}}\right)\sigma_{\mathrm{y}}^{\mathrm{I,II}}\mathrm{-sin}\left(\mu_{\mathrm{I,II}}+\xi_{\mathrm{I,II}}\right)\sigma_{x}^{\mathrm{I,II}}\right]/2}.\end{array}\]
+The sixteen input states are then $\left\{ \rho_{\mathrm{in}}^{\mathrm{e}}=U\left|0\right\rangle \left\langle 0\right|U^{\dagger}\right\} $
+with $\left\{ U\right\} =\{I_{\mathrm{I}},X_{\mathrm{I}}^{\mathrm{prep}}(\pi),Y_{\mathrm{I}}^{\mathrm{prep}}(\pi/2),X_{\mathrm{I}}^{\mathrm{prep}}(-\pi/2)\}\otimes\{I_{\mathrm{II}},X_{\mathrm{II}}^{\mathrm{prep}}(\pi),Y_{\mathrm{II}}^{\mathrm{prep}}(\pi/2),X_{\mathrm{II}}^{\mathrm{prep}}(-\pi/2)\}$,
+and each input state yields a Pauli set $\left\{ \left\langle P_{\mathrm{k}}^{\mathrm{e}}\right\rangle =Tr\left(\rho_{\mathrm{in}}^{\mathrm{e}}P_{\mathrm{k}}^{\mathrm{e}}\right)\right\} $
+with $\left\{ P_{\mathrm{k}}^{\mathrm{e}}\right\} =\{I_{\mathrm{I}},X_{\mathrm{I}}^{\mathrm{e}},Y_{\mathrm{I}}^{\mathrm{e}},Z_{\mathrm{I}}\}\otimes\{I_{\mathrm{II}},X_{\mathrm{II}}^{\mathrm{e}},Y_{\mathrm{II}}^{\mathrm{e}},Z_{\mathrm{II}}\}$,
+$X^{\mathrm{e}}=Y^{\mathrm{tomo}}(-\pi/2)^{\dagger}\sigma_{z}Y^{\mathrm{tomo}}(-\pi/2)$,
+and $Y^{\mathrm{e}}=X^{\mathrm{tomo}}(\pi/2)^{\dagger}\sigma_{\mathrm{z}}X^{\mathrm{tomo}}(\pi/2)$.
+Figure S5.1 shows the best fit of the modelled $\left\{ \left\langle P_{k}^{e}\right\rangle \right\} $
+set to the measured input Pauli sets, yielding $\varepsilon_{\mathrm{I}}^{\mathrm{prep}}=-1\text{\textdegree}$,
+$\varepsilon_{\mathrm{II}}^{\mathrm{prep}}=-3\text{\textdegree}$,
+$\eta_{\mathrm{I}}^{\mathrm{prep}}=3\text{\textdegree}$, $\mathrm{\eta}_{\mathrm{II}}^{\mathrm{prep}}=4\text{\textdegree}$,
+$\delta_{\mathrm{I}}^{\mathrm{prep}}=-6\text{\textdegree}$, $\delta_{\mathrm{II}}^{\mathrm{prep}}=-3\text{\textdegree}$,
+$\eta_{\mathrm{I}}^{\mathrm{tomo}}=-6\text{\textdegree}$, $\eta_{\mathrm{II}}^{\mathrm{tomo}}=-4\text{\textdegree}$,
+$\lambda_{\mathrm{I}}^{t\mathrm{omo}}=12\text{\textdegree}$, $\lambda_{\mathrm{II}}^{\mathrm{tomo}}=5\text{\textdegree}$,
+$\xi_{\mathrm{I}}=1\text{\textdegree}$, $\xi_{\mathrm{II}}=-2\text{\textdegree}$,
+and $\mu_{\mathrm{I}}=\mu_{\mathrm{II}}=-11\text{\textdegree}$.
+
+Knowing the tomographic errors and thus $\left\{ \left\langle P_{\mathrm{k}}^{\mathrm{e}}\right\rangle \right\} $,
+we then invert the linear relation $\left\{ \left\langle P_{\mathrm{k}}^{\mathrm{e}}\right\rangle =Tr\left(\rho P_{\mathrm{k}}^{\mathrm{e}}\right)\right\} $
+to find the $16\times16$ matrix $B$ that links the vector $\overrightarrow{\left\langle P_{\mathrm{k}}^{\mathrm{e}}\right\rangle }$
+to the columnized density matrix $\overrightarrow{\rho}$, i.e. $\overrightarrow{\rho}=B.\overrightarrow{\left\langle P_{\mathrm{k}}^{\mathrm{e}}\right\rangle }$.
+The matrix $B$ is finally applied to the measured sixteen input and
+sixteen output Pauli sets to find the sixteen $(\rho_{\mathrm{in},},\rho_{\mathrm{out}})_{\mathrm{k}}$
+couples to be used for calculating the gate map.
+
+
+%-Discuss the realization of a 2 qubit gate:
+%  -Principle
+%  -Implementation & Pulse Sequency
+%  -Characterization through Quantum Process Tomography:
+%     -Principles: State tomography, Pauli set, process tomography
+%     -Discuss alternative representations of the process information:
+%        -Chi matrix, Choi matrix, S, log S, Kraus operator representation
+%  		-Errors: Discuss simulations, error models and possible reasons for discrepancies
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.\textwidth]{./material/papers/iswap/figures/chi_matrix_and_error_process}
+	\label{fig:GateChiMatrixAndErrorProcess}
+	\caption{}
+\end{figure}
+

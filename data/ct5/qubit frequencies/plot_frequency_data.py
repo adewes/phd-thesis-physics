@@ -14,7 +14,7 @@ figure(2)
 clf()
 subplot(gs[0])
 x0 = -1.619
-dx = 29.2-x0
+dx = 30.819
 xlabel("flux [$\Phi_0$]")
 ylabel("frequency [GHz]")
 plot((qubit1_spectro_simulation[:,0]-x0)/dx,qubit1_spectro_simulation[:,1],'r')
