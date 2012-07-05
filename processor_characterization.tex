@@ -99,7 +99,7 @@ We use the capacitive coupling between the qubits to implement 2-qubit gates and
 
 If the two qubit frequencies $\omega_{01}^I$, $\omega_{01}^{II}$ are far detuned such that $|\omega_{01}^I-\omega_{01}^{II}|\gg 2g$, the eigenstates of the coupled two-qubit Hamiltonian correspond to a very good accuracy to the independent qubit states $\ket{01}$ and $\ket{10}$. Therefore, far from the resonance we observe only one spectroscopic line corresponding to the transition $\ket{00}\to\ket{10}$ (we drive the first qubit). However, close to resonance the eigenstates approach the Bell states $\ket{\phi\pm} = 1/\sqrt{2}(\ket{10}\pm\ket{01})$, which can both be excited by driving qubit I. Hence we observe two spectroscopic lines corresponding to the two transition $\ket{00}\to 1/\sqrt{2}(\ket{01}+\ket{10})$ and $\ket{00}\to 1/\sqrt{2}(\ket{01}-\ket{10})$.
 
-\subsection{Creation of Entanglement}
+\subsection{Creation of Entanglement} \label{section:creation_of_entanglement}
 
 \begin{SCfigure}[1][ht!]
 	\centering
@@ -119,84 +119,172 @@ After having characterized the qubit-qubit interaction using a spectroscopic mea
 
 \subsection{Violation of the Bell Inequality}
 
-\begin{figure}
+In a famous 1935 paper \citep{einstein_can_1935}, A. Einstein, B. Podolsky and N. Rosen (EPR) pointed out that quantum mechanics can be considered ``incomplete'' if one assumes that a set of simple physical principles holds true. These two principles are {\it locality} and {\it realism}, together often referred to as {\it local realism}. The principle of locality states that an object is influenced directly only by its immediate sourroundings, or stated differently, that no interaction between any two objects may propagate faster than the speed of light. The principle of realism states that any physical observable has, at all times, a pre-existing measurement value which exists independent of any actual measurement performed of the observable. In their paper, Einstein, Podolsky and Rosen showed that within standard quantum mechanics it is possible to write down quantum states that, when performing certain measurements on them, clearly violate at least one of the principles of locality or realism. As an example, take the state
+%
+\begin{equation}
+\ket{\psi} = \frac{1}{\sqrt{2}}\left(\ket{\uparrow \downarrow}+\ket{\downarrow \uparrow}\right) \label{eq:epr_example}
+\end{equation}
+%
+which describes a system of two spin 1/2 particles that is in a superposition between the $\ket{\uparrow \downarrow}$ and $\ket{\downarrow \uparrow}$ states. Now, when separating the two particles by a large distance and measuring the spin value of both of them simultaeously --such that by the assumption of locality, no information exchange can take place between the two systems--, the wavefunction of the system will collapse in either of the two states $\ket{\uparrow \downarrow}$ or $\ket{\downarrow \uparrow}$. Hence, measuring one of the particles seems to somehow instantaneously change the state of the other particle, therby violating the principle of locality. In their paper, Einstein, Podolsky and Rosen called this effect {\it spooky action at a distance}.
+
+\smallskip
+
+However, the violation of locality can be resolved by assuming that the state of the quantum system does actually possess a well-defined value even before measuring it. This would mean that our description of the quantum-mechanical state as given by eq. (\ref{eq:epr_example}) just misses some additional, {\it hidden variables} that would contain the information on the spin of each particle and which would just not accessible by us. A theory that would complete the quantum mechanical description of the particle and remove the ambiguity from its quantum state is often referred to as a {\it hidden variable theory}.
+
+\smallskip
+
+In 1964, J. Bell provided a mathematical description of locality and realism and devised an experimental test of the hypothesis formulated by Einstein {\it et. al.} \citep{bell_einstein_1964}. Building on his work, J. Clauser, M. Horne, A. Shimony and R. Holt proposed an actual experiment to test quantum mechanics against {\it local hidden-variable theories} as formulated in the Bell and EPR papers \cite{clauser_proposed_1969}. The first realization of this proposed experiment was then achieved by A. Aspect {\it et. al.} \cite{aspect_experimental_1982} and confirmed the validity of quantum mechanics, thereby showing that either the assumption of realism or that of locality must be false. In the following decades, several more experiments have been performed to test the Bell hypothesis, trying to close several so-called {\it loopholes} that can put in doubt the results obtained in a Bell experiment. Such a loophole is a problem of the experimental setup or design that affects the validity of the experimental findings. Typical loopholes affecting Bell-type experiments are the {\it detection efficiency} or {\it fair sampling}, the {\it communication} or {\it locality} and the {\it rotational invariance} loophole. We will discuss the loopholes most relevant to our experiment in the following paragraph.
+
+\smallskip
+
+\begin{figure}[ht!]
 	\centering
 		\includegraphics[width=0.8\textwidth]{./material/papers/iswap/figures/chsh}
-	\caption{}
-	\label{fig:CHSH}
+	\caption[]{Measured value of the $\bracket{\mathrm{CHSH}}$ operator measured for an ensemble of identically prepared Bell states $1/\sqrt{2}(\ket{01}+e^{-i\varphi}\ket{10})$, plotted as a function of the rotation $\phi$ of the measurement basis. Blue markers correspond to raw measurement data, red markers to data corrected for readout errors. The solid line represents the best fit to the theory. The inset shows the standard deviation $\sigma$ of the maximum value of the $\bracket{\mathrm{CHSH}}$ operator as a function of the sample size. For large samples, $\sigma$ is limited by experimental drift of the measurement basis.}
+	\label{fig:chsh}
 \end{figure}
 
+To test the Bell inequality with our two-qubit setup, we use the experimental procedure proposed by Clauser {\it et. al.} \citep{clauser_proposed_1969}. According to this procedure, we first prepare an entangled two-qubit state of the form
+%
+\begin{equation}
+\ket{\phi} = \frac{1}{\sqrt{2}}\left(\ket{01}+e^{-i\varphi}\ket{10}\right) \label{eq:chsh_state}
+\end{equation}
+%
+On this quantum state we measure then the expectation value of the operator
+%
 \begin{equation}
 \mathrm{CHSH} = \mathrm{QS}+\mathrm{RS}+\mathrm{RT}-\mathrm{QT}
 \end{equation}
-with the operators $\mathrm{Q,R,S,T}$ being defined as
-
+%
+where the individual operators $\mathrm{Q,R,S,T}$ are given as
+%
 \begin{eqnarray}
 	\begin{array}{cccccccc}
 		\mathrm{Q} & = & \sigma_z^1 &&& \mathrm{S} & = & \sigma_z^2\cdot \cos{\phi}+\sigma_x^2 \cdot \sin{\phi} \\
 		\mathrm{R} & = & \sigma_x^1 &&& \mathrm{T} & = & -\sigma_z^2\cdot \sin{\phi}+\sigma_x^2 \cdot \cos{\phi}
 	\end{array}
 \end{eqnarray} 
+%
+Here, the angle $\phi$ is a parameter that gives the rotation of the measurement basis in respect to the $z$ axis and should be chosen in accordance to the phase $\varphi$ of the entangled qubit state to which the operator is applied. To obtain the value of $\bracket{\mathrm{CHSH}}$, we measure $\bracket{\mathrm{QS}}$, $\bracket{\mathrm{RS}}$, $\bracket{\mathrm{RT}}$ and $\bracket{\mathrm{QT}}$ on an ensemble of identically prepared quantum states. For a classical state, the opertor $\bracket{\mathrm{CHSH}}$ is bound by
+%
+\begin{equation}
+\left|\bracket{\mathrm{CHSH}}\right| \le 2. \label{eq:chsh_max}
+\end{equation}
+%
+However, for an entangled quantum state, the maximum value of the operator is given as $2\sqrt{2}$. 
 
-Here, the angle $\phi$ is a parameter that should be chosen in accordance to the phase of the Bell state on which it is applied.
+\smallskip
 
-\subsection{Quantum State Tomography of Two-Qubit States}
+\begin{SCfigure}[1.0][ht!]
+	\centering
+	\includegraphics[width=9cm]{"./material/figures/measurement/chsh"}
+	\caption[]{Experimental pulse sequence used in the CHSH experiment. It consists in exciting one of the qubits to the state $\ket{1}$, bringing it in resonance with the other qubit for a well-defined duration, performing single-qubit rotations to align the qubit state with the desired measurement basis and finally measuring the $\bracket{\sigma_z^I\cdot\sigma_z^{II}}$ operator of the two-qubit register.}
+	\label{fig:chsh_pulse_sequence}
+\end{SCfigure}
 
-Quantum state tomography is the procedure of experimentally determining an unknown quantum state\cite{nielsen_quantum_2000}.
+The pulse sequence used for generating an entangled two-qubit state and measuring the CHSH operator on it is shown in fig. \ref{fig:chsh_pulse_sequence}. As before, we generate an entangled two-qubit state by exciting one of the qubits to the state $\ket{1}$ and bringing it in resonance with the other qubit for a well-defined amount of time. Afterwards, we apply single-qubit rotations to align the qubit state with the axis along which we want to perform the measurement. Finally we measure the $\bracket{\sigma_z^I\cdot \sigma_z^{II}}$ of the rotated qubit state. We then repeat this procedure on an ensemble of identically prepared input states for all of the four individual operators of CHSH operator. Figure \ref{fig:chsh} shows the results $\bracket{\mathrm{CHSH}}$ of such a measurement. As can be seen, the value of the operator $\bracket{\mathrm{CHSH}}$ varies sinusoidally as a function of the rotation $\phi$ of the measurement basis. The maximum and minimum value of the raw value of $\bracket{\mathrm{CHSH}}$ reaches a value of $\approx 1.4$, thereby failing to violate the boundary for non-classical states as given by eq. (\ref{eq:chsh_max}). However, when accounting for the readout errors in our experiment, the corrected CHSH data reaches a maximum value $\approx 2.52$, thereby violating the classical boundary of the CHSH equation. We can hence violate the Bell inequality with our qubit processor, however we are not able to close the detector efficiency loophole. In addition, due to the measurement time required to determine the state of each qubit and the close proximity of the two qubits we are not able to close the communication or locality loophole either. The violation of the Bell inequality with the generated two-qubit states also serves as an entanglement witness for the generated states and confirms that we are able to generated highly entangled quantum states with our processor.
 
-The density matrix of an n-qubit system can be written in general form as
+\subsubsection{Errors} 
+
+Besides obvious readout errors, the main source of errors in our experiment is drift of the measurement equipment. Most importantly, the phase of the arbitrary waveform generator (AWG) can drift in respect to the phases of the microwave sources, thereby changing the effective phase of the measurement basis of the CHSH operator. Fig. \ref{fig:chsh_drift} illustrates the effect of this drift on the phase of the generated Bell state. Shown is the phase of the state $\ket{\phi}$ as given by eq. (\ref{eq:chsh_state}) extracted from a full CHSH data set as shown in fig. \ref{fig:chsh}. When repeating this measurement over a long time period, oscillations of the phase $\varphi$ with an amplitude of $\approx 40^\circ$ can be observed. This amplitude can be explained by a time shift of the AWG waveform driving the microwave sources by an order of $200\;\mathrm{ps}$, which has indeed been observed experimentially.
+
+\begin{SCfigure}[1.0][ht!]
+	\centering
+	\includegraphics[width=9cm]{"./data/ct5/2011_03_17 - chsh/chsh_drift"}
+	\caption[]{Phase $\varphi$ of an experimentally generated Bell state as a function of time. The phase exhibits oscillatory drift of the order of $\approx 40^\circ$ being caused by a time offset drift of the AWG.}
+	\label{fig:chsh_drift}
+\end{SCfigure}
+
+\subsection{Quantum State Tomography}
+
+The experiments described in the following paragraphs often require us to extract the density matrix of an experimental two-qubit state. The method that we use for this purpose is called {\it quantum state tomography} (QST) (see e.g. \cite{nielsen_quantum_2000} for an overview). In this section, we therefore explain in detail the procedure that we use to perform QST. Furthermore, we also discuss several sources of errors occuring in standard QST and how we can estimate their effect on our results.
+
+\smallskip
+
+The density matrix of an n-qubit system can be written as
+%
 \begin{eqnarray}
 \rho & = & \sum\limits_{v_1,v_2\hdots v_n} \frac{c_{v_1,v_2\hdots v_n} \sigma_{v_1}\otimes \sigma_{v_2}\hdots \sigma_{v_n}}{2^n} \label{eq:state_tomography_state_representation} \\
 c_{v_1,v_2\hdots v_n} & = & \mathrm{tr}\left(\sigma_{v_1}\otimes \sigma_{v_2}\hdots \otimes\sigma_{v_n} \; \rho \right)  \label{eq:state_tomography_coefficients}
 \end{eqnarray}
-where $v_i \in \left\{ X,Y,Z,I\right\}$ and $n$ gives the number of qubits in the system and where the $c_{v_1,v_2\hdots v_n}$ are real-valued coefficients that fully describe the given density matrix. To reconstruct the density matrix of an experimental quantum system in a well-prepared state it is therefore sufficient to measure the expectation values of these $n^2-1$ coefficients on an ensemble of identically prepared systems. However, statistical and systematic measurement errors can yield a set of coefficients that corresponds to a {\it non-physical} density matrix which violates either the positivity or unity-trace requirement. In the following paragraph we will therefore discuss a technique with which one can estimate the density matrix of a system in a more correct way.
+%
+where $v_i \in \left\{ X,Y,Z,I\right\}$ and $n$ gives the number of qubits in the system and where the $c_{v_1,v_2\hdots v_n}$ are real-valued coefficients that describe the given density matrix. To reconstruct the density matrix of an experimental quantum system in a well-prepared state it is hence sufficient to measure the expectation values of these $n^2-1$ coefficients on an ensemble of identically prepared states. For our two qubit system, this means measuring all possible combinations of the operators $\{I,\sigma_x^I,\sigma_y^I,\sigma_z^I\}\otimes\{I,\sigma_x^{II},\sigma_y^{II},\sigma_z^{II}\}$. In our experiments, rather than measuring $\sigma_x$ and $\sigma_z$ operators directly, we rotate the quantum state of each qubit around such that the state vector along the desired measurement axis coincides with the z-axis of the Bloch sphere and measure $\sigma_z$ afterwards.
+
+When using this direct measurement method, statistical and systematic measurement errors can yield a set of coefficients $v_i$ that corresponds to a {\it non-physical} density matrix, which violates either the positivity $\bra{\psi}\rho\ket{\psi} > 0$ for all valid states $\ket{\psi}$ or the unity-trace condition $\mathrm{Tr}(\rho)=1$. To alleviate this problem, several techniques can be employed. In the following section we discuss an estimation technique which is able to overcome the problem of non-physical density matrices, the so-called {\it maximum likelihood estimation}.
 
 \subsubsection{Maximum Likelihood Estimation of Quantum States}
 
-A method which is often used in quantum state tomography is the so-called {\it maximum-likelihood} technique. Rather than directly calculating the density matrix of the system from the obtained expectation values $c_{v_1,v_2\hdots v_n}$, it calculates the joint probability of measuring a set $\{c_{X,X,\hdots,X},c_{Y,X,\hdots,X},\hdots,c_{I,I,\hdots,I}\}$ for a given estimate of the density matrix $\hat{\rho}$. By numerically or analytically maximizing this joint probability over the set of possible density matrices we obtain the density matrix which is most likely to have produced the set of measurement outcomes that we have observed.
+As the name implies, {\it maximum likelihood estimation} is a method that numerically or analytically maximizes a likelihood function that is usually based on a number of measured outcomes and and a set of parameters that need to be estimated. The set of parameters corresponding to the maximum of this probability function can then be interpreted as the one with the highest probability of generating the observed outcomes. When estimating the parameters of a density matrix with this method, the probability function to be maximized is the joint probability of obtaining the measured values $\{c_{X,X,\hdots,X},c_{Y,X,\hdots,X},\hdots,c_{I,I,\hdots,I}\}$ for a given estimate of a density matrix $\hat{\rho}$. By numerically or analytically maximizing this joint probability over the set of possible density matrices we obtain the density matrix which is most likely to have produced the set of measurement outcomes that we have observed.
 
 The joint measurement operators $\Sigma_j = \sigma_{v_1}\otimes \sigma_{v_2}\hdots \otimes\sigma_{v_n}$ have the eigenvalues $\pm 1$ and can thus be written as 
 \begin{equation}
-\sigma_{v_1}\otimes \sigma_{v_2}\hdots \otimes\sigma_{v_n} = \ket{+_j}\bra{+_j}-\ket{-_j}\bra{-_j}
+\sigma_{v_1}\otimes \sigma_{v_2}\hdots \otimes\sigma_{v_n} = \ket{+_j}\bra{+_j}-\ket{-_j}\bra{-_j} \label{eq:ml_operators}
 \end{equation}
-where $\ket{-_j}$ and $\ket{-_j}$ are the eigenstates corresponding to the eigenvalues $\pm 1$ of $\Sigma_j$. The expectation value $\langle \Sigma_j \rangle$ can be estimated by the quantity
+where $\ket{-_j}$ and $\ket{-_j}$ are the eigenstates corresponding to the eigenvalues $\pm 1$ of $\Sigma_j$. When performing $l$ measurements of $\Sigma_j$, the expectation value $\langle \Sigma_j \rangle$ can be estimated by
 \begin{equation}
 \widehat{\langle \Sigma_j \rangle}_\rho = \frac{1}{l}\sum\limits_{i = 1}^l M_i(\Sigma_j,\rho) \label{eq:tomography_measurement_estimator}
 \end{equation}
- where $M_i(M,\rho)$ denotes the outcome of the $i$-th measurement of the operator $M$ on the state described by the density matrix $\rho$. This quantity is binomially distributed with the expectation value $E(\widehat{\langle \Sigma_j \rangle}_\rho) = \langle \Sigma_j \rangle_\rho$ and the variance $\sigma^2(\widehat{\langle \Sigma_j \rangle}_\rho) = 1/l \cdot (1-\langle \Sigma_j \rangle_\rho^2)$. For large sample sizes $l$, the binomial distribution can be well approximated by a normal distribution with the same expectation value and variance. The joint probability of obtaining a set of measurement values $\{s_1,\hdots,s_{n^2-1}\}$ for the set of operators $\{\widehat{\langle\Sigma_1 \rangle}_\rho,\hdots,\widehat{\langle\Sigma_{n^2-1} \rangle}_\rho\}$ is then given as
+ where $M_i(M,\rho)$ denotes the outcome of the $i$-th measurement of the operator $M$ on the state described by the density matrix $\rho$. Since each outcome $M_i(\Sigma_j,\rho)$ is Bernoulli distributed, the sum of them is binomially distributed with the expectation value $E(\widehat{\langle \Sigma_j \rangle}_\rho) = \langle \Sigma_j \rangle_\rho$ and the variance $\sigma^2(\widehat{\langle \Sigma_j \rangle}_\rho) = 1/l \cdot (1-\langle \Sigma_j \rangle_\rho^2)$. For large sample sizes $l$, the binomial distribution can be well approximated by a normal distribution with the same expectation value and variance. The joint probability of obtaining a set of measurement values $\{s_1,\hdots,s_{n^2-1}\}$ for the set of operators $\{\widehat{\langle\Sigma_1 \rangle}_\rho,\hdots,\widehat{\langle\Sigma_{n^2-1} \rangle}_\rho\}$ is thus given as
 \begin{equation}
 P\left(\widehat{\langle \Sigma_1 \rangle }_\rho = s_1;\hdots;\widehat{\langle \Sigma_{n^2-1} \rangle}_\rho =  s_{n^2-1}\right) = \prod\limits_{i = 1}^{n^2-1} \exp{\left(-\frac{l}{2}\frac{(s_i-\langle \Sigma_i \rangle_\rho)^2}{1-\langle \Sigma_i \rangle_\rho^2}\right)}
 \end{equation}
-By maximizing this probability (or the logarithm of it) we obtain an estimate of the density matrix $\rho$ of the quantum state. This technique also allows us to include further optimization parameters when calculating the joint probability. This is useful for modeling e.g. systematic errors of the measurement or preparation process, which can be described by modifying the operators contained in the probability sum. A common source of errors in our tomography measurements are errors in the microwave pulses used to drive the qubit. Since our measurement apparatus permits us only to measure the $\sigma_z$ operator of each qubit we have to perform $\pi/2$ rotations about the $Y$ or $-X$ axes of the Bloch sphere of each individual qubit in order to measure the values of the $\sigma_x$ and $\sigma_y$ operators, which we therefore replace with an effective measurement of each qubits $\sigma_z$ operator preceded by a rotation $R_{\nu_i}$ given as
+By maximizing this probability (or the logarithm of it) we obtain an estimate of the parameters of the density matrix $\rho$ of the quantum state. This technique also allows us to include further optimization parameters when calculating the joint probability. This is useful for modeling e.g. systematic errors of the measurement or preparation process, which can be described by modifying the operators contained in the probability sum. A common source of errors in our tomography measurements are shifts in the amplitude and phase of the microwave pulses used to drive the qubit. We are obliged to rotate the qubit state when performing state tomography since our measurement apparatus permits us only to measure the $\sigma_z$ operator of each qubit. We can therefore replace the operators $\sigma_x$ and $\sigma_y$ in eq. (\ref{eq:ml_operators}) with an effective measurement of $\sigma_z$ preceded by a rotation $R_{\nu_i}$ given as
 \begin{eqnarray}
 R_{X} & = & \exp{\left( -i \sigma_y \pi / 4\right)} \\
 R_{Y} & = & \exp{\left( +i \sigma_x \pi / 4\right)} 
 \end{eqnarray}
-Phase and amplitude errors can be modeled as
+Within this model, phase and amplitude errors can be modeled by including additional phase factors in the epxonential of these expression, such that we obtain new operators
 \begin{eqnarray}
 R_{X} & = & \exp{\left( -i \left[+\sigma_y\cos{\alpha}+\sigma_x\sin{\alpha} \right] \left[\pi / 4+\gamma\right]\right)} \\
 R_{Y} & = & \exp{\left( +i \left[-\sigma_y\sin{\beta}+\sigma_x\cos{\beta}\right] \left[\pi / 4+\delta\right]\right)} 
 \end{eqnarray}
-Here, $\alpha$ and $\beta$ represent phase errors whereas $\gamma$ and $\delta$ represent amplitude errors in the drive pulses.
+Here, $\alpha$ and $\beta$ represent phase errors whereas $\gamma$ and $\delta$ represent amplitude errors in the drive pulses. \todo{expand this section and add a figure with the measured probability distributions and a Pauli set}
 
 \subsection{Creation of Bell states}
+
+\begin{SCfigure}[1.0][ht!]
+	\centering
+	\includegraphics[width=9cm]{"./material/figures/measurement/bell_state_creation"}
+	\caption[]{Pulse sequence used to experimentially generate entangled Bell states. The sequence consists in exciting one of the qubits to the state $\ket{1}$, creating an entangled state using the swapping interaction and correcting the acquired phase of the state. For the $\ket{\Phi_\pm}$ states, we use an additional $X(\pi)$ pulse at the end of the sequence.}
+	\label{fig:bell_generation_pulse_sequence}
+\end{SCfigure}
+
+We can use the ML method presented above to perform state tomography of entangled Bell states that we create by using the swapping interaction between the qubits. In general, the four Bell states are
+%
+\begin{eqnarray}
+\ket{\Psi_+} = \frac{1}{\sqrt{2}}\left(\ket{01}+\ket{10}\right) \\
+\ket{\Psi_-} = \frac{1}{\sqrt{2}}\left(\ket{01}-\ket{10}\right) \\
+\ket{\Phi_+} = \frac{1}{\sqrt{2}}\left(\ket{00}+\ket{11}\right) \\
+\ket{\Phi_-} = \frac{1}{\sqrt{2}}\left(\ket{00}-\ket{11}\right)
+\end{eqnarray}
+%
+The experimental protocol for generating a Bell state is shown in fig. \ref{fig:bell_generation_pulse_sequence}. In essence, we use the swapping interaction between the qubits to create an entangled state, compensate the acquired phase of that state by a short z-pulse. To create the $\Phi_+$ and $\Phi_-$ states we use a $X(\pi)$ pulse at the end of the sequence in addition. Finally we perform quantum state tomography on the created state to reconstruct its density matrix. In fig. \ref{fig:bell_states} we show the measured density matrices of the four created Bell states. The trace fidelity between the experimentially created and ideal state is shown on top of the density matrix, ranging between $83 \%$ and $87 \%$.
 
 \begin{figure}[ht!]
   \flushright
 	\includegraphics[width=1\textwidth]{"./data/ct5/2011_02_09 preparation of bell states/bell matrices"}
-	\caption{Experimentially created $\ket{\psi_+}$ ($F = 0.91$) and $\ket{\psi_-}$ ($F=0.93$) states}
-	\label{fig:BellStates}
+	\caption{Reconstructed density matrices of experimentially created Bell states. Shown are the states $\ket{\Psi_\pm}=1/\sqrt{2}(\ket{01}\pm\ket{10})$ and $\ket{\Phi_\pm}=1/\sqrt{2}(\ket{00}\pm\ket{11})$. The trace fidelities of the density matrix $\bra{\psi}\rho\ket{\phi}$ range between 83 \% and 87 \%.}
+	\label{fig:bell_states}
 \end{figure}
 
+\subsection{Measuring the Evoluation of an Entangled Qubit States}
 
-\section{Realizing a Two-Qubit Gate}
+Using quantum state tomography, we can repeat the swapping experiment described in section \ref{section:creation_of_entanglement}, reconstruction the full experimental density matrix of our system during the swap. Fig. \ref{fig:swap_pauli_set_vs_time_with_simulation} shows the result of such an experiment. We plot the measured values of all Pauli operators as a function of the swapping time between the qubits. The red and green curves correspond to the single-qubit Pauli operators $\sigma^I_{X,Y,Z}\otimes \mathrm{I}$ and $\mathrm{I}\otimes \sigma^{II}_{X,Y,Z}$, the blue curves to the two-qubit Pauli operators $\sigma_{X,Y,Z}^I\otimes \sigma_{X,Y,Z}^{II}$. The dashed line corresponds to a master equation simulation of the swapping experiment where the qubit coupling, relaxation and dephasing parameters are chosen in accordance with experimental values. As can be seen, the simulation agrees well with the experimental data. Deviation between data and simulation can be seen in the $\sigma_{X,Y}^I\otimes \sigma_{X,Y}^{II}$ operators is caused by an additional phase acquired by the qubits during the swap. This phase is due to the fact that we have to shift the frequency of the qubits to bring them in resonance, hence we acquire a phase in the frame rotating at the uncoupled qubit frequencies.
 
-\begin{figure}
+\smallskip
+
+From the measured Pauli set we can obtain the density matrix of the two-qubit system at any point during the swap. This density matrices are (will be soon :) shown in the margins of this thesis book. When following the evolution of the quantum state as a function of time it can be seen that the coherence between the two qubits decreases steadily during the swapping sequence, due to relaxation and dephasing.
+
+\begin{figure}[ht!]
    \centering
 	 \includegraphics[width=1.\textwidth]{"./data/ct5/film of swap/pauli_set_vs_time_with_simulation"}
 	 \caption[test]{Measured Pauli operators $\sigma_i \otimes \sigma_j$ with $i,j \in \{X,Y,Z,I\}$ as a function of the interaction time. Shown are the 6 single-qubit operators as well as the 9 two-qubit correlation operators. The dashed line represents a master-equation simulation of the experiment.}
 	 \label{fig:swap_pauli_set_vs_time_with_simulation}
 \end{figure}
+
+\section{Realizing a Two-Qubit Gate}
+
+We have demonstrated that it is possible to create highly entangled qubit states with our processor by creating Bell states, performing quantum state tomography and violating the Bell inequality. However, to realize a univeral quantum processor, it is necessary to implement a so-called {\it universal two-qubit gate} on our processor. In the following sections we discuss how we can realize and characterize such a gate on our processor.
 
 \subsection{Principle}
 
