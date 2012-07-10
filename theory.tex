@@ -1,8 +1,8 @@
 \chapter{Theoretical Foundations} \label{chapter:theory}
 
-The goal of this chapter is to provide the theoretical foundations needed to interpret and analyze the experiments discussed in the following chapters. We will therefore briefly introduce some basic concepts of quantum mechanics and quantum computing, discuss Transmon qubits and circuit quantum electrodynamics (CQED) and introduce the reader to the {\it cavity bifurcation amplifier (CBA)} that we use in our experiments. More detailed discussions of the properties of all the circuit components discussed here will be provided in the relevant sections of the ``Experiments'' chapter.
+The design and realization of a superconducting qubit processor demands knowledge of many different techniques and technologies. In this chapter we therefore provide the reader with the most essential theoretical foundations that we will employ in the following chapters of this thesis book. We will begin our discussion with a general overview of classical and quantum information processing, followed by an introduction to superconducting quantum circuits. Afterwards, we will introduce the concept of circuit quantization and discuss the Cooper pair box, the Transmon qubit and circuit quantum electrodynamics. Finally we will give a short overview of the physics of Josephson bifurcation amplifiers.
 
-\section{Clasical \& Quantum Information Processing}
+\section{Classical \& Quantum Information Processing}
 
 \begin{SCfigure}
 	\includegraphics[width=8cm]{"./material/figures/introduction/bloch_sphere"}
@@ -10,36 +10,45 @@ The goal of this chapter is to provide the theoretical foundations needed to int
 	\label{fig:BlochSphere}
 \end{SCfigure}
 
-By definition, computing designates the activity of using computer hardware and software to process information, or {\it data}. Classical information processing can be divided in so-called {\it analog and digital information processing}, the former being based on continously changeable physical quantities whereas the latter is based on incrementally changeable quantities. The fundamental unit of digital information processing is the so-called {\it bit}, which represents a boolean (true/false) information. The discipline of theoretical computer science has been created to investigate the fundamental limits and properties of classical information processing. One of the main foundational theorems of theoretical computer science is the so-called {\it Church-Turing thesis} which provides a universal computing model by saying (basically) that everything which is computable can be efficiently computed using a {\it Turing machine}. Such a Turing machine, in turn, is a simple theoretical devices which is able to run programs that operates on a discrete set of data using a well-specified set of operations. The Turing machine is universal in the sense that any other classical computing device can be efficiently simulated using a Turing machine with the appropriate program and data.
+By definition, computing designates the activity of using computer hardware and software to process information, or {\it data}. Classical information processing can be divided in so-called {\it analog and digital information processing}, the former being based on continously changeable physical quantities whereas the latter is based on incrementally changeable quantities. The fundamental unit of digital information processing is the so-called {\it bit}, which represents a boolean (true/false) information. The discipline of theoretical computer science has been created to investigate the fundamental limits and properties of classical information processing. One of the main foundational theorems of theoretical computer science is the so-called {\it Church-Turing thesis} which provides a universal computing model by saying (basically) that everything which is computable can be efficiently computed using a {\it Turing machine}. Such a Turing machine, in turn, is a simple theoretical device which is able to run programs that operate on a discrete set of data using a well-specified set of operations. The Turing machine is universal in the sense that any other classical computing device can be efficiently emulated using a Turing machine with the appropriate program and data.
 
 \smallskip
 
-Surprisingly, Richard Feynman discovered in the early 1980 that a classical Turing machine as described above would be unable to efficiently simulate a quantum-mechanical system \citep{feynman_simulating_1982}. A few years later, David Deutsch took up Feynman's idea and developed an information processing framework based on quantum mechanics. He showed that by using this so-called {\it quantum computing} or {\it quantum information processing} framwork one could solve certain problems faster than would be possible with any classical Turing machine \citep{deutsch_quantum_1985}. The work by Feynman and Deutsch created a large interest in the physics community and led to a huge experimental and theoretical effort aimed at realizing a working quantum computer. 
+In the early 1980, Richard Feynman discovered that a classical Turing machine as described above would be unable to efficiently simulate a quantum-mechanical system \citep{feynman_simulating_1982}. He introduced the concept of a ``quantum Turing machine'' that would be able to simulate quantum-mechanical systems in an efficient manner. A few years later, David Deutsch took up Feynman's idea and developed an information processing framework based on quantum mechanics \citep{deutsch_quantum_1985}, coining the terms {\it quantum computing} and {\it quantum information processing}. He showed that by making use of different properties of quantum mechanics one could solve certain mathematical problems faster than possible with any classical computer \citep{deutsch_quantum_1985}. The work by Deutsch created a large interest in the physics community and led to a huge theoretical and experimental effort aimed at realizing a working quantum computer and developing quantum algorithms that solve relevant real-world problems.
 
 \section{Principles of Quantum Computing}
 
-In this section we will discuss the basic principles of quantum computing, including quantum bits and quantum gates. We will also briefly dicsuss some examples of quantum algorithms that are relevant to this work.
+In this section we will discuss the basic principles of quantum computing, including quantum bits and quantum gates. We will also briefly dicsuss some examples of quantum algorithms that are relevant to this work. We will focus on the {\it quantum gate} approach to quantum computing since it is the method relevant to this work, ignoring other approaches such as {\it one-way quantum computing} \citep{raussendorf_one-way_2001}, {\it adiabatic quantum computing} \citep{farhi_quantum_2000} or {\it topological quantum computing} \citep{kitaev_fault-tolerant_2003}.
 
 \subsection{Quantum Bits}
 
 Similar to classical computing, in quantum computing one can define a fundamental unit of information, the so called {\it quantum bit} or {\it qubit}. Such a qubit is a quantum-mechanical two-level system described by the wavefunction
 %
 \begin{equation}
-\ket{\psi} = \cos{\frac{\theta}{2}}\ket{0}+e^{i\phi}\sin{\frac{\theta}{2}}\ket{1}
+\ket{\psi} = \cos{\frac{\theta}{2}}\ket{0}+e^{i\phi}\sin{\frac{\theta}{2}}\ket{1}.
 \end{equation}
 %
-As can be seen, the state of such a qubit can be described by a pair of real numbers $\theta$ and $\phi$ that characterize the occupation probability of each of the two basis states $\ket{0}$ and $\ket{1}$ and the phase between them. A useful and intuitive representation of such a single-qubit state is the so-called {\it Bloch sphere representation} of a quantum state, which is shown in fig. \ref{fig:BlochSphere}. In this representation, the state $\ket{\psi}$ is located on a unit sphere. The north and south poles of this sphere correspond to the qubit states $\ket{0}$ and $\ket{0}$. All states lying between those two correspond to superposition states, which are characterized by their ``altitude'' and ``azimuth'' angles $\theta$ and $\phi$.
+As can be seen, the state of such a qubit can be described by a pair of real numbers $\theta$ and $\phi$ that characterize the occupation probability of each of the two basis states $\ket{0}$ and $\ket{1}$ and the phase between them. A useful and intuitive representation of such a single-qubit state is the so-called {\it Bloch sphere representation}, which is shown in fig. \ref{fig:BlochSphere}. In this representation, a pure state $\ket{\psi}$ is located on a unit sphere. The north and south poles of this sphere correspond to the qubit states $\ket{0}$ and $\ket{0}$. All states lying between those two correspond to superposition states, which are characterized by their ``latitude'' and ``azimuth'' angles $\theta$ and $\phi$. The Bloch sphere representation can be generalized for mixed single-qubit states, whose state vector will lie inside the Bloch sphere.
 
 \subsection{Quantum Gates}
 
-Analogously to classical information processing it is necessary to define {\it quantum gates} which act on individual or multiple qubits and allow us to process information with them. In the most general sense, a quantum gate is a unitary quantum operator that acts on one or several qubits. Theoretically there is an infinite number of possible quantum gates, however in order to describe all possible quantum operations that can be performed on a register of qubits it is sufficient to defined an {\it universal set of quantum gates}. Such a universal gate set that will be especially relevant to this work consists of the three single-qubit rotation matrices
+Analogously to classical information processing one defines {\it quantum gates} that act on individual or multiple qubits and allow us to process information with them. Such a quantum gate can be described as a unitary operator acting on a part of the Hilbert space representing the qubit register. Theoretically there is an infinite number of possible quantum gates, however in order to describe all possible quantum operations that can be performed on a qubit register of arbitrary length it is sufficient to defined a so-called {\it universal set of quantum gates}. Such a set contains a small number of quantum gates that can, by concatenation, produce any arbitrary unitary quantum operator, as shown by the so-called {\it Solovay-Kitaev theorem} \citep{nielsen_quantum_2000,dawson_solovay-kitaev_2005}. Such a universal gate set that will be especially relevant to this work consists of the three single-qubit rotation matrices
 %
 \begin{eqnarray}
-   R_x(\theta)  & = & \left( \begin{array}{cc} \cos{\theta/2} & -i\sin{\theta/2} \\ -i\sin{\theta/2}  & \cos{\theta/2} \end{array} \right) \\ 
-   R_y(\theta)  & = & \left( \begin{array}{cc} \cos{\theta/2} & -\sin{\theta/2} \\ +\sin{\theta/2} & \cos{\theta/2} \end{array} \right) \\
-   R_z(\theta)  & = & \left( \begin{array}{cc} e^{-i\theta/2} & 0 \\ 0  & e^{+i\theta/2} \end{array} \right) 
-\label{eq:grover_phase_decoherence}
+   R_x(\theta)  & = & e^{-i\sigma_x\frac{\phi_x}{2}} \\ 
+   R_y(\theta)  & = & e^{-i\sigma_y\frac{\phi_y}{2}} \\ 
+   R_z(\theta)  & = & e^{-i\sigma_z\frac{\phi_z}{2}} 
+\label{eq:universal_single_qubit_gates}
 \end{eqnarray}
+%
+where $\sigma_x$, $\sigma_y$ and $\sigma_z$ are the three Pauli spin operators
+%
+\begin{align}
+  \sigma_x  =  \left( \begin{array}{cc} 0 & 1 \\ 1 & 0 \end{array} \right) 
+  & & \sigma_y  =  \left( \begin{array}{cc} 0 & -i \\ i  &  0\end{array} \right) 
+  & & \sigma_z  =  \left( \begin{array}{cc} 1 & 0 \\ 0 & 1 \end{array} \right) 
+\label{eq:pauli_operators}
+\end{align}
 %
 togehter with the so-called $i\mathrm{SWAP}$ two-qubit operator, which has the representation
 %
@@ -47,62 +56,62 @@ togehter with the so-called $i\mathrm{SWAP}$ two-qubit operator, which has the r
 i\mathrm{SWAP} = \left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 0 & -i & 0 \\ 0 & -i & 0 & 0 \\ 0 & 0 & 0 & 1  \end{array}  \right)
 \end{equation}
 %
-in the basis $(\ket{00},\ket{01},\ket{10},\ket{11})$. Often we will represent these gates schematically as shown in fig. \ref{fig:quantum_gates}.
+in the basis $(\ket{00},\ket{01},\ket{10},\ket{11})$. Often we will represent these gates schematically as shown in fig. \ref{fig:quantum_gates}. In principle, two single-qubit gates with a fixed rotation angle (e.g. $R_x(\pi/4)$ and $R_y(\pi/4)$) would be sufficient to form a universal set of quantum gates \citep{dawson_solovay-kitaev_2005}, however it is often advantageous if one can use single-qubit rotations with arbitary rotation angles around all three axes of the Bloch sphere since it can significantly reduce the number of gates required to implement a desired unitary operator.
 
 \subsection{Quantum Algorithms}
 
-The interest in quantum computing is mainly due to the fact that certain problems can be solved faster on a quantum computer than on a classical computer. By faster we mean here that the order $\cal{O}$ of the runtime of the algorithm increases faster on a classical computer than on a quantum computer as a function of the problem size. Up to this day it has not been shown that a quantum computer can perform all tasks faster than a classical computer, however certain real-world problems have been found that can be solved exponentially to polynomially faster on a quantum computer. Here we will briefly discuss some of them:
+The interest in quantum computing is mainly due to the fact that certain problems can be solved faster on a quantum computer than on a classical computer. By faster we mean here that the order $\cal{O}$ of the runtime of the algorithm increases faster on a classical computer than on a quantum computer as a function of the problem size, i.e. the number of bits needed to encode the problem. Up to this day it has not been demonstrated that a quantum computer can perform all tasks faster than a classical computer. However, a small number of real-world problems have been found that can be solved exponentially to polynomially faster on a quantum computer. Here we cite only the two most ``famous'' ones:
 
 \begin{enumerate}
-\item \textbf{Grover's Search Algorithm}: Discovered by Lev Grover in 1996 \citep{grover_fast_1996}, this search algorithm can find a single well-defined state in an unsorted database of size $N$ in $\cal{O}(N)$ steps, being hence quadratically faster than a classical search algorithm.
-\item \textbf{Shor's Factorization Algorithm} Discovered by Peter Shor in ???? \citep{}, this algorithm can factorize a binary number of length $N$ into its prime factors in $\cal{O}(???)$ steps, therefore exponentially outperforming any known classical factorization algorithm. There is large interest in this algorithm since products of large prime numbers are routinely used in asymmetric cryptography.
+\item \textbf{The Shor Factorization Algorithm} Developed by Peter Shor in 1994 \citep{shor_algorithms_1994,shor_polynomial-time_1995}, this algorithm can factorize a binary number of length $N$ into its prime factors in $\begin{mathcal}O\end{mathcal}(\log^3{N})$ steps, therefore exponentially outperforming any known classical factorization algorithm. There is large interest in this algorithm since products of large prime numbers are routinely used in asymmetric cryptography.
+\item \textbf{The Grover Search Algorithm}: Discovered by Lev Grover in 1996 \citep{grover_fast_1996}, this search algorithm can find a single well-defined state in an unsorted database of size $N$ in $\begin{mathcal}O\end{mathcal}(N)$ steps, being hence quadratically faster than a classical search algorithm.
 \end{enumerate}
 
 \subsection{Quantum Simulation}
 
-Another domain of interest for quantum computers is so called {\it quantum simulation}. Here the goal is to simulate the behaviour of an arbitrary quantum system using a quantum computer by either engineering the quantum computer in direct analogy with the system being modeled (so called {\it analog quantum simulation}) or by numerically simulating the Hamiltonian of the quantum system on a general-purpose quantum computer (so-called {\it digital quantum simulation}). Since no classical computer can simulate a quantum system efficiently, there is a large interest in quantum simulation, especially in the fields of biology and chemistry (e.g. for protein folding\cite{}\todo{include references!})
+Another domain of interest for quantum computers is so called {\it quantum simulation}. Here the goal is to simulate the behaviour of an arbitrary quantum system using a quantum computer by either engineering the quantum computer in direct analogy with the system being modeled (so called {\it analog quantum simulation}) or by numerically simulating the Hamiltonian of the quantum system on a general-purpose quantum computer (so-called {\it digital quantum simulation}). Since no classical computer can simulate a quantum system efficiently, there is a large interest in quantum simulation, especially in the fields of biology and chemistry.
 
 \subsection{Realization of a Quantum Computer}
 
-To realize a working quantum computer it is necessary to implement highly coherent qubits that can be manipulated, read out and coupled with high fidelity. So far, no fully working quantum computer has been experimentially demonstrated. However, larger progress towards the realization of such a quantum computer has been achieved in the last decade. Promising approaches for the realization of a quantum computer include --among others-- ions trapped in magnetic and electric fields \citep{}, cold atomic gases \citep{}, photonic circuits \citep{}, semiconductor structures \citep{} and, last but not least, superconducting structures. Since this work treats only superconducting qubits of the Transmon type we will focus our attention on them in the following sections. We will explain how we can realize a reliable qubit using superconducting structures and how we can implement circuits to manipulate, couple and read out the qubit state.
+To realize a working quantum computer it is necessary to implement highly coherent qubits that can be manipulated, read out and coupled with high fidelity. So far, no fully working quantum computer has been experimentially demonstrated. However, larger progress towards the realization of such a quantum computer has been achieved in the last decade. Promising approaches for the realization of a quantum computer include --among others-- ions trapped in magnetic and electric fields \citep{}, nuclear magnetic resonance of organic molecules, cold atomic gases \citep{}, photonic circuits \citep{}, semiconductor structures \citep{} and, last but not least, superconducting structures. Since this work treats only superconducting qubits of the Transmon type we will focus our attention on them in the following sections. We will explain how we can realize a reliable qubit using superconducting structures and how we can implement circuits to manipulate, couple and read out the qubit state.
 
 \section{Superconduting Quantum Circuits}
 
-In this section we will discuss several types of superconducting circuit elements that are most relevant to this work. We will introduce the reader to the Josephson junction, discuss the properties of transmission lines and tranmission line resonators and introduce a general method for the quantization of arbitrary circuits. Afterwards we will discuss the Cooper pair box and the Transmon qubit, give a short overview of circuit quantum electrodynamics and finally introduce the reader to the Josephson and cavity bifurcation amplifier.
+In this section we will discuss several types of superconducting circuit elements that are most relevant to this work. First, we will introduce the reader to the Josephson junction, which is the device we use to realize superconducting qubits and amplifiers. Afterwards, we discuss the properties of transmission lines and tranmission line resonators that we use extensively in our qubit design. Then, we present a general method for the quantization of arbitrary electrical circuits that we will use afterwards to perform canonical quantization of our circuits. We will use this method to derive the Hamiltonian of the Cooper pair box and treat the Transmon qubit as a special case. Then we will give a short overview of the field of circuit quantum electrodynamics and finally introduce the reader to the Josephson and cavity bifurcation amplifiers that we use for our qubit readout.
 
 \subsection{The Josephson junction}
 
 The core element used to construct quantum circuits is the so-called {\it Josephson junction}, being equivalent to the transitor in classical circuits in significance. A Josephson junction is based on a disovery of Brian Josephson, which published a now-classical paper on quantum tunneling between weakly coupled superconductors \citep{josephson_possible_1962}. He found, that such a {\it weak link} between two superconductors could support a supercurrent $I$ described by the simple formula
 %
 \begin{equation}
-I = I_c\sin{\phi}
+I = I_c\sin{\varphi}
 \end{equation}
 %
-where $\phi = \phi_2-\phi$ and $\phi_1$ and $\phi_2$ are the superconducting phases at each side of the link. This simple equation, together with the current-phase relation of a Josephson junction,
+where $\varphi = \varphi_2-\varphi_1$ and $\varphi_1$ and $\varphi_2$ are the gauge-invariant superconducting phases at each side of the link. $\varphi$ is related to the voltage between the electrodes of the Junction as
 %
 \begin{equation}
-U = \frac{\hbar}{2e}\frac{\partial \phi}{\partial t}
+U = \frac{\Phi_0}{2\pi}\frac{\partial \varphi}{\partial t}
 \end{equation}
 %
-yields a system exhibiting a  wealth of interesting physical phenomena that are used today in various applications in physics. The energy associated with the Josephson junction is given as
+where $\Phi_0 =h/2e \approx 2.05\times 10^{-15}$ is the so-called {\it magnetic flux quantum}. Thes two simple equations yield a system exhibiting a  wealth of interesting physical phenomena which are used today in various applications. The energy associated with the Josephson junction is given as
 %
 \begin{equation}
-E = E_J(1-\cos{\phi})
+E = E_J(1-\cos{\varphi})
 \end{equation}
 %
-where $E_J = I_c \Phi_0/2\pi$ is the so-called {\it Joesephson energy}. In addition to this Josephson energy, the junction usually has an energy associated to the capacitance formed by the two seperated electrodes of the junction and given as $E_c = Q^2/2C$. 
+where $E_J = I_c \Phi_0/2\pi$ is the so-called {\it Joesephson energy}. In addition to this Josephson energy, the junction usually has an energy associated to its capacitance (formed by its two seperated electrodes) given as $E_c = Q^2/2C$, with $Q$ being the charge difference between the electrodes of the junction.
 
 \smallskip
 
-For currents $I\ll I_c$, a Josephson junction behaves approximatively like a nonlinear inductor with inductance 
+For currents $I\ll I_c$, the Josephson junction behaves approximatively like a nonlinear inductance with
 %
 \begin{equation}
-L_J = \frac{\Phi_0}{2\pi I_c \cos{\phi}} \label{eq:josephson_inductance}
+L_J(\varphi) = \frac{\Phi_0}{2\pi I_c \cos{\varphi}} \approx L_{J0}\left[1+\frac{\varphi^2}{2}+\begin{mathcal}O\end{mathcal}(\varphi^4)\right]\label{eq:josephson_inductance}
 \end{equation}
 %
-where $\Phi_0 = h/2e \approx 2.05 \times 10^{-15}\; \mathrm{Wb}$ is the so-called {\it magnetic flux quantum}. Later we will show how to make use of these properties of the Josephson junction to construct a qubit with it.
+, where $L_{J0}=\Phi_0/2\pi I_c$. Later we will show how to make use of these properties of the Josephson junction to construct a qubit and a qubit readout´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´ with it.
 
-\subsection{Transmission Lines}
+\subsection{Coplanar Waveguides And Resonators}
 
 \begin{SCfigure}
 	\includegraphics[width=6cm]{"./material/figures/introduction/transmission_lines"}
@@ -110,18 +119,18 @@ where $\Phi_0 = h/2e \approx 2.05 \times 10^{-15}\; \mathrm{Wb}$ is the so-calle
 	\label{fig:tline_schematic}
 \end{SCfigure}
 
-Another circuit element that we will encounter many times in this work is the so-called {\it transmission line}. In the most general way, a transmission line is a structure with a large extension in one direction which is capable of transmitting electromagnetic waves along itself. Two possible symbols by which one usually designates tranmission lines in a circuit schematic are shown in fig. \ref{fig:tline_schematic}. A detailed treatment of the physics of tranmission lines can be found e.g. \cite{pozar_microwave_2011}. For this introduction we will skip these basics and start directly with the equation that describes the propagation of an electromagnetic wave along the extended dimension $z$ of the tranmission line and which is given as
+Another circuit element that we will encounter many times in this work is the so-called {\it coplanar waveguide} (CPW), which we will use later to e.g. realize on-chip microwave resonators. A coplanar waveguide can be treated in a more general way as a {\it transmission line}. In the most general way, such a transmission line is a structure with a large extension in one direction and which is capable of transmitting electromagnetic waves along itself. A coplanar waveguide is a flat structure with a central conductor that is to either side seperated by a gap from a groundplane, as shown in fig. \ref{fig:tline_schematic}. A detailed treatment of the physics of tranmission lines can be found e.g. \cite{pozar_microwave_2011}. For this introduction we will skip this basic treatment and start directly with the equation that describes the propagation of an electromagnetic wave along the extended dimension $z$ of the waveguide, which is
 %
 \begin{eqnarray}
 V(z,t) & = & \exp{\left(i\omega t\right)}\cdot\left(V^+ \exp{\left(-i\gamma z\right)}+V^-\exp{\left(i\gamma z\right)}\right) \\
 I(z,t) & = & \frac{1}{Z_0}\exp{\left(i\omega t\right)}\cdot\left(V^+ \exp{\left(-i\gamma z\right)}-V^-\exp{\left(i\gamma z\right)}\right)
 \end{eqnarray}
 %
-Here, $\gamma = \alpha+i\beta = \sqrt{(R+i\omega L)(G+i\omega C)}$ is the so-called {\it propagation constant} which describes the dispersion and damping of electromagnetic waves along the transmission line and $\omega$ the circular frequency of the electromagnetic wave. The voltages $V^+$ and $V^-$ correspond to waves traveling in different directions along the waveguide.
+Here, $\gamma = \alpha+i\beta = \sqrt{(R+i\omega L)(G+i\omega C)}$ is the so-called {\it propagation constant} which describes the dispersion and damping of electromagnetic waves along the waveguide and $\omega$ the circular frequency of the electromagnetic wave. The voltages $V^+$ and $V^-$ correspond to waves traveling in different directions along the waveguide.
 
 \smallskip
 
-If we regard a CPW of fixed length $l$, we can model the voltages and currents at its end by using the formula\citep{pozar_microwave_2011}
+If we regard now a waveguide of finite length $l$, we can model the voltages and currents at both ends of the transmission line as \citep{pozar_microwave_2011}
 %
 \begin{equation}
 \left( \begin{array}{c} V_1 \\ I_1 \end{array}\right) = \left( 
@@ -136,29 +145,30 @@ If we regard a CPW of fixed length $l$, we can model the voltages and currents a
 		\right) \label{eq:cpw_abcd_matrix}
 \end{equation}
 %
+, where $Z_R=\sqrt{\begin{mathcal}L/C\end{mathcal}}$ is the impedance of the waveguide and $Y_R=1/Z_R$ the corresponding admittance. In the next section we will make use of the equation above to calculate the transmission properties of an open-ended waveguide.
 
 \subsection{Transmission Line Resonators}
 
-One can easily create a resonator using a coplanar waveguide as described in the last section. As an example, we will discuss an open-ended $\lambda / 2$ CPW resonator that is used in our experiments as well and thus highly relevant to this work. To create a resonator out of a CPW line, we terminate the line by an open and and connect it to a drive line through an input capacitance $C$. To calculate the voltages and currents going into the CPW resonator, we can use eq. (\ref{eq:cpw_abcd_matrix}). Since the far end of the resonator is open we demand that $I_2=$ and thus obtain for the voltage $V_1$ and current $I_2$ the relation
+One can easily create a resonator using a coplanar waveguide as described in the last section. Here, we will discuss the open-ended $\lambda / 2$ CPW resonator used in our experiments to realize the qubit readout resonator and is thus highly relevant to this work. To create a resonator out of a CPW line, we terminate the line by an open and connect it to a drive line through an input capacitance $C_g$. We make use of eq. (\ref{eq:cpw_abcd_matrix}) to calculate the end voltages and currents of the resonator,demanding that $I_2=0$ (since the resonator is open-ended). We obtain for the voltage $V_1$ and current $I_2$ the relation
 %
 \begin{eqnarray}
 V_1 & = & \cos{\gamma l} V_2 \\
 I_1 & = & i Y_r \sin{\gamma l} V_2
 \end{eqnarray}
 %
-Hence, the impedance of the resonator is given as $Z_{res} = V_1/I_1 = i Z_r \cot{\gamma l}$, where $Z_r$ is the impedance of the tranmission line of which the resonator is made of. We couple this resonator to an input line through a gate capacitance $C_g$, thus the impendance seen from the input of the circuit is given as
+Hence, the impedance of the resonator is given as $V_1/I_1 = -i Z_R \cot{\gamma l}$. The impedance of the resonator as seen through the gate capacitance $C_g$ is given as
 %
 \begin{equation}
-Z_{in} = i Z_r \cot{\gamma l}-\frac{i}{\omega C_g} \label{eq:cpw_impedance}
+Z_{in} = -i Z_r \cot{\gamma l}-\frac{i}{\omega C_g} \label{eq:cpw_impedance}
 \end{equation}
 %
-It is straightforward to calculate the $S_{11}$ reflection coefficient of the resonator when coupling it to an input line with impedance $Z_0$ as
+The $S_{11}$ reflection coefficient of the resonator when coupling it to an input line with impedance $Z_0$ is given as
 %
 \begin{equation}
-S_{11} = \frac{Z_{in}-Z_0}{Z_{in}+Z_0} = \frac{Z_r\cot{\gamma l}-/\omega C_g-Z_0}{Z_r\cot{\gamma l}-/\omega C_g + Z_0}
+S_{11} = \frac{Z_{in}-Z_0}{Z_{in}+Z_0} = \frac{i(Z_R\cot{\gamma l}+1/\omega C_g)-Z_0}{Z_0+i(Z_r\cot{\gamma l}-1/\omega C_g)}
 \end{equation}
 %
-Now, when measuring the reflection of an incoming signal with voltage $V^+$ at frequency $f=2\pi \omega$ and phase $\phi_0$, the phase of the relected signal $\phi_{ref}$ will be simply given as $\phi_{ref}=\mathrm{Arg}[V^-/V^+]-\phi_0 = \mathrm{Arg}[S_{11}]-\phi_0$. Fig \ref{fig:lambda_over_4_response} shows this phase for an exemplatory resonator, plotted for $f=2\pi\omega$ in reduced units of $[l/v]$, with impendances $Z_r,Z_0=50\;\mathrm{\Omega}$, $\alpha=0$ and with the resonator coupled to the input line through a normalized capacitance $C_g=10^{-3}/\omega\;[\mathrm{Hz}\cdot \mathrm{F}]$.
+Now, when measuring the reflection of an incoming signal with voltage $V^+$ at frequency $f=2\pi \omega$ and phase $\phi_0$, the phase of the relected signal $\phi_{ref}$ will be simply given as $\phi_{ref}-\phi_0=\mathrm{Arg}[V^-/V^+] = \mathrm{Arg}[S_{11}]$. Fig \ref{fig:lambda_over_4_response} shows this phase for an exemplatory resonator, plotted for $f=2\pi\omega$ in reduced units of $[l/v]$, with impendances $Z_r=Z_0=50\;\mathrm{\Omega}$, $\alpha=0$ and $C_g=10^{-3}/\omega\;[\mathrm{Hz}\cdot \mathrm{F}]$, where $\omega_0 = 2\pi f_0$ is the angular resonance frequency of the resonator.
 
 \begin{SCfigure}
 	\includegraphics[width=10cm]{"./material/mathematica/cpw_lambda_over_4_phase_and_z"}
@@ -166,27 +176,26 @@ Now, when measuring the reflection of an incoming signal with voltage $V^+$ at f
 	\label{fig:lambda_over_4_response}
 \end{SCfigure}
 
-We can calculate the quality factor of such an open-ended CPW resonator by modeling it as a series-LC circuit. Indeed,  if we regard the input impedance of the resonator in the vicinity of $\omega_0$ such that $\Delta \omega = \omega -\omega_0$ with $\Delta \omega \ll \omega_0$ and $\beta l = \pi +\pi\Delta \omega /\omega_0$, we obtain an effective impedance
+We can approximatively model the distributed CPW resonator as a lumped element $LC$ resonator, which is useful for e.g. calculating its quality factor. If we regard the input impedance of the resonator in the vicinity of $\omega_0$ such that $\Delta \omega = \omega -\omega_0 \ll \omega_0$ and $\beta l = \pi +\pi\Delta \omega /\omega_0$, we obtain an effective impedance
 %
 \begin{equation}
-Z_{in} = \frac{Z_{r}}{\alpha l + i(\Delta \omega \pi / \omega_0)}
+Z_{in} = -i\frac{Z_{r}}{(\Delta \omega \pi / \omega_0)}
 \end{equation}
 %
-We can identify the quantities in this equation with the input impedance of a parallel LCR-resonator, which at $\omega\approx \omega_0$ is approximatively given as
+We can identify the quantities in this equation with the input impedance of a parallel LCR-resonator, which is approximatively given as
 %
 \begin{equation}
 Z_{in} = \frac{R}{1+2i Q \Delta \omega / \omega_0}
 \end{equation}
 %
-with $W=\omega_0 RC$. This yields an effective resistance, inductance and capacitance for the transmission line resonator of
+with $Q=\omega_0 RC$. This yields an effective resistance, inductance and capacitance for the transmission line resonator of
 %
 \begin{eqnarray}
-R_{r} & = & \frac{Z_r}{\alpha l} \\
 L_{r} & = & \frac{1}{\omega_0^2 C} \\
 C_{r} & = & \frac{\pi}{2\omega_0 Z_r}
 \end{eqnarray}
 %
-When coupling this resonator to an input transmission line of impedance $Z_0$ through a gate capacitance $C_g$ as before, the quality factor of the coupled (or {\it loaded}) resonator will be given as \citep{goppl_coplanar_2008}
+When coupling this resonator to an input transmission line of impedance $Z_0$ through a  capacitance $C_g$ as before, the quality factor of the coupled (or {\it loaded}) resonator will be given as
 %
 \begin{equation}
 Q_L = \omega_0^* \frac{C+C^*}{1/R_{r}+1/R^*}
@@ -200,7 +209,7 @@ C^* & = & \frac{C_g}{1+\omega_0^2 C_g^2 Z_0^2} \\
 \omega_0^* & = & \frac{1}{\sqrt{L_r(C_r+C_g)}}
 \end{eqnarray}
 %
-Thus, we can effectively tune the quality factor of the resonator by changing the gate capacitance by which we couple it to the input tranmission line. 
+We will make use of these relations and the fact that the external quality factor can be tuned by the value of the gate capacitance $C_g$ when designing the qubit readout resonator. In the next paragraph, we will introduce the concept of circuit quantization that we will later use to develop a quantum-mechanical description of the transmission line resonator discussed here.
 
 \subsection{Quantization of Electrical Circuits}
 
@@ -212,29 +221,29 @@ In this section we will outline a general method to treat arbitary electrical ci
 	\label{fig:SampleCircuit}
 \end{SCfigure}
 
-Fig. \ref{fig:SampleCircuit} shows an exemplatory circuit made of an inductance, a capacitor and a voltage source. A circuit as this one is fully characterized by the parameters of its elements and its toplogy. The latter can be described -- following the laws of Kirchhoff -- as a set of nodes connected by a number of branches. In classical circuit theory, each branch $i$ is described by a voltage $V_i$ between its ends and a current $I_{i}$ flowing through it. The Kirchhoff laws demand that the sum of the branch voltages $V_i$ along any closed path must be zero, i.e. $\sum\limits_{\oint} V_i = 0$. Equivalently one may demand that the sum of currents flowing in and out of each node must be zero. For the quantization of electrical circuits it is usually more convenient to replace voltages and currents with branch charges and fluxes that are defined as
+Fig. \ref{fig:SampleCircuit} shows an exemplatory circuit made of an inductance, a capacitor and a voltage source. A circuit as this one is fully characterized by the parameters of its elements and its toplogy. The latter can be described -- following the laws of Kirchhoff -- as a set of nodes $j$ connected by a number of branches $i$ . In classical circuit theory, each branch is described by a voltage $V_i$ between its ends and a current $I_{i}$ flowing through it. The Kirchhoff laws demand that the sum of the branch voltages $V_i$ along any closed path must be zero, i.e. $\sum\limits_{\oint} V_i = 0$. Equivalently one may demand that the sum of currents flowing in and out of each node must be zero. For the quantization of electrical circuits it is usually more convenient to replace voltages and currents with branch charges and fluxes that are defined as
 %
 \begin{eqnarray}
 \Phi_i(t) & = & \int\limits_{-\infty}^t V_i(t') dt' \\
 Q_i(t) & = & \int\limits_{-\infty}^t I_i(t') dt'
 \end{eqnarray}
 %
-In analogy with the Kirchhoff laws for the sums of currents and voltages along a closed branch, we can formulate a Kirchhoff law for the charges $Q_i$ at each node of the circuit, given as
+For these branch charges and fluxes we can define two Kirchoff laws
 %
-\begin{eqnarray}
-\sum\limits_{i} Q_i & = & Q_0 \label{eq:kirchhoff_charge}
-\end{eqnarray}
+\begin{align}
+\sum\limits_{i} Q_i  =  Q_c & & , & & \sum\limits_{i}\Phi_i = \Phi_c \label{eq:kirchhoff_charge}
+\end{align}
 %
-where $Q_0$ is constant . To quantize such a circuit made up of non-dissipative elements we can follow the method given in \cite{yurke_quantum_1984}, writing the Lagrangian of the circuit as 
+where $Q_c$ and $\Phi_c$ are constants. To quantize such a circuit made up of non-dissipative elements we can follow the method given in \cite{yurke_quantum_1984}, writing the Lagrangian of the circuit as 
 %
 \begin{equation}
-\begin{mathcal}L\end{mathcal} = \sum\limits_i V_i - \sum\limits_i T_i
+\begin{mathcal}L\end{mathcal} = \sum\limits_i \begin{mathcal}V\end{mathcal}_i - \sum\limits_i \begin{mathcal}T\end{mathcal}_i
 \end{equation}
 %
-where $V_i$ and $T_i$ are the potential and kinetic energies associated to each circuit element. \todo{Clarify why kintetic energy is mapped to capacitive energy and potential energy to inductive energy}. For a circuit composed entirely of capacitors and inductor, this Lagrangian is given as
+where $\begin{mathcal}V\end{mathcal}_i$ and $\begin{mathcal}T\end{mathcal}_i$ are the potential and kinetic energies associated to each circuit element. For a circuit composed entirely of capacitors and inductor, this Lagrangian is given as
 %
 \begin{equation}
-\begin{mathcal}L\end{mathcal} = \frac{1}{2}\sum\limits_i \frac{Q_i^2}{C_i}-\frac{1}{2}\sum\limits_i L \left( \frac{dQ_i}{dt}\right)^2 \label{eq:circuit_lagrangian}
+\begin{mathcal}L\end{mathcal} = \frac{1}{2}\sum\limits_i \frac{Q_i^2}{C_i}-\frac{1}{2}\sum\limits_i L_i \left( \frac{dQ_i}{dt}\right)^2 \label{eq:circuit_lagrangian}
 \end{equation}
 %
 If needed, resistors can be described within the Lagrangian formalism by modeling them as transmission lines with a characteristic impedance matching their resistance \citep{yurke_quantum_1984}. From the Lagrangian as given in eq. (\ref{eq:circuit_lagrangian}) we obtain then the equations of motion of the system by variation of the action
@@ -246,10 +255,10 @@ If needed, resistors can be described within the Lagrangian formalism by modelin
 Finally, by imposing the charge-conservation equations as given by eq. (\ref{eq:kirchhoff_charge}) we obtain then a complete description of the underlying circuit. From the variable $Q_i$ we obtain the canonically conjugate momentum $\Phi_i$ by solving the equation
 %
 \begin{equation}
-\Phi_i = \frac{\partial \begin{mathcal}L\end{mathcal}}{\partial(\partial_t Q_i)}
+\Phi_i = \frac{\partial \begin{mathcal}L\end{mathcal}}{\partial(\dot{Q}_i)}
 \end{equation}
 %
-First Quantization of the circuit variables can then be done by imposing commutation relations between the set of canonical variables $Q_i$ and $\Phi_i$ such that
+, where $\dot{Q}_i=dQ_i/dt$. First Quantization of the circuit variables can then be done by imposing commutation relations between the set of canonical variables $Q_i$ and $\Phi_i$ such that
 %
 \begin{eqnarray}
 \left[Q_i(t),Q_j(t')\right] & = & 0 \\
@@ -257,13 +266,13 @@ First Quantization of the circuit variables can then be done by imposing commuta
 \left[Q_i(t),\Phi_i(t')\right] & = & i\hbar\delta_{ij}\delta(t-t') \label{eq:quantization_commutation_relations}
 \end{eqnarray}
 %
-Having obtained $\Phi_i$ and $Q_i$, it is also trivial to obtain the Hamiltonian $\begin{mathcal}H\end{mathcal}$ of the system by applying the transformation
+Having obtained $\Phi_i$ and $Q_i$, we can calculate the Hamiltonian $\begin{mathcal}H\end{mathcal}$ of the system by applying the transformation
 %
 \begin{equation}
 \begin{mathcal}H\end{mathcal} = \sum\limits_j \Phi_i \dot{Q}_i - \begin{mathcal}L\end{mathcal}
 \end{equation}
 %
-In the next section we will use this method to quantize the Cooper pair box circuit.
+This Hamiltonian, written in generalized coordinates obtained through the constraints given in eqs. (\ref{eq:kirchhoff_charge}) yields the full quantum-mechanical equation of motion of the electrical circuit. This method can be generalized to other circuit elements as well. A Josephson junction e.g. contributes a potential energy $\begin{mathcal}L_J\end{mathcal}=E_J(1-\cos{\Phi_J/\Phi_0})$ to the Hamiltonian, where $\Phi_0$ is the magnetic flux quantum. Tranmission lines can be quantized by a similar approach, as shown e.g. in \citep{yurke_quantum_1984}. If necessary, external voltages and currents can be included in the formalism as well.
 
 \subsection{The Cooper Pair Box}
 
@@ -273,7 +282,13 @@ In the next section we will use this method to quantize the Cooper pair box circ
 	\label{fig:cpb_circuit}
 \end{SCfigure}
 
-The {\it Cooper pair box (CPB)} is a device containing a (split) Josephson junction coupled to an input voltage source through a gate capacitance $C_g$, as shown in fig. \ref{fig:cpb_circuit}. Following the circuit quantization method outlined in the last section, we obtain the following Hamiltonian for the CPB \citep{cottet_implementation_2002}
+The {\it Cooper pair box (CPB)} is a device containing a Josephson junction coupled to an input voltage source through a gate capacitance $C_g$, as shown in fig. \ref{fig:cpb_circuit}. In the figure, two Josephson junction in a loop are used instead of one single junction, allowing for flux tuning of the effective Josephson energy of the system, as will be explained later. The circuit consists of  three nodes (including ground) and two branches, hence there are three constraints on the six circuit variables $\Phi_J$, $\Phi_\Sigma$, $\Phi_g$, $Q_J$, $Q_\Sigma$ and $Q_g$, leading to three canonical variables .... The Lagrangian of the system is given as
+%
+\begin{equation}
+\begin{mathcal}L\end{mathcal}=\frac{1}{2C_\Sigma}\dot{\Phi}_\Sigma^2+\frac{1}{2C_g}\dot{\Phi}_g^2-E_J\left(1-\cos{\Phi_J/\Phi_0}\right)
+\end{equation}
+%
+ \citep{cottet_implementation_2002}
 %
 \begin{equation}
 \hat{H} = 4 E_C \left( \hat{n} - n_g\right)^2-E_J \cos{\hat{\theta}}
