@@ -13,6 +13,17 @@ This chapter discusses in depth the design process for the realization of the 2-
 
 As discussed in the introduction, the most simple, usable quantum processor contains two qubits that can be manipulated and read out individually and between which one can realize a universal 2-qubit gate. We implement such a two-qubit processor using two Transmon qubits that are coupled by a fixed capacitance and that can be read out out individually by a pair of Josephson bifurcation amplifiers (JBAs). The circuit diagram of our processor is shown in fig. \ref{fig:2_qubit_chip_circuit_diagram}, it shows the two qubits in green, the drive and readout circuit in red, the coupling capacitance between them in magenta and the fast flux lines in read. Also shown is the basic microwave setup used for manipulating and reading out the qubits. In the following sections we will discuss each of these components and the parameters we have chosen for them individually.
 
+\subsection{Processor Operation}
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=\textwidth]{./material/figures/2-qubit-processor/processor_working_principle}
+	\caption[...]{The operation principle of the two-qubit processor. a) The qubit frequencies for different operations. I: Single-qubit manipulation and parking. II: Two-qubit coupling. III: Qubit readout. For each operation, different qubit frequencies are chosen, resulting in different qubit-qubit coupling and qubit-readout couplings $\chi_r^{I,II}(f_{01}^{I,II}$. b) Typical gate sequence illustrating the different operations. The sequence starts with two single-qubit XY-gates, a two-qubit $i\mathrm{SWAP}(t)$ gate, two single-qubit Z-gates and ends with the qubit readout.}
+	\label{fig:processor_operation}
+\end{figure}
+
+Fig. \ref{fig:processor_operation} illustrates the basic operating principle of the two-qubit processor. We distinguish between three different qubit operations: Single-qubit gates, a two-qubit gate and qubit readout. For each of these operations, we chose a different set of qubit frequencies $f_{01}^{I,II}$. For the single-qubit gates, the two frequencies $f_{01}^{m,I}$ and $f_{01}^{m,II}$ are detuned by $\Delta f_m = f_{01}^{m,II}-f_{01}^{m,I}$. This tuning is chosen such that no effective qubit-qubit is present, as we explain later. Furthermore, the detuning between each qubit and its readout resonator is such that the qubit lifetime is not limited by the Purcell effect as given in eq. (). To realize a two qubit gate, we tune the two qubits in resonance such that $f_{01}^{c,I} = f_{01}^{c,II}$. At this point, the qubits experience a swapping interaction as given in eq. (\ref{eq:cqed_qubit_interaction_hamiltonian}) with a swapping frequency $2g$. For the readout, we choose the qubit frequencies $f_{01}^{r,I}$, $f_{01}^{r,II}$ such that the corresponding dispersive shifts $\chi^I(f_{01}^{r,I})$ and $\chi^{II}(f_{01}^{r,II})$ provide optimal readout visibility.
+
 \section{Qubit Design}
 
 For the qubits, the main design goal is high coherence time, good frequency tunability and the possibility of fast qubit driving. The coherence time of the qubits is limited by relaxation to the ground state and dephasing due to coupling to external noise sources. The dephasing of the qubit state is caused mainly by noise-induced fluctuations of the qubit frequency, which we will discuss in the next section. The relaxation is caused mainly by the coupling of the Transmon to its environment and by internal losses inside the Josephson junctions and the capacitor of the qubit. 
