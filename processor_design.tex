@@ -41,6 +41,76 @@ We will start our discussion of the qubit design by discussing the choice of the
 \item The size of the qubit flux loop and its coupling to the fast flux line
 \end{enumerate}
 
+\subsection{Relaxation and Dephasing}
+
+\paragraph{Relaxation Through the Charge Channel}
+
+Since the CPB is coupled to an external impedance (typically 50 $\Omega$) through a gate capacitance $C_g$, relaxation into free modes of the heat bath represented by this impedance can occur. The spectral density of gate charge fluctuations is given as
+
+%
+\begin{equation}
+S_{V_g}(\omega) = \frac{\hbar\omega}{2\pi}\left[\coth{\left(\frac{\hbar \omega}{2 k_B T}\right)}\right]\mathrm{Re}\left(Z_g(\omega)\right).
+\end{equation}
+%
+The resulting relaxation rate is hence
+%
+\begin{equation}
+\Gamma_1^{gate} = 16\pi\beta^2 \omega_{01} \frac{\mathrm{Re}\left(Z(\omega_{01})\right)}{R_K}\left|\bra{0}\hat{n}\ket{1}\right|^2,
+\end{equation}
+%
+where $R_K = h/e^2$ and $\beta=C_g/C_\Sigma$.
+
+\paragraph{Relaxation Through the Flux Channel}
+
+%
+%\begin{equation}
+%S_{\Phi/\Phi_0}(\omega) = \left(\frac{M}{\Phi_0}\right)^2 S_I(\omega) = \left(\frac{M}{\Phi_0}\right)^2\frac{\hbar\omega}{2\pi}\mathrm{Re}\left(\frac{1}{Z_{coil}(\omega)}\right)\left[\coth{\left(\frac{\hbar\omega}{2k_B T}\right)}+1\right]
+%\end{equation}
+%
+The sensitivity of the qubit to flux noise is
+%
+\begin{equation}
+\left|D_{\Phi/\Phi_0,\perp}\right|  = \frac{E_J}{2}\sqrt{1-(1-d^2)\cos^2{\left(\frac{\Phi}{2\Phi_0}\right)}}.
+\end{equation}
+%
+With this, we can calculate the resulting relaxation rate
+%
+\begin{equation}
+\Gamma_1^{fl} = \frac{\pi}{2}S_{\delta \omega,\perp}(\omega_{01})=\frac{\pi}{2}\left|D_{\Phi/\Phi_0,\perp}\right|^2 S_{\Phi/\Phi_0}(\omega_{01})
+\end{equation}
+%
+\paragraph{Dephasing due to Flux or Charge Noise}
+
+The noise in the magnetic flux or the charge seen by the qubit can induce dephasing. When considering a universal $1/f$-type flux noise with a typical reduced amplitude $A=10^{-5}\Phi_0$ \citep{koch_charge-insensitive_2007}, we obtain a corresponding dephasing rate
+%
+%\begin{equation}
+%\Gamma_\phi^{\delta \Phi} \propto 3.7A\left|\frac{\partial \omega_{ge}}{\partial \Phi}\right| = 3.7\frac{\pi A}{\hbar \Phi_0}\sqrt{2E_C(E_{J1}+E_{J2})\left|\sin{\left(\frac{\pi\Phi}{\Phi_0}\right)}\tan{\left(\frac{\pi\Phi}{\Phi_0}\right)}\right|}
+%\end{equation}
+%
+
+\paragraph{Dephasing due to Charge Noise}
+
+The sensitivity of the CPB to charge noise is given as
+%
+\begin{equation}
+\Gamma_\phi^{\delta n_g} \simeq 3.7A \left|\frac{\delta \omega_{01}}{\delta n_g}\right|.
+\end{equation}
+%
+In the limit $E_J\gg E_C$ this expression yields
+%
+\begin{equation}
+\Gamma_\phi^{\delta N_g} \simeq 3.7\frac{A\pi}{\hbar}\left| (\epsilon_1-\epsilon_0)\sin{\left(2\pi N_g\right)}\right| \leq 3.7\frac{A\pi}{\hbar}|\epsilon_1|,
+\end{equation}
+%
+where $\epsilon_1$ is the modulation amplitude of the first excited CPB level \citep{koch_charge-insensitive_2007}:
+%
+\begin{equation}
+\epsilon_m\simeq (-1)^m E_C\frac{2^{4m+3}}{m!}\sqrt{\frac{2}{\pi}}\left(\frac{2E_J}{E_C}\right)^{\frac{m}{2}+\frac{3}{4}}\exp{\left(-\sqrt{\frac{32E_J}{E_C}}\right)}.
+\end{equation}
+%
+As can be seen, the sensitivity of the CPB to charge noise decreases exponentially with the ratio $E_J/E_C$ and for typical values that we use in this work ($E_J/E_C\approx 10$), we obtain dephasing times in the seconds range, hence we usually ignore this dephasing channel. 
+
+
 \subsection{Qubit Transition Frequency and Anharmonicity}
 
 The maximum transition frequency $f_{01}^0 = \sqrt{E_J E_C/2}/h$ \todo{verify constants!} of the qubit should be chosen in function of the readout resonator frequency such that it is possible to tune the two of them sufficiently close, thereby achieving the optimal readout fidelity. Chosing a qubit frequency above the cavity frequency should therefore be avoided, since it implies a stronger flux dependence of the qubit frequency at frequencies below the resonator frequency, thus increasing qubit dephasing when operating the qubit there. Hence, ideally the maximum qubit frequency should be chosen such that it corresponds to the optimal frequency for the qubit readout, as will be discussed later.
