@@ -11,12 +11,28 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{setspace}
-\usepackage{color}
 \usepackage{lmodern}
 \usepackage{float}
 \usepackage{textcomp}
 \usepackage{floatflt}
+\usepackage{listings}
+\usepackage{color}
 
+
+\lstset{
+  language=Python,
+  showstringspaces=false,
+  formfeed=\newpage,
+  tabsize=4,
+	breaklines=true,
+	breakautoindent=true,
+  commentstyle=\itshape,
+  basicstyle=\ttfamily,
+  morekeywords={models, lambda, forms},
+  keywordstyle=\color[rgb]{0,0,1},
+  commentstyle=\color[rgb]{0.133,0.545,0.133},
+  stringstyle=\color[rgb]{0.627,0.126,0.941}
+}
 \restylefloat{table}
 
 \usepackage{sidecap}
@@ -52,6 +68,7 @@
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{axiom}{Axiom}[theorem]
 
+\newcommand{\LA}{\begin{mathcal}L\end{mathcal}_A} % for Dirac brackets
 \newcommand{\Or}{\begin{mathcal}C\end{mathcal}} % for Dirac brackets
 \newcommand{\bracket}[1]{\left< #1 \right>} % for Dirac brackets
 \newcommand{\ket}[1]{\left| #1 \right>} % for Dirac bras

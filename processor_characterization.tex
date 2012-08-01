@@ -63,28 +63,7 @@ It is interesting to note the non-monotonous characteristic of the qubit relaxat
 
 To perform arbitrary single-qubit operations -- as needed e.g. for implementing a quantum algorithm or performing quantum state tomography -- we need to implement a universal set of $X$, $Y$ and $Z$ qubit gates on our processor. Qubit rotations in the $XY$-plane are implemented through microwave drive pulses, where the phase of the drive pulse in reference to an arbitrary reference determines the rotation axis and the amplitude of the drive pulse the Rabi frequency of the gate. To characterize the drive pulses, we perform an experiment where we initialize a single-qubit in the states $\ket{1}$, $1/\sqrt{2}(\ket{0}+\ket{1})$ and $\sqrt{2}(\ket{0}+i\ket{1})$ and subject it afterward to a single microwave pulse of the form $a(t) = V_I\cdot\cos{\omega_{rf}t}+V_Q\cdot\sin{\omega_{rf}t}$, which we tune by changing the input voltages $V_I$ and $V_Q$ to the $IQ$-mixer that generates the pulse from a continuous input microwave-tone at frequency $\omega_{rf}$. We measure the qubit state at different values of $V_I$, $V_Q$, obtaining the graph shown in fig. \ref{fig:single_qubit_iq_control}. The qubit which was prepared in state $\ket{1}$ shows a perfectly cylinder-symmetric switching probability pattern when subjecting it to an IQ-pulse of a given phase, which is what one would expect for a qubit being prepared in either the $\ket{0}$ or $\ket{1}$ state. On the contrary, the switching probability distributions of the measured qubits prepared in the states $1/\sqrt{2}(\ket{0}+\ket{1})$ and $1/\sqrt{2}(\ket{0}+i\ket{1})$ are mirror-symmetric, where the switching probability does not vary at all along the drive axis that corresponds to the axis along which the qubit has been prepared. These measurements demonstrate therefore our ability to prepare and drive the qubit along arbitrary axes of the Bloch sphere. In the following sections we will analyze more in detail the drive errors inherent to our system and quantitatively analyze different error sources. 
 
-\subsection{Estimation of drive errors}
-
-\begin{figure}[htp!]
-	\centering
-	\includegraphics[width=\textwidth]{"./material/mathematica/three_level_driving_errors"}
-	\caption[Single-qubit $\pi$-pulse gate time, gate fidelity and AC stark detuning as a function of drive strength]{The single-qubit $\pi$-pulse gate time, gate fidelity and AC stark detuning, plotted as a function of the drive strength $\epsilon$ applied to the three-level Transmon. As the drive strength increases, the gate time decreases as $1/\epsilon$ whereas the gate fidelity decreases approximately quadratically.}
-	\label{fig:three_level_driving_errors}
-\end{figure}
-
-Since the Transmon is a weakly anharmonic multi-level system and thus no real qubit, driving the $\ket{0}\to\ket{1}$ transition with high power can induce transitions to higher Transmon levels. It is important to estimate and reduce these errors when performing fast qubit gates e.g. for state preparation or tomography. To model the driving of a Transmon, we use the simple drive model in the rotating-frame approximation and as used e.g. in \cite{motzoi_simple_2009}:
-%
-\begin{equation}
-\hat{H} = \left(
-						 \begin{array}{ccc}
-						0 & \epsilon^*(t) & 0 \\
-						\epsilon(t) & \delta & \sqrt{2}\epsilon^*(t) \\
-						0 & \sqrt{2}\epsilon(t) & 2\delta + \alpha
-						\end{array}
-					\right) \label{eq:qubit_three_level_driving_hamiltonian}
-\end{equation}
-%
-Here, $\epsilon(t) = \epsilon_x(t)+i\epsilon_y(t)$ is the complex drive IQ amplitude in the rotating qubit frame, $\delta$ is the detuning of the microwave drive from the Transmon $\omega_{01}$ transition frequency and $\alpha$ is the Transmon anharmonicity. To estimate the leakage to higher Transmon levels, we calculate the eigenvalues and eigenvectors of the Hamiltonian given in eq. (\ref{eq:qubit_three_level_driving_hamiltonian}). We then decompose an initial state $\ket{0}$ in the basis of eigenstates and let it evolve under a given constant drive amplitude $\epsilon_0$. By maximizing the occupation probability of the state $\ket{1}$ as a function of the evolution time and drive detuning $\delta$ we obtain the gate time, state fidelity and AC-Stark shift for the applied drive strength. These quantities are shown in fig. \ref{fig:three_level_driving_errors}, which shows the numerically obtained gate time, gate fidelity and AC-stark shift of the qubit frequency as a function of the applied drive frequency. As can be seen, the gate error increases almost quadratically with the drive frequency. Typically, in our experiments we use drive frequencies between 100 - 200 MHz, inducing thus single-qubit drive errors between 1-3 \%. In general, it is possible to correct these errors using optimized drive pulses \cite{lucero_reduced_2010,chow_optimized_2010}, thereby eliminating leakage to the third qubit level. In this work, we did not use such techniques but we will  include possible errors arising due to this leakage to higher Transmon levels in our error models when discussing our experimental data.
+\subsection{Single-Qubit Drive Errors}
 
 \section{Two Qubit Operations}
 

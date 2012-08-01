@@ -117,6 +117,54 @@ Another domain of interest for quantum computers is the so called {\it quantum s
 
 To realize a working quantum computer, it is necessary to implement highly coherent qubits that can be manipulated, read out and coupled with high fidelity. So far, no fully working quantum computer has been experimentally demonstrated. However, larger progress towards its realization has been achieved in the last decade. Promising approaches for its realization include, among others, ions trapped in magnetic and electric fields \citep{monroe_demonstration_1995,cirac_quantum_1995}, nuclear magnetic resonance of organic molecules \citep{jones_nmr_2001,vandersypen_experimental_2001}, cold atomic gases \citep{briegel_quantum_2000}, photonic circuits \citep{knill_scheme_2001}, semiconductor circuits \citep{loss_quantum_1998} and, last but not least, superconducting circuits. Since this work treats only superconducting qubits, we focus our attention on them. We explain how we can realize a reliable qubit using superconducting structures and how we can implement circuits to manipulate, couple and read out the qubit state.
 
+\subsection{Master Equation Formalism} \label{section:master_equation}
+
+In contrast to the closed quantum systems that we look at in this chapter, practically all real-world quantum systems are coupled to their environment, which continually ``measures'' the state of the system by interacting with it. This interaction will disturb the system and eventually destroy its quantum-mechanical coherence, producing effectively a classical state from an initial quantum state. The evolution of such an {\it open quantum system} can be modeled mathematically by using the so-called {\it master equation approach}, which we will briefly discuss in this section since it will be of high relevance to the interpretation of our measurement data.
+
+\smallskip
+
+The master equation formalism describes the interaction of a quantum system $A$, described by its density matrix $\rho_A$ defined in a Hilbert space $\begin{mathcal}H\end{mathcal}_A$, with an environment $E$ that interacts with $A$ and induces a non-unitary evolution of the density operator $\rho_A$. A detailed introduction to this formalism can be found e.g. in \citep{haroche_exploring_2006}. Here we give only a brief overview of the most relevant concepts.
+
+\smallskip
+
+The environment $E$ is usually much too complex to be modeled completely. However, for a general quantum state $\rho_A$ represented by an orthonormal set of states $\ket{\lambda_i^{(A)}}$ or a set of non-orthogonal states $\ket{\phi_j^{(A)}}$ or $\ket{\xi_k^{(A)}}$, given as 
+%
+\begin{equation}
+\sum\limits_{i=1}^{N_A}\lambda_i\ket{\lambda_i^{(A)}}\bra{\lambda_i^{(A)}} = \sum\limits_{j=1}^{N_1}p_j\ket{\phi_j^{(A)}}\bra{\phi_j^{(A)}} = \sum\limits_{k=1}^{N_2}q_k\ket{\xi_k^{(A)}}\bra{\xi_k^{(A)}},
+\end{equation}
+%
+one can model the environment by a {\it simulator} $B$ defined in a Hilbert space $\begin{mathcal}H\end{mathcal}_B$ such that
+%
+\begin{equation}
+\rho_A = \sum\limits_{j=1}^{N_1}p_j\ket{\phi_j^{(A)}}\bra{\phi_j^{(A)}} = \mathrm{Tr}_B \ket{\Phi^{(AB)}}\bra{\Phi^{(AB)}},
+\end{equation}
+%
+where we define the entangled states $\ket{\Phi^{(AB)}}$ as
+%
+\begin{equation}
+\ket{\Phi^{(AB)}} = \sum\limits_{j=1}^{N_1}\sqrt{p_j}\ket{\phi_j^{(A)}}\otimes\ket{\phi_j^{(B)}}
+\end{equation}
+%
+where the ensemble $\{\ket{\phi_j^{(B)}}\}$ is a set of orthonormal vectors in the Hilbert space $\begin{mathcal}H\end{mathcal}_B$. The vector $\ket{\Phi^{(AB)}}$ is called a {\it purification} of $\rho_A$. As shown by Gisin {\it et. al.} \citep{gisin_stochastic_1989,hughston_complete_1993}, starting from such a purification we can obtain any aribitrary representation of $\rho_A$ by a set of non-orthogonal states by an unread measurement of a proper observable performed on $\ket{\Phi^{(AB)}}$, which is the so-called {\it GHJW (Gisin, Hughston, Jozsa and Wooter) theorem}. In this sense, all representations of a quantum state $\rho_A$ can be obtained from the same purified state $\ket{\Phi^{(AB)}}$, which is a powerful assertion allows one to relate apparently unrelated representations.
+
+\smallskip
+
+\paragraph{Kraus Sum Representation} The evolution of the quantum system $\rho_A$ can be described by a so-called {\it quantum map}. Such a quantum map transforms $\rho_A$ into a new matrix $\LA(\rho_A)$. This map can be described as a linear {\it super-operator} acting in the space of operators that act in $\begin{mathcal}H\end{mathcal}_A$. To be a valid quantum operator, $\begin{mathcal}L\end{mathcal}_A$ must fulfill the following conditions:
+
+\begin{itemize}
+\item \textbf{Linearity}: The operator $\LA$ must be linear, such that \mbox{$\LA(p\rho_A+q\rho'_A)=p\LA(\rho_A)+q\LA(\rho'_A)$} with $p+q=1$. 
+\item \textbf{Preservation of $\mathrm{Tr}(\rho_A)$}: The operator $\LA$ must preserve the unity trace of $\rho_A$, such that $\mathrm{Tr}(\LA(\rho_A))=1$.
+\item \textbf{Complete Positivity}: $\LA(\rho_A)$ must be positive, i.e. $\bra{\phi^{(A)}}\LA(\rho_A)\ket{\phi^{(A)}}\ge 0$ for all $\ket{\phi^{(A)}}$ in $\begin{mathcal}H\end{mathcal}_A$. In addition, for any composite quantum system $A\otimes B$, the quantum map $\LA	\otimes \mathrm{1}_B$ (where $\mathrm{1}_B$ is the identity super-operator acting in $\begin{mathcal}H\end{mathcal}_B$) must be positive, i.e. $$\bra{\phi^{(AB)}}\LA\otimes\mathrm{1}_B(\rho_{AB})\ket{\phi^{(AB)}}\ge 0$$ for all $\ket{\phi^{(AB)}}$ in $\begin{mathcal}H\end{mathcal}_{AB}$.
+\end{itemize}
+
+Under these conditions it can be shown that any quantum map $\LA$ can be expressed as \citep{kraus_states_1983}
+%
+\begin{equation}
+\LA(\rho_A) = \sum\limits_\mu^{N_k} M_\mu \rho_A M_\mu^\dagger
+\end{equation}
+%
+where $N_k \le N_A^2$ and $N_A$ is the dimension of the Hilbert space $\begin{mathcal}H\end{mathcal}_A$.
+
 \section{Superconducting Quantum Circuits}
 
 In this section we discuss several types of superconducting circuit elements that are most relevant to this work. First, we introduce the reader to the Josephson junction, which is the device we use to realize superconducting qubits and amplifiers. Then, we present a general method for the quantization of arbitrary electrical circuits that we use afterwards to perform canonical quantization of our circuits. We use this method to derive the Hamiltonian of the Cooper pair box and treat the Transmon qubit as a special case. Afterwards, we discuss the properties of transmission lines and transmission line resonators that we use extensively for implementing readout and coupling elements in our qubit design. Then we give a short overview of the field of circuit quantum electrodynamics and finally introduce the reader to the Josephson and cavity bifurcation amplifiers that we use for our qubit readout.
@@ -219,7 +267,7 @@ where $\dot{\Phi}_i=d\Phi_i/dt$. Having obtained $\Phi_i$ and $Q_i$, we can calc
 \begin{mathcal}H\end{mathcal}(\Phi_1,\hdots,\Phi_n,Q_1,\hdots,Q_n) = \sum\limits_j \dot{\Phi}_i Q_i - \begin{mathcal}L\end{mathcal}(\Phi_1,\hdots,\Phi_n,\dot{\Phi}_1,\hdots,\dot{\Phi}_n) \label{eq:l_to_h}
 \end{equation}
 %
-This Hamiltonian, written in generalized coordinates, yields the full set of equations of motion of the electrical circuit and depends only on the canonically conjugate variables $\Phi_{1},\hdots,\Phi_n$ and $Q_1,\hdots,Q_n$. First Quantization of the circuit can then be done by simply replacing the classical variables by quantum observables such that $\Phi_i\to\hat{\Phi}_i$ and $Q_i\to\hat{Q}_i$ and imposing commutation relations between them:
+This Hamiltonian, written in generalized coordinates, full set of equations of motion of the electrical circuit and depends only on the canonically conjugate variables $\Phi_{1},\hdots,\Phi_n$ and $Q_1,\hdots,Q_n$. First Quantization of the circuit can then be done by simply replacing the classical variables by quantum observables such that $\Phi_i\to\hat{\Phi}_i$ and $Q_i\to\hat{Q}_i$ and imposing commutation relations between them:
 %
 \begin{eqnarray}
 \left[\hat{Q}_i,\hat{Q}_j\right] & = & 0 \\
@@ -415,20 +463,26 @@ R' = \left(\frac{1}{R}+\frac{C_{in}^2 Z_0 \omega^2}{1+C_{in}^2 Z_0^2 \omega^2}\r
 The quality factor of this {\it loaded resonator} changes according to 
 %
 \begin{equation}
-Q^{-1} = Q^{-1}_{int}+Q^{-1}_{ext}
+Q_r^{-1} = Q^{-1}_{int}+Q^{-1}_{ext}
 \end{equation}
 %
-where $Q_{ext} \approx \omega_r C (1+C_{in}^2Z_0^2\omega_r^2)/C_{in}^2 Z_0\omega_r^2 \approx \omega_r C Z_{in}/(C_{in}Z_0 \omega_r)^2$. As can be seen, the external quality factor increases $\propto 1 / C_{in}^2$. 
+where $Q_{ext} \approx \omega_r C (1+C_{in}^2Z_0^2\omega_r^2)/C_{in}^2 Z_0\omega_r^2 \approx \omega_r C Z_{in}/(C_{in}Z_0 \omega_r)^2$. As can be seen, the external quality factor increases $\propto 1 / C_{in}^2$. We can define a coupling or decay rate $\kappa=\omega_r/Q_r$, which corresponds to the rate at which energy leaks out of the resonator. For frequencies close to the resonance frequency of the resonator, we can write its impedance as
+%
+\begin{equation}
+Z_{LCR}(\Delta) = \frac{\omega_r Z_r}{\kappa+2i\Delta} \label{eq:lcr_lorentzian}
+\end{equation}
+%
+where $\Delta = \omega_r-\omega_{01}$ and $Z_r = \sqrt{L/C}$ is the characteristic impedance of the resonator. This approximation is useful when e.g. experimentally fitting resonance data to obtain the quality factor of the resonator.
 
 \subsubsection{Quantization of the Resonator}
 
 The Hamiltonian of the non-dissipative part of the LCR resonator is
 %
 \begin{equation}
-H = \frac{1}{2C}Q^2+\frac{1}{2L}\Phi^2
+H = \frac{1}{2C}Q^2+\frac{1}{2L}\Phi^2,
 \end{equation}
 %
-This Hamiltonian corresponds to that of a harmonic oscillator and can be quantized as
+where $Q$ is the charge accumulated on the capacitor and $\Phi$ the flux in the inductance of the resonator. This Hamiltonian corresponds to that of a harmonic oscillator and can be quantized as
 %
 \begin{equation}
 \hat{H} = \omega_r\hbar\left(\hat{a}^\dagger\hat{a}+\frac{1}{2}\right). \label{eq:lc_hamiltonian}
@@ -544,12 +598,34 @@ When the coupling between the resonator and the Transmon is weak, such that $g_{
 %
 The term $\ket{i}\bra{i+1}\hat{a}^\dagger$ describes the creation of a photon in the resonator accompanied by the de-excitation of the n-level system by one energy level and the term $\ket{i+1}\bra{i}\hat{a}$ describes the opposite process.
 
+\smallskip
+
+When driving the qubit with a large drive signal we can model the drive as a classical parameter $V_d(t)$. The coupling Hamiltonian in this case is given as
+%
+\begin{equation}
+\hat{H}_d = 2\beta e V_d(t) \hat{n}
+\end{equation}
+%
+In the reduced $\{\ket{0},\ket{1}\}$ basis, this Hamiltonian can be written as
+%
+\begin{equation}
+\hat{H}_d = 2\beta e V_d(t)\left(\begin{array}{cc} 0 & n_{01}^* \\ n_{01} & 0 \end{array}\right) \label{eq:drive_hamiltonian}
+\end{equation}
+%
+where $n_{01} = \bra{0}\hat{n}\ket{1}$. Usually, we apply the drive voltage through the resonator coupled to the qubit. That resonator acts then as a band-pass filter which filters the voltage seen by the qubit. For an input drive signal at a fixed frequency $\omega$, $V_{in}(t)=V_{in}\cdot\cos{\omega t}$, the voltage $V_d(t)=V_{d}\cdot\cos{\omega t}$ seen by the qubit at its gate capacitance is given as
+%
+\begin{equation}
+V_d = V_{in}\cdot\frac{C_{in}L_r \omega^2}{(C_{in}+C_r)L_r\omega^2-1} \label{eq:qubit_drive_voltage}
+\end{equation}
+%
+At resonance where $\omega=\omega_0=1/\sqrt{C_r L_r}$, we have $V_d = V_{in}$.
+
 \subsection{Dispersive Limit \& Qubit Readout}
 
 When the qubit frequency is far detuned from the resonator frequency such that $|\omega_{ij}-\omega_r| \gg g_{ij}$, direct energy exchange between the qubit and the resonator is completely suppressed and only a dispersive shift of the transition frequency of both systems remains as an effect of the coupling between them. This effect has been discussed e.g. in \cite{koch_charge-insensitive_2007} and yields the effective Hamiltonian
 %
 \begin{equation}
-\hat{H}_{eff} = \frac{\hbar\omega_{01}'}{2}\hat{\sigma}_z+(\hbar\omega_r'+\hbar \chi \hat{\sigma}_z)\hat{a}^\dagger \hat{a},
+\hat{H}_{eff} = \frac{\hbar\omega_{01}'}{2}\hat{\sigma}_z+(\hbar\omega_r'+\hbar \chi \hat{\sigma}_z)\hat{a}^\dagger \hat{a}, \label{eq:dispersive_interaction}
 \end{equation}
 %
 where we have used the two-level qubit Hamiltonian as given by eq. (\ref{eq:cpb_qubit_hamiltonian}). Here, the resonance frequencies of the qubit and the resonator are shifted as $\omega_{01}'=\omega_{01}+\chi_{01}$ and $\omega_r' = \omega_{r}-\chi_{12}/2$ and the dispersive shift is given as $\chi=\chi_{01}-\chi_{12}/2$, where $\chi_{ij}=g_{ij}^2/(\omega_{ij}-\omega_r)$. As can be seen, for a state with $n$ photons the qubit transition frequency $\omega_{01}$ is given as
@@ -628,17 +704,6 @@ where $\Omega = 2Q\left(1-\omega_p/\omega_r\right)$. For certain drive parameter
 
 In this section we discuss possible qubit-qubit coupling schemes. We regard a direct coupling scheme involving a capacitive coupling between two qubits and an indirect scheme involving the coupling of multiple qubits to a resonator which acts as a ``quantum bus''.
 
-
-\subsubsection{Coupling Bus}
-
-For this particular coupling scheme, we consider two (or more) Transmon qubits coupled to the same resonator. Blais {\it et. al.} \citep{blais_quantum-information_2007} showed that extending the single-qubit rotating-wave Hamiltonian as given in eq. (\ref{eq:cqed_rotating_wave}) to this case of two qubits coupled to a resonator yields an effective qubit-qubit coupling Hamiltonian of the form
-%
-\begin{eqnarray}
-\hat{H}_{2q} & = & \hbar\frac{g_1 g_2(\Delta_1+\Delta_2)}{2\Delta_1\Delta_2}(\sigma_1^+\sigma_2^-+\sigma_1^-\sigma_2^+) \label{eq:cqed_bus_coupling}
-\end{eqnarray}
-%
-This approximation is valid in the limit of large qubit-resonator detuning where $\Delta_1 \gg g_1,\Delta_2 \gg g_2$ with $\Delta_{1,2} = \omega_{01}^{1,2}-\omega_r$ the detuning of the $\ket{0}\to\ket{1}$ transition frequency of each qubit to the bus resonator. Full energy-exchange between the qubits is achieved when the qubit frequencies are in resonance. By detuning the qubits from the resonator, the effective coupling constant can be varied, which is advantageous in many settings. 
-
 \subsubsection{Direct Capacitive Coupling}
 
 A direct capacitive coupling $C_{qq}$ between two qubits yields a coupling Hamiltonian of the form
@@ -651,10 +716,10 @@ A direct capacitive coupling $C_{qq}$ between two qubits yields a coupling Hamil
 Again, this equation is valid in the limit where $C_{qq} \ll C_{\Sigma 1},C_{\Sigma 2}$. For larger capacitances $C_{qq}$ the coupling gets renormalized by a factor $\alpha = 1/(1-C_{qq}^2/[C_{\Sigma 1}C_{\Sigma 2}])$ \citep{nguyen_cooper_2008}. Rewriting this coupling in the basis of uncoupled qubit states yields the effective Hamiltonian
 %
 \begin{equation}
-\hat{H}_{qq} = \hbar 2 g_{qq}\left(\sigma^+_1\sigma^-_2+\sigma^-_1\sigma^+_2\right), \label{eq:cqed_qubit_interaction_hamiltonian}
+\hat{H}_{qq} = \hbar g_{qq}\left(\sigma^+_1\sigma^-_2+\sigma^-_1\sigma^+_2\right), \label{eq:cqed_qubit_interaction_hamiltonian}
 \end{equation}
 %
-where $\sigma^+=\ket{1}\bra{0}$ and $\sigma^-=\ket{0}\bra{1}$ and $\sigma_1^\pm=\sigma^\pm\otimes \mathrm{I}$, $\sigma_2^\pm = \mathrm{I}\otimes \sigma^\pm$ and where we have defined the effective qubit-qubit coupling as $\hbar g_{qq} = 2e^2 C_{qq}/C_{\Sigma 1}C_{\Sigma 2}$. Full energy exchange between the qubits is achieved when the qubit frequencies are in resonance. For the more general case of two coupled n-level Transmons, the coupling Hamiltonian takes a slightly more complicated form, as discusses in the Appendix of this thesis. The time evolution operator of the Hamiltonian in eq. (\ref{eq:cqed_qubit_interaction_hamiltonian}) yields a swapping interaction of the form
+where $\sigma^+=\ket{1}\bra{0}$ and $\sigma^-=\ket{0}\bra{1}$ and $\sigma_1^\pm=\sigma^\pm\otimes \mathrm{I}$, $\sigma_2^\pm = \mathrm{I}\otimes \sigma^\pm$ and where we have defined the effective qubit-qubit coupling as $\hbar g_{qq} = 4e^2 C_{qq}/C_{\Sigma 1}C_{\Sigma 2}$. Full energy exchange between the qubits is achieved when the qubit frequencies are in resonance. For the more general case of two coupled n-level Transmons, the coupling Hamiltonian takes a slightly more complicated form, as discusses in the Appendix of this thesis. The time evolution operator of the Hamiltonian in eq. (\ref{eq:cqed_qubit_interaction_hamiltonian}) yields a swapping interaction of the form
 %
 \begin{equation}
 i\mathrm{SWAP}(t,\Delta) = \left(
@@ -667,5 +732,14 @@ i\mathrm{SWAP}(t,\Delta) = \left(
 	\right) \label{eq:swap_with_detuning}
 \end{equation}
 %
-where $2\Delta = \omega_{01}^2-\omega_{01}^1$ is the detuning between the qubits and $g_e = \sqrt{g_{qq}^2+\Delta^2}$ is the effective swapping frequency. Using this interaction, it is straightforward to implement e.g. an $\sqrt{i\mathrm{SWAP}}$ or $i\mathrm{SWAP}$ quantum gate by tuning the qubits non-adiabatically from an off-resonant condition $\Delta \gg g_{qq}$ to a resonance-condition $\Delta = 0$ and letting them interact there for a well-defined amount of time before re-establishing the large detuning.
+where $\Delta = \omega_{01}^2-\omega_{01}^1$ is the detuning between the qubits and $g_e = \sqrt{4g_{qq}^2+\Delta^2}$ is the effective swapping frequency. Using this interaction, it is straightforward to implement e.g. an $\sqrt{i\mathrm{SWAP}}$ or $i\mathrm{SWAP}$ quantum gate by tuning the qubits non-adiabatically from an off-resonant condition $\Delta \gg g_{qq}$ to a resonance-condition $\Delta = 0$ and letting them interact there for a well-defined amount of time before re-establishing the large detuning.
 
+\subsubsection{Coupling Bus}
+
+For this particular coupling scheme, we consider two (or more) Transmon qubits coupled to the same resonator. Blais {\it et. al.} \citep{blais_quantum-information_2007} showed that extending the single-qubit rotating-wave Hamiltonian as given in eq. (\ref{eq:cqed_rotating_wave}) to this case of two qubits coupled to a resonator yields an effective qubit-qubit coupling Hamiltonian of the form
+%
+\begin{eqnarray}
+\hat{H}_{2q} & = & \hbar\frac{g_1 g_2(\Delta_1+\Delta_2)}{2\Delta_1\Delta_2}(\sigma_1^+\sigma_2^-+\sigma_1^-\sigma_2^+) \label{eq:cqed_bus_coupling}
+\end{eqnarray}
+%
+This approximation is valid in the limit of large qubit-resonator detuning where $\Delta_1 \gg g_1,\Delta_2 \gg g_2$ with $\Delta_{1,2} = \omega_{01}^{1,2}-\omega_r$ the detuning of the $\ket{0}\to\ket{1}$ transition frequency of each qubit to the bus resonator. Full energy-exchange between the qubits is achieved when the qubit frequencies are in resonance. By detuning the qubits from the resonator, the effective coupling constant can be varied, which is advantageous in many settings. The time evolution operator resulting from eq. (\ref{eq:cqed_bus_coupling}) is identical to eq. (\ref{eq:swap_with_detuning}) when taking into account the modified coupling constanct $g_{qq,r}=g_1 g_2(\Delta_1+\Delta_2)/2\Delta_1\Delta_2$.

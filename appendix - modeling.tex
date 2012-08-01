@@ -12,7 +12,7 @@
 
 %-Show the eigen-energies and eigen-states of the Hamiltonian for interesting cases.
 
-\section{Master Equation Approach}
+\section{Master Equation Approach} \label{section:three_level_simulation}
 
 %-Discuss the master equation approach
 %
@@ -129,3 +129,10 @@ From these matrices, the corresponding two-qubit operator can be obtained as $L^
 \subsection{Speeding Up Simulations}
 
 %-Discuss acceleration of simulation by GPGPU techniques.
+
+\begin{lstlisting}[language=python]
+from helpnet import *
+
+def foo(x,y):
+	print "Hello, world. This is quite a long line which should be wrapped I guess. The sum x + y = %g" % (x,y)
+\end{lstlisting}
