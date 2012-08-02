@@ -65,6 +65,34 @@ To perform arbitrary single-qubit operations -- as needed e.g. for implementing 
 
 \subsection{Single-Qubit Drive Errors}
 
+\section{Simulation of Processor Operation}
+
+In order to obtain estimates of the experimental fidelities of the processor operation we perform numerical simulations of the full two-qubit processor. For this, we use the master equation approach discussed in section \ref{section:master_equation}. In most cases we will use a simplified model that takes into account only the levels $\ket{0}$ and $\ket{1}$ of the qubit. However, in order to quantify the effect of the finite qubit anharmonicty we are forced to take into account the state $\ket{2}$ of the Transmon as well, which leads to a slightly more complicated Hamiltonian, as discussed in section \ref{section:three_level_simulation}. Here, we discuss only the simple two-qubit variant: The Hamiltonian of the two-qubit system can be written as
+%
+\begin{equation}
+\hat{H} = \hat{H}_1^d\otimes\mathrm{I}+\mathrm{I}\otimes\hat{H}_2^d+\hat{H}_{qq} \label{eq:two_qubit_hamiltonian}
+\end{equation}
+%
+where $\hat{H}_1^d$ and $\hat{H}_2^d$ are the drive Hamiltionians of the first and second qubit, respectively, and are given as
+%
+\begin{equation}
+\hat{H}_{1,2}^d = \alpha_{1,2}(t)\hat{\sigma}_x+\beta_{1,2}(t)\hat{\sigma}_y+\gamma_{1,2}(t)\hat{\sigma}_z,
+\end{equation}
+%
+where $\alpha_{1,2}(t)$ and $\beta_{1,2}(t)$ are complex functions and $\gamma_{1,2}(t)$ are real-valued functions. The interaction Hamiltonian in the frame rotating at the average qubit-frequency $(\omega_{01}^1+\omega_{01}^2)/2$ is given as
+%
+\begin{equation}
+\hat{H}_{qq} = \left(\begin{array}{cccc}0 & 0 & 0 & 0 \\ 0 & -\frac{\Delta(t)}{2} & g & 0 \\ 0 & g & +\frac{\Delta(t)}{2} & 0 \\ 0 & 0 & 0 & 0 \end{array}\right),
+\end{equation}
+%
+where $\Delta(t)=\omega_{01}^2(t)-\omega_{01}^1(t)$ is the time-dependent frequency detuning between the two qubits. Inserting the Hamiltonian in eq. (\ref{eq:two_qubit_hamiltonian}) into eq. (\ref{eq:lindblad_equation}) we can simulate the operation of the two qubit Hamiltonian. To model qubit relaxation and decoherence, we use for each qubit two Lindblad operators of the form $L_{01}^{r,i}=\sqrt{\Gamma_{01}^{r,i}}\hat{\sigma}_{01}^-$ and $L_{01}^{\phi,i}=\sqrt{\Gamma_{01}^{\phi,i}/2}\hat{\sigma}_{01}^z$, where $i\in\{1,2\}$ and $\Gamma_{01}^{r,i}$ and $\Gamma_{01}^{\phi,i}$ are the effective relaxation and dephasing rates of each qubit, respectively, and where $\hat{\sigma}_{01}^-$ and $\hat{\sigma}_{01}^z$ are matrices
+%
+\begin{align}
+\hat{\sigma}_{01}^-  =  \left( \begin{array}{cc} 0 & 1 \\ 0 & 0 \end{array} \right) & & \hat{\sigma}_{01}^z  =  \left( \begin{array}{cc} 1 & 0 \\ 0 & -1 \end{array}\right)
+\end{align}
+%
+that describe a relaxation or dephasing process, respectively. The relaxation and dephasing rates depend on the qubit frequency and can be adapted in the simulation according to the chosen qubit frequency working point. Single-qubit gate sequences are fully described by the three functions $\alpha_{1,2}(t)$, $\beta_{1,2}(t)$ and $\gamma_{1,2}(t)$, a two-qubit swap gate can be modeled by changing the parameter $\Delta(t)$.
+
 \section{Two Qubit Operations}
 
 \begin{figure}[ht!]
