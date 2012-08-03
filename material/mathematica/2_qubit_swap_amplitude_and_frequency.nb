@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     61939,       1495]
-NotebookOptionsPosition[     59686,       1411]
-NotebookOutlinePosition[     60032,       1426]
-CellTagsIndexPosition[     59989,       1423]
+NotebookDataLength[     62615,       1510]
+NotebookOptionsPosition[     60319,       1425]
+NotebookOutlinePosition[     60665,       1440]
+CellTagsIndexPosition[     60622,       1437]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1387,12 +1387,25 @@ Cell[BoxData[
  RowBox[{"Solve", " ", "[", 
   RowBox[{
    RowBox[{
-    RowBox[{
-     RowBox[{"(", "amplitude", ")"}], "^", "2"}], " ", "\[Equal]", " ", 
-    "0.01"}], ",", 
+    RowBox[{"Abs", "[", "amplitude", "]"}], " ", "\[Equal]", " ", "0.05"}], 
+   ",", 
    RowBox[{"{", "\[CapitalDelta]", "}"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.548143478527989*^9, 3.548143503264404*^9}, {
-  3.552125712181859*^9, 3.5521257154230447`*^9}}],
+  3.552125712181859*^9, 3.5521257154230447`*^9}, {3.5529143647160416`*^9, 
+  3.552914393741702*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Solve", "::", "ifun"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Inverse functions are being used by \
+\[NoBreak]\\!\\(Solve\\)\[NoBreak], so some solutions may not be found; use \
+Reduce for complete solution information. \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/Solve\\\", ButtonNote -> \\\"Solve::ifun\\\"]\\)\"\
+\>"}]], "Message", "MSG",
+ CellChangeTimes->{{3.5529143650880632`*^9, 3.5529143941027226`*^9}}],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1400,17 +1413,18 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{"\[CapitalDelta]", "\[Rule]", 
      RowBox[{
-      RowBox[{"-", "19.8997487421324`"}], " ", "g"}]}], "}"}], ",", 
+      RowBox[{"-", "39.949968710876355`"}], " ", "g"}]}], "}"}], ",", 
    RowBox[{"{", 
     RowBox[{"\[CapitalDelta]", "\[Rule]", 
-     RowBox[{"19.8997487421324`", " ", "g"}]}], "}"}]}], "}"}]], "Output",
+     RowBox[{"39.949968710876355`", " ", "g"}]}], "}"}]}], "}"}]], "Output",
  CellChangeTimes->{
   3.5481435038084345`*^9, {3.5496292160175867`*^9, 3.549629219737799*^9}, {
-   3.552125715902072*^9, 3.5521257191732593`*^9}, 3.552913819967884*^9}]
+   3.552125715902072*^9, 3.5521257191732593`*^9}, 3.552913819967884*^9, {
+   3.55291436188488*^9, 3.552914394105723*^9}}]
 }, Open  ]]
 },
 WindowSize->{707, 787},
-WindowMargins->{{330, Automatic}, {Automatic, 42}},
+WindowMargins->{{302, Automatic}, {18, Automatic}},
 FrontEndVersion->"8.0 for Microsoft Windows (64-bit) (February 23, 2011)",
 StyleDefinitions->"Default.nb"
 ]
@@ -1494,8 +1508,9 @@ Cell[57651, 1350, 846, 24, 52, "Input"],
 Cell[58500, 1376, 295, 4, 30, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[58832, 1385, 349, 9, 31, "Input"],
-Cell[59184, 1396, 486, 12, 30, "Output"]
+Cell[58832, 1385, 380, 9, 31, "Input"],
+Cell[59215, 1396, 546, 11, 39, "Message"],
+Cell[59764, 1409, 539, 13, 30, "Output"]
 }, Open  ]]
 }
 ]

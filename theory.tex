@@ -337,7 +337,7 @@ where
 %
 \begin{eqnarray}
 E_J'(d,\phi_{ext}) & = & E_J\sqrt{\frac{1+d^2+(1-d^2)\cos{\phi_{ext}}}{2}} \\
-\tan{\gamma(\phi_{ext})} & = & -d\tan{\frac{\phi_{ext}}{2}}
+\tan{\gamma(\phi_{ext})} & = & -d\tan{\frac{\phi_{ext}}{2}} \label{eq:josephson_energy_modulation}
 \end{eqnarray}
 %
 It is therefore possible to map the Hamiltonian of the split CPB to that of the single-junction one by defining $\hat{\theta}\to\hat{\phi}_1+\gamma(\phi_{ext})$ and $E_J\to E_J'(d,\phi_{ext})$. 
@@ -699,6 +699,21 @@ where $\Omega = 2Q\left(1-\omega_p/\omega_r\right)$. For certain drive parameter
 	\label{fig:jba_curves}
 \end{SCfigure}
 
+\subsubsection{Operation Principle}
+
+\begin{SCfigure}[1.0][ht!]
+	\includegraphics[width=0.7\textwidth]{./material/figures/2-qubit-processor/readout_principle}
+	\caption[]{a) The switching probability of the CJBA as a function of the input drive power, shown for the qubit in the states $\ket{0}$ and $\ket{1}$. b) The bifurcation diagram of the CJBA, shown for the qubit in the states $\ket{0}$ and $\ket{1}$. L and H indicate solutions with lows and high amplitude, respectively.}
+	\label{fig:readout_process_illustration}
+\end{SCfigure}
+
+The readout of the qubit state is done using a cavity Josephson bifurcation amplifier (CJBA). Through the dispersive interaction between the qubit and the resonator as given by eq. (\ref{eq:dispersive_interaction}), the frequency of the latter gets shifted by $\chi\propto g_{rq}^2/\Delta$, where $\Delta=\omega_r-\omega_{01}$ is the frequency difference between qubit and resonator. Fig. \ref{fig:readout_process_illustration}b shows the phase diagram of the nonlinear resonator, indicating the stability regions of the different solutions $L$ (low-amplitude) and $H$ (high-amplitude) of the driven system. Due to the frequency displacement of the resonator induced by the qubit, the location of these regions in the phase shift depending on the state of the qubit. Now, if we drive the resonator at a frequency $\omega_m$ and ramp the drive power up to point $A$ indicated in the diagram, the resonator will remain in the low-amplitude state $L$ if the qubit is in state $\ket{0}$, whereas it will switch to the high-amplitude state $H$ if it is in $\ket{1}$. We can thus map the state of the qubit to one of the two states of the resonator, and since these two states can be easily distinguished by measuring the phase of the reflected resonator drive signal, we can obtain a single-shot readout of the qubit state. The measurement of the phase of the reflected drive signal has to be carried out during a long time interval (typically several $\mu$s) to distinguish between the two oscillator states with full certainty. Unfortunately, since the qubit has a finite relaxation time (typically $\le 1\;\mathrm{\mu s}$), it will relax to the state $\ket{0}$ after a random time if it is in state $\ket{1}$, thereby causing the resonator to also fall back from the high-amplitude to the low-amplitude state. To avoid this during the measurement of the reflected phase, we reduce the drive power of the resonator down to point $B$ in fig. \ref{fig:readout_process_illustration}b. There, the resonator is in the bistable region regardless of the state of the qubit, hence the resonator state will not change regardless of state changes of the qubit. At this point, we can therefore measure the reflected phase of the drive signal for an aribitrarily long time without being limited by the relaxation time of the qubit (this phase of the readout is usually referred to as {\it latching}). In theory, this readout method is able to achieve perfect readout fidelity. However, in reality several factors can degrade the performance of the readout:
+
+\begin{itemize}
+\item Since the switching of the resonator is a stochastic process, the associated switching probability will exhibit an S-like depedence on the drive power, as shown in fig. \ref{fig:readout_process_illustration}. Now, if the shift of this distribution along the power axis which is induced by the shift of the resonator frequency that depends itself on the state of the qubit is less than the width of the distribution, erronous switching will occur and reduce the fidelity of the readout.
+\item If the qubit states changes during the measurement phase, e.g. due to qubit relaxation or excitation, the resonator state will, with high probability, also fall to the state corresponding to the new qubit state, thereby producing a wrong readout signal.
+\item If the resonator state changes during the latching phase of the readout, a wrong readout value will occur. This so-called {\it retrapping} can therefore reduce the fidelity of the readout.
+\end{itemize}
 
 \subsection{Qubit-Qubit Interaction}
 
