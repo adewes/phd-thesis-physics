@@ -275,7 +275,117 @@ This Hamiltonian, written in generalized coordinates, full set of equations of m
 \left[\hat{\Phi}_i,\hat{Q}_i\right] & = & i\hbar\delta_{ij} \label{eq:quantization_commutation_relations}
 \end{eqnarray}
 %
-As an example, in the next section we apply this quantization method to to so-called {\it Cooper pair box} circuit, which is highly relevant to this work.
+As an example, in the next section we apply this quantization method to the simple LCR resonator circuit, which is relevant to this work since we use as a qubit readout and coupling bus.
+
+\subsection{The LCR Resonator}
+
+\begin{SCfigure}[1][ht!]
+	\centering
+	\includegraphics[width=0.4\textwidth]{"./material/figures/introduction/lcr_resonator"}
+	\caption[]{An $LCR$ resonator coupled to a voltage source through an input capacitance $C_{in}$.}
+	\label{fig:lcr_resonator}
+\end{SCfigure}
+
+The $LCR$ resonator is the circuit element that forms the basis of our qubit readout. The schematic of a $LCR$ resonator coupled to a voltage source through an input capacitance $C_{in}$ is  shown in fig. \ref{fig:lcr_resonator}. The impedance of the resonator alone is
+%
+\begin{equation}
+Z_{LCR} = \frac{1}{\frac{1}{R}+i\omega C - \frac{i}{\omega L}},
+\end{equation}
+%
+yielding a resonance frequency $\omega_r = 1/\sqrt{LC}$ and an {\it internal quality factor} $Q_{int} = \omega_r R C$. To probe the resonator we couple it through a gate capacitance $C_{in}$ to an input transmission line with characteristic impedance $Z_0$. We can model the resulting circuit as a LCR resonator with a frequency-dependent, effective resistance
+%
+\begin{equation}
+R' = \left(\frac{1}{R}+\frac{C_{in}^2 Z_0 \omega^2}{1+C_{in}^2 Z_0^2 \omega^2}\right)^{-1}
+\end{equation}
+%
+The quality factor of this {\it loaded resonator} changes according to 
+%
+\begin{equation}
+Q_r^{-1} = Q^{-1}_{int}+Q^{-1}_{ext}
+\end{equation}
+%
+where $Q_{ext} \approx \omega_r C (1+C_{in}^2Z_0^2\omega_r^2)/C_{in}^2 Z_0\omega_r^2 \approx \omega_r C Z_{in}/(C_{in}Z_0 \omega_r)^2$. As can be seen, the external quality factor increases $\propto 1 / C_{in}^2$. We can define a coupling or decay rate $\kappa=\omega_r/Q_r$, which corresponds to the rate at which energy leaks out of the resonator. For frequencies close to the resonance frequency of the resonator, we can write its impedance as
+%
+\begin{equation}
+Z_{LCR}(\Delta) = \frac{\omega_r Z_r}{\kappa+2i\Delta} \label{eq:lcr_lorentzian}
+\end{equation}
+%
+where $\Delta = \omega_r-\omega_{01}$ and $Z_r = \sqrt{L/C}$ is the characteristic impedance of the resonator. This approximation is useful when e.g. experimentally fitting resonance data to obtain the quality factor of the resonator.
+
+\subsubsection{Coplanar Waveguide Resonators}
+
+\begin{SCfigure}[1][ht!]
+	\includegraphics[width=10cm]{"./material/mathematica/cpw_lambda_over_4_phase_and_z_with_schematic"}
+	\caption{a) The electric field $E$ and current $I$ inside a $\lambda/2$ resonator. b) The circuit model of an open $\lambda/2$ resonator capacitively coupled to a drive circuit. The resonator can be modeled as a series of infinetesimal sections of $LC$ elements, as shown in the inset. c) The schematic of a coplanar waveguide (CPW) resonator, showing the electric field $E$, magnetic field $B$ and the current $I$ in the resonator. d) The reflected phase and absolute value of the input impedance of a $\lambda/2$ resonator with $Z_r=Z_0=50\;\mathrm{\Omega}$, $\alpha=0$ and $C_{in}=10^{-3}/\omega_r\;[\mathrm{Hz}\cdot\mathrm{F}]$, plotted as a function of the reduced frequency.}
+	\label{fig:lambda_over_2_response}
+\end{SCfigure}
+
+Due to pratical reasons we use so-called {\it coplanar waveguide resonators} instead of simple LCR resonators in our experiments. We will therefore briefly discuss them and show how we can map them to the simple LCR resonator model. A coplanar waveguide is a flat structure with a central conductor that is separated by a gap from a ground plane on either side, as shown in fig. \ref{fig:lambda_over_2_response}c. In general, it can be treated as a so-called {\it transmission line}. A detailed treatment of the physics of transmission lines can be found e.g. in \cite{pozar_microwave_2011}.  If we regard a transmission line of finite length $l$, we can model the voltages and currents at both ends as \citep{pozar_microwave_2011}
+%
+\begin{equation}
+\left( \begin{array}{c} V_1 \\ I_1 \end{array}\right) = \left( 
+		\begin{array}{cc}
+			\cos{\gamma l} & iZ_r \cos{\gamma l} \\
+			i Y_r \sin{\gamma l} & \cos{\gamma l}
+		\end{array}
+		\right) \cdot \left(
+		\begin{array}{c}
+			V_2 \\ I_2
+		\end{array}
+		\right), \label{eq:cpw_abcd_matrix}
+\end{equation}
+%
+where $\gamma = \alpha+i\beta = \sqrt{(R+i\omega L)(G+i\omega C)}$ is the so-called {\it propagation constant} which describes the dispersion and damping of electromagnetic waves along the waveguide, $\omega$ is the angular frequency of the electromagnetic wave, $L$, $C$, $R$ and $G$ are the characteristic inductance, capacitance, resistance and conductance of the transmission line per unit of length (For a lossless line $G=R=0$), $Z_r=\sqrt{L/C}$ is the characteristic impedance of the waveguide and $Y_r=1/Z_r$ the corresponding admittance. 
+
+\smallskip
+
+Let us now consider the open-ended $\lambda / 2$ CPW resonator that we use in our experiments to realize the qubit readout resonator, as shown in fig. \ref{fig:lambda_over_2_response}b-c. To realize the resonator, we terminate the transmission line at one end by an open gap and connect the other end to a drive line through an input capacitance $C_{in}$. We can then make use of eq. (\ref{eq:cpw_abcd_matrix}) to calculate the end voltages and currents of the resonator,demanding that $I_2=0$ (since the resonator is open-ended). We obtain for the voltage $V_1$ and current $I_2$ the relation
+%
+\begin{eqnarray}
+V_1 & = & \cos{\gamma l} V_2 \\
+I_1 & = & i Y_r \sin{\gamma l} V_2
+\end{eqnarray}
+%
+The impedance of the resonator is thus given as $V_1/I_1 = -i Z_r \cot{\gamma l}$. We can approximately model the distributed CPW resonator as a lumped element parallel $LCR$ resonator by identifying the impedances of them close to their resonance frequency $\omega_r$. This yields an effective inductance, capacitance and resistance for the CPW resonator of
+%
+\begin{eqnarray}
+L_{r} & = & \frac{2 Z_r}{\omega_r \pi} \\
+C_{r} & = & \frac{\pi}{2\omega_r Z_r} \\
+R_{r} & = & \frac{2 Z_r Q}{\pi}
+\end{eqnarray}
+%
+Using this mapping, we can calculate all relevant resonator properties using the more simple theory of the lumped element LCR resonator, disregarding however the internal multi-mode structure of the resonator.
+
+\subsubsection{Quantization of the Resonator}
+
+We can quantize the LCR resonator by following the procedure outlined in the last section. The circuit in fig. \ref{fig:lcr_resonator} contains two active nodes. If we disregard for now the input voltage source $V$, the input capacitance $C_{in}$ and the resistance $R$, we can directly obtain the Hamiltonian of the non-dissipative part of the LCR resonator as
+%
+\begin{equation}
+H = \frac{1}{2C}Q^2+\frac{1}{2L}\Phi^2,
+\end{equation}
+%
+where $Q$ is the charge accumulated on the capacitor and $\Phi$ the flux in the inductance of the resonator. This Hamiltonian corresponds to that of a harmonic oscillator and can be quantized as
+%
+\begin{equation}
+\hat{H} = \omega_r\hbar\left(\hat{a}^\dagger\hat{a}+\frac{1}{2}\right). \label{eq:lc_hamiltonian}
+\end{equation}
+%
+Here, $\hat{a}^\dagger$ and $\hat{a}$ are so-called {\it creation and annihilation operators} that can be written in function of the flux $\hat{\Phi}$ and charge $\hat{Q}$ operators as
+%
+\begin{eqnarray}
+\hat{a}^\dagger & = & \sqrt{\frac{1}{2\hbar L \omega_r}}\left(\hat{\Phi}+iL\omega_r \hat{Q}\right)\\
+\hat{a} & = & \sqrt{\frac{1}{2\hbar L\omega_r}}\left( \hat{\Phi}-iL\omega_r \hat{Q}\right)
+\end{eqnarray}
+%
+By inverting these relations we obtain the flux and charge operators $\hat{\Phi}$ and $\hat{Q}$. Taking their time derivative gives us the voltage and current operators $\hat{V}$ and $\hat{I}$. These four operators are
+%
+\begin{eqnarray}
+\hat{\Phi} & = & \sqrt{\frac{\hbar}{2C\omega_r}}\left(\hat{a}^\dagger+\hat{a}\right) \\
+\hat{Q} & = & i\sqrt{\frac{C\omega_r\hbar}{2}}\left(\hat{a}^\dagger-\hat{a}\right) \\
+\hat{V} & = & \sqrt{\frac{\hbar\omega_r}{2C}}\left(\hat{a}^\dagger+\hat{a}\right) \\
+\hat{I} & = & i\omega\sqrt{\frac{C\omega_r\hbar}{2}}\left(\hat{a}^\dagger-\hat{a}\right)
+\end{eqnarray}
+%
 
 \subsection{The Cooper Pair Box}
 
@@ -286,7 +396,7 @@ As an example, in the next section we apply this quantization method to to so-ca
 	\label{fig:cpb_circuit}
 \end{figure}
 
-The {\it Cooper pair box (CPB)} is a device containing a Josephson junction coupled to an input voltage source through a gate capacitance $C_g$, as shown in fig. \ref{fig:cpb_circuit}a. Often one also uses two junction in a loop instead of a single one, as shown in fig. \ref{fig:cpb_circuit}b, which allows one to tune the effective Josephson energy of the system by changing the flux inside the junction loop, as will be explained in more detail later. Finally, in our experimental setup one separates the ground electrode of the CPB capacitively from the ground, as shown in fig. \ref{fig:cpb_circuit}c. In this section we discuss only case (a), since as we will show, (b) can be mapped to the simpler circuit (a) and the topology of (c) is mathematically equivalent to that of (b). The simple CPB circuit \ref{fig:cpb_circuit}a consists of  three nodes (including ground) and two branches. The flux $\Phi_2$ is not independent since it is set by the voltage source $V_g$, so we can directly eliminate it from the equations. This leaves us with only one remaining active node $\Phi_1$. Using these definitions, the Lagrangian of the circuit is given as
+The LC resonator discussed in the last section is one of the key elements for building quantum circuits. However, it is not possible to implement a superconducting qubit using such a linear resonator since the transition frequencies between all adjacent energy levels are equal, which makes it impossible to drive e.g. the $\ket{0}\to\ket{1}$ transition of the system without also exciting it to higher energy states. Therefore, to realize a qubit we need to introduce a non-linear element in the circuit. One way of doing this is to replace the linear inductance of the LC resonator by a non-linear one. A Josephson junction conviently provides such a non-linear inductance. The resulting circuit, called a {\it Cooper pair box (CPB)} contains thus a Josephson junction in parallel with a capacitance and is coupled to an input voltage source through a gate capacitance $C_g$, as shown in fig. \ref{fig:cpb_circuit}a. Often one also uses two junctions in a loop instead of a single one, as shown in fig. \ref{fig:cpb_circuit}b, which allows one to tune the effective Josephson energy of the system by changing the flux inside the junction loop, as will be explained in more detail later. Finally, in our experimental setup, we separate the ground electrode of the CPB capacitively from the ground, as shown in fig. \ref{fig:cpb_circuit}c. In this section we discuss only the circuit (a), since as we will show, (b) can be mapped to the simpler version (a) and the topology of (c) is mathematically equivalent to that of (b). The simple CPB circuit \ref{fig:cpb_circuit}a consists of  three nodes (including ground) and two branches. The flux $\Phi_2$ is not independent since it is set by the voltage source $V_g$, so we can directly eliminate it from the equations. This leaves us with only one remaining active node $\Phi_1$. Using these specifications, the Lagrangian of the circuit is given as
 %
 \begin{equation}
 \begin{mathcal}L\end{mathcal}=\frac{1}{2}C_\Sigma\dot{\Phi}_1^2+\frac{1}{2}C_g\left(\dot{\Phi}_1+V_g\right)^2-E_J\left(1-\cos{\phi_1}\right)
@@ -439,117 +549,6 @@ D_{\theta/2\pi,\perp} & = & \frac{4\pi\Phi_0}{\hbar}\left|\bra{0}\hat{I}\ket{1}\
 %
 In chapter \ref{chapter:design} we will calculate the resulting relaxation and dephasing rate for a real-world Transmon qubit coupled to various external control parameters through the charge and flux channels.
 
-\subsection{The LCR Resonator}
-
-\begin{SCfigure}[1][ht!]
-	\centering
-	\includegraphics[width=0.4\textwidth]{"./material/figures/introduction/lcr_resonator"}
-	\caption[]{An $LCR$ resonator coupled to a voltage source through an input capacitance $C_{in}$.}
-	\label{fig:lcr_resonator}
-\end{SCfigure}
-
-The $LCR$ resonator is the circuit element that forms the basis of our qubit readout. The schematic of a $LCR$ resonator coupled to a voltage source through an input capacitance $C_{in}$ is  shown in fig. \ref{fig:lcr_resonator}. The impedance of the resonator alone is
-%
-\begin{equation}
-Z_{LCR} = \frac{1}{\frac{1}{R}+i\omega C - \frac{i}{\omega L}},
-\end{equation}
-%
-yielding a resonance frequency $\omega_r = 1/\sqrt{LC}$ and an {\it internal quality factor} $Q_{int} = \omega_r R C$. To probe the resonator we couple it through a gate capacitance $C_{in}$ to an input transmission line with characteristic impedance $Z_0$. We can model the resulting circuit as a LCR resonator with a frequency-dependent, effective resistance
-%
-\begin{equation}
-R' = \left(\frac{1}{R}+\frac{C_{in}^2 Z_0 \omega^2}{1+C_{in}^2 Z_0^2 \omega^2}\right)^{-1}
-\end{equation}
-%
-The quality factor of this {\it loaded resonator} changes according to 
-%
-\begin{equation}
-Q_r^{-1} = Q^{-1}_{int}+Q^{-1}_{ext}
-\end{equation}
-%
-where $Q_{ext} \approx \omega_r C (1+C_{in}^2Z_0^2\omega_r^2)/C_{in}^2 Z_0\omega_r^2 \approx \omega_r C Z_{in}/(C_{in}Z_0 \omega_r)^2$. As can be seen, the external quality factor increases $\propto 1 / C_{in}^2$. We can define a coupling or decay rate $\kappa=\omega_r/Q_r$, which corresponds to the rate at which energy leaks out of the resonator. For frequencies close to the resonance frequency of the resonator, we can write its impedance as
-%
-\begin{equation}
-Z_{LCR}(\Delta) = \frac{\omega_r Z_r}{\kappa+2i\Delta} \label{eq:lcr_lorentzian}
-\end{equation}
-%
-where $\Delta = \omega_r-\omega_{01}$ and $Z_r = \sqrt{L/C}$ is the characteristic impedance of the resonator. This approximation is useful when e.g. experimentally fitting resonance data to obtain the quality factor of the resonator.
-
-\subsubsection{Quantization of the Resonator}
-
-The Hamiltonian of the non-dissipative part of the LCR resonator is
-%
-\begin{equation}
-H = \frac{1}{2C}Q^2+\frac{1}{2L}\Phi^2,
-\end{equation}
-%
-where $Q$ is the charge accumulated on the capacitor and $\Phi$ the flux in the inductance of the resonator. This Hamiltonian corresponds to that of a harmonic oscillator and can be quantized as
-%
-\begin{equation}
-\hat{H} = \omega_r\hbar\left(\hat{a}^\dagger\hat{a}+\frac{1}{2}\right). \label{eq:lc_hamiltonian}
-\end{equation}
-%
-Here, $\hat{a}^\dagger$ and $\hat{a}$ are so-called {\it creation and annihilation operators} that can be written in function of the flux $\hat{\Phi}$ and charge $\hat{Q}$ operators as
-%
-\begin{eqnarray}
-\hat{a}^\dagger & = & \sqrt{\frac{1}{2\hbar L \omega_r}}\left(\hat{\Phi}+iL\omega_r \hat{Q}\right)\\
-\hat{a} & = & \sqrt{\frac{1}{2\hbar L\omega_r}}\left( \hat{\Phi}-iL\omega_r \hat{Q}\right)
-\end{eqnarray}
-%
-By inverting these relations we obtain the flux and charge operators $\hat{\Phi}$ and $\hat{Q}$. Taking their time derivative gives us the voltage and current operators $\hat{V}$ and $\hat{I}$. These four operators are
-%
-\begin{eqnarray}
-\hat{\Phi} & = & \sqrt{\frac{\hbar}{2C\omega_r}}\left(\hat{a}^\dagger+\hat{a}\right) \\
-\hat{Q} & = & i\sqrt{\frac{C\omega_r\hbar}{2}}\left(\hat{a}^\dagger-\hat{a}\right) \\
-\hat{V} & = & \sqrt{\frac{\hbar\omega_r}{2C}}\left(\hat{a}^\dagger+\hat{a}\right) \\
-\hat{I} & = & i\omega\sqrt{\frac{C\omega_r\hbar}{2}}\left(\hat{a}^\dagger-\hat{a}\right)
-\end{eqnarray}
-%
-
-\subsubsection{Coplanar Waveguide Resonators}
-
-\begin{SCfigure}[1][ht!]
-	\includegraphics[width=10cm]{"./material/mathematica/cpw_lambda_over_4_phase_and_z_with_schematic"}
-	\caption{a) The electric field $E$ and current $I$ inside a $\lambda/2$ resonator. b) The circuit model of an open $\lambda/2$ resonator capacitively coupled to a drive circuit. The resonator can be modeled as a series of infinetesimal sections of $LC$ elements, as shown in the inset. c) The schematic of a coplanar waveguide (CPW) resonator, showing the electric field $E$, magnetic field $B$ and the current $I$ in the resonator. d) The reflected phase and absolute value of the input impedance of a $\lambda/2$ resonator with $Z_r=Z_0=50\;\mathrm{\Omega}$, $\alpha=0$ and $C_{in}=10^{-3}/\omega_r\;[\mathrm{Hz}\cdot\mathrm{F}]$, plotted as a function of the reduced frequency.}
-	\label{fig:lambda_over_2_response}
-\end{SCfigure}
-
-Due to pratical reasons we use so-called {\it coplanar waveguide resonators} instead of simple LCR resonators in our experiments. We will therefore briefly discuss them and show how we can map them to the simple LCR resonator model. A coplanar waveguide is a flat structure with a central conductor that is separated by a gap from a ground plane on either side, as shown in fig. \ref{fig:lambda_over_2_response}c. In general, it can be treated as a so-called {\it transmission line}. A detailed treatment of the physics of transmission lines can be found e.g. in \cite{pozar_microwave_2011}.  If we regard a transmission line of finite length $l$, we can model the voltages and currents at both ends as \citep{pozar_microwave_2011}
-%
-\begin{equation}
-\left( \begin{array}{c} V_1 \\ I_1 \end{array}\right) = \left( 
-		\begin{array}{cc}
-			\cos{\gamma l} & iZ_r \cos{\gamma l} \\
-			i Y_r \sin{\gamma l} & \cos{\gamma l}
-		\end{array}
-		\right) \cdot \left(
-		\begin{array}{c}
-			V_2 \\ I_2
-		\end{array}
-		\right), \label{eq:cpw_abcd_matrix}
-\end{equation}
-%
-where $\gamma = \alpha+i\beta = \sqrt{(R+i\omega L)(G+i\omega C)}$ is the so-called {\it propagation constant} which describes the dispersion and damping of electromagnetic waves along the waveguide, $\omega$ is the angular frequency of the electromagnetic wave, $L$, $C$, $R$ and $G$ are the characteristic inductance, capacitance, resistance and conductance of the transmission line per unit of length (For a lossless line $G=R=0$), $Z_r=\sqrt{L/C}$ is the characteristic impedance of the waveguide and $Y_r=1/Z_r$ the corresponding admittance. 
-
-\smallskip
-
-Let us now consider the open-ended $\lambda / 2$ CPW resonator that we use in our experiments to realize the qubit readout resonator, as shown in fig. \ref{fig:lambda_over_2_response}b-c. To realize the resonator, we terminate the transmission line at one end by an open gap and connect the other end to a drive line through an input capacitance $C_{in}$. We can then make use of eq. (\ref{eq:cpw_abcd_matrix}) to calculate the end voltages and currents of the resonator,demanding that $I_2=0$ (since the resonator is open-ended). We obtain for the voltage $V_1$ and current $I_2$ the relation
-%
-\begin{eqnarray}
-V_1 & = & \cos{\gamma l} V_2 \\
-I_1 & = & i Y_r \sin{\gamma l} V_2
-\end{eqnarray}
-%
-The impedance of the resonator is thus given as $V_1/I_1 = -i Z_r \cot{\gamma l}$. We can approximately model the distributed CPW resonator as a lumped element parallel $LCR$ resonator by identifying the impedances of them close to their resonance frequency $\omega_r$. This yields an effective inductance, capacitance and resistance for the CPW resonator of
-%
-\begin{eqnarray}
-L_{r} & = & \frac{2 Z_r}{\omega_r \pi} \\
-C_{r} & = & \frac{\pi}{2\omega_r Z_r} \\
-R_{r} & = & \frac{2 Z_r Q}{\pi}
-\end{eqnarray}
-%
-Using this mapping, we can calculate all relevant resonator properties using the more simple theory of the lumped element LCR resonator, disregarding however the internal multi-mode structure of the resonator.
-
-
 \section{Circuit Quantum Electrodynamics}
 
 \begin{SCfigure}
@@ -558,7 +557,7 @@ Using this mapping, we can calculate all relevant resonator properties using the
 	\label{fig:CQED}
 \end{SCfigure}
 
-In this section, we discuss the physics of a Transmon qubit that is coupled to a harmonic oscillator. The corresponding research field is today referred to as {\it circuit quantum electrodynamics}, in analogy to {\it cavity quantum electrodynamics} which investigates the physics of Rydberg atoms interacting with a microwave cavity. The qubit-resonator system can be represented as in fig. \ref{fig:CQED}. There, a Transmon qubit is capacitively coupled to a $\lambda/2$ resonator which itself is capacitively coupled to an input transmission line. The Hamiltonian of the resonator and the qubit are given by eqs. (\ref{eq:lc_hamiltonian}) and (\ref{eq:cpb_qubit_hamiltonian}). Due to the capacitance between the qubit and the resonator, a coupling energy between the two arises. The full Hamiltonian of the qubit-resonator system can therefore be written as
+(...) The qubit-resonator system can be represented as in fig. \ref{fig:CQED}. There, a Transmon qubit is capacitively coupled to a $\lambda/2$ resonator which itself is capacitively coupled to an input transmission line. The Hamiltonian of the resonator and the qubit are given by eqs. (\ref{eq:lc_hamiltonian}) and (\ref{eq:cpb_qubit_hamiltonian}). Due to the capacitance between the qubit and the resonator, a coupling energy between the two arises. The full Hamiltonian of the qubit-resonator system can therefore be written as
 %
 \begin{equation}
 \hat{H}_{cqed} = \hat{H}_r+\hat{H}_q+\hat{H}_{rq},
