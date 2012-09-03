@@ -4,6 +4,8 @@
 
 \usepackage[utf8]{inputenc}
 
+\usepackage{fancyhdr}
+\usepackage{flipbook}
 \usepackage{wrapfig}
 \usepackage{pdflscape}
 \usepackage{natbib}
@@ -21,6 +23,10 @@
 \usepackage{multirow}
 \usepackage{bbold}
 \usepackage{subfigure}
+\usepackage{pdfpages}
+
+
+\setlength{\headheight}{15pt}
 
 \lstset{
   language=Python,
@@ -96,7 +102,7 @@
 	\textcolor{orange}{Figure Comment \arabic{figcomments}: #1}
 }
 
-\newcommand{\comment}[1]{
+\renewcommand{\comment}[1]{
   \addtocounter{comments}{1}
 	\textcolor{orange}{!\arabic{comments}!}
 	\marginpar{
@@ -135,6 +141,18 @@
 	}
 }
 
+\cfoot{}
+\rfoot[\thepage]{\thepage}
+\rhead[]{
+\setlength\unitlength{1cm}
+\begin{picture}(0,0)
+\put(-0.2,-0.36){
+%\includegraphics[width=0.1\textwidth]{"./data/ct5/film of swap/matrices/matrix_1"}
+\fbImageF{"./data/ct5/film of swap/matrices/matrix_"}{pdf}{scale=0.18}
+}
+\end{picture}
+}
+
 \begin{document}
 
 \maketitle
@@ -157,7 +175,7 @@
 
 \input{grover}
 
-\input{"scalable architecture"}
+%\input{"scalable architecture"}
 
 \input{conclusions}
 
@@ -176,5 +194,14 @@
 \addcontentsline{toc}{chapter}{\numberline {\thechapter} Bibliography}
 
 \bibliography{thesis}
+
+\stepcounter{chapter}
+
+\addcontentsline{toc}{chapter}{\numberline {\thechapter} Publications}
+
+\includepdf[pages={-}]{material/papers/iswap_prl.pdf}
+\includepdf[pages={-}]{material/papers/iswap_prl_sm.pdf}
+\includepdf[pages={-}]{material/papers/grover_prb.pdf}
+\includepdf[pages={-}]{material/papers/grover_prb_sm.pdf}
 
 \end{document}

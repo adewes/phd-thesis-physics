@@ -255,7 +255,7 @@ Here we discuss the results obtained when running the Grover search algorithm wi
 
 \begin{figure}[ht!]
 	\centering
-		\includegraphics[width=1.\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/grover algorithm - single run results - density matrices only"}
+		\includegraphics[width=1.\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/grover algorithm - summary"}
 	\caption[Quantum state tomographies at different steps during the Grover search algorithm and single-run outcome probabilities]{Quantum state tomographies at steps 1-4 of the Grover search algorithm, as indicated in fig. \ref{fig:GroverPulseSequence}. The density matrices show the experimentally measured states in color and the theoretical states in black. For each state, the trace fidelity $F_{tr}(\rho_A,\rho_B) = \mathrm{Tr}\{\rho_A\cdot\rho_B\}$ is shown above the density matrix.}
 	\label{fig:GroverAlgorithmExperimentalResults}
 \end{figure}
@@ -400,12 +400,6 @@ i\mathrm{SWAP}(t,\Delta) = \left(
 \end{equation}
 %
 
-\begin{figure}
-	\centering
-		\rotatebox{90}{\includegraphics[width=1.2\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/grover - simulated density matrices with errors"}}
-	\caption[Comparision of the general error model to our experimental data]{Comparision of the fitted error model as given by eq. (\ref{eq:grover_error_model}) to our experimental data. Experimental data is shown in color, the fitted density matrices as black outlines. As before, we show the state fidelity according to eq. (\ref{eq:state_fideltiy}) between experimental and fitted states.}
-	\label{fig:grover_error_model}
-\end{figure}
 
 where $g_e = \sqrt{g^2+\Delta^2}$ is the effective swap frequency at a qubit frequency detuning $f_{01}^1-f_{01}^2 = 2\Delta$. Often it is pratical to replace $t$ and $\Delta$ with $\beta = t g_{e}$ and $\delta = \Delta / g$. Using this notation of the iSWAP gate and the definition of the single-qubit gates as discussed before, the full algorithm with only gate errors can be written as (for right-multiplication)
 %
@@ -433,11 +427,7 @@ $\ket{11}$ & 0.16 & 0.13 & -6 & 3.9 & 2.2 & 0.9 & -9.5 & -20 & -15 & 17 & -12 & 
 \label{tab:grover_error_parameters}
 \end{table}
 
-The resulting fitted error models obtained for our experimental data are shown in tab. \ref{tab:grover_error_parameters}. As can bee seen, the phase and gate-time errors for the first gates are comparatively small and grow bigger during the following steps of the algorithm. Curiously, the phase errors are bigger for the states $\ket{10}$ and $\ket{11}$, as are the gate-length errors for the two $i\mathrm{SWAP}$ gates used in the algorithm. This fact might be explained by a drift of the operating point of our microwave setup during the time it took to take the data for the four possible Oracle operators, during which the parameters of individual qubit gates were not recalibrated.
-
-\smallskip
-
-Fig. \ref{fig:grover_error_model} shows again the measured density matrices for our realization of the Grover search algorithm, this time overlaid with the numerically optimized error model according to eq. (\ref{eq:grover_error_model}). As can be seen, our error model is able to capture most of the observed experimental errors and can reproduce to very good accuracy the observed density matrices. The state fidelities according to eq. \ref{eq:state_fidelity} between the measured density matrices and those of the fitted error model are shown above each density matrix.
+The resulting fitted error models obtained for our experimental data are shown in tab. \ref{tab:grover_error_parameters}. As can bee seen, the phase and gate-time errors for the first gates are comparatively small and grow bigger during the following steps of the algorithm. Curiously, the phase errors are bigger for the states $\ket{10}$ and $\ket{11}$, as are the gate-length errors for the two $i\mathrm{SWAP}$ gates used in the algorithm. This fact might be explained by a drift of the operating point of our microwave setup during the time it took to take the data for the four possible Oracle operators, during which the parameters of individual qubit gates were not recalibrated. Our error model is able to capture most of the observed experimental errors and can reproduce to very good accuracy the observed density matrices. The state fidelities according to eq. \ref{eq:state_fidelity} between the measured density matrices and those of the fitted error model are all $>95\%$.
 
 \subsubsection{Fidelity of the Oracle and diffusion operators}
 
@@ -463,30 +453,14 @@ $R'$ & 94.5 & 93.6 & 88.5 & 87.7 & 91.1
 As can be seen, on average we are able to implement both the diffusion operator and the quantum Oracle with a fidelity $>90\%$.
 \subsection{Readout Errors}
 
-\begin{figure}[ht!]
+\begin{SCfigure}[1.0][ht!]
 	\centering
-\includegraphics[width=0.19\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/single qubit readouts"}
-\includegraphics[width=0.79\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/readout and crosstalk - 2 plots"}
-	\caption[Measured single- and two-qubit readout matrices and crosstalk matrix for the Grover search algorithm experiment]{a.)The measured single-qubit readout matrices, showing the readout outcome probabilities as a function of the prepared state for both qubits. b.)The measured two-qubit readout matrix, showing again the detector outcome probabilities versus the prepared qubit states. c.) The crosstalk matrix, corresponding to the product of the inverse two-qubit readout matrix and the Kronecker product of the single-qubit readout matrices. Note that the $\ket{1}\to\ket{2}$ shelving method is used for reading out the qubit state, which increases readout fidelity but also inter-qubit readout crosstalk up to 4 \% in the worst case.}
+\includegraphics[width=0.5\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/readout only"}
+	\caption{}
 	\label{fig:GroverReadoutMatrix}
-\end{figure}
+\end{SCfigure}
 
-Another source of errors affecting the single-run fidelities of the algorith arises due to the imperfection of our qubit readout. Here, mostly qubit relaxation during the readout process reduces the visibility of individual qubit states and introduces errors when reading out the qubit register in the final step of the algorithm. We can easily quantify those readout errors by using the readout matrix that was introduced in the last chapter. When running the Grover algorithm we use the $\ket{1}\to\ket{2}$ shelving method described in the last chapter to increase the readout contrast and thereby the algorithm fidelity. This technique reduces single-qubit readout errors but increases inter-qubit readout crosstalk. To quantify all single-qubit and inter-qubit readout errors, we first model the readout matrix $R$ of the two-qubit system as a product $R=R_{v}\cdot R_{ct}$, where $R_{v}$ is the so-called {\it visibility matrix} and $R_{ct}$ a matrix describing the readout crosstalk. The visibility matrix can be written as the Kronecker product $R_{v} = R_{v}^1 \otimes R_{v}^2$ of the two single-qubit readout matrices, which have the form
-%
-\begin{equation}
-R_{v}^{1,2} = \left(
-			\begin{array}{cc}
-				p_{00}^{1,2} & 1-p_{11}^{1,2} \\
-				1-p_{00}^{1,2} & p_{11}^{1,2}
-			\end{array}
-		\right)
-\end{equation}
-%
-Here, $p_{00}^{1,2}$ ($p_{11}^{1,2}$) corresponds to the probability to measure the value $0$ ($1$) at the readout after having prepared the qubit in state $\ket{0}$ ($\ket{1}$). Usually, the full two-qubit readout matrix $R$ and the single-qubit readout matrices $R_{v}^{1,2}$ are measured experimentially which allows us then to calculate the crosstalk matrix as $R_{ct} = R_{v}^{-1}\cdot R$. The three matrices measured in our experiment are shown in fig. \ref{fig:GroverReadoutMatrix}. As can be seen, the single-qubit readout fidelities range between 87 - 96 \% and the combined two-qubit readout fidelities between 75 - 85 \%. Depending on the qubit state we also observe between 3-5 \% inter-qubit readout crosstalk in our system.
-
-\smallskip
-
-Fig. \ref{fig:GroverSingleShotResults} shows the single-run probabilities when running the Grover algorithm for the four different Oracle functions. In blue, the expected readout outcome probabilities, as calculated using the state tomography of the final states given in fig. \ref{fig:GroverAlgorithmExperimentalResults}d and the measured readout matrix of our system are shown along the measured readout outcome probabilities. The readout error model shows good quantitative agreement with the measured data, with deviations most probably due to parameter drifts occured between the measurment of the quantum state tomography and the single-run experiment.
+Another source of errors affecting the single-run fidelities of the algorith arises due to the imperfection of our qubit readout. Here, mostly qubit relaxation during the readout process reduces the visibility of individual qubit states and introduces errors when reading out the qubit register in the final step of the algorithm. We can easily quantify those readout errors by using the readout matrix that was introduced in the last chapter. When running the Grover algorithm we use the $\ket{1}\to\ket{2}$ shelving method described in the last chapter to increase the readout contrast and thereby the algorithm fidelity. This technique reduces single-qubit readout errors but increases inter-qubit readout crosstalk. The readout matrices measured in our experiment is shown in fig. \ref{fig:GroverReadoutMatrix}. As can be seen, the single-qubit readout fidelities range between 87 - 96 \% and the combined two-qubit readout fidelities between 75 - 88 \%. Depending on the qubit state we also observe between 3-5 \% inter-qubit readout crosstalk in our system.
 
 \section{Conclusions}
 
