@@ -550,7 +550,7 @@ S_{\phi_{ext}}(\omega) = \left(\frac{M}{\Phi_0}\right)^2 S_I(\omega) = \left(\fr
 where $Z_{fl}(\omega)$ is the impedance of the flux line coupled to the qubit. As before, the resulting relaxation rate is thus given as
 %
 \begin{equation}
-\Gamma_1^{\phi_{ext}} = \frac{\hbar\omega_{01}}{4}\left(\frac{E_J d M}{\Phi_0}\right)^2 \mathrm{Re}\left(\frac{1}{Z_{fl}(\omega_{01})}\right)\left|\ket{0}\sin{\hat{\theta}}\bra{1}\cos{\left(\frac{\phi_{ext}}{2}\right)}\right|^2 \label{eq:flux_relaxation_rate}
+\Gamma_1^{\phi_{ext}} = \frac{\hbar\omega_{01}}{4}\left(\frac{E_J d M}{\Phi_0}\right)^2 \mathrm{Re}\left(\frac{1}{Z_{fl}(\omega_{01})}\right)\left|\bra{0}\sin{\hat{\theta}}\ket{1}\cos{\left(\frac{\phi_{ext}}{2}\right)}\right|^2 \label{eq:flux_relaxation_rate}
 \end{equation}
 %
 
@@ -891,13 +891,13 @@ In general, any evolution of the quantum system $\rho_A$ between two points in t
 Under these conditions it can be shown that any quantum map $\LA{A}$ can be expressed as a sum of operators \citep{kraus_states_1983}
 %
 \begin{equation}
-\LA{A}(\rho_A) = \sum\limits_\mu^{N_k} M_\mu \rho_A M_\mu^\dagger \label{eq:kraus_representation}
+\LA{A}(\rho_A) = \sum\limits_i^{N_k} E_i \rho_A E_i^\dagger \label{eq:kraus_representation}
 \end{equation}
 %
-where $N_k \le N_A^2$ and $N_A$ is the dimension of the Hilbert space $\begin{mathcal}H\end{mathcal}_A$ and $M_\mu$ are the {\it Kraus operators} of the quantum map. These operators satisfy the normalization condition
+where $N_k \le N_A^2$ and $N_A$ is the dimension of the Hilbert space $\begin{mathcal}H\end{mathcal}_A$ and $E_i$ are the {\it Kraus operators} of the quantum map. These operators satisfy the normalization condition
 %
 \begin{equation}
-\sum\limits_{\mu=0} M_\mu^\dagger M_\mu = \mathrm{1}.
+\sum\limits_{i=0} E_i^\dagger E_i = \mathrm{1}.
 \end{equation}
 %
 Now, we can also use a quantum map $\LA{\tau}$ to describe the evolution of a density matrix $\rho_A(t)$ during an infinitesimal time $\tau$. In this case, we approximate the time derivative of $\rho(t)$ as
@@ -906,13 +906,13 @@ Now, we can also use a quantum map $\LA{\tau}$ to describe the evolution of a de
 \frac{d\rho_A(t)}{dt}=\frac{\LA{\tau}\left[\rho_A(t)\right]-\rho_A(t)}{\tau}. \label{eq:lindblad_evolution}
 \end{equation}
 %
-In order for this approximation to be valid, $\tau$ needs to be longer than the ``memory time'' of correlations between the system $A$ and its environment and smaller than the characteristic evolution time of system A \citep{haroche_exploring_2006}. In general, since $\LA{\tau}\to \mathbb{1}$ for $\tau\to 0$, the Kraus operators $M_\mu$ of the process $\LA{\tau}$ will depend on $\tau$ and can be usually written as $M_\mu = \sqrt{\tau} L_\mu$, where the $L_\mu$ are the time-independent {\it Lindblad operators}. By developing eq. (\ref{eq:lindblad_evolution}) up to first order in $\tau$, we obtain the so-called {\it Lindblad master equation}
+In order for this approximation to be valid, $\tau$ needs to be longer than the ``memory time'' of correlations between the system $A$ and its environment and smaller than the characteristic evolution time of system A \citep{haroche_exploring_2006}. In general, since $\LA{\tau}\to \mathbb{1}$ for $\tau\to 0$, the Kraus operators $E_i$ of the process $\LA{\tau}$ will depend on $\tau$ and can be usually written as $E_i = \sqrt{\tau} L_i$, where the $L_i$ are the time-independent {\it Lindblad operators}. By developing eq. (\ref{eq:lindblad_evolution}) up to first order in $\tau$, we obtain the so-called {\it Lindblad master equation}
 %
 \begin{equation}
-\frac{d\rho_A}{dt} = -\frac{i}{\hbar}[H_A,\rho]+\sum\limits_{\mu = 1}\left(L_\mu\rho_aL_\mu^\dagger-\frac{1}{2}L_\mu^\dagger L_\mu\rho_A-\frac{1}{2}\rho_A L_\mu^\dagger L_\mu\right), \label{eq:lindblad_equation}
+\frac{d\rho_A}{dt} = -\frac{i}{\hbar}[H_A,\rho]+\sum\limits_{i = 1}\left(L_i\rho_aL_i^\dagger-\frac{1}{2}L_i^\dagger L_i\rho_A-\frac{1}{2}\rho_A L_i^\dagger L_i\right), \label{eq:lindblad_equation}
 \end{equation}
 %
-This equation describes the evolution of quantum system under a Hamiltonian $H_A$ and coupled to an environment that is simulated by the non-unitary action of the operators $L_\mu$. Often these operators can be guessed or derived from the relevant decoherence mechanism present in the quantum system. We will make extensive use of eq. (\ref{eq:lindblad_equation}) in this work to simulate the dynamics of the qubit register of our quantum processor and fit experimental data to a master equation model of our system.
+This equation describes the evolution of quantum system under a Hamiltonian $H_A$ and coupled to an environment that is simulated by the non-unitary action of the operators $L_i$. Often these operators can be guessed or derived from the relevant decoherence mechanism present in the quantum system. We will make extensive use of eq. (\ref{eq:lindblad_equation}) in this work to simulate the dynamics of the qubit register of our quantum processor and fit experimental data to a master equation model of our system.
 
 
 \subsection{Simulation of our Two-Qubit Processor}

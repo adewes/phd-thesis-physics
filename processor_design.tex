@@ -139,12 +139,18 @@ i\hbar\left(\begin{array}{c} \dot{\psi}_{01} \\ \dot{\psi}_{10} \end{array}\righ
 \end{equation}
 %
 
-\begin{SCfigure}[1.0][ht!]
+\begin{figure}[ht!]
+\def\imagetop#1{\vtop{\null\hbox{#1}}}
+
 	\centering
-	\includegraphics[width=0.7\textwidth]{./material/mathematica/qubit_qubit_swap_error}
-	\caption[]{Numerically obtained maximum fidelity of a two-qubit $i\mathrm{SWAP}$ gate realized by changing the detuning $\Delta$ in eq. (\ref{eq:swap_evolution}) from $\Delta = 20g$ to $\Delta=0$ using a Gaussian pulse of width $\delta t$.}
+	\begin{tabular}{ll}
+	a) & b) \\
+	\imagetop{\includegraphics[width=0.6\textwidth]{./material/mathematica/qubit_qubit_swap_error}} &
+	\imagetop{\includegraphics[width=0.4\textwidth]{./material/figures/2-qubit-processor/flux_pulse_rise_time}}
+	\end{tabular}
+	\caption[]{a) Numerically obtained maximum fidelity of a two-qubit $i\mathrm{SWAP}$ gate realized by changing the detuning $\Delta$ in eq. (\ref{eq:swap_evolution}) from $\Delta = 20g$ to $\Delta=0$ using a Gaussian pulse of width $\delta t$. b) Simulated pulse shape used to obtain the curve shown.}
 	\label{fig:qubit_qubit_coupling_swap_error}
-\end{SCfigure}
+\end{figure}
 
 To estimate the error, we go from a detuning $\Delta = 20 g$ at $t=0$ to a detuning $\Delta=0$ using a Gaussian waveform with a rise time $\delta t$. We then numerically determine the maximum SWAP amplitude between the qubits and plot the resulting value against $\delta t$. The result of this simulation is shown in fig. \ref{fig:qubit_qubit_coupling_swap_error}. As can be seen, the fidelity of the gate decreases in a non-monotonous way as a function of the flux pulse rise time. In order to obtain $F>0.99$, a flux pulse rise time of $\delta t \le 1.5\;\mathrm{ns}$ is required.
 
@@ -173,7 +179,7 @@ In addition to the capacitive coupling to the input impedance $Z_g$, the qubit i
  
 \paragraph{Relaxation through the Flux Channel} \label{section:relaxation_through_charge}
 
-On the two-qubit chip, each Transmon is equipped with a fast magnetic flux line that is used to perform flux biasing and fast frequency displacements. The flux lines are coupled to the qubits through a mutual inductance $M$, as shown in fig. \ref{fig:cooper_pair_box_decoherence}. The sensitivity of the qubit to relaxation through the flux channel via the mutual inductance $M$ is given by eq. (\ref{eq:flux_relaxation_sensitivity}). For the mutual inductance discussed above, $M \approx 0.23\;\mathrm{pH}$, a characteristic impedance of the flux line of $Z_{fl}=50\;\Omega$, a qubit frequency $\omega_{01}/2\pi= 7 \;\mathrm{GHz}$ and anharmonicity $\alpha=-250\;\mathrm{MHz}$ and an asymmetry $d=0.35$, we obtain a maximum relaxation rate of $\Gamma_1^{fl}=xxx\;\mathrm{Hz}$ (0.5 matrix element), which is absolutely negligible compared to all other relevant relaxation channels. We confirm therefore our choice of the mutual inductance $M=0.25\;\mathrm{pH}$ for the flux coupling of the qubit. 
+On the two-qubit chip, each Transmon is equipped with a fast magnetic flux line that is used to perform flux biasing and fast frequency displacements. The flux lines are coupled to the qubits through a mutual inductance $M$, as shown in fig. \ref{fig:cooper_pair_box_decoherence}. The sensitivity of the qubit to relaxation through the flux channel via the mutual inductance $M$ is given by eq. (\ref{eq:flux_relaxation_sensitivity}). For the mutual inductance discussed above, $M \approx 0.23\;\mathrm{pH}$, a characteristic impedance of the flux line of $Z_{fl}=50\;\Omega$, a qubit frequency $\omega_{01}/2\pi= 7 \;\mathrm{GHz}$ and anharmonicity $\alpha=-250\;\mathrm{MHz}$ and an asymmetry $d=0.35$, we obtain a maximum relaxation rate of $\Gamma_1^{fl}=0.28\;\mathrm{MHz}$, which is small compared to all other relevant relaxation rates. This rate represents an upper bound for an unfiltered flux line, in our experiment the low-pass filtering of the line will further decrease this rate by decreasing $\mathrm{Re}(1/Z_{fl}(\omega_{01}))$ at the qubit frequency $\omega_{01}$. We confirm therefore our choice of the mutual inductance $M=0.25\;\mathrm{pH}$ for the flux coupling of the qubit. 
 
 \subsubsection{Qubit Dephasing}
 
@@ -229,7 +235,7 @@ Having discussed the relevant properties of all building blocks of our processor
 	\begin{tabularx}{\textwidth}{r|X|l}
 	Parameter & Value & Related Parameters \\ [0.3cm]
 	$E_J$ & $h\cdot 28.4\;\mathrm{GHz}$ & $f_{01}=7\;\mathrm{GHz}$, $\alpha=-250\;\mathrm{MHz}$ \\ [0.3cm]
-	$E_C$ & $h\cdot 0.92\;\mathrm{GHz}$ & $C_q = 83.8\;\mathrm{fF}$, $I_c = 57.4 \;\mathrm{nA}$\\ [0.3cm]
+	$E_C$ & $h\cdot 0.92\;\mathrm{GHz}$ & $C_q = 42\;\mathrm{fF}$, $I_c = 57.4 \;\mathrm{nA}$\\ [0.3cm]
 	$d$ & $0.35$ & \\ [0.3cm]
 	$M_{1,2}$ & $0.25\;\mathrm{pH}$ & \\ [0.3cm]
 	$g_{qq}/2\pi$  & $10\;\mathrm{MHz}$ & $C_{qq}=0.45\;\mathrm{fF}$ \\ [0.3cm]
@@ -248,7 +254,7 @@ Having discussed the relevant properties of all building blocks of our processor
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=\textwidth]{./material/figures/2-qubit-processor/fabrication/qubit_processor_layout}
-	\caption[]{CAD layout schematic of the two-qubit processor, showing the two CPW readout resonators and the two qubits with their adjacent fast flux lines. Subfigure a) gives a magnified view of the two qubits and their capacitive coupling element, subfigure b) shows the input coupling capacitance of the CPW resonator to the input transmission line.}
+	\caption[]{CAD layout schematic of the two-qubit processor, showing the two CPW readout resonators and the two qubits with their adjacent fast flux lines. Subfigures a) and b) show the CAD drawing of the Transmon capacitance and SQUID, as used for the electron beam lithography. Subfigure c) gives a magnified view of the two qubits and their capacitive coupling element, subfigure d) shows the input coupling capacitance of the CPW resonator to the input transmission line.}
 	\label{fig:processor_fabrication}
 \end{figure}
 
@@ -271,21 +277,28 @@ For the Transmon qubit itself, we need to fabricate a large shunt capacitance $C
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=\textwidth]{./material/figures/2-qubit-processor/sonnet_simulation_of_qubit_chip}
-	\caption[]{2D Electromagnetic model of the processor chip, generated using Sonnet microwave simulator (SONNET). Shown are the two Transmon qubit capacitances that are capacitively coupled to each other and to their readout resonator (not shown). Numerical simulation of the circuit yields the capacitances and inductances between all ports of the circuit (1-8).}
+	\caption[]{2D model used to model the qubits of the processor using Sonnet microwave simulator (SONNET). Shown are the two Transmon qubit capacitances that are capacitively coupled to each other and to their readout resonator (not shown). Numerical simulation of the circuit yields the capacitances and inductances between all ports of the circuit (1-8).}
 	\label{fig:sonnet_model_of_qubit_chip}
 \end{figure}
 
-We use a software package for electromagnetic simulation (SONNET) to simulate individual parts of the chip an obtain the transmission coefficients between all relevant circuit components and an equivalent lumped-element model of the circuit. Using this equivalent model we calculate all relevant capacitances and inductances. We can then iteratively adapt the geometry of individual elements in order for them to match the designed parameter values.
+We use a software package for electromagnetic simulation (SONNET) to simulate individual parts of the chip an obtain the transmission coefficients between all relevant circuit components and an equivalent lumped-element model of the circuit. Using this equivalent model we calculate all relevant capacitances and inductances. We can then iteratively adapt the geometry of individual elements in order for them to match the designed parameter values. Fig. \ref{fig:sonnet_generated_model} shows an example of a circuit model generated by this method.
 
 \smallskip
+
+\begin{SCfigure}[1.0][ht!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{./material/figures/2-qubit-processor/sonnet_model}
+	\caption[]{A circuit model of the geometry shown in fig. \ref{fig:sonnet_model_of_qubit_chip}, generated by SONNET. The parameters of the circuit elements are given as $Z_0=50\;\Omega$, $C_{12}=5.9\;\mathrm{fF}$, $C_{23}=47\;\mathrm{fF}$, $C_{34}=1.2\;\mathrm{fF}$, $C_{45}=47\;\mathrm{fF}$, $C_{56}=5.9\;\mathrm{fF}$, $C_{10}=43\;\mathrm{fF}$, $C_{20}=5\;\mathrm{fF}$, $C_{30}=37\;\mathrm{fF}$, $C_{40}=37\;\mathrm{fF}$, $C_{50}=5\;\mathrm{fF}$, $C_{60}=43\;\mathrm{fF}$, $L_{23}=L_{45}=5.7\;\mathrm{nH}$.}
+	\label{fig:sonnet_generated_model}
+\end{SCfigure}
 
 We can also simulate the Transmon qubits as harmonic oscillators by modeling their Josephson junction as an inductance that matches the Josephson inductance of the junction, as given by eq. (\ref{eq:josephson_inductance}). By simulating the resonance curve of this harmonic resonator and calculating the corresponding quality factor $Q$, we can estimate the relaxation rate of the qubit through the gate circuit. We can also obtain an estimate of the coupling strength between the two qubits by simulating them as two coupled, linear resonators. We can obtain the impedance seen by the qubit through the gate circuit by this method as well, thereby being able to calculate the corresponding qubit relaxation rate.
 
 \section{Fabrication}
 
-\begin{figure}
-	\includegraphics[width=\textwidth]{"./material/figures/2-qubit-processor/processor photos"}
-	\caption{Optical and electron microscope photos of the two-qubit processor realized in this work. a) shows an optical image of the full processor with the two coupled qubits, fluxlines and readout resonator. b) shows an SEM image of an enlarged part of the central region of the chip with the two qubits and the coupling capacitor. c) Shows an SEM image of a single qubit junction loop.}
+\begin{figure}[p!]
+	\includegraphics[width=1\textwidth]{"./material/figures/2-qubit-processor/processor photos"}
+	\caption{Optical and electron microscope photos of the two-qubit processor realized in this work (will be replaced with better photos)}
 	\label{fig:qubit_chip_photos}
 \end{figure}
 
