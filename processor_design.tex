@@ -64,7 +64,7 @@ As described in chapter \ref{chapter:theory}, we use a split Josephson junction 
 
 We distinguish between single-qubit rotations around the $X$ and $Y$ axes and around the $Z$ axis of the Bloch sphere. The latter are implemented by changing the qubit frequency using a fast on-chip flux line, whereas the former are implemented by driving the qubit with an oscillatory electrical drive signal at its resonance frequency. For the $X/Y$ gates, it is necessary to capacitively couple the qubit to an external charge driving circuit. 
 
-\paragraph{Charge Driving} 
+\paragraph{Charge Driving} \label{section:charge_driving}
 
 The maximum drive frequency of the qubit is limited by its anharmonicity: Since the Transmon qubit is only weakly anharmonic, when driving the qubit at a frequency comparable to the qubit anharmonicity, transitions to higher Transmon levels will be induced, therefore producing a leakage of the qubit state out of the computational basis and hence unitary drive errors. This effect can be partially alleviated by increasing the anharmonicity of the qubit. However, by increasing the anharmonicity, one also increases the sensitivity of the qubit to charge noise. Hence it is necessary to find a compromise for the value of the qubit anharmonicity which allows sufficiently fast qubit driving but which does not incur too much dephasing.
 
@@ -108,7 +108,7 @@ To rapidly change the flux in the qubit loop, we couple each qubit inductively t
 
 In general, when passing a low-frequency or DC current through the flux line, superconducting shielding currents will build up in the ground plane around the line. Therefore, we usually remove the ground plane between the center pin of the flux line and the qubit loop, since otherwise the induced shielding currents will modify the effective flux seen by the qubit and lead to unwanted distortions in the shape of the applied flux signal. However, removing this ground plane also leads to stronger capacitive coupling of the qubit to the flux line, thereby increasing qubit relaxation, which we also have to take into account.
 
-\subsection{Qubit-Qubit Coupling}
+\subsection{Qubit-Qubit Coupling} \label{section:qubit_qubit_coupling}
 
 \begin{SCfigure}[1.0][hbt!]
 	\centering
@@ -298,7 +298,7 @@ We can also simulate the Transmon qubits as harmonic oscillators by modeling the
 
 \begin{figure}[p!]
 	\includegraphics[width=1\textwidth]{"./material/figures/2-qubit-processor/processor photos"}
-	\caption{Optical and electron microscope photos of the two-qubit processor realized in this work (will be replaced with better photos)}
+	\caption{Scanning electron miscroscope photos of the fabricated two-qubit chip. a) A stitched together photo of the whole chip, showing the two readout resonators coupled to the input transmission lines, the two qubits which are capacitively coupled to each other and to the readout resonators and the fast magnetic flux lines attached to each qubit. b) Detailed view of the flux line close to one of the qubits. The ground plane between the line and the qubit has been removed by electron-beam lithography to suppress spurious shielding currents when sending fast flux pulses through the line. c) Detailed photo of one of the qubits, showing the qubit capacitance and the capacitive coupling to the qubit readout resonator. d) The two-qubit coupling capacitance. e) Detailed view of a single qubit SQUID, showing the SQUID loop and the two Josephson junctions of the Transmon. f) The CJBA Josephson junction. g) The readout resonator input capacitance.}
 	\label{fig:qubit_chip_photos}
 \end{figure}
 

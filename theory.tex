@@ -74,7 +74,24 @@ whereas a completely mixed state of 50 \% $\ket{01}$ and 50 \% $\ket{10}$ is rep
 \rho = \frac{1}{2}\left( \begin{array}{cccc} 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right)_{(\ket{00},\ket{01},\ket{10},\ket{11})}
 \end{equation}
 %
-
+Often it is necessary two compare two quantum states to each other. For this, it is useful to define a so-called {\it quantum state fidelity}, which is a measure of ``closeness'' between two quantum states. In this work, we will often use the quantum fidelity $F(\rho,\sigma)=F(\sigma,\rho)$ defined as
+%
+\begin{equation}
+F(\rho,\sigma) = \mathrm{Tr}\left[\sqrt{\sqrt{\rho}\sigma\sqrt{\rho}}\right], \label{eq:quantum_state_fidelity}
+\end{equation}
+%
+which can also be written as
+%
+\begin{equation}
+F(\rho,\sigma) = \left\|\sqrt{\rho}\sqrt{\sigma}\right\|_{tr},
+\end{equation}
+%
+where $\|\rho\|_{tr}=\mathrm{Tr}(\rho\rho^\dagger)$ is the Trace norm of the matrix $\rho$. If we want to compare a density matrix $\rho$ to a pure quantum state $\ket{\psi}$, we can also use the {\it Trace fidelity} $F_{tr}(\rho,\ket{\psi})$ defined as
+%
+\begin{equation}
+F_{tr}(\rho,\ket{\psi}) = \bra{\psi}\rho\ket{\psi}. \label{eq:quantum_trace_fidelity}
+\end{equation}
+%
 \subsection{Quantum Gates}
 
 Analogously to classical information processing, in quantum computing one defines {\it quantum gates} that act on individual or multiple qubits and allow us to process information. Such a quantum gate can be described as a unitary operator acting on the state of one or several qubits. Theoretically there is an infinite number of possible quantum gates, however in order to describe all possible quantum operations that can be performed on a qubit register of arbitrary length, it is sufficient to define a so-called {\it universal set of quantum gates}. Such a set contains a small number of quantum gates that can, by concatenation, produce any arbitrary unitary quantum operator, as shown by the so-called {\it Solovay-Kitaev theorem} \citep{nielsen_quantum_2000,dawson_solovay-kitaev_2005}. A universal gate set that will be especially relevant to this work consists of the three single-qubit rotation operators
@@ -593,7 +610,7 @@ where again $A=10^{-5}$ is a measured noise amplitude \citep{koch_charge-insensi
 %
 where $\omega_{01}^{max}= \sqrt{2 E_C E_J}/\hbar$ is the maximum transition frequency of the qubit.
 
-\section{Circuit Quantum Electrodynamics}
+\section{Circuit Quantum Electrodynamics} \label{section:cqed}
 
 \begin{SCfigure}
 	\includegraphics[width=11cm]{"./material/figures/introduction/cqed/cqed"}

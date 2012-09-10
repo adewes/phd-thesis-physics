@@ -1,21 +1,11 @@
 \chapter{Modeling of Multi-Qubit Systems}
 
-%-Discuss the motivation for analyzing the multi-qubit systems studied in this work.
+Here we discuss the modeling and simulation of two coupled three-level Transmon qubits, using analytical calculations to obtain the relevant qubit energies and explaining the master equation simulation of the two-qubit system, which we use to quantify the leakage and third-level errors when realizing the $\sqrt{i\mathrm{SWAP}}$ gate, as described in chapter \ref{chapter:processor_characterization}.
 
-\section{Analytical Approach}
+\section{Two-Qubit Three-Level Hamiltonian} \label{section:three_level_simulation}
 
-\subsection{Multi-Qubit Hamiltonian}
+The Hamiltonian of two uncoupled three-level Transmon qubits can be written in the basis $\{00,01,02,10,11,12,20,21,22\}$ as
 
-%-Discuss the generation of an analytical model for a n-qubit system with a quantum bus.
-
-\subsection{Energies and Eigenstates}
-
-%-Show the eigen-energies and eigen-states of the Hamiltonian for interesting cases.
-
-\section{Master Equation Approach} \label{section:three_level_simulation}
-
-%-Discuss the master equation approach
-%
 \begin{equation}
 \hat{H} = \left( \begin{array}{ccccccccc}
 										e_0^I+e_0^{II} \\
@@ -28,10 +18,10 @@
 										& & & & & & & e_{2}^{I}+e_1^{II} \\
 										& & & & & & & & e_{2}^{I}+e_2^{II} \\
 									\end{array}
-					\right)
+					\right).
 \end{equation}
 %
-Without loss of generality we can assume $e_0^{I}=0$, $e_0^{II}=0$. We define $\omega_{01}^I=e_1^{I}$, $\omega_{01}^{II}=e_1^{II}$, $\Delta_{01} = \omega_{01}^{II}-\omega_{01}^I$ and $\alpha^I = e_2^I-2e_1^{I}$ and $\alpha^{II} = e_2^{II}-2e_1^{II}$. The interaction Hamiltonian is given as
+Without loss of generality we can assume $e_0^{I}=0$, $e_0^{II}=0$. We then define $\omega_{01}^I=e_1^{I}$, $\omega_{01}^{II}=e_1^{II}$, $\Delta_{01} = \omega_{01}^{II}-\omega_{01}^I$ and $\alpha^I = e_2^I-2e_1^{I}$ and $\alpha^{II} = e_2^{II}-2e_1^{II}$. In this basis, the interaction Hamiltonian for a capacitive coupling of the form (\ref{eq:cqed_capacitive_coupling})is given as
 %
 \begin{equation}
 \hat{H}_i = \left(
@@ -49,7 +39,7 @@ Without loss of generality we can assume $e_0^{I}=0$, $e_0^{II}=0$. We define $\
 		\right)
 \end{equation}
 %
-Going to the interaction picture with $\hat{H}_0 = \hat{H}$ the interaction Hamiltonian $\hat{H}_i$ becomes
+Often it is very useful to go to the interaction picture with $\hat{H}_0 = \hat{H}$. There, the interaction Hamiltonian $\hat{H}_i$ acquires time-dependent terms and is given as
 %
 \begin{equation}
 \hat{H}_i = \left(
@@ -67,7 +57,9 @@ Going to the interaction picture with $\hat{H}_0 = \hat{H}$ the interaction Hami
 		\right)
 \end{equation}
 %
-\subsubsection{Relaxation and Dephasing}
+\subsection{Qubit Driving}
+
+\subsection{Relaxation and Dephasing}
 
 We can model relaxation and dephasing of the three-level system using a set of 6 Lindblad operators. The relaxation operators are based on the three matrices
 %
@@ -84,29 +76,18 @@ and the dephasing operators on
 \sigma^z_{02} & =  \left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 &-1 \end{array} \right)  
 \end{align}
 %
-Using these matrices, we define a set of three relaxation operators $L^r_{01} = \sqrt{\Gamma^r_{10}}\sigma^-_{01}$, $L^r_{12} = \sqrt{\Gamma^r_{12}}\sigma^-_{12}$ and $L^r_{02}=\sqrt{\Gamma^r_{02}}\sigma^-_{02}$ as well as a set of dephasing operators $L^\phi_{01} = \sqrt{\Gamma^\phi_{01}/2}\sigma^z_{01}$, $L^\phi_{12} = \sqrt{\Gamma^\phi_{12}/2}\sigma^z_{12}$, $L^\phi_{02}=\sqrt{\Gamma^\phi_{02}/2}\sigma^z_{02}$.
+Using these matrices, we define a set of three relaxation operators $L^r_{01} = \sqrt{\Gamma^r_{10}}\sigma^-_{01}$, $L^r_{12} = \sqrt{\Gamma^r_{12}}\sigma^-_{12}$ and $L^r_{02}=\sqrt{\Gamma^r_{02}}\sigma^-_{02}$ as well as a set of dephasing operators $L^\phi_{01} = \sqrt{\Gamma^\phi_{01}/2}\sigma^z_{01}$, $L^\phi_{12} = \sqrt{\Gamma^\phi_{12}/2}\sigma^z_{12}$, $L^\phi_{02}=\sqrt{\Gamma^\phi_{02}/2}\sigma^z_{02}$. The corresponding two-qubit operator can then be obtained simply as $L^I_i = L_i\otimes {\cal I}$ and $L^{II}_i = L_i\otimes {\cal I}$.
 
-\subsection{Direct Integration}
+\section{Master Equation Simulation}
 
-We can use the Hamiltonian and the Lindblad operators discussed above to directly integrate the master equation of the two-qubit system, which is given as
-%
-\begin{equation}
-\frac{d\rho}{dt} = -\frac{i}{\hbar}[H,\rho]+\sum\limits_j\left[2L_j \; \rho \; L_j^\dagger -\{L_j^\dagger L_j,\rho\}\right] \label{eq:master_equation_lindblad_form}
-\end{equation}
-%
-Here $-i/\hbar \;[H,\rho]$ corresponds to the unitary evolution of the state of the system and the part right to it to the non-unitary part, i.e. relaxation and dephasing. For numerical analysis it is usually convenient to rewrite this equation in the form
+For numerical analysis it is usually convenient to rewrite the Lindblad equation (\ref{eq:lindblad_equation}) in vector form as
 %
 \begin{equation}
 \frac{d\vec{\rho}}{dt} = {\cal L}(t)\vec{\rho}(t) \label{eq:master_equation_superoperator_form}
 \end{equation}
 %
-where $\vec{\rho}$ is a column vector containg all elements of $\rho$ and $\cal L$ is the so-called ``superoperator'' which acts on the vectorized density matrix. For a density matrix with dimension $N\times N$, the superoperator has dimensions $N^2 \times N^2$, which makes the numerical solution of eq. (\ref{eq:master_equation_superoperator_form}) computationally expensive for large $N$. An alternative method which avoids this inefficiency is the so-called ``quantum monte carlo'' method which we will discuss in the next section.
+where $\vec{\rho}$ is a column vector containg all elements of $\rho$ and $\cal L$ is a ``superoperator'' that contains all Lindblad operators and which acts on the vectorized density matrix. For a density matrix with dimension $N\times N$, the superoperator has a dimension $N^2 \times N^2$, which makes the numerical solution of eq. (\ref{eq:master_equation_superoperator_form}) computationally expensive for large $N$. However, for two coupled three-level Transmons the resulting matrix has the dimension $81\times 81$, which still allows for reasonably fast simulation of the system.
 
-\smallskip
-
-From these matrices, the corresponding two-qubit operator can be obtained as $L^I_i = L_i\otimes {\cal I}$ and $L^{II}_i = L_i\otimes {\cal I}$.
-
-%-Show the rsults of the direct ingegration approach.
 
 \begin{SCfigure}[1][ht!]
 	\centering
@@ -126,9 +107,10 @@ From these matrices, the corresponding two-qubit operator can be obtained as $L^
 
 %-Show the results of the Monte Carlo method.
 
-\subsection{Speeding Up Simulations}
 
-%-Discuss acceleration of simulation by GPGPU techniques.
+\section{Python Code}
+
+Here we provide a short script that can be used to perform a master equation simulation of the Hamiltonian discussed above. The script makes use of the numpy Python package but otherwise does not use any optimized numerical routines, hence the runtime is considerably longer than that of an equivalent, optimized program.
 
 \begin{lstlisting}[language=python]
 from helpnet import *

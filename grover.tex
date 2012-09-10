@@ -252,7 +252,7 @@ Here we discuss the results obtained when running the Grover search algorithm wi
 \begin{figure}[ht!]
 	\centering
 		\includegraphics[width=1.\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/grover algorithm - summary"}
-	\caption[Quantum state tomographies at different steps during the Grover search algorithm and single-run outcome probabilities]{Quantum state tomographies at steps 1-4 of the Grover search algorithm, as indicated in fig. \ref{fig:GroverPulseSequence}. The density matrices show the experimentally measured states in color and the theoretical states in black. For each state, the trace fidelity $F_{tr}(\rho_A,\rho_B) = \mathrm{Tr}\{\rho_A\cdot\rho_B\}$ is shown above the density matrix.}
+	\caption[Quantum state tomographies at different steps during the Grover search algorithm and single-run outcome probabilities]{Quantum state tomographies at steps 1-4 of the Grover search algorithm, as indicated in fig. \ref{fig:GroverPulseSequence}. The density matrices show the experimentally measured states in color and the theoretical states in black. For each state, the trace fidelity as given by eq. (\ref{eq:quantum_trace_fidelity}) is shown above the density matrix.}
 	\label{fig:GroverAlgorithmExperimentalResults}
 \end{figure}
 
@@ -421,7 +421,7 @@ $\ket{11}$ & 0.16 & 0.13 & -6 & 3.9 & 2.2 & 0.9 & -9.5 & -20 & -15 & 17 & -12 & 
 \label{tab:grover_error_parameters}
 \end{table}
 
-The resulting fitted error models obtained for our experimental data are shown in tab. \ref{tab:grover_error_parameters}. As can bee seen, the phase and gate-time errors for the first gates are comparatively small and grow bigger during the following steps of the algorithm. Curiously, the phase errors are bigger for the states $\ket{10}$ and $\ket{11}$, as are the gate-length errors for the two $i\mathrm{SWAP}$ gates used in the algorithm. This fact might be explained by a drift of the operating point of our microwave setup during the time it took to take the data for the four possible Oracle operators and during which the parameters of individual qubit gates were not recalibrated. Our error model is able to capture most of the observed experimental errors and can reproduce to very good accuracy the observed density matrices. The state fidelities according to eq. \ref{eq:state_fidelity} between the measured density matrices and those of the fitted error model are all $>95\%$.
+The resulting fitted error models obtained for our experimental data are shown in tab. \ref{tab:grover_error_parameters}. As can bee seen, the phase and gate-time errors for the first gates are comparatively small and grow bigger during the following steps of the algorithm. Curiously, the phase errors are bigger for the states $\ket{10}$ and $\ket{11}$, as are the gate-length errors for the two $i\mathrm{SWAP}$ gates used in the algorithm. This fact might be explained by a drift of the operating point of our microwave setup during the time it took to take the data for the four possible Oracle operators and during which the parameters of individual qubit gates were not recalibrated. Our error model is able to capture most of the observed experimental errors and can reproduce to very good accuracy the observed density matrices. The state fidelities according to eq. \ref{eq:quantum_state_fidelity} between the measured density matrices and those of the fitted error model are all $>95\%$.
 
 \subsubsection{Fidelity of the Oracle and diffusion operators}
 
@@ -432,7 +432,7 @@ F(D_{e}) & = & F(D\rho_{in}D^{\dagger},D_e \rho_{in} D_{e}^{\dagger}) \label{eq:
 F(R_{e}) & = & F(R\rho_{in}R^{\dagger},R_e \rho_{in} R_{e}^{\dagger}) \label{eq:grover_oracle_fidelity}
 \end{eqnarray}
 %
-where we also make use of the state fidelity according to eq. \ref{eq:state_fidelity}. By this method, we obtain the following experimental fidelities for the two gate operations:
+where we also make use of the state fidelity according to eq. \ref{eq:quantum_state_fidelity}. By this method, we obtain the following experimental fidelities for the two gate operations:
 
 \begin{table}[ht!]
 \centering
