@@ -164,7 +164,7 @@ P\left(\widehat{\langle \hat{\Sigma}_1 \rangle }_\rho = s_1;\hdots;\widehat{\lan
 %
 By maximizing this probability (or the logarithm of it) as a function of the parameters of the proposed density matrix $\rho$, we obtain the $\rho$ which has the highest probability of having produced the observed measurement values. 
 
-\subsubsection{Including Experimental Tomography Errors}
+\subsubsection{Experimental Tomography Errors}
 
 The ML technique also allows us to include further optimization parameters when calculating the joint probability. This is useful for modeling e.g. systematic errors of the measurement or preparation process, which can be described by modifying the operators contained in the probability sum. A common source of errors in our tomography measurements are shifts in the amplitude and phase of the microwave pulses used to drive the qubit. We are obliged to rotate the qubit state when performing state tomography since our measurement apparatus permits us only to measure the $\hat{\sigma}_z$ operator of each qubit. We can therefore replace the operators $\hat{\sigma}_x$ and $\hat{\sigma}_y$ in eq. (\ref{eq:ml_operators}) with an effective measurement of $\hat{\sigma}_z$ preceded by a rotation $R_{X,Y}$ given as
 \begin{eqnarray}
@@ -209,7 +209,7 @@ In the margins of this thesis book, we show the full set of density matrices at 
 	 \label{fig:swap_pauli_set_vs_time_with_simulation}
 \end{figure}
 
-\subsection{Creation of Bell states}
+\subsection{Creation of Bell States}
 
 We can use the ML method presented above to perform state tomography of entangled Bell states that we create by using the swapping interaction between the qubits. In general, the four Bell states are
 %
@@ -396,7 +396,7 @@ This directly yields $\lambda_{ik} = \sum_{m,n}\beta_{ik}^{mn}\; \chi_{mn}$, whi
 
 Similar to quantum state tomography, experimental errors occurring during quantum process tomography can produce a process matrix $\chi$ that is {\it non-physical} in the sense that the resulting quantum process does not obey the three axioms stated in section \ref{section:master_equation}. Therefore, we render the obtained $\chi$ matrix physical by numerically searching the  physical process matrix $\chi_{ph}$ that has the smallest distance to the original one $d=\|\chi-\chi_{ph}\|$.
 
-\subsubsection{From the $\chi$ matrix to the Kraus representation}
+\subsubsection{The Kraus Representation of the Process}
 
 To go back from the $\chi$-matrix representation of the quantum process to the Kraus form, we write each process-independent operator $\tilde{E}_i$ as a sum of all the Kraus operators $E_l$, such that
 %
@@ -430,7 +430,7 @@ The Kraus operator form of the quantum process is useful since it allows us to e
 	\centering
 		\includegraphics[width=1\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/process -matrices 2"}
 	\caption{The experimental input-output density matrices of the quantum process tomography of the $\sqrt{i\mathrm{SWAP}}$ gate. Shown are the measured density matrices of 16 different input states and the corresponding output matrices with their state fidelities. The ideal matrices are overlaid in black. (part II/II)}
-	\label{fig:process_matrices_1}
+	\label{fig:process_matrices_2}
 \end{figure}
 
 We perform standard process tomography of our two-qubit gate by following the procedure outlined in the last sections. Figs. \ref{fig:process_matrices_1} and \ref{fig:process_matrices_1} summarize the experimentally determined input-output density matrices, measured for our two-qubit $\sqrt{i\mathrm{SWAP}}$ quantum gate. We show pairs of corresponding input and output states together, showing both the reconstructed experimental density matrices as well as the ideal ones. The input states are annotated below the corresponding density matrices. Above each matrix we show the trace fidelity between it and the ideal quantum state. A total of 16 input/output pairs has been measured, corresponding to a complete set of states necessary to characterize the quantum process of our gate operation.

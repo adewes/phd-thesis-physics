@@ -1,6 +1,6 @@
 \chapter{Modeling of Multi-Qubit Systems}
 
-Here we discuss the modeling and simulation of two coupled three-level Transmon qubits, using analytical calculations to obtain the relevant qubit energies and explaining the master equation simulation of the two-qubit system, which we use to quantify the leakage and third-level errors when realizing the $\sqrt{i\mathrm{SWAP}}$ gate, as described in chapter \ref{chapter:processor_characterization}.
+Here we discuss the modeling and simulation of two coupled three-level Transmon qubits, using analytical calculations to obtain the relevant qubit energies and explaining the master equation simulation of the two-qubit system, which we use to quantify the leakage errors associated to the qubit level $\ket{2}$ when realizing the $\sqrt{i\mathrm{SWAP}}$ gate, as described in chapter \ref{chapter:processor_characterization}.
 
 \section{Two-Qubit Three-Level Hamiltonian} \label{section:three_level_simulation}
 
@@ -12,16 +12,14 @@ The Hamiltonian of two uncoupled three-level Transmon qubits can be written in t
 										& e_{0}^I+e_1^{II} \\
 										& & e_{0}^I+e_2^{II} \\
 										& & & e_{1}^I+e_0^{II} \\
-										& & & & e_{1}^I+e_1^{II} \\
-										& & & & & e_{1}^I+e_2^{II} \\
-										& & & & & & e_{2}^{I}+e_0^{II} \\
-										& & & & & & & e_{2}^{I}+e_1^{II} \\
-										& & & & & & & & e_{2}^{I}+e_2^{II} \\
+										& & & & \ddots \\
+										& & & & & & e_{2}^{I}+e_1^{II} \\
+										& & & & & & & e_{2}^{I}+e_2^{II} \\
 									\end{array}
 					\right).
 \end{equation}
 %
-Without loss of generality we can assume $e_0^{I}=0$, $e_0^{II}=0$. We then define $\omega_{01}^I=e_1^{I}$, $\omega_{01}^{II}=e_1^{II}$, $\Delta_{01} = \omega_{01}^{II}-\omega_{01}^I$ and $\alpha^I = e_2^I-2e_1^{I}$ and $\alpha^{II} = e_2^{II}-2e_1^{II}$. In this basis, the interaction Hamiltonian for a capacitive coupling of the form (\ref{eq:cqed_capacitive_coupling})is given as
+Without loss of generality, we assume $e_0^{I}=0$, $e_0^{II}=0$. We then define $\omega_{01}^I=e_1^{I}$, $\omega_{01}^{II}=e_1^{II}$, $\Delta_{01} = \omega_{01}^{II}-\omega_{01}^I$ and $\alpha^I = e_2^I-2e_1^{I}$ and $\alpha^{II} = e_2^{II}-2e_1^{II}$. In this basis, the interaction Hamiltonian for a capacitive coupling of the form (\ref{eq:cqed_capacitive_coupling}) is given as
 %
 \begin{equation}
 \hat{H}_i = \left(
@@ -36,10 +34,10 @@ Without loss of generality we can assume $e_0^{I}=0$, $e_0^{II}=0$. We then defi
 				0 & 0 & 0 & 0 & 0 & 2g & 0 & 0 & 0 \\
 				0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
 			\end{array}
-		\right)
+		\right).
 \end{equation}
 %
-Often it is very useful to go to the interaction picture with $\hat{H}_0 = \hat{H}$. There, the interaction Hamiltonian $\hat{H}_i$ acquires time-dependent terms and is given as
+We then go to the interaction picture with $\hat{H}_0 = \hat{H}$. There, the interaction Hamiltonian $\hat{H}_i$ acquires some time-dependent terms and is given as
 %
 \begin{equation}
 \hat{H}_i = \left(
@@ -54,67 +52,76 @@ Often it is very useful to go to the interaction picture with $\hat{H}_0 = \hat{
 				0 & 0 & 0 & 0 & 0 & 2ge^{-i(\Delta+\alpha^{I}-\alpha^{II}) t} & 0 & 0 & \hdots \\
 				0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
 			\end{array}
-		\right)
+		\right).
 \end{equation}
 %
 \subsection{Qubit Driving}
-
+The qubit driving can be modeled by Hamiltonian (\ref{eq:qubit_three_level_driving_hamiltonian}). However, since we chose a different reference Hamiltonian $\hat{H}_0=\hat{H}$, the drive Hamiltonian will also acquire some time-dependent terms and writes as
+%
+\begin{equation}
+\hat{H}_d = \alpha\left(
+						 \begin{array}{ccc}
+						0 & \epsilon^*(t) & 0 \\
+						\epsilon(t) & 0 & \sqrt{2}\epsilon^*(t)\exp{\left(i\alpha t\right)} \\
+						0 & \sqrt{2}\epsilon(t)\exp{\left(-i\alpha t\right)} & 0
+						\end{array}
+					\right). \label{eq:qubit_three_level_driving_hamiltonian_modified}
+\end{equation}
+%
+The two-qubit drive Hamiltonians are given as $\hat{H}_d^I= \hat{H}_d\otimes \mathbf{I}$ and $\hat{H}_d^{II}=\mathbf{I}\otimes\hat{H}_d$.
 \subsection{Relaxation and Dephasing}
 
-We can model relaxation and dephasing of the three-level system using a set of 6 Lindblad operators. The relaxation operators are based on the three matrices
+We model relaxation and dephasing of the three-level system using a set of six Lindblad operators. The relaxation operators are based on the three matrices
 %
 \begin{align}
-\sigma^-_{01} & =  \left( \begin{array}{ccc} 0 & 1 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right) & \sigma^-_{12} & =  \left( \begin{array}{ccc} 0 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{array} \right) &
+\sigma^-_{01} & =  \left( \begin{array}{ccc} 0 & 1 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right), & 
+\sigma^-_{12} & =  \left( \begin{array}{ccc} 0 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{array} \right), &
 \sigma^-_{02} & =  \left( \begin{array}{ccc} 0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right)
 \end{align}
 %
 and the dephasing operators on
 %
 \begin{align}
-\sigma^z_{01} & =  \left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 &-1 & 0 \\ 0 & 0 & 0 \end{array} \right) &
-\sigma^z_{12} & =  \left( \begin{array}{ccc} 0 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 &-1 \end{array} \right) &
-\sigma^z_{02} & =  \left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 &-1 \end{array} \right)  
+\sigma^z_{01} & =  \left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 &-1 & 0 \\ 0 & 0 & 0 \end{array} \right), &
+\sigma^z_{12} & =  \left( \begin{array}{ccc} 0 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 &-1 \end{array} \right), &
+\sigma^z_{02} & =  \left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 &-1 \end{array} \right).  
 \end{align}
 %
-Using these matrices, we define a set of three relaxation operators $L^r_{01} = \sqrt{\Gamma^r_{10}}\sigma^-_{01}$, $L^r_{12} = \sqrt{\Gamma^r_{12}}\sigma^-_{12}$ and $L^r_{02}=\sqrt{\Gamma^r_{02}}\sigma^-_{02}$ as well as a set of dephasing operators $L^\phi_{01} = \sqrt{\Gamma^\phi_{01}/2}\sigma^z_{01}$, $L^\phi_{12} = \sqrt{\Gamma^\phi_{12}/2}\sigma^z_{12}$, $L^\phi_{02}=\sqrt{\Gamma^\phi_{02}/2}\sigma^z_{02}$. The corresponding two-qubit operator can then be obtained simply as $L^I_i = L_i\otimes {\cal I}$ and $L^{II}_i = L_i\otimes {\cal I}$.
+Using these matrices, we define a set of three relaxation operators $L^r_{01} = \sqrt{\Gamma^r_{10}}\sigma^-_{01}$, $L^r_{12} = \sqrt{\Gamma^r_{12}}\sigma^-_{12}$ and $L^r_{02}=\sqrt{\Gamma^r_{02}}\sigma^-_{02}$ as well as a set of dephasing operators $L^\phi_{01} = \sqrt{\Gamma^\phi_{01}/2}\sigma^z_{01}$, $L^\phi_{12} = \sqrt{\Gamma^\phi_{12}/2}\sigma^z_{12}$, $L^\phi_{02}=\sqrt{\Gamma^\phi_{02}/2}\sigma^z_{02}$. The corresponding two-qubit operator can then be obtained simply as $L^I_i = L_i\otimes {\mathbf I}$ and $L^{II}_i = L_i\otimes {\mathbf I}$.
 
 \section{Master Equation Simulation}
 
-For numerical analysis it is usually convenient to rewrite the Lindblad equation (\ref{eq:lindblad_equation}) in vector form as
+For numerical analysis it is convenient to rewrite the Lindblad equation (\ref{eq:lindblad_equation}) in vector form as
 %
 \begin{equation}
-\frac{d\vec{\rho}}{dt} = {\cal L}(t)\vec{\rho}(t) \label{eq:master_equation_superoperator_form}
+\frac{d\vec{\rho}}{dt} = {\cal L}(t)\vec{\rho}(t), \label{eq:master_equation_superoperator_form}
 \end{equation}
 %
-where $\vec{\rho}$ is a column vector containg all elements of $\rho$ and $\cal L$ is a ``superoperator'' that contains all Lindblad operators and which acts on the vectorized density matrix. For a density matrix with dimension $N\times N$, the superoperator has a dimension $N^2 \times N^2$, which makes the numerical solution of eq. (\ref{eq:master_equation_superoperator_form}) computationally expensive for large $N$. However, for two coupled three-level Transmons the resulting matrix has the dimension $81\times 81$, which still allows for reasonably fast simulation of the system.
+where $\vec{\rho}$ is a column vector containg all elements of $\rho$ and $\cal L$ is a ``superoperator'' that contains all Lindblad operators and acts on the vectorized density matrix. For a density matrix with dimension $N\times N$, the superoperator has a dimension $N^2 \times N^2$, which makes the numerical solution of eq. (\ref{eq:master_equation_superoperator_form}) computationally expensive for large $N$. However, for two coupled three-level Transmons the resulting matrix has the dimension $81\times 81$, which still allows a reasonably fast simulation of the system.
 
 
-\begin{SCfigure}[1][ht!]
-	\centering
-	\includegraphics[width=0.7\textwidth]{"./material/figures/appendix/modeling/master equation/swap_01_10_m1010"}
-	\caption[...]{...}
-	\label{fig:master_equation_simulation_swap_01_10_10}
-\end{SCfigure}
+%\begin{SCfigure}[1][ht!]
+%	\centering
+%	\includegraphics[width=0.7\textwidth]{"./material/figures/appendix/modeling/master equation/swap_01_10_m1010"}
+%	\caption[...]{...}
+%	\label{fig:master_equation_simulation_swap_01_10_10}
+%\end{SCfigure}
 
-\begin{figure}[ht!]
-	\centering
-	\includegraphics[width=\textwidth]{"./material/figures/appendix/modeling/master equation/swap_11_02_20/swap_11_02_20"}
-	\caption[...]{...}
-	\label{fig:master_equation_simulation_swap_11_02_20}
-\end{figure}
-
-\subsection{Monte Carlo Simulation}
-
-%-Show the results of the Monte Carlo method.
+%\begin{figure}[ht!]
+%	\centering
+%	\includegraphics[width=\textwidth]{"./material/figures/appendix/modeling/master equation/swap_11_02_20/swap_11_02_20"}
+%	\caption[...]{...}
+%	\label{fig:master_equation_simulation_swap_11_02_20}
+%\end{figure}
 
 
-\section{Python Code}
+%\section{Python Code}
 
-Here we provide a short script that can be used to perform a master equation simulation of the Hamiltonian discussed above. The script makes use of the numpy Python package but otherwise does not use any optimized numerical routines, hence the runtime is considerably longer than that of an equivalent, optimized program.
+%Here we provide a short script that can be used to perform a master equation simulation of the Hamiltonian discussed above. The script makes use of the numpy Python package but otherwise does not use any optimized numerical routines, hence the runtime is considerably longer than that of an equivalent, optimized program.
 
-\begin{lstlisting}[language=python]
-from helpnet import *
-
-def foo(x,y):
-	print "Hello, world. This is quite a long line which should be wrapped I guess. The sum x + y = %g" % (x,y)
-\end{lstlisting}
+%\begin{lstlisting}[language=python]
+%from helpnet import *
+%
+%def foo(x,y):
+%	print "Hello, world. This is quite a long line which should be wrapped I guess. The sum x + y = %g" % (x,y)
+%\end{lstlisting}
