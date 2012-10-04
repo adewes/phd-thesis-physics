@@ -6,11 +6,11 @@ In this chapter we provide the reader with the conceptual background and theoret
 
 \begin{SCfigure}
 	\includegraphics[width=8cm]{"./material/figures/introduction/bloch_sphere"}
-	\caption{The Bloch sphere representation of a qubit state $\ket{\psi} = \cos{\frac{\theta}{2}}\ket{0}+e^{i\phi}\sin{\frac{\theta}{2}}\ket{1}$. The state $\ket{\psi}$ is fully characterized by specifying its ``latitude'' and ``azimuth'' angles $\theta$ and $\phi$. Pure quantum states will always lie on the surface of the Bloch sphere, whereas mixed quantum states can also lie anywhere inside the sphere.}
+	\caption{Bloch sphere representation of a qubit state $\ket{\psi} = \cos{\frac{\theta}{2}}\ket{0}+e^{i\phi}\sin{\frac{\theta}{2}}\ket{1}$. The state is fully characterized by specifying its ``latitude'' and ``azimuth'' angles $\theta$ and $\phi$. Pure quantum states always lie on the surface of the Bloch sphere, whereas mixed quantum states lie inside the sphere.}
 	\label{fig:BlochSphere}
 \end{SCfigure}
 
-By definition, computing designates the activity of using computer hardware and software to process information, or {\it data}. Classical information processing can be divided in so-called {\it analog and digital information processing}, the former being based on continous physical variables whereas the latter is based on discrete variables. The fundamental unit of digital information processing is the so-called {\it bit}, which represents a Boolean (true/false) information. The discipline of theoretical computer science has been created to investigate the fundamental limits and properties of classical information processing. One of the main foundational theorems of theoretical computer science is the so-called {\it Church-Turing thesis} which provides a universal computing model by saying (basically) that everything which is computable can be efficiently computed using a {\it Turing machine}. Such a Turing machine, in turn, is a simple theoretical device which is able to run programs that operate on a discrete set of data using a well-specified set of operations. The Turing machine is universal in the sense that any other classical computing device can be efficiently emulated using a Turing machine with the appropriate program and data.
+By definition, computing designates the activity of using computer hardware and software to process information, or {\it data}. Classical information processing can be divided in {\it analog and digital information processing}, the former being based on continous physical variables whereas the latter is based on discrete variables. The fundamental unit of digital information processing is the {\it bit}, which represents a Boolean (true/false) information. The discipline of theoretical computer science has been created to investigate the fundamental limits and properties of classical information processing. One of the main foundational theorems of theoretical computer science is the {\it Church-Turing thesis} which provides a universal computing model by saying (basically) that everything which is computable can be efficiently computed using a {\it Turing machine}. Such a Turing machine, in turn, is a simple theoretical device which is able to run programs that operate on a discrete set of data using a well-specified set of operations. The Turing machine is universal in the sense that any other classical computing device can be efficiently emulated using a Turing machine with the appropriate program and data.
 
 \smallskip
 
@@ -32,7 +32,7 @@ As in classical computing, one can define in quantum computing a fundamental uni
 \end{equation}
 %
 of its two states $\ket{0}$ and $\ket{1}$.
-As can be seen, any state can be described by a pair of real numbers $\theta$ and $\phi$ that characterize the amplitude of each of the two basis states and the phase between them. A useful and intuitive representation of such a single-qubit state is the so-called {\it Bloch sphere representation}, shown in fig. \ref{fig:BlochSphere}. The north and south poles of this sphere correspond by convention to the qubit states $\ket{0}$ and $\ket{1}$ (or vice versa). All states lying on the sphere between those two correspond to pure superposition states, which are characterized by their ``latitude'' and ``azimuth'' angles $\theta$ and $\phi$. 
+As can be seen, any state can be described by a pair of real numbers $\theta$ and $\phi$ that characterize the amplitude of each of the two basis states and the phase between them. A useful and intuitive representation of such a single-qubit state is the {\it Bloch sphere representation}, shown in fig. \ref{fig:BlochSphere}. The north and south poles of this sphere correspond by convention to the qubit states $\ket{0}$ and $\ket{1}$ (or vice versa). All states lying on the sphere between those two correspond to pure superposition states, which are characterized by their ``latitude'' and ``azimuth'' angles $\theta$ and $\phi$. 
 
 \smallskip
 
@@ -48,7 +48,7 @@ in the ${\ket{0},\ket{1}}$ basis, with $\rho_{00}$ and $\rho_{11}$ being real nu
 
 \smallskip
 
-A mixed single-qubit state $\rho$ can also be represented as a 3D vector lying in the so-called {\it Bloch sphere}. For this, we decompose the density matrix of the state as $\rho = c_i\sigma_I+c_x\sigma_x+c_y\sigma_y+c_z\sigma_z$, where $c_{i,x,y,z}$ are real coefficients and the identity matrix $\sigma_I$ and Pauli matrices $\sigma_x,\sigma_y,\sigma_z$ are given as
+A mixed single-qubit state $\rho$ can also be represented as a 3D vector lying in the {\it Bloch sphere}. For this, we decompose the density matrix of the state as $\rho = c_i\sigma_I+c_x\sigma_x+c_y\sigma_y+c_z\sigma_z$, where $c_{i,x,y,z}$ are real coefficients and the identity matrix $\sigma_I$ and Pauli matrices $\sigma_x,\sigma_y,\sigma_z$ are given as
 %
 \begin{align}
   \sigma_I  =  \left( \begin{array}{cc} 1 & 0 \\ 0 & 1 \end{array} \right)
@@ -74,7 +74,7 @@ whereas a completely mixed state of 50 \% $\ket{01}$ and 50 \% $\ket{10}$ is rep
 \rho = \frac{1}{2}\left( \begin{array}{cccc} 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right)_{(\ket{00},\ket{01},\ket{10},\ket{11})}.
 \end{equation}
 %
-Often it is necessary two compare two quantum states to each other. For this, it is useful to define a so-called {\it quantum state fidelity}, which is a measure of ``closeness'' between two quantum states. In this work, we will often use the quantum fidelity $F(\rho,\sigma)=F(\sigma,\rho)$ defined as
+Often it is necessary two compare two quantum states to each other. For this, it is useful to define a {\it quantum state fidelity}, which is a measure of ``closeness'' between two quantum states. In this work, we will often use the quantum fidelity $F(\rho,\sigma)=F(\sigma,\rho)$ defined as
 %
 \begin{equation}
 F(\rho,\sigma) = \mathrm{Tr}\left[\sqrt{\sqrt{\rho}\sigma\sqrt{\rho}}\right], \label{eq:quantum_state_fidelity}
@@ -103,16 +103,16 @@ Analogously to classical information processing based on logic gates, in quantum
 \label{eq:universal_single_qubit_gates}
 \end{eqnarray}
 %
-that describe rotations of an angle $\theta$ around the $X$, $Y$ and $Z$ axes of the Bloch sphere, together with the so-called $\sqrt{i\mathrm{SWAP}}$ gate
+that describe rotations of an angle $\theta$ around the $X$, $Y$ and $Z$ axes of the Bloch sphere, together with the $\sqrt{i\mathrm{SWAP}}$ gate
 %
 \begin{equation}
-\sqrt{i\mathrm{SWAP}} = \left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 1/\sqrt{2} & i/\sqrt{2} & 0 \\ 0 & i/\sqrt{2} & 1/\sqrt{2} & 0 \\ 0 & 0 & 0 & 1  \end{array}  \right)_{(\ket{00},\ket{01},\ket{10},\ket{11})}.
+\sqrt{i\mathrm{SWAP}} = \left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 1/\sqrt{2} & -i/\sqrt{2} & 0 \\ 0 & -i/\sqrt{2} & 1/\sqrt{2} & 0 \\ 0 & 0 & 0 & 1  \end{array}  \right)_{(\ket{00},\ket{01},\ket{10},\ket{11})}.
 \end{equation}
 %
 By applying the $\sqrt{i\mathrm{SWAP}}$ operation twice we obtain the $i\mathrm{SWAP}$ quantum gate, which is, by itself, \textbf{not} a universal quantum gate but which is nevertheless used in some practical quantum algorithms:
 %
 \begin{equation}
-i\mathrm{SWAP} = \left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 0 & i & 0 \\ 0 & i & 0 & 0 \\ 0 & 0 & 0 & 1  \end{array}  \right)_{(\ket{00},\ket{01},\ket{10},\ket{11})}.
+i\mathrm{SWAP} = \left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 0 & -i & 0 \\ 0 & -i & 0 & 0 \\ 0 & 0 & 0 & 1  \end{array}  \right)_{(\ket{00},\ket{01},\ket{10},\ket{11})}.
 \end{equation}
 %
 
@@ -142,7 +142,7 @@ In this section we discuss several types of superconducting circuit elements tha
 
 \subsection{The Josephson Junction}
 
-The core element used to construct superconducting quantum circuits is the {\it Josephson junction}. A Josephson junction is based on the so-called Josephson effect \citep{josephson_possible_1962}, which states that between two superconductors connected through an insulating barrier, a supercurrent
+The core element used to construct superconducting quantum circuits is the {\it Josephson junction}. A Josephson junction is based on the Josephson effect \citep{josephson_possible_1962}, which states that between two superconductors connected through an insulating barrier, a supercurrent
 %
 \begin{equation}
 I_{12} = I_c\sin{\varphi}
@@ -170,7 +170,7 @@ For currents $I\ll I_c$, the Josephson junction behaves approximately like a non
 L_J(\varphi) = \frac{\varphi_0}{I_c \cos{\varphi}} \approx L_{J0}\left[1+\frac{\varphi^2}{2}+\begin{mathcal}O\end{mathcal}(\varphi^4)\right],\label{eq:josephson_inductance}
 \end{equation}
 %
-where $L_{J0}=\varphi_0/ I_c$ is the so-called {\it Josephson inductance}. 
+where $L_{J0}=\varphi_0/ I_c$ is the {\it Josephson inductance}. 
 
 \smallskip
 
@@ -201,7 +201,7 @@ where $t_{ref}$ is an arbitrarily chosen reference time. The Kirchhoff laws now 
 \sum\limits_{i} Q_i  =  Q_c & & , & & \sum\limits_{i}\Phi_i = \Phi_c \label{eq:kirchhoff_charge}
 \end{align}
 %
-with $Q_c$ and $\Phi_c$ constants, where the first sum is over charges $Q_i$ of all elements connected to a certain node $c$ and the second one is over all branches forming a closed loop in the circuit. We can obtain a complete set of node and branch equations for any given circuit by constructing a so-called {\it spanning tree} of the circuit, which is a tree in which all nodes are connected to an arbitrarily chosen {\it ground node} by one unique path \citep{devoret_quantum_1995}. From the spanning tree we obtain a complete set of branches and the corresponding Kirchoff equations for the fluxes $\Phi_i$ around them. Together with the set of Kirchhoff equations for the charges at each node, we can use this system of equations to eliminate unnecessary circuit variables and obtain a description of the circuit using a minimal set of degrees of freedom. Now, to quantize a circuit made up of non-dissipative elements we can follow the method given in \cite{yurke_quantum_1984}, writing the Lagrangian (using the reduced set of variables) as 
+with $Q_c$ and $\Phi_c$ constants, where the first sum is over charges $Q_i$ of all elements connected to a certain node $c$ and the second one is over all branches forming a closed loop in the circuit. We can obtain a complete set of node and branch equations for any given circuit by constructing a {\it spanning tree} of the circuit, which is a tree in which all nodes are connected to an arbitrarily chosen {\it ground node} by one unique path \citep{devoret_quantum_1995}. From the spanning tree we obtain a complete set of branches and the corresponding Kirchoff equations for the fluxes $\Phi_i$ around them. Together with the set of Kirchhoff equations for the charges at each node, we can use this system of equations to eliminate unnecessary circuit variables and obtain a description of the circuit using a minimal set of degrees of freedom. Now, to quantize a circuit made up of non-dissipative elements we can follow the method given in \cite{yurke_quantum_1984}, writing the Lagrangian (using the reduced set of variables) as 
 %
 \begin{equation}
 \begin{mathcal}L\end{mathcal}(\Phi_1,\hdots,\Phi_n,\dot{\Phi}_1,\hdots,\dot{\Phi}_n) = \sum\limits_i \begin{mathcal}V\end{mathcal}_i - \sum\limits_i \begin{mathcal}T\end{mathcal}_i \label{eq:circuit_lagrangian},
@@ -217,7 +217,7 @@ E_L = \int\limits_0^\Phi g_L(\Phi)d\Phi.
 A Josephson junction, for example, can be described as a nonlinear inductance with $g_L^{JJ}(\Phi)=I_c\sin{(\Phi/\varphi_0)}$, having an associated energy
 %
 \begin{equation}
-E_L^{JJ} = \int\limits_0^\Phi I_c\sin{\left(\Phi/\varphi_0\right)}=E_J(1-\cos{\left[\frac{\Phi}{\varphi_0}\right]}).
+E_L^{JJ} = \int\limits_0^\Phi I_c\sin{\left(\Phi/\varphi_0\right)}=E_J\left(1-\cos{\left[\frac{\Phi}{\varphi_0}\right]}\right).
 \end{equation}
 %
 Transmission lines can be quantized by a similar approach, as shown e.g. in \citep{yurke_quantum_1984}. Externally imposed charges and fluxes can be modeled as ``pre-charged'' capacitors and inductors with infinite charge or flux and infinite capacitance or inductance that get renormalized at the end of the quantization process \citep{devoret_quantum_1995}. Externally imposed voltages and currents can be treated like this as well by converting them to corresponding fluxes or charges. From the Lagrangian as given by eq. (\ref{eq:circuit_lagrangian}) we can obtain the classical equations of motion of the system by variation of the action
@@ -253,7 +253,7 @@ In the following sections we apply this quantization method to the Cooper pair b
 \begin{SCfigure}[1][ht!]
 	\centering
 	\includegraphics[width=0.4\textwidth]{"./material/figures/introduction/lcr_resonator"}
-	\caption[]{An $LCR$ resonator coupled to a voltage source through an input capacitance $C_{in}$.}
+	\caption[]{An $LCR$ resonator coupled to a voltage source $V$ with internal impedance $Z_0$ through an input capacitance $C_{in}$.}
 	\label{fig:lcr_resonator}
 \end{SCfigure}
 
@@ -303,11 +303,11 @@ Before quantizing the LCR resonator, we will first show how we can map a transmi
 
 \begin{SCfigure}[1][ht!]
 	\includegraphics[width=10cm]{"./material/mathematica/lcr_and_cpw_schematic_with_plots"}
-	\caption{a) The electric field $E$ and current $I$ inside a $\lambda/2$ resonator. b) The circuit model of an open $\lambda/2$ resonator capacitively coupled to a drive circuit. The (lossless) resonator can be modeled as a series of infinitesimal sections of $LC$ elements, as shown in the inset. c) The schematic of a coplanar waveguide (CPW) resonator, showing the electric field $E$, magnetic field $B$ and the current $I$ in the resonator. d) The reflected phase $\mathrm{arg}(S_{11})$ and absolute value of the input impedance $|Z_{in}|$ and resonator impedance $|Z_{res}|$ of an LCR resonator with with $\omega_r=Z_r=Z_0=1$, $R\to\infty$ and $C_{in}=0.1$ (dotted lines) as well a $\lambda/2$ resonator with the same effective $\omega_r$ and $Z_r$ (solid lines), plotted as a function of the reduced frequency. As can be seen, the resonance frequency of the loaded resonator shifts in respect to that of the uncoupled one. In this case, $\omega_{r}^\mathrm{loaded}\approx 0.969$.}
+	\caption{Frequency response of an open-terminated $\lambda/2$ coplanar waveguide resonator.  a) 3D schematic of the resonator showing the electric field $E$, the lineic charge $q$, the magnetic field $B$, and the current $I$ configuration. b) Distributions of $E$ or $q$ (blue) and of $B$ or $I$ along the resonator.c) Circuit model of the resonator capacitively coupled to a drive circuit with voltage source $V$ and source impedence $Z_0$. The (lossless) resonator can be modeled as a series of infinitesimal sections of $LC$ elements (inset). The reflection coefficient $S_{11}=V_out/V_in$ has a constant amplitude of 1 at all frequencies if the resonator is lossless  d) Reflected phase $\mathrm{arg}(S_{11})$ and absolute values of the input impedance $|Z_{in}|$ and resonator impedance $|Z_{res}|$ (see text) as a function  of the reduced frequency $omega_r=omega/omega_0$, for a $\lambda/2$ resonator with $\omega_r=Z_r=Z_0=1$ ($C_r=\pi/2$) and $C_{in}=0.1$ (red solid line). With the chosen parameters, the first resonance frequency of the loaded resonator is shifted down to  $\omega_{r}^\mathrm{loaded}\approx 0.969$  with respect to that of the uncoupled one. For this first resonance,  $\mathrm{arg}(S_{11})$, $|Z_{in}|$, and $|Z_{res}|$ are very close to those of a lumped element $L_rC_rR_r$ resonator with the same $\omega_r$, $Z_r$ and $C_{in}$  (blue dashed lines).}
 	\label{fig:lambda_over_2_response}
 \end{SCfigure}
 
-Due to practical reasons we use so-called {\it coplanar waveguide resonators} instead of lumped elements LCR resonators in our experiments. We will therefore briefly discuss them and show how we can map them to the simple LCR resonator model. A coplanar waveguide is a flat structure with a central conductor that is separated by a gap from a ground plane on either side, as shown in fig. \ref{fig:lambda_over_2_response}c. In general, it can be treated as a so-called {\it transmission line}. A detailed treatment of the physics of transmission lines can be found e.g. in \cite{pozar_microwave_2011}.  If we regard a transmission line of finite length $l$, the voltages and currents at both ends are related through \citep{pozar_microwave_2011}
+Due to practical reasons we use {\it coplanar waveguide resonators} instead of lumped elements LCR resonators in our experiments. We will therefore briefly discuss them and show how we can map them to the simple LCR resonator model. A coplanar waveguide is a flat structure with a central conductor that is separated by a gap from a ground plane on either side, as shown in fig. \ref{fig:lambda_over_2_response}c. In general, it can be treated as a {\it transmission line}. A detailed treatment of the physics of transmission lines can be found e.g. in \cite{pozar_microwave_2011}.  If we regard a transmission line of finite length $l$, the voltages and currents at both ends are related through \citep{pozar_microwave_2011}
 %
 \begin{equation}
 \left( \begin{array}{c} V_1 \\ I_1 \end{array}\right) = \left( 
@@ -338,7 +338,7 @@ The impedance of the resonator is thus given as $V_1/I_1 = -i Z_r \cot{\gamma l}
 \begin{eqnarray}
 L_{r} & = & \frac{2 Z_r}{\omega_r \pi}, \\
 C_{r} & = & \frac{\pi}{2\omega_r Z_r}, \\
-R_{r} & = & \frac{2 Z_r Q}{\pi}.
+R_{r} & = & \frac{2 Z_r Q}{\pi}. \label{eq:lcr_cpw_values}
 \end{eqnarray}
 %
 Using this mapping, we can calculate all relevant resonator properties using the theory of the lumped element LCR resonator, disregarding however the internal multi-mode structure of the resonator.
@@ -373,14 +373,14 @@ By inverting these relations we obtain the flux and charge operators $\hat{\Phi}
 \hat{Q} & = & i C V_{rms}\left(\hat{a}^\dagger-\hat{a}\right),
 \end{eqnarray}
 %
-where $V_{rms} = \sqrt{\hbar\omega_r/2C}$ is the root-mean-square voltage corresponding to one photon in the resonator.
+where $V_{rms} = \sqrt{\hbar\omega_r/2C}$ is the root-mean-square voltage corresponding to one photon in the resonator. Using the modified values given by eqs. (\ref{eq:lcr_cpw_values}), these equations also give the maximum values of $\hat{V}$, $\hat{\Phi}$, $\hat{I}$ and $\hat{Q}$ of the fundamental mode in a transmission line resonator.
 
 \subsection{The Cooper Pair Box}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{"./material/figures/introduction/cooper_pair_box"}
-	\caption{a) The circuit schematic of a Cooper Pair Box (CPB). The device consists of a Josephson junction capacitively coupled to a voltage source. The extra capacitance of the Josephson junction is modeled by a capacitor $C_J$. Charges can accumulate on the island between the voltage source and the Josephson junction. b) A {\it split Cooper pair box}, where instead of one junction two of them are arranged in a loop. With this geometry it is possible to tune the effective Josephson energy of the circuit by changing the magnetic flux inside the junction loop. c) The schematic of a split CPB capacitively coupled to ground. This schematic corresponds most closely to the experimental CPB circuit that we use in this work.}
+	\caption{a) Circuit schematic of a Cooper Pair Box (CPB). The device consists of a Josephson junction with Josephson  energy $E_J$ capacitively coupled to a voltage source $V_g$ through a gate capacitor $C_g$. The extra capacitance of the Josephson junction as well as any added parallel capacitance is modeled by a capacitor $C_J$. Charges can accumulate on the island 1 (the box). b) {\it Split Cooper pair box}, where two junctions with Josephson $E_J/2$  are arranged in a loop, to make the total Josephson energy  $E_J |cos(2 \pi \phi_{ext}/phi_0)|$ tunable with the external flux $\phi_{ext}$ applied to the loop. c) Schematic of a split CPB with $C_g$ splitted in two series capacitor $2 C_g$  to decouple the bottom electrode of the box (3) from the ground. This last geometry is the one used in this thesis work.}
 	\label{fig:cpb_circuit}
 \end{figure}
 
@@ -415,7 +415,7 @@ with $\hat{\theta}=\hat{\phi}_1$, $E_C = (2e)^2 / (C_J+C_g)$ the charging energy
 For the split Cooper pair box as shown in fig. \ref{fig:cpb_circuit}b, the treatment is slightly modified \citep{cottet_implementation_2002}. First of all, we write the Josephson energies of the two junctions as $E_{J1}=(1+d)E_J/2$ and $E_{J2}=(1-d)E_J/2$, where $d\in[0,1]$ is the energy asymmetry between the junctions. When imposing an external phase $\phi_{ext}=\Phi_{ext}/\varphi_0$ in the loop, the potential energy of the two junctions can be written as
 %
 \begin{eqnarray}
-\begin{mathcal}V\end{mathcal}_J & = & -\frac{E_J}{2}\left[(1+d)\cos{(\phi_1-\phi_{ext}/2)}+(1-d)\cos{(\phi_2+\phi_{ext}/2)} \right] \\
+\begin{mathcal}V\end{mathcal}_J & = & -\frac{E_J}{2}\left[(1+d)\cos{(\phi_1-\phi_{ext}/2)}+(1-d)\cos{(\phi_1+\phi_{ext}/2)} \right] \\
 & = & -E_J\left[\cos{\phi_1}\cos{\frac{\phi_{ext}}{2}}+d\sin{\phi_1}\sin{\frac{\phi_{ext}}{2}}\right].
 \end{eqnarray}
 %
@@ -452,7 +452,7 @@ Since the potential $-E_J\cos{(\theta)}$ is $2\pi$ periodic, the solution will b
 \Psi_k(\theta) = \Psi_k(\theta+2\pi),
 \end{equation}
 %
-which allows us to map eq. (\ref{eq:cpb_schroedinger_equation}) to the so-called {\it Mathieu  equation}
+which allows us to map eq. (\ref{eq:cpb_schroedinger_equation}) to the {\it Mathieu equation}
 %
 \begin{equation}
 \frac{d^2y}{dx^2}+\left[a-2q\cos{(2x)}\right]y = 0.
@@ -486,7 +486,7 @@ r_k(n_g) & = & \sum\limits_{l\pm 1}\left[\mathrm{int}(n_g+l/2)\mathrm{mod}\;2\ri
 where $x\mathrm{div}y$ denotes the integer part of $x/y$.
 \begin{figure}[ht!]
 	\includegraphics[width=\textwidth]{"./material/mathematica/cooper_pair_box_energies"}
-	\caption{Energies of the first four energy levels of the Cooper pair box for different ratios $E_J/E_C$, plotted as a function of the gate charge $n_g$. As can be seen, for $E_J \gg E_C$, the charge-dispersion curve becomes almost completely flat.}
+	\caption{First four energy levels of the Cooper pair box as a function of the reduced gate charge $n_g$, for $E_J/E_C$ ratios equal to 1/4, 1, and 8 (left to right). As can be seen, for $E_J \gg E_C$, the charge-dispersion curve becomes almost completely flat.}
 	\label{fig:CooperPairBoxEnergies}
 \end{figure}
 
@@ -576,13 +576,13 @@ where $Z_{fl}(\omega)$ is the impedance of the flux line coupled to the qubit. A
 Noise in the gate charge $n_g$ randomly changes the transition frequency of the CPB and induces dephasing. Again, both microscopic and macroscopic noise sources contribute to dephasing. Here, we look at microscopic charge noise, which is most relevant to our experiments. The corresponding dephasing rate in the case of a $1/f$ gate charge noise can be written as \citep{cottet_implementation_2002,van_harlingen_decoherence_2004}
 %
 \begin{equation}
-\Gamma_\phi^{\delta n_g} \simeq 3.7A \left|\frac{\partial \omega_{01}}{\partial n_g}\right|,
+\Gamma_\phi^{\delta n_g} \simeq 3.7A_{n_g} \left|\frac{\partial \omega_{01}}{\partial n_g}\right|,
 \end{equation}
 %
-where $A\approx 10^{-5}$ is a measured parameter that describes the amplitude of the microscopic gate charge fluctuations. In the limit $E_J\gg E_C$ this rate can be written analytically as
+where $A_{n_g}\approx 10^{-3}$ is the amplitude of the microscopic gate charge fluctuations and which has to be determined experimentally. In the limit $E_J\gg E_C$ this rate can be written analytically as
 %
 \begin{equation}
-\Gamma_\phi^{\delta N_g} \simeq 3.7\frac{A\pi}{\hbar}\left| (\epsilon_1-\epsilon_0)\sin{\left(2\pi N_g\right)}\right| \leq 3.7\frac{A\pi}{\hbar}|\epsilon_1|,
+\Gamma_\phi^{\delta N_g} \simeq 3.7\frac{A_{n_g}\pi}{\hbar}\left| (\epsilon_1-\epsilon_0)\sin{\left(2\pi N_g\right)}\right| \leq 3.7\frac{A_{n_g}\pi}{\hbar}|\epsilon_1|,
 \end{equation}
 %
 where $\epsilon_i$ is the energy modulation amplitude of the $i$-th CPB level, given as \citep{koch_charge-insensitive_2007}
@@ -599,13 +599,13 @@ As can be seen, the sensitivity of the CPB to charge noise decreases exponential
 Analogously to charge-induced dephasing, one can consider dephasing due to microscopic $1/f$-type flux noise seen by the CPB, which has an associated dephasing rate
 %
 \begin{equation}
-\Gamma_\phi^{\delta \phi_{ext}} \simeq 3.7A\left|\frac{\partial \omega_{01}}{\partial \phi_{ext}}\right| \label{eq:flux_dephasing_rate}
+\Gamma_\phi^{\delta \phi_{ext}} \simeq 3.7A_{\phi_{ext}}\left|\frac{\partial \omega_{01}}{\partial \phi_{ext}}\right| \label{eq:flux_dephasing_rate}
 \end{equation}
 %
-where again $A=10^{-5}$ is a measured noise amplitude \citep{koch_charge-insensitive_2007}. For the general, asymmetric CPB in the limit $E_J \gg E_C$ we obtain a dephasing rate
+where again $A_{\phi_{ext}}$ is the experimentally measured flux noise amplitude \citep{koch_charge-insensitive_2007}, which, for superconducting circuits, typically is $A_{\phi_{ext}}\approx 10^{-6}-10^{-5}$. For the general, asymmetric CPB in the limit $E_J \gg E_C$ we obtain a dephasing rate
 %
 \begin{equation}
-\Gamma_\phi^{\delta \phi_{ext}} \approx \frac{1}{2} A \omega_{01}^{max}\left|\sin{(\phi_{ext})}(1-d^2)\left(\frac{1+d^2+(1-d^2)\cos{(\phi_{ext})}}{2}\right)^{-3/4}\right|
+\Gamma_\phi^{\delta \phi_{ext}} \approx \frac{1}{2} A_{\phi_{ext}} \omega_{01}^{max}\left|\sin{(\phi_{ext})}(1-d^2)\left(\frac{1+d^2+(1-d^2)\cos{(\phi_{ext})}}{2}\right)^{-3/4}\right|
 \end{equation}
 %
 where $\omega_{01}^{max}= \sqrt{2 E_C E_J}/\hbar$ is the maximum transition frequency of the qubit.
@@ -614,11 +614,11 @@ where $\omega_{01}^{max}= \sqrt{2 E_C E_J}/\hbar$ is the maximum transition freq
 
 \begin{SCfigure}
 	\includegraphics[width=11cm]{"./material/figures/introduction/cqed/cqed"}
-	\caption{a) Schematic of a typical CQED circuit, consisting of a Transmon qubit capacitively coupled to a transmission line resonator. c) The equivalent circuit using a lumped-element model of the $\lambda/2$ resonator.}
+	\caption{a) Schematic of a typical CQED circuit, consisting of a Transmon qubit capacitively coupled to a transmission line resonator. b) Equivalent lumped element circuit.}
 	\label{fig:CQED}
 \end{SCfigure}
 
-All experiments reported in this thesis rely on the coupling between a superconducting qubit and a resonator, where the latter serves either for reading out the qubit state and/or for coupling several qubits. The corresponding research field is today referred to as {\it circuit quantum electrodynamics} (CQED), a term coined in reference to {\it cavity quantum electrodynamics}, a field that investigates the physics of Rydberg atoms interacting with a microwave cavity (see e.g. \citep{mabuchi_cavity_2002,walther_cavity_2006} for a review of cavity QED). In circuit QED, qubits that act as ``artificial atoms'' interact with coplanar or lumped elements resonators on a chip, where the qubit-resonator system can be represented as in fig. \ref{fig:CQED}. There, a Transmon qubit is capacitively coupled to a $\lambda/2$ resonator which itself is capacitively coupled to an input transmission line. The Hamiltonian of the resonator and the qubit are given by eqs. (\ref{eq:lc_hamiltonian}) and (\ref{eq:cpb_qubit_hamiltonian}). Due to the capacitance between the qubit and the resonator, a coupling energy between the two arises. The full Hamiltonian of the qubit-resonator system can therefore be written as
+All experiments reported in this thesis rely on the coupling between a superconducting qubit and a resonator, where the latter serves either for reading out the qubit state and/or for coupling several qubits. The corresponding research field is today referred to as {\it circuit quantum electrodynamics} (CQED), a term coined in reference to {\it cavity quantum electrodynamics}, a field that investigates the physics of atoms interacting with a cavity (see e.g. \citep{mabuchi_cavity_2002,walther_cavity_2006} for a review of cavity QED). In circuit QED, qubits that act as ``artificial atoms'' interact with coplanar or lumped elements resonators on a chip, where the qubit-resonator system can be represented as in fig. \ref{fig:CQED}. There, a Transmon qubit is capacitively coupled to a $\lambda/2$ resonator which itself is capacitively coupled to an input transmission line. The Hamiltonian of the resonator and the qubit are given by eqs. (\ref{eq:lc_hamiltonian}) and (\ref{eq:cpb_qubit_hamiltonian}). Due to the capacitance between the qubit and the resonator, a coupling energy between the two arises. The full Hamiltonian of the qubit-resonator system can therefore be written as
 %
 \begin{equation}
 \hat{H}_{cqed} = \hat{H}_r+\hat{H}_q+\hat{H}_{qr},
@@ -627,14 +627,14 @@ All experiments reported in this thesis rely on the coupling between a supercond
 where $\hat{H}_{r}$ and $\hat{H}_q$ are the Hamiltonians of the resonator and the qubit as given by eqs. (\ref{eq:lc_hamiltonian}) and (\ref{eq:cpb_hamiltonian}), respectively, and $\hat{H}_{qr}$ is the interaction Hamiltonian between them. For small couplings $C_g \ll C_{in},C_r,C_\Sigma$ , we can estimate the coupling energy between the qubit and the resonator simply as
 %
 \begin{equation}
-\hat{H}_{qr} = \frac{1}{2}C_{g}\hat{V}_{qr}^2 = \frac{1}{2}C_g\left(V^0_{rms}(a^\dagger+a)-\hat{V}\right)^2, \label{eq:cqed_coupling_hamiltonian}
+\hat{H}_{qr} = \frac{1}{2}C_{g}\hat{V}_{qr}^2 = \frac{1}{2}C_g\left(V_{rms}(a^\dagger+a)-\hat{V}\right)^2, \label{eq:cqed_coupling_hamiltonian}
 \end{equation}
 %
 where $\hat{V}_{qr}$ is the voltage across the coupling capacitance $C_g$ and $\hat{V}=2e/C_\Sigma \cdot(n_g-\hat{n})$ is the voltage across the Transmon electrodes. A rigorous treatment of the coupling energy, which is necessary for large coupling capacitances $C_{qr}\simeq C_{r},C_\Sigma$, would require a full quantization of the coupled qubit-resonator circuit, as performed e.g. in \citep{nguyen_cooper_2008}. The coupling energy in eq. (\ref{eq:cqed_coupling_hamiltonian}) can be rewritten as
 %
 \begin{eqnarray}
-\hat{H}_{qr} & = & \frac{1}{2}C_g\left[V_{rms}^0(a^\dagger+a)-\frac{2e}{C_\Sigma}\left(n_g-\hat{n}\right)\right]^2 \notag \\
-       & = & 2e \beta V_{rms}^0\hat{n}(a^\dagger+a) + \hdots \label{eq:cqed_coupling}
+\hat{H}_{qr} & = & \frac{1}{2}C_g\left[V_{rms}(a^\dagger+a)-\frac{2e}{C_\Sigma}\left(n_g-\hat{n}\right)\right]^2 \notag \\
+       & = & 2e \beta V_{rms}\hat{n}(a^\dagger+a) + \hdots \label{eq:cqed_coupling}
 \end{eqnarray}
 %
 in the limit $\beta = C_g/C_\Sigma \ll C_\Sigma$. The terms omitted in eq. (\ref{eq:cqed_coupling}) correspond to energy shifts of the qubit and the resonator which are not directly relevant for the coupling between them. 
@@ -647,10 +647,10 @@ in the limit $\beta = C_g/C_\Sigma \ll C_\Sigma$. The terms omitted in eq. (\ref
 where the coupling energies $g_{ij}$ are given as
 %
 \begin{equation}
-\hbar g_{ij} = 2\beta e V_{rms}^0 \bra{i}\hat{n}\ket{j}. \label{eq:qubit_bus_coupling}
+\hbar g_{ij} = 2\beta e V_{rms} \bra{i}\hat{n}\ket{j}. \label{eq:qubit_bus_coupling}
 \end{equation}
 %
-When the coupling between the resonator and the Transmon is such that $g_{ij} \ll \omega_r,E_{01}/h$, we can ignore the terms in eq. (\ref{eq:cqed_hamiltonian}) that describe simultaneous excitation or de-excitation of the Transmon and the resonator and obtain the so-called {\it rotating wave approximation}, yielding the Hamiltonian
+When the coupling between the resonator and the Transmon is such that $g_{ij} \ll \omega_r,E_{01}/h$, we can ignore the terms in eq. (\ref{eq:cqed_hamiltonian}) that describe simultaneous excitation or de-excitation of the Transmon and the resonator and obtain the {\it rotating wave approximation}, yielding the Hamiltonian
 %
 \begin{equation}
 \hat{H} = \hbar \sum\limits_{j=0} \omega_j \ket{j}\bra{j}+\hbar \omega_r \hat{a}^\dagger \hat{a} + \hbar \sum\limits_{i=0} g_{i,i+1}\left(\ket{i}\bra{i+1}\hat{a}^\dagger +\ket{i+1}\bra{i}\hat{a}\right). \label{eq:cqed_rotating_wave}
@@ -699,11 +699,11 @@ Thus, there is a dispersive shift of the qubit transition frequency that is prop
 
 \begin{SCfigure}[1][htb!]
 	\includegraphics[width=10cm]{"./material/figures/introduction/jba"}
-	\caption{a) Circuit schematic of the CJBA, consisting of two parts of transmission line joined by a Josephson junction, forming a non-linear $\lambda/2$ resonator. b) Equivalent lumped elements circuit model of the CJBA.}
+	\caption{a) Circuit schematic of a driven cavity Josephson bifurcation amplifier (CJBA), consisting of two sections of transmission line joined by a Josephson junction, and forming a  non-linear open-end $\lambda/2$ resonator. b) Equivalent lumped elements circuit model.}
 	\label{fig:cba_schematic}
 \end{SCfigure}
 
-In this section we discuss the physics of superconducting nonlinear bifurcation amplifiers, which we use to realize a single-shot readout scheme for our qubits. Most notably, we discuss the so-called {\it cavity Josephson bifurcation amplifier (CJBA)}, as shown in fig. \ref{fig:cba_schematic}a. A detailed discussion of the CJBA can be found e.g. in \cite{palacios-laloy_superconducting_2010}. The device consists of a transmission line resonator with a Josephson junction embedded in its central conductor. We can model the whole circuit as a lumped elements resonator, as shown in fig. \ref{fig:cba_schematic}b. The Hamiltonian of the resonator, disregarding the resistor and the voltage source, is
+In this section we discuss the physics of superconducting nonlinear bifurcation amplifiers, which we use to realize a single-shot readout scheme for our qubits. Most notably, we discuss the {\it cavity Josephson bifurcation amplifier (CJBA)}, as shown in fig. \ref{fig:cba_schematic}a. A detailed discussion of the CJBA can be found e.g. in \cite{palacios-laloy_superconducting_2010}. The device consists of a transmission line resonator with a Josephson junction embedded in its central conductor. We can model the whole circuit as a lumped elements resonator, as shown in fig. \ref{fig:cba_schematic}b. The Hamiltonian of the resonator, disregarding the resistor and the voltage source, is
 
 %
 \begin{equation}
@@ -722,13 +722,13 @@ We can hence write $\Phi_1 = g(\Phi_2)$. When we develop this equation to second
 H = \frac{\phi_2^2}{2L_t}+\frac{Q_2^2}{2C_e}-\frac{1}{24}p^3\frac{\Phi_2^4}{L_t \varphi_0^2},
 \end{equation}
 %
-where $L_t = L_J+L_e$ and $p=L_J/L_t$ is the so-called {\it participation ratio}. Quantizing this Hamiltonian and writing $\Phi_2$ and $Q_2$ in terms of creation and annihilation operators yields, up to second order, the Hamiltonian
+where $L_t = L_J+L_e$ and $p=L_J/L_t$ is the {\it participation ratio}. Quantizing this Hamiltonian and writing $\Phi_2$ and $Q_2$ in terms of creation and annihilation operators yields, up to second order, the Hamiltonian
 %
 \begin{equation}
 H_{N_L} = \hbar\omega_r \left(\hat{a}^\dagger \hat{a}+\frac{K}{2}\hat{a}^{\dagger 2}\hat{a}^2\right),
 \end{equation}
 %
-where $\omega_r=1/\sqrt{L_t C_e}$, $R_K=h/e^2$ and $K=-\pi p^3 Z_e / R_K$ is the so-called {\it reduced Kerr constant}. When subjecting the resonator to a classical drive signal
+where $\omega_r=1/\sqrt{L_t C_e}$, $R_K=h/e^2$ and $K=-\pi p^3 Z_e / R_K$ is the {\it reduced Kerr constant}. When subjecting the resonator to a classical drive signal
 
 %
 \begin{equation}
@@ -754,7 +754,7 @@ where $\Omega = 2Q\left(1-\omega_p/\omega_r\right)$. For certain drive parameter
  
 \begin{SCfigure}[1.0][ht!]	
 	\includegraphics[width=9cm]{"./material/figures/introduction/jba_phasediagram"}
-	\caption{a) Current in the driven non-linear resonator as a function of the drive detuning $\Omega$, plotted for various drive powers $P_p$. For drive detunings $\Omega > \Omega_c$, the resonator becomes bistable above a certain power threshold $P_p>P_c$. b) Phase diagram of the non-linear resonator, showing the regions of bistability as a function of the drive power $P_p$ and the drive detuning $\Omega$. For $\Omega>\Omega_c$, a bistable region exists that permits to operate the resonator as a CJBA.}
+	\caption{a) Current in a driven non-linear resonator as a function of the reduced drive detuning $\Omega$ (see text), plotted for various drive powers $P_p$. For drive detunings $\Omega$ larger than a threshold value $\Omega_c$, the resonator becomes bistable above a certain power threshold $P_p>P_c$. b) Phase diagram in the $\Omega-P_p$ plane, showing the region of low amplitude internal oscillations (L), the region  of high amplitude internal oscillations (H), and the bistable region (dashed) where both L and H dynamical states can exist and where the non-linear resonator can be operated as a CJBA.}
 	\label{fig:jba_curves}
 \end{SCfigure}
 
@@ -768,7 +768,7 @@ In theory, the CJBA readout method is able to achieve perfect readout fidelity. 
 
 \begin{SCfigure}[1.0][ht!]
 	\includegraphics[width=0.7\textwidth]{./material/figures/2-qubit-processor/readout_principle}
-	\caption[]{a) The switching probability of the CJBA as a function of the input drive power, shown for the qubit in the states $\ket{0}$ and $\ket{1}$. b) The bifurcation diagram of the CJBA, shown for the qubit in the states $\ket{0}$ and $\ket{1}$. L and H indicate solutions with lows and high amplitude, respectively.}
+	\caption[]{a) Same CJBA phase diagram as on Fig.\ref{fig:jba_curves} for a CJBA embedding a qubit that shifts the diagram by $+/- \chi$ when being in its $\ket{0}$ and $\ket{1}$ states, respectively. b) Probability of switching from L to H as a function of the CJBA input drive power $P_d$, shown for an embedded qubit in state $\ket{0}$ (blue) or $\ket{1}$ (red).}
 	\label{fig:readout_process_illustration}
 \end{SCfigure}
 
@@ -799,14 +799,14 @@ Again, this equation is valid in the limit where $C_{qq} \ll C_{\Sigma 1},C_{\Si
 \hat{H}_{qq} = \hbar g_{qq}\left(\sigma^+_1\sigma^-_2+\sigma^-_1\sigma^+_2\right), \label{eq:cqed_qubit_interaction_hamiltonian}
 \end{equation}
 %
-where $\sigma^+=\ket{1}\bra{0}$ and $\sigma^-=\ket{0}\bra{1}$ and $\sigma_1^\pm=\sigma^\pm\otimes \mathrm{I}$, $\sigma_2^\pm = \mathrm{I}\otimes \sigma^\pm$ and where we have defined the effective qubit-qubit coupling as $\hbar g_{qq} = 4e^2 C_{qq}/C_{\Sigma 1}C_{\Sigma 2}$. Full energy exchange between the qubits is achieved when the qubit frequencies are on resonance. For the more general case of two coupled n-level Transmons, the coupling Hamiltonian takes a slightly more complicated form, as discussed in the Appendix. The time evolution operator of the Hamiltonian (\ref{eq:cqed_qubit_interaction_hamiltonian}) yields a swapping interaction of the form
+where $\sigma^+=\ket{1}\bra{0}$ and $\sigma^-=\ket{0}\bra{1}$ and $\sigma_1^\pm=\sigma^\pm\otimes \mathrm{I}$, $\sigma_2^\pm = \mathrm{I}\otimes \sigma^\pm$ and where we have defined the effective qubit-qubit coupling as $\hbar g_{qq} = 4e^2 C_{qq}/C_{\Sigma 1}C_{\Sigma 2}$. Full energy exchange between the qubits is achieved when the qubit frequencies are on resonance. For the more general case of two coupled n-level Transmons, the coupling Hamiltonian takes a slightly more complicated form, as discussed in section \ref{section:three_level_simulation}. The time evolution operator of the Hamiltonian (\ref{eq:cqed_qubit_interaction_hamiltonian}) yields a swapping interaction of the form
 %
 \begin{equation}
 i\mathrm{SWAP}(t,\Delta) = \left(
 			\begin{array}{cccc}
 				1 & 0 & 0 & 0 \\
-				0 & \cos{t g_{e}}-i\frac{\Delta}{g_e}\sin{t g_{e}} & i \frac{g_{qq}}{g_e}\sin{t g_{e}} & 0 \\
-				0 & i\frac{g_{qq}}{g_e}\sin{t g_{e}} & \cos{t g_{e}}+i\frac{\Delta}{g_{e}}\sin{t g_{e}} & 0 \\
+				0 & \cos{t g_{e}}+i\frac{\Delta}{g_e}\sin{t g_{e}} & -i \frac{g_{qq}}{g_e}\sin{t g_{e}} & 0 \\
+				0 & -i\frac{g_{qq}}{g_e}\sin{t g_{e}} & \cos{t g_{e}}-i\frac{\Delta}{g_{e}}\sin{t g_{e}} & 0 \\
 				0 & 0 & 0 & 1 \\
 			\end{array}
 	\right), \label{eq:swap_with_detuning}
@@ -825,7 +825,7 @@ For this particular coupling scheme, which was first proposed by Zheng {\it et. 
 This approximation is valid in the limit of large qubit-resonator detuning $\Delta_1 \gg g_1,\Delta_2 \gg g_2$, with $\Delta_{1,2} = \omega_{01}^{1,2}-\omega_r$ the detuning of the $\ket{0}\to\ket{1}$ transition frequency of each qubit. Full energy-exchange between the qubits is achieved when the qubit frequencies are on resonance. By detuning the qubits from the resonator, the effective coupling constant can be varied, which is often advantageous. The time evolution operator resulting from eq. (\ref{eq:cqed_bus_coupling}) is identical to eq. (\ref{eq:swap_with_detuning}) when taking into account a modified coupling constant
 %
 \begin{equation}
-g_{qq,r}=g_1 g_2(\Delta_1+\Delta_2)/2\Delta_1\Delta_2. \label{eq:cqed_bus_coupling_rate}
+g_{qq,r}=g_1 g_2\frac{(\Delta_1+\Delta_2)}{2\Delta_1\Delta_2}. \label{eq:cqed_bus_coupling_rate}
 \end{equation}
 %
 \subsection{Qubit Decoherence in CQED} \label{section:decoherence_in_cqed}
@@ -834,14 +834,14 @@ In this section we discuss new relaxation and dephasing mechanisms specific to t
 
 \paragraph{Relaxation}
 
-In CQED, the qubit is coupled capacitively to a resonator, which itself is coupled to a low-Q input transmission line. The qubit can relax into this transmission line through the gate circuit. The resulting relaxation rate is given by eq. (\ref{eq:charge_relaxation_rate}). If we assume that the Transmon sees only the impedance of the readout resonator through its gate capacitance, as given by eq. (\ref{eq:lcr_lorentzian}), we can insert the impedance of the resonator in the equation and obtain the resulting relaxation rate:
+In CQED, the qubit is coupled capacitively to a resonator, which itself is coupled to a transmission line. The qubit can relax into this transmission line through the gate circuit. The resulting relaxation rate is given by eq. (\ref{eq:charge_relaxation_rate}). If we assume that the Transmon sees only the impedance of the readout resonator through its gate capacitance, as given by eq. (\ref{eq:lcr_lorentzian}), we can insert the impedance of the resonator in the equation and obtain the resulting relaxation rate:
 %
 \begin{eqnarray}
 \Gamma_1^{Purcell} & = & 2\pi\frac{\omega_{01}}{Z_0 \omega_r^2}g_{01}^2 \mathrm{Re}\left[Z(\omega_{01})\right], \notag \\
                 & = & \kappa\cdot\frac{g_{01}^2}{\Delta^2+\kappa^2/4}. \label{eq:purcell_rate}
 \end{eqnarray}
 %
-As can be seen, the rate is proportional to $(\Delta^2+\kappa^2/4)^{-1}$ ($\approx\Delta^{-2}$ for $\Delta \gg \kappa$). The relaxation (or emission) rate of the Transmon compared to the relaxation rate of a qubit get thus modified by the presence of the resonator, which is the so-called {\it Purcell effect} \citep{purcell_spontaneous_1946}. For our processor, this effect is advantageous since it shields the qubit from the low impedance environment presented by the input transmission line and increases thus its relaxation time compared to a direct gate coupling to the input line. For a real-world qubit chip, we have to take into account further capacitive couplings of the qubit to e.g. the fast flux line, which will also contribute to the relaxation rate.
+As can be seen, the rate is proportional to $(\Delta^2+\kappa^2/4)^{-1}$ ($\approx\Delta^{-2}$ for $\Delta \gg \kappa$). The relaxation (or emission) rate of the Transmon compared to the relaxation rate of a qubit get thus modified by the presence of the resonator, which is the {\it Purcell effect} \citep{purcell_spontaneous_1946}. For our processor, this effect is advantageous since it shields the qubit from the low impedance environment presented by the input transmission line and increases thus its relaxation time compared to a direct gate coupling to the input line. For a real-world qubit chip, we have to take into account further capacitive couplings of the qubit to e.g. the fast flux line, which will also contribute to the relaxation rate.
 
 \paragraph{Dephasing} Besides the usual mechanisms discussed above, dephasing can also occur due to photon-number fluctuations that occur when the resonator is not in state $\ket{0}$, e.g. due to thermal noise or during readout. These fluctuations affect the qubit frequency through the induced AC-Stark shift (\ref{eq:stark_shift}) \citep{bertet_dephasing_2005,bertet_dephasing_2005-1,rigetti_superconducting_2012}.
 
@@ -853,7 +853,7 @@ The sensitivity of the qubit to fluctuations of the photon number $n$ can be der
 \delta \hat{H}_{\bar{n}}=\hbar\delta\bar{n}\chi\hat{\sigma}_z = -\frac{\hbar}{2}\left(D_{\bar{n}}\cdot\hat{\sigma}_z\right)\cdot \delta \bar{n},
 \end{equation}
 %
-where $D_{\bar{n}}=-2\chi$. When driving the resonator, shot-noise induced photon number fluctuations $\delta n$ will randomly change the transition frequency of the qubit through the AC Stark effect and cause the qubit phase $\phi(t)$ to diffuse. The dephasing rate of the qubit induced by this noise can be calculated from the correlator
+where $D_{\bar{n}}=-2\chi$. Photon number fluctuations $\delta n$ will randomly change the transition frequency of the qubit through the AC Stark effect and cause the qubit phase $\phi(t)$ to diffuse. The dephasing rate of the qubit induced by this noise can be calculated from the correlator
 %
 \begin{equation}
 \langle \hat{\sigma}_-(t)\hat{\sigma}_+(0)\rangle = \left\langle e^{-i\delta \phi(t)}\right\rangle. \label{eq:photon_number_correlator}
@@ -865,7 +865,7 @@ In the limit where $\kappa\gg \gamma$, we can model the dephasing $\delta \phi(t
 \delta \phi(t) = 2\chi\int\limits_0^t d\tau \; \delta n(\tau).
 \end{equation}
 %
-For a linear resonator with a loss rate $\kappa$, the correlator of the photon-number noise $\delta n(t)$ is given as
+For a resonator driven to a coherent state $\ket{\alpha}$, the correlator of the photon-number noise $\delta n(t)$ with intra-cavity mean photon number $\bar{n}=|\alpha|^2$ can be shown to be \citep{blais}
 %
 \begin{equation}
 \langle \delta n (t_1)\delta n (t_2) \rangle = \bar{n}e^{-\frac{\kappa}{2}|t_1-t_2|}. \label{eq:photon_correlator}
@@ -877,16 +877,20 @@ Inserting this in eq. (\ref{eq:photon_number_correlator}) yields a dephasing rat
 \Gamma_\phi^{\bar{n}} = \frac{8\chi^2}{\kappa}\bar{n}. \label{eq:photon_number_dephasing_rate}
 \end{equation}
 %
-As expected, the dephasing rate depends on the dispersive shift $\chi$ and the resonator photon loss-rate $\kappa$. For thermal photon noise, the correlator given above in eq. (\ref{eq:photon_correlator}) is slightly modified to
+As expected, the dephasing rate depends on the dispersive shift $\chi$ and the resonator photon loss-rate $\kappa$. 
+
+\smallskip
+
+For thermal photon noise, the correlator given above in eq. (\ref{eq:photon_correlator}) is slightly modified to
 %
 \begin{equation}
-\langle \delta n(t_1)\delta n (t_2)\rangle = \bar{n}_{th}(\bar{n}_{th}+1)e^{-\frac{\kappa}{2}}|t_1-t_2|,
+\langle \delta n(t_1)\delta n (t_2)\rangle = \bar{n}_{th}(\bar{n}_{th}+1)e^{-\kappa}|t_1-t_2|,
 \end{equation}
 %
 yielding a modified dephasing rate
 %
 \begin{equation}
-\Gamma_\phi^{\bar{n}_{th}} = \frac{8\chi^2}{\kappa}\bar{n}_{th}(\bar{n}_{th}+1). \label{eq:thermal_photon_number_dephasing_rate}
+\Gamma_\phi^{\bar{n}_{th}} = \frac{4\chi^2}{\kappa}\bar{n}_{th}(\bar{n}_{th}+1). \label{eq:thermal_photon_number_dephasing_rate}
 \end{equation}
 %
 The dephasing induced through photon number shot-noise during the readout is relevant when performing measurements of the qubit state. Thermal photon-noise induced dephasing can be relevant when the thermal photon distribution in the resonator is not negligible. We will take both dephasing mechanisms into account in the design of our processor, as discussed in chapter \ref{chapter:design}.
@@ -901,7 +905,7 @@ A detailed introduction to the master equation formalism can be found e.g. in \c
 
 \smallskip
 
-In general, any evolution of the quantum system $\rho_A$ between two points in time can be described by a so-called {\it quantum map}. Such a quantum map transforms $\rho_A$ into a new matrix $\LA{A}(\rho_A)$ and can be described as a linear {\it super-operator} acting in the space of operators defined in $\begin{mathcal}H\end{mathcal}_A$. To be a valid quantum operator, $\begin{mathcal}L\end{mathcal}_A$ must fulfill the following conditions:
+In general, any evolution of the quantum system $\rho_A$ between two points in time can be described by a {\it quantum map}. Such a quantum map transforms $\rho_A$ into a new matrix $\LA{A}(\rho_A)$ and can be described as a linear {\it super-operator} acting in the space of operators defined in $\begin{mathcal}H\end{mathcal}_A$. To be a valid quantum operator, $\begin{mathcal}L\end{mathcal}_A$ must fulfill the following conditions:
 
 \begin{itemize}
 \item \textbf{Linearity}: The operator $\LA{A}$ must be linear, i.e. $\LA{A}(p\rho_A+q\rho'_A)=p\LA{A}(\rho_A)+q\LA{A}(\rho'_A)$ with $p+q=1$. 
@@ -927,13 +931,23 @@ Now, we can also use a quantum map $\LA{\tau}$ to describe the evolution of a de
 \frac{d\rho_A(t)}{dt}=\frac{\LA{\tau}\left[\rho_A(t)\right]-\rho_A(t)}{\tau}. \label{eq:lindblad_evolution}
 \end{equation}
 %
-This so-called {\it Markovian approximation} is valid if $\tau$ is longer than the ``memory time'' of correlations between the system $A$ and its environment but smaller than the characteristic evolution time of system A \citep{haroche_exploring_2006}. In general, since $\LA{\tau}\to \mathbb{1}$ for $\tau\to 0$, the Kraus operators $E_i$ of the process $\LA{\tau}$ will depend on $\tau$ and can be usually written as $E_i = \sqrt{\tau} L_i$, where the $L_i$ are the time-independent {\it Lindblad operators}. By developing eq. (\ref{eq:lindblad_evolution}) up to first order in $\tau$, we obtain the so-called {\it Lindblad master equation}
+This {\it Markovian approximation} is valid if $\tau$ is longer than the ``memory time'' of correlations between the system $A$ and its environment but smaller than the characteristic evolution time of system A \citep{haroche_exploring_2006}. In general, since $\LA{\tau}\to \mathbb{1}$ for $\tau\to 0$, the Kraus operators $E_i$ of the process $\LA{\tau}$ will depend on $\tau$ and can be usually written as $E_i = \sqrt{\tau} L_i$, where the $L_i$ are the time-independent {\it Lindblad operators}. By developing eq. (\ref{eq:lindblad_evolution}) up to first order in $\tau$, we obtain the {\it Lindblad master equation}
 %
 \begin{equation}
 \frac{d\rho_A}{dt} = -\frac{i}{\hbar}[H_A,\rho]+\sum\limits_{i = 1}\left(L_i\rho_aL_i^\dagger-\frac{1}{2}L_i^\dagger L_i\rho_A-\frac{1}{2}\rho_A L_i^\dagger L_i\right). \label{eq:lindblad_equation}
 \end{equation}
 %
 This equation describes the evolution of quantum system under a Hamiltonian $H_A$ and coupled to an environment that is simulated by the non-unitary action of the operators $L_i$. Often these operators can be guessed or derived from the relevant decoherence mechanisms present in the quantum system. We will use eq. (\ref{eq:lindblad_equation}) in this work to simulate the dynamics of the qubit register of our quantum processor and fit experimental data to a master equation model of our system.
+
+\smallskip
+
+The relevant case for this work is a qubit subjected to relaxation and dephasing. In general, dephasing is not a Markovian process since it is often caused by slowly fluctuating (e.g. $1/f$) noise, nevertheless it is often useful to describe it using a Markovian process with a phenomenological dephasing rate. The Markovian dephasing and relaxation operators for a single qubit are given as $L_{01}^{r}=\sqrt{\Gamma_{01}^{r}}\hat{\sigma}_{01}^-$ and $L_{01}^{\phi}=\sqrt{\Gamma_{01}^{\phi}/2}\hat{\sigma}_{01}^z$, where $\Gamma_{01}^{r}$ and $\Gamma_{01}^{\phi}$ are the effective relaxation and dephasing rates, respectively, and $\hat{\sigma}_{01}^-$ and $\hat{\sigma}_{01}^z$ are matrices
+%
+\begin{align}
+\hat{\sigma}_{01}^-  =  \left( \begin{array}{cc} 0 & 1 \\ 0 & 0 \end{array} \right) &, & \hat{\sigma}_{01}^z  =  \left( \begin{array}{cc} 1 & 0 \\ 0 & -1 \end{array}\right),
+\end{align}
+%
+that describe a relaxation or dephasing process, respectively. 
 
 
 \subsection{Simulation of the Two-Qubit Processor}
@@ -953,13 +967,7 @@ where $\hat{H}_1^d$ and $\hat{H}_2^d$ are the drive Hamiltionians of the first a
 where $\alpha_{1,2}(t)$ and $\beta_{1,2}(t)$ are complex functions and $\gamma_{1,2}(t)$ are real-valued functions. The interaction Hamiltonian in the frame rotating at the average qubit-frequency $(\omega_{01}^1+\omega_{01}^2)/2$ is given as
 %
 \begin{equation}
-\hat{H}_{qq} = \left(\begin{array}{cccc}0 & 0 & 0 & 0 \\ 0 & -\frac{\Delta(t)}{2} & g & 0 \\ 0 & g & +\frac{\Delta(t)}{2} & 0 \\ 0 & 0 & 0 & 0 \end{array}\right),
+\hat{H}_{qq} = \left(\begin{array}{cccc}0 & 0 & 0 & 0 \\ 0 & -\frac{\Delta(t)}{2} & g_{qq} & 0 \\ 0 & g_{qq} & +\frac{\Delta(t)}{2} & 0 \\ 0 & 0 & 0 & 0 \end{array}\right),
 \end{equation}
 %
-where $\Delta(t)=\omega_{01}^2(t)-\omega_{01}^1(t)$ is the time-dependent frequency detuning between the two qubits. Inserting the Hamiltonian in eq. (\ref{eq:two_qubit_hamiltonian}) into eq. (\ref{eq:lindblad_equation}) we can simulate the operation of the two qubit Hamiltonian. To model qubit relaxation and decoherence, we use for each qubit two Lindblad operators of the form $L_{01}^{r,i}=\sqrt{\Gamma_{01}^{r,i}}\hat{\sigma}_{01}^-$ and $L_{01}^{\phi,i}=\sqrt{\Gamma_{01}^{\phi,i}/2}\hat{\sigma}_{01}^z$, where $i\in\{1,2\}$ and $\Gamma_{01}^{r,i}$ and $\Gamma_{01}^{\phi,i}$ are the effective relaxation and dephasing rates of each qubit, respectively, and where $\hat{\sigma}_{01}^-$ and $\hat{\sigma}_{01}^z$ are matrices
-%
-\begin{align}
-\hat{\sigma}_{01}^-  =  \left( \begin{array}{cc} 0 & 1 \\ 0 & 0 \end{array} \right) &, & \hat{\sigma}_{01}^z  =  \left( \begin{array}{cc} 1 & 0 \\ 0 & -1 \end{array}\right),
-\end{align}
-%
-that describe a relaxation or dephasing process, respectively. The relaxation and dephasing rates depend on the qubit frequency and can be adapted in the simulation according to the chosen qubit frequency working point. Single-qubit gate sequences are fully described by the three functions $\alpha_{1,2}(t)$, $\beta_{1,2}(t)$ and $\gamma_{1,2}(t)$, a two-qubit swap gate can be modeled by changing the parameter $\Delta(t)$.
+where $\Delta(t)=\omega_{01}^2(t)-\omega_{01}^1(t)$ is the time-dependent frequency detuning between the two qubits. Inserting the Hamiltonian in eq. (\ref{eq:two_qubit_hamiltonian}) into eq. (\ref{eq:lindblad_equation}) we can simulate the operation of the two qubit Hamiltonian. The relaxation and dephasing rates depend on the qubit frequency and can be adapted in the simulation according to the chosen qubit frequency working point. Since the master equation approach does not allow to accurately simulate all relevant physical dephasing processes, we will often choose a phenomenological value for the dephasing rate of the qubit, as discussed above. Single-qubit gate sequences are fully described by the three functions $\alpha_{1,2}(t)$, $\beta_{1,2}(t)$ and $\gamma_{1,2}(t)$, a two-qubit swap gate can be modeled by changing the parameter $\Delta(t)$.

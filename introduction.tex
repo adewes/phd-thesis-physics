@@ -14,8 +14,7 @@
 %
 \begin{figure}
 \centering \includegraphics[width=0.8\textwidth]{./material/papers/grover/submission1/Fig1}
-\caption[Blueprint of a {}``canonical'' two-qubit quantum processor]{The blueprint of a {}``canonical'' two-qubit quantum processor.
-The two qubits can be individually manipulated ($U_{1}$) and
+\caption[Blueprint of a {}``canonical'' two-qubit quantum processor]{Blueprint of a {}``canonical'' two-qubit quantum processor. The two qubits can be individually manipulated ($U_{1}$) and
 a universal two-qubit gate $U_{2}$ can be applied to them. Each of
 the qubits can be read out individually.}
 
@@ -42,15 +41,15 @@ on superconducting quantum circuits briefly summarized below.
 %
 \begin{SCfigure}[1][ht!]
  \centering \includegraphics[width=5cm]{./material/figures/introduction/cooper_pair_box_simple}
-\caption[]{The schematic of the simple Cooper pair box (CPB) circuit, consisting
-of a capacitor in parallel with a Josephson junction capacitively
-coupled to a voltage source.}
+\caption[]{Schematic of the simple Cooper pair box (CPB) circuit, consisting
+of a capacitor $C$ in parallel with a pure Josephson element, capacitively
+coupled to a voltage source $V_g$ through a gate capacitor $C_g$.}
 \label{fig:cooper_pair_box_simple} %
 \end{SCfigure}
 
 
 
-\subsection{Context of this thesis work: 25 years of superconducting
+\paragraph{Context of this thesis work: 25 years of superconducting
 quantum circuits}
 
 The observation of quantum tunneling in a current-biased
@@ -93,7 +92,7 @@ arises from its operation at a so-called {\it sweet spot} where the qubit
 frequency is stationary in respect to variations in charge and phase control parameters. The improved coherence of
 the quantronium allowed to perform all the basic manipulations possible
 on spins and more generally on two level systems \citep{collin_nmr-like_2004}.
-Shortly after, another CPB design, inspired from
+Shortly after, another CPB circuit design, inspired from
 cavity-QED, was developed at Yale by Wallraff {\it et. al.} \citep{wallraff_strong_2004}.
 In this so-called circuit-QED (CQED) design, the
 CPB, embedded in a microwave resonator, can be thought of as an artificial
@@ -116,10 +115,10 @@ noise, that has always plagued single electron and single Cooper Pair devices.
 This feature consists in placing the Cooper Pair
 Box in the phase regime by adding an extra capacitance in
 parallel with the junction: the qubit frequency is then
-totally insensitive to the gate charge, and hence to the charge noise to all orders in charge, thus transforming the sweet spot into a ``sweet line'' in the charge-phase parameter space.
+totally insensitive to the gate charge, and hence to the charge noise to all orders in charge.
 This new design, that still leaves sufficient anharmonicity
 to operate the device as a qubit and allows to drive it, yielded a
-sizable improvement in coherence times, qubit robustness and usability.
+sizeable improvement in coherence times, qubit robustness and usability.
 The CQED concept was thus rapidly extended to flux and phase qubits \citep{hofheinz_synthesizing_2009}.
 
 In 2010, a new type of CQED architecture has been
@@ -127,8 +126,7 @@ developed by Paik {\it et. al.} \citep{paik_observation_2011} that combines Tran
 qubits with 3D cavities instead of CPW resonators, resulting again
 in an impressive increase of qubit coherence times by a large factor, with reported qubit relaxation times approaching 100 $\mathrm{\mu}$s and dephasing times of the same order.
 Very recently, these drastically improved coherence times have made
-possible the realization of elemental quantum feedback and error correction
-schemes with these systems \citep{vijay_quantum_2012}.
+possible the realization of elemental quantum feedback schemes with these systems \citep{vijay_quantum_2012}.
 
 \smallskip
 
@@ -141,7 +139,9 @@ quantum algorithms \citep{dicarlo_demonstration_2009,mariantoni_implementing_201
 quantum error correction  \citep{reed_realization_2011} have recently
 been demonstrated.
 
-\subsection{This Thesis Work}
+\smallskip
+
+\paragraph{This Thesis Work}
 
 At the beginning of this thesis work, CQED processors
 having demonstrated quantum algorithms did not comply with the rules
@@ -199,8 +199,7 @@ each equipped with its own drive and readout circuit. In order to
 obtain a high fidelity single-shot readout of the qubit register,
 we use the Cavity Josephson Bifurcation Amplifier (CJBA) readout method, which is based on the Josephson Bifurcation Amplifier (JBA) readout first
 developed in the team of Michel Devoret at Yale for the quantronium
-qubit \citep{siddiqi_rf-driven_2004,vijay_invited_2009,siddiqi_dispersive_2006}. This method
-had indeed already been successfully adapted to the transmon, and
+qubit \citep{siddiqi_rf-driven_2004,vijay_invited_2009,siddiqi_dispersive_2006}. During the thesis of A. Palacios-Laloy \citep{palacios-laloy_superconducting_2010}, this method had indeed already been successfully adapted to the transmon, and
 yielded a 93 \% readout fidelity \citep{mallet_single-shot_2009}.
 
 Each qubit can be manipulated by driving it with microwave pulses
@@ -227,15 +226,13 @@ in the following sections.
 \caption[Switching probabilities of the two qubit readouts as a function of
 the readout excitation power]{a) Switching probabilities of the two readout resonators
 as a function of the readout drive power at a fixed driving frequency.
-The measurement is performed after preparing the qubits in the states
-${\color{blue}{\ket{0}}}$, ${\color{red}{\ket{1}}}$ and ${\color{brown}{\ket{2}}}$.
-The readout contrast is given as the difference in probability between
+The measurement is performed after preparing the qubits either in the state
+${\color{blue}{\ket{0}}}$, ${\color{red}{\ket{1}}}$ or ${\color{brown}{\ket{2}}}$.
+The readout contrast is given as the maximum difference in probability between
 the curves corresponding to the states ${\color{blue}{\ket{0}}}$
-and ${\color{red}{\ket{1}}}$ or ${\color{brown}{\ket{2}}}$, respectively.
-The highest contrasts of 88 and 89 \% are achieved when the qubit
+and ${\color{red}{\ket{1}}}$ or ${\color{blue}{\ket{0}}}$ and ${\color{brown}{\ket{2}}}$, respectively (see vertical  dotted lines). The highest contrasts of 88 and 89 \% for the two qubits are obtained when the qubit
 is shelved from state${\color{red}{\ket{1}}}$ to ${\color{brown}{\ket{2}}}$.
-b)Readout matrix of the two-qubit system, giving
-the probabilities to obtain the different outcomes ij after having
+b)Readout matrix of the two-qubit system, giving the probabilities to obtain the different outcomes ij after having
 prepared the register in the different computational basis states
 $\left|kl\right\rangle $.}
 
@@ -291,16 +288,16 @@ the readout performance in our experiments.
 \centering \includegraphics[width=0.7\textwidth]{./material/papers/iswap/submission1/Dewes_Figure2}
 \caption[Generating entangled two-qubit states by swapping interaction]{Coherent exchange of a single quantum of excitation
 (swapping oscillations) between the two qubits initially prepared
-the register state $\left|10\right\rangle $, obtained from the resonant
+in the register state $\left|10\right\rangle $, obtained from the resonant
 interaction between them. a) Register state probabilities
 as a function of the swapping time $\Delta t$. The frequency of
-the oscillations corresponds to $2g/2\pi=8.7\;\mathrm{MHz}$. b) Measured
+the oscillations corresponds to $2g_{qq}/2\pi=8.3\;\mathrm{MHz}$. b) Measured
 average values of the Pauli operators products $\left\{ I,\sigma_{x},\sigma_{y},\sigma_{z}\right\} \otimes\left\{ I,\sigma_{x},\sigma_{y},\sigma_{z}\right\} $
 (Pauli set) for the register states obtained at times $0\;\mathrm{ns}$
 and $31\;\mathrm{ns}$. c) Corresponding reconstructed
 density matrices. The area of each circle corresponds
 to the absolute value of each matrix element and the color and direction
-of the arrow to the phase of the element. The black circles correspond
+of the arrow to the phase of the element. The black circles and arrows correspond
 to the density matrices of the ideal states $\ket{10}$ and $(\ket{10}+i\ket{01})/\sqrt{2}$,
 respectively.}
 
@@ -314,16 +311,16 @@ interaction that can be used to generate entangled two-qubit states.
 Conveniently, this coupling is only effective when the qubit frequencies
 are near-resonant and can therefore be effectively switched on and
 off by tuning the qubit frequencies in and out of resonance. For the
-processor realized in this work, the effective coupling constant $g$
-of the two qubits has been measured as $2g/2\pi=8.2\;\mathrm{MHz}$.
+processor realized in this work, the effective coupling constant $g_{qq}$
+of the two qubits has been measured as $2g_{qq}/2\pi=8.3\;\mathrm{MHz}$.
 When the two qubits are in resonance, the effective evolution operator
 of the two-qubit system is:
 %
 \begin{equation}
 U(t)=\left(\begin{array}{cccc}
 1 & 0 & 0 & 0\\
-0 & \cos{2\pi tg} & i\sin{2\pi tg} & 0\\
-0 & i\sin{2\pi tg} & \cos{2\pi tg} & 0\\
+0 & \cos{tg_{qq}} & -i\sin{tg_{qq}} & 0\\
+0 & -i\sin{tg_{qq}} & \cos{tg_{qq}} & 0\\
 0 & 0 & 0 & 1\end{array}\right)_{\left\{ \left|00\right\rangle ,\left|01\right\rangle ,\left|10\right\rangle ,\left|11\right\rangle \right\} } \label{eq:swap_evolution_operator}
 \end{equation}
 %
@@ -342,7 +339,7 @@ of the density matrix of such a Bell-state of the type $\ket{\psi}=(\ket{01}+i\k
 is shown in fig. \ref{fig:swap_interaction_state_tomography}b.
 The measured fidelity of the prepared state of 91 \% and the concurrence
 of 85 \% confirm that entanglement is present in the system. We also
-characterize the entanglement between the two qubits by measuring the average value of the so-called \textit{Clauser-Horne-Shimony-Holt}
+characterize the entanglement between the two qubits by measuring the average value of the \textit{Clauser-Horne-Shimony-Holt}
 operator (CHSH) \citep{clauser_proposed_1969}, which
 combines measurements of the state of the two qubits along different
 axes on the Bloch sphere and provides a test that can distinguish
@@ -352,7 +349,7 @@ system.
 %
 \begin{figure}[ht!]
  \centering \includegraphics[width=0.7\textwidth]{./material/papers/iswap/submission1/Dewes_Figure3}
-\caption[Measurement of the CHSH operator of an entangled two-qubit state]{Measured average value of CHSH operator for a prepared
+\caption[Measurement of the CHSH operator of an entangled two-qubit state]{Measured average value of the CHSH operator for a prepared
 Bell state. After readout error corrections, the CHSH expectation
 value (red points) exceeds the classical boundary of $2$. The raw
 measurement data (blue points) lies below this critical threshold.
@@ -384,7 +381,7 @@ of entanglement in the system. A more detailed overview of this experiment can b
 \section{Realizing a Universal Two-Qubit Quantum Gate}
 
 \begin{SCfigure}[1.0][ht!] \includegraphics[width=0.65\textwidth]{./material/papers/iswap/figures/chi_matrix}
-\caption[Measured $\chi$-matrix of the $\sqrt{i\textrm{SWAP}}$ gate]{Measured $\chi$-matrix of the implemented $\sqrt{i\mathrm{SWAP}}$ gate. The row labels correspond to the indices of the $E_{i}$ Pauli operators, the height of each bar to the absolute value of the corresponding matrix element, and the color and red arrow direction to the argument of the element. The ideal $\chi$-matrix of the $i\sqrt{\mathrm{SWAP}}$ gate is given by the outlined bars. The upper half of the positive-hermitian matrix is not shown.}
+\caption[Measured $\chi$-matrix of the $\sqrt{i\textrm{SWAP}}$ gate]{Measured $\chi$-matrix of the implemented $\sqrt{i\mathrm{SWAP}}$ gate. The row labels correspond to the indices of the $E_{i}$ Pauli operators, the height of each bar to the absolute value of the corresponding matrix element, and the color and red arrow direction to the argument of the element. The ideal $\chi$-matrix of the $i\sqrt{\mathrm{SWAP}}$ gate is given by the outlined black bars. The upper half of the positive-hermitian matrix is not shown.}
 
 
 \label{fig:gate_chi_matrix_and_errors} \end{SCfigure}
@@ -392,15 +389,15 @@ of entanglement in the system. A more detailed overview of this experiment can b
 The swapping evolution given by eq. (\ref{eq:swap_evolution_operator})
 allows not only to prepare entangled two-qubit states but also to
 implement a universal two-qubit gate:
-When switching on the interaction for a time $t_{\pi/2}=1/8g$ one
-realizes the so-called $\sqrt{i\mathrm{SWAP}}$ gate, represented
+When switching on the interaction for a time $t_{\pi/2}=\pi/4g_{qq}$ one
+realizes the $\sqrt{i\mathrm{SWAP}}$ gate, represented
 by the evolution operator
 %
 \begin{equation}
 U(t)=\left(\begin{array}{cccc}
 1 & 0 & 0 & 0\\
-0 & 1/\sqrt{2} & i/\sqrt{2} & 0\\
-0 & i/\sqrt{2} & 1/\sqrt{2} & 0\\
+0 & 1/\sqrt{2} & -i/\sqrt{2} & 0\\
+0 & -i/\sqrt{2} & 1/\sqrt{2} & 0\\
 0 & 0 & 0 & 1\end{array}\right)_{\left\{ \left|00\right\rangle ,\left|01\right\rangle ,\left|10\right\rangle ,\left|11\right\rangle \right\} } \label{eq:sqrt_iswap_gate}
 \end{equation}
 %
@@ -424,7 +421,7 @@ processor.
 
 Using a two-qubit quantum gate related to the one
 described above, we run a simple quantum algorithm on our processor,
-the so called \textit{Grover search algorithm} \citep{Grover_Quantum_1997}.
+the so-called \textit{Grover search algorithm} \citep{Grover_Quantum_1997}.
 The version of this algorithm that we implement operates on the
 two-qubit basis $x_{i}\in\{\ket{00}$, $\ket{01}$, $\ket{10}$
 , $\ket{11}\}$ and can distinguish between four different \textit{Oracle
@@ -447,13 +444,13 @@ on how quantum speed-up is achieved.
 %
 \begin{figure}[ht!]
 \centering \includegraphics[width=1\textwidth]{material/figures/2-qubit-processor/grover/grover_schematic_and_density_matrices}
-\caption[Schematic of the Grover search algorithm and measured density matrices when running it]{a) A two-qubit version of the Grover search algorithm that we implemented on our quantum processor. The algorithm consists in preparing a fully superposed
+\caption[Schematic of the Grover search algorithm and measured density matrices when running it]{a) Two-qubit version of the Grover search algorithm  implemented on our quantum processor. The algorithm consists in preparing a fully superposed
 state, applying a given Oracle operator to it only
 once, and analyzing the resulting output to determine the quantum
 state tagged by this Oracle operator. b) Measured density matrices when running the Grover search algorithm
 with a search oracle marking the state $\ket{00}$. 1) shows the state
 after the generalized Hadamard transform, 2) after applying the quantum
-oracle and 3) after the final step of the algorithm.}
+oracle and 3) after the final analyzis step of the algorithm.}
 
 
 \label{fig:grover_algorithm_schematic_and_density_matrices} %
@@ -481,10 +478,7 @@ readout outcomes.
 %
 \begin{figure}[ht!]
  \centering \includegraphics[width=1\textwidth]{"./data/ct5/2011_04_21 - grover and tomo/good_data/grover algorithm - single run probabilities"}
-\caption[Single-run results of the Grover search algorithm]{Single-run results when running the Grover search algorithm on our
-two-qubit quantum processor. Shown are the probabilities of measuring the qubit register in state $\ket{i}$ for an Oracle function $\Or_j$ marking the state $\ket{j}$
-provided to the algorithm. In all four cases, the success probability
-of the algorithm is $>50\%$, thus outperforming any classical ``random query'' or ``query and guess''
+\caption[Single-run results of the Grover search algorithm]{Single-run outcomes when running the Grover search algorithm on our two-qubit quantum processor. Shown are the directly (red) or indirectly (blue) measured probabilities of finding the qubit register in state $\ket{i}$ at the end of the algorithm, for each Oracle function $\Or_j$ marking the state $\ket{j}$. In all four cases, the success probability of the algorithm is $>50\%$, thus outperforming any classical ``random query'' or ``query and guess''
 algorithm using a single Oracle call.}
 
 
@@ -493,14 +487,14 @@ algorithm using a single Oracle call.}
 
 
 The main interest of running a quantum algorithm is to obtain an advantage
-in the run-time in comparison to a classical algorithm, the so-called
+in the run-time in comparison to a classical algorithm, the
 \textit{quantum speed-up}. To characterize this speed-up as obtained
 with our processor, we run the Grover algorithm for all four possible
 Oracle functions and directly read out the state of the qubit register
 after the last step of the algorithm instead of performing quantum
 state tomography, thus not correcting any readout errors. By averaging
 the outcomes of many such individual runs with different
-Oracle functions we obtain the so-called \textit{single-run fidelities},
+Oracle functions we obtain the \textit{single-run fidelities},
 which --for the four different Oracle functions-- have been measured
 as $66\%$, $55\%$, $61\%$ and $52\%$. The full probability distributions
 for the four possible cases are shown in fig.
@@ -519,7 +513,7 @@ explained in greater detail in chapter \ref{chapter:grover_algorithm}.
 \begin{wrapfigure}[23]{r}{8cm}
 	\centering
 	\includegraphics[width=8cm]{./material/figures/scalable-architecture/scalable_architecture_schematic}
-	\caption[Schematic of the four-qubit chip realized in this work]{Schematic of the four-qubit chip realized in this thesis work. Shown on top is the whole chip with connectors for the drive and readout transmission line and for the four fast flux lines. Below we show a single qubit cell with a Transmon qubit coupled to the quantum bus, a flux line and a JBA readout.}
+	\caption[Schematic of the four-qubit chip realized in this work]{Schematic of the four-qubit chip realized in this thesis work. Shown on top is the whole chip with ports for the drive and readout transmission line and for the four fast flux lines. Shown below is a single qubit cell with a Transmon qubit coupled to the quantum bus, a flux line and a JBA readout.}
 	\label{fig:scalable_architecture_photo}
 \end{wrapfigure}
 
@@ -527,16 +521,16 @@ The approach to superconducting quantum computing outlined in the previous secti
 
 \smallskip
 
-Recently, several research groups have started to address these issues by devising new architectures for superconducting quantum processors that can --in theory-- be scaled to a larger number of qubits. Here we will mention only the so-called ``Rez-Qu'' architecture \citep{galiautdinov_resonatorzero-qubit_2012} and the surface-code approach \citep{divincenzo_fault-tolerant_2009} pursued e.g. by IBM. In this thesis work we discuss our own approach towards more scalable superconducting quantum processors, where we have developed a revised version of our qubit chip that provides a way to implement a system with a larger --albeit still small-- number of qubits. Key elements of this architecture are a quantum bus in form of a high-Q microwave resonator that is used for coupling the qubits and a multiplexed drive and readout circuit that allows us to measure and manipulate all qubits through one single microwave transmission line. 
+Recently, several research groups have started to address these issues by devising new architectures for superconducting quantum processors that can --in theory-- be scaled to a larger number of qubits. Here we will mention only the ``Rez-Qu'' architecture \citep{galiautdinov_resonatorzero-qubit_2012} and the surface-code approach \citep{divincenzo_fault-tolerant_2009} pursued e.g. by IBM. In this thesis work we discuss our own approach towards more scalable superconducting quantum processors, where we have developed a revised version of our qubit chip that provides a way to implement a system with a larger --albeit still small-- number of qubits. Key elements of this architecture are a quantum bus in form of a high-Q microwave resonator that is used for coupling the qubits and a multiplexed drive and readout circuit that allows us to measure and manipulate all qubits through one single microwave transmission line. 
+
+Figure \ref{fig:scalable_architecture_photo} shows the schematic of the first version of this architecture. Our chip contains four Transmon qubits which are capacitively coupled to a distributed high-Q resonator acting as a quantum bus. In addition, each qubit is coupled to a low-Q non-linear lumped element resonator acting as a CJBA, which is used for reading out the qubit state. Each of these resonators is in turn coupled capacitively to the input transmission line. The resonance frequencies of the readout resonators are arranged in ascending order with a frequency spacing of \mbox{$\approx 50\;\mathrm{MHz}$} between adjacent resonators. This frequency spacing allows us to address each resonator individually and to read out the state of the full qubit register in parallel using only one single transmission line. Figure \ref{fig:jba_multiplexed_spectroscopy} shows the measured $|S_{12}|$ matrix element of such a chip with four CJBA resonators at frequencies between 6.78 GHz and 6.95 GHz, plotted as a function of the incident microwave power. The ``knee'' in each of the four resonance curves appearing between -45 and -40 dBm corresponds to the bifurcation point of the resonators.
 
 \begin{wrapfigure}[24]{r}{9cm}
 	\centering
 	\includegraphics[width=8.8cm]{"./data/scalable architecture/jba spectroscopy/spectro"}
-	\caption[Measured $|S_{12}|$ transmission coefficient for the input transmission line of our four-qubit chip]{The measured $|S_{12}|$ transmission coefficient for the input transmission line of our four-qubit chip. Clearly visible are four resonances of the CJBA resonators and the bifurcation of each resonator at high input power.}
+	\caption[Measured $|S_{12}|$ transmission coefficient for the input transmission line of our four-qubit chip]{Measured $|S_{12}|$ transmission coefficient of drive and readout line of our four-qubit chip, with the four qubits far detuned from the resonators. Clearly visible are the resonances of the four CJBA resonators and their bifurcation at nominal input powers between -42dB and -40 dB.}
 	\label{fig:jba_multiplexed_spectroscopy}
 \end{wrapfigure}
-
-Figure \ref{fig:scalable_architecture_photo} shows the schematic of the first version of this architecture. Our chip contains four Transmon qubits which are capacitively coupled to a distributed high-Q resonator acting as a quantum bus. In addition, each qubit is coupled to a low-Q non-linear lumped element resonator acting as a CJBA, which is used for reading out the qubit state. Each of these resonators is in turn coupled capacitively to the input transmission line. The resonance frequencies of the readout resonators are arranged in ascending order with a frequency spacing of \mbox{$\approx 50\;\mathrm{MHz}$} between adjacent resonators. This frequency spacing allows us to address each resonator individually and to read out the state of the full qubit register in parallel using only one single transmission line. Figure \ref{fig:jba_multiplexed_spectroscopy} shows the measured $|S_{12}|$ matrix element of such a chip with four CJBA resonators at frequencies between 6.78 GHz and 6.95 GHz, plotted as a function of the incident microwave power. The ``knee'' in each of the four resonance curves appearing between -45 and -40 dBm corresponds to the bifurcation point of the resonators.
 
 
 Still, this approach suffers from a relatively bad ON/OFF ratio in the qubit-qubit coupling. To alleviate this problem, the Transmon qubit used in the current version of this architecture can be replaced by a qubit with a tunable coupling \citep{srinivasan_tunable_2011}. Alternatively, it is possible to use a fixed-frequency coupling scheme for the qubits, thereby altogether eliminating the need for frequency tuning of individual qubits and also reducing the number of input transmission lines from $n+1$ to $1$, with $n$ the number of qubits.

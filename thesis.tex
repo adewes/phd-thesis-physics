@@ -58,7 +58,7 @@
 \newcounter{advisorcomments}
 \newcounter{questions}
 
-\setcounter{tocdepth}{4}
+\setcounter{tocdepth}{3}
 
 \definecolor{grey}{rgb}{0.4,0.4,0.4}
 \definecolor{red}{rgb}{1.0,0,0}
@@ -71,9 +71,9 @@
 \usepackage[T1]{fontenc}
 \linespread{1.2}
 
-\title{\normalsize These de Doctorat de l'Université Pierre et Marie Curie \\ \huge Demonstrating Quantum Speed-Up with a Two-Transmon Quantum Processor \\ \normalsize Specialité: Physique Quantique}
+\title{\normalsize Thèse de Doctorat de l'Université Pierre et Marie Curie \\ \huge Demonstrating Quantum Speed-Up with a Two-Transmon Quantum Processor \\ \normalsize Specialité: Physique Quantique}
 \author{Présentée par \bigskip \\ \bigskip \huge Andreas Dewes \\ \small Pour obtenir le grade de ``Docteur de l'Université Pierre et Marie Curie'' \vspace{3cm} \\ Soutenue le xx.xx.xxxx devant le jury composé de: \\ ... \\ ... \\ ... \\ ... \\ ...}
-\date{\vspace{2cm} Thèse préparee au sein du Service de Physique de l'Etat Condensé, CEA Saclay}
+\date{\vspace{2cm} Thèse préparée au sein du Service de Physique de l'Etat Condensé, CEA Saclay}
 \theoremstyle{definition}
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{axiom}{Axiom}[theorem]
@@ -168,6 +168,18 @@
 
 \pagestyle{fancy}
 
+\chapter*{Short Summary}
+
+The thesis work discusses the characterization of a two-qubit processor implemented using capacitively coupled tunable superconducting qubits of the Transmon type. Each qubit can be manipulated and read out individually using a non-destructive single-shot readout. In addition, a universal-two qubit gate can be implemented using the interaction between the qubits. The processor implements therefore all basic building blocks of a universal quantum computer. Using it, we implement the universal sqrt(iSWAP) two-qubit gate, characterizing the gate operation by quantum process tomography and obtaining a gate fidelity of 90 \%. We use this gate to create entangled two-qubit Bell states and perform a test of the Bell inequality, observing a violation of the classical boundary by 22 standard deviations after correcting for readout errors. 
+
+\smallskip
+
+Using the implemented two-qubit gate, we run the so-called Grover search algorithm, which for the two-qubit case finds among four elements $x \in \{00,01,10,11\}$ the one element y that solves a search problem encoded by a function $f$ for which $f(y)=1$ and $f(x\ne y)=0$. We find that our implementation of the algorithm retrieves the correct answer to the search problem after a single evaluation of the search function $f(x)$ with a success probability between 52 \% and 67 \%, therefore outperforming classical algorithms that are bound to a success probability of 25 \%. This constitutes therefore a proof-of-concept of the quantum speed-up for superconducting quantum processors.
+
+\smallskip
+
+Finally, we propose a scalable architecture for a superconducting quantum processor that can potentially overcome the scalability issues faced by todays superconducting qubit architectures.
+
 \input{introduction}
 
 \input{theory}
@@ -180,7 +192,7 @@
 
 \input{grover}
 
-%\input{"scalable architecture"}
+\input{"scalable architecture"}
 
 \input{conclusions}
 
@@ -201,8 +213,9 @@
 \stepcounter{chapter}
 
 \addcontentsline{toc}{chapter}{\numberline {\thechapter} Publications}
-
+\label{chapter:papers}
 \includepdf[pages={-}]{material/papers/iswap_prl.pdf}
+\label{section:prl_sm}
 \includepdf[pages={-}]{material/papers/iswap_prl_sm.pdf}
 \includepdf[pages={-}]{material/papers/grover_prb.pdf}
 \includepdf[pages={-}]{material/papers/grover_prb_sm.pdf}

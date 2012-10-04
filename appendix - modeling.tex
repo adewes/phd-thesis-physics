@@ -1,4 +1,4 @@
-\chapter{Modeling of Multi-Qubit Systems}
+\chapter{Modeling of Multi-Qubit Systems} 
 
 Here we discuss the modeling and simulation of two coupled three-level Transmon qubits, using analytical calculations to obtain the relevant qubit energies and explaining the master equation simulation of the two-qubit system, which we use to quantify the leakage errors associated to the qubit level $\ket{2}$ when realizing the $\sqrt{i\mathrm{SWAP}}$ gate, as described in chapter \ref{chapter:processor_characterization}.
 
@@ -35,7 +35,7 @@ Without loss of generality, we assume $e_0^{I}=0$, $e_0^{II}=0$. We then define 
 				0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
 			\end{array}
 		\right).
-\end{equation}
+\end{equation} \label{eq:three_level_interaction_hamiltonian}
 %
 We then go to the interaction picture with $\hat{H}_0 = \hat{H}$. There, the interaction Hamiltonian $\hat{H}_i$ acquires some time-dependent terms and is given as
 %
@@ -56,7 +56,8 @@ We then go to the interaction picture with $\hat{H}_0 = \hat{H}$. There, the int
 \end{equation}
 %
 \subsection{Qubit Driving}
-The qubit driving can be modeled by Hamiltonian (\ref{eq:qubit_three_level_driving_hamiltonian}). However, since we chose a different reference Hamiltonian $\hat{H}_0=\hat{H}$, the drive Hamiltonian will also acquire some time-dependent terms and writes as
+
+The qubit driving can be modeled by the Hamiltonian (\ref{eq:qubit_three_level_driving_hamiltonian}), which acquires some time-dependent terms due to the chosen reference frame and is now given as
 %
 \begin{equation}
 \hat{H}_d = \alpha\left(
@@ -87,11 +88,11 @@ and the dephasing operators on
 \sigma^z_{02} & =  \left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 &-1 \end{array} \right).  
 \end{align}
 %
-Using these matrices, we define a set of three relaxation operators $L^r_{01} = \sqrt{\Gamma^r_{10}}\sigma^-_{01}$, $L^r_{12} = \sqrt{\Gamma^r_{12}}\sigma^-_{12}$ and $L^r_{02}=\sqrt{\Gamma^r_{02}}\sigma^-_{02}$ as well as a set of dephasing operators $L^\phi_{01} = \sqrt{\Gamma^\phi_{01}/2}\sigma^z_{01}$, $L^\phi_{12} = \sqrt{\Gamma^\phi_{12}/2}\sigma^z_{12}$, $L^\phi_{02}=\sqrt{\Gamma^\phi_{02}/2}\sigma^z_{02}$. The corresponding two-qubit operator can then be obtained simply as $L^I_i = L_i\otimes {\mathbf I}$ and $L^{II}_i = L_i\otimes {\mathbf I}$.
+Using these matrices, we define a set of three relaxation operators $L^r_{01} = \sqrt{\Gamma^r_{10}}\sigma^-_{01}$, $L^r_{12} = \sqrt{\Gamma^r_{12}}\sigma^-_{12}$ and $L^r_{02}=\sqrt{\Gamma^r_{02}}\sigma^-_{02}$ as well as a set of dephasing operators $L^\phi_{01} = \sqrt{\Gamma^\phi_{01}/2}\sigma^z_{01}$, $L^\phi_{12} = \sqrt{\Gamma^\phi_{12}/2}\sigma^z_{12}$, $L^\phi_{02}=\sqrt{\Gamma^\phi_{02}/2}\sigma^z_{02}$. From the single-qubit operators the corresponding two-qubit operators can be obtained as $L^I_i = L_i\otimes {\mathbf I}$ and $L^{II}_i = L_i\otimes {\mathbf I}$.
 
 \section{Master Equation Simulation}
 
-For numerical analysis it is convenient to rewrite the Lindblad equation (\ref{eq:lindblad_equation}) in vector form as
+For numerical analysis, it is convenient to rewrite the Lindblad equation (\ref{eq:lindblad_equation}) in vector form as
 %
 \begin{equation}
 \frac{d\vec{\rho}}{dt} = {\cal L}(t)\vec{\rho}(t), \label{eq:master_equation_superoperator_form}
