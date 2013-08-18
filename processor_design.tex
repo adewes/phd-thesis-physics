@@ -18,7 +18,7 @@ As discussed in the introduction, the simplest imaginable quantum processor cons
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=\textwidth]{./material/figures/2-qubit-processor/processor_working_principle}
-	\caption[...]{Operation principle of the two-qubit processor. a) Frequencies of qubits $I$ and $II$ during the different operations: single-qubit manipulation or parking (index m), two-qubit resonant coupling (index c), and qubit readout (index r). the readout resonator frequencies $f_r^{I,II}$ are also indicated. The smaller the detuning between qubits (resp. betwen a qubit and its readout), the larger the corresponding coupling 2g  (resp. $\chi_r^{I,II}$. b) Typical gate sequence consisting of two single-qubit XY-gates, a two-qubit $i\mathrm{SWAP}(t)$ gate, two single-qubit Z-gates, and qubit readout.}
+	\caption[...]{Operation principle of the two-qubit processor. a) Frequencies of qubits $I$ and $II$ during the different operations: single-qubit manipulation or parking (index m), two-qubit resonant coupling (index c), and qubit readout (index r). the readout resonator frequencies $f_r^{I,II}$ are also indicated. The smaller the detuning between qubits (resp. between a qubit and its readout), the larger the corresponding coupling 2g  (resp. $\chi_r^{I,II}$. b) Typical gate sequence consisting of two single-qubit XY-gates, a two-qubit $i\mathrm{SWAP}(t)$ gate, two single-qubit Z-gates, and qubit readout.}
 	\label{fig:processor_operation}
 \end{figure}
 
@@ -29,7 +29,7 @@ We want to perform three basic operations with the quantum processor:
 \item \textbf{Two-qubit gate}: Performing two-qubit gates, in this work in particular the universal $\sqrt{i\mathrm{SWAP}}$ and $i\mathrm{SWAP}$ gates.
 \item \textbf{Qubit readout}: Performing single-shot readout of the state of each qubit, possibly simultaneously for both of them.
 \end{itemize}
-
+%
 The parameter requirements for each of these operations are usually conflicting: For single-qubit manipulation, no interaction between the qubits must be present, hence the qubit frequencies need to be strongly detuned. However, to implement the two-qubit gates, strong resonant interaction between the qubits is required, hence the two qubit frequencies should be equal. Furthermore, during qubit manipulation the relaxation of the qubit state through the readout resonator should be negligible, hence the frequency detuning $\Delta$ between each qubit and its readout resonator should be large, as shown by eq. (\ref{eq:purcell_rate}). On the other hand, to obtain a high state fidelity during the readout of the qubit state, the interaction between the qubit and its readout resonator should be large, which requires a small frequency detuning $\Delta$ between the two.
 
 \smallskip
@@ -87,7 +87,6 @@ Here, $\epsilon(t) = \epsilon_x(t)+i\epsilon_y(t)$ is the complex drive IQ ampli
 
 \smallskip
 
-In our experiments, we use Gaussian-shaped drive pulses, which already reduce the leakage to the state $\ket{2}$ compared to the continuous pulses that we analyze here. Furthermore, it is possible to correct leakage errors using optimized DRAG drive pulses \cite{lucero_reduced_2010,chow_optimized_2010}, thereby eliminating leakage to the third qubit level. In this work, we did not use such techniques, and we will include possible errors arising due to leakage to higher Transmon levels in our error models when discussing experimental data.
 In our experiments, we use Gaussian-shaped drive pulses, which already reduce the leakage to the state $\ket{2}$ compared to the continuous pulses that we analyze here. Furthermore, it is possible to correct leakage errors using optimized DRAG drive pulses \cite{lucero_reduced_2010,chow_optimized_2010}, thereby eliminating leakage to the third qubit level. In this work, we did not use such techniques, and we will include possible errors arising due to leakage to higher Transmon levels in our error models when discussing experimental data.
 
 \begin{figure}[htp!]
@@ -162,7 +161,7 @@ In this section we discuss the relaxation and dephasing channels of the Transmon
 \begin{SCfigure}[1.0][ht!]
 	\centering
 	\includegraphics[width=0.6\textwidth]{./material/figures/introduction/cooper_pair_box_decoherence}
-	\caption[]{Model of the coupling between the qubit ($C_J$, $E_J$) and the rest of the circuitry: $C_g$ and $Z_g$ represents the gate line whereas $L_{fl}$and $Z_{fl}$ represents the flux line, both capacitively and inductively coupled to the qubit througg $C_g,fl$ and $M$.}
+	\caption[]{Model of the coupling between the qubit ($C_J$, $E_J$) and the rest of the circuitry: $C_g$ and $Z_g$ represents the gate line whereas $L_{fl}$and $Z_{fl}$ represents the flux line, both capacitively and inductively coupled to the qubit through $C_g,fl$ and $M$.}
 	\label{fig:cooper_pair_box_decoherence}
 \end{SCfigure}
 
@@ -255,7 +254,7 @@ Having discussed the relevant properties of all building blocks of our processor
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=\textwidth]{./material/figures/2-qubit-processor/fabrication/qubit_processor_layout}
-	\caption[]{CAD layout of the implemented two-qubit processor, showing (a) the two CPW readout resonators and the two qubits with their adjacent fast flux lines, (b) the input capacitor of a resonator, (c) the two transmon housings in the center of the chip and the active section of the flux lines, (d) a transmon pattern for e-beam litghography, and (e) a more detailed view of the transmon's SQUID pattern.}
+	\caption[]{CAD layout of the implemented two-qubit processor, showing (a) the two CPW readout resonators and the two qubits with their adjacent fast flux lines, (b) the input capacitor of a resonator, (c) the two Transmon housings in the center of the chip and the active section of the flux lines, (d) a Transmon pattern for e-beam lithography, and (e) a more detailed view of the Transmon's SQUID pattern.}
 	\label{fig:processor_fabrication}
 \end{figure}
 
@@ -273,7 +272,7 @@ The flux lines can be realized in several ways. For our processor, we choose a s
 
 For the Transmon qubit itself, we need to fabricate a large shunt capacitance $C_J$ in order to achieve the desired charging energy. We implement this capacitance as an interdigitated planar capacitor that we pattern together with the qubit junctions using electron-beam lithography. The Josephson junctions of the qubit are realized in a SQUID geometry with a loop area of $A\approx 16\;\mathrm{\mu m}^2$ and are fabricated using double-angle shadow-evaporation of Aluminium.
 
-\section{Electromagnetic Simulation of the Qubit-Chip}
+\section{Electromagnetic Simulation of the Qubit Chip}
 
 \begin{figure}[ht!]
 	\centering
@@ -293,7 +292,7 @@ We can also simulate the Transmon qubits as harmonic oscillators by modeling the
 
 \begin{figure}[p!]
 	\includegraphics[width=1\textwidth]{"./material/figures/2-qubit-processor/processor photos"}
-	\caption{Scanning electron micrographs of the fabricated two-qubit processor chip. a) Stitched together micrograph of the whole chip, showing the two readout resonators coupled to their transmission lines, the two capacitively coupled transmons, and the fast magnetic flux lines attached to each qubit. b-g) detailed views showing varous part of the chip: note that the aluminum electrodes are barely visible compared to the niobium ones that benefit from a much higher contrast. b) Flux line close to one of the qubits. The ground plane between the line and the qubit has been removed to suppress spurious shielding currents when sending fast flux pulses. c) Transmon qubit in its resonator housing. The left electrode is the center line of the resonator whereas the right one belongs to the coupling capacitor d) The two-qubit coupling capacitance. e) qubit SQUID loop with its two Josephson junctions. f) The CJBA Josephson junction. g) The readout resonator input capacitance.}
+	\caption{Scanning electron micrographs of the fabricated two-qubit processor chip. a) Stitched together micrograph of the whole chip, showing the two readout resonators coupled to their transmission lines, the two capacitively coupled Transmons, and the fast magnetic flux lines attached to each qubit. b-g) detailed views showing various parts of the chip: note that the aluminum electrodes are barely visible compared to the niobium ones that benefit from a much higher contrast. b) Flux line close to one of the qubits. The ground plane between the line and the qubit has been removed to suppress spurious shielding currents when sending fast flux pulses. c) Transmon qubit in its resonator housing. The left electrode is the center line of the resonator whereas the right one belongs to the coupling capacitor d) The two-qubit coupling capacitance. e) qubit SQUID loop with its two Josephson junctions. f) The CJBA Josephson junction. g) The readout resonator input capacitance.}
 	\label{fig:qubit_chip_photos}
 \end{figure}
 
@@ -314,7 +313,7 @@ Following we discuss the detailed procedure followed for fabrication of the two-
 \item \textbf{Spinning of Photo-Resist}: Spin S1813 + Shipley Primer at 6000 RPM for 60 sec, bake at 115 ° C for 1 min 15 sec.
 \item \textbf{Photo Lithography of Resonators}: Expose the wafer through a contact mask at 5 mW / cm$^2$ for 30 sec.
 \item \textbf{Development}: Develop in pure MF 319 for 50 s.
-\item \textbf{Reactive Ion Etching}: Pump the RIE chamber to $P\le 4\times 10^{-5}$ mbar. Etch using 20 cc of SF$_6$, 10 cc Ar and 2 cc O$_2$ at a pressure of $\approx$ 0.013 mbar at a power of 50 W and a voltage of 150 V. The total etch time should be $\approx $ 60 sec + 10 sec for the finish. Remove the resists in warm acetonee (40 °C) for at least 10 min, possibly clean further in an ultrasonic bath.
+\item \textbf{Reactive Ion Etching}: Pump the RIE chamber to $P\le 4\times 10^{-5}$ mbar. Etch using 20 cc of SF$_6$, 10 cc Ar and 2 cc O$_2$ at a pressure of $\approx$ 0.013 mbar at a power of 50 W and a voltage of 150 V. The total etch time should be $\approx $ 60 sec + 10 sec for the finish. Remove the resists in warm acetone (40 °C) for at least 10 min, possibly clean further in an ultrasonic bath.
 \item \textbf{Niobium Surface Regeneration}: Pump the RIE chamber  to $P\le 4\times 10^{-5}$ mbar, etch using 20 cc of SF$_6$, 10 cc Ar at $\approx$ 0.0133 mbar, 50 W and 150 V for 8 sec.
 \item \textbf{Electron Resist Spinning}: Spin twice an MAA EL 10 layer at 2000 RPM for 60 sec, 6000 RPM for 2 sec. Bake after each step at 170 °C for 60 sec. Spin PMMA 950k A3 at 4000 RPM for 60 sec, 6000 RPM for 2 sec. Bake at 170 °C for 20 min. This should yield $\approx 1050$ nm of MAA and $110$ nm of PMMA (verify using interferometer).
 \item \textbf{Dicing}: Dice the wafer using either a diamond cutter or wafer saw.

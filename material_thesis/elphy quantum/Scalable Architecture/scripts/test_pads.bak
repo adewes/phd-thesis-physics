@@ -1,0 +1,84 @@
+      //////////////////////////////////
+     //        Vacuum Squeezing      //
+    //          Test pads           //
+   //////////////////////////////////
+
+
+//Column parameters
+var voltage=25;
+var spotSize1=1;
+var spotSize6=6;			 // spotsize for pads
+var spotSize7=7;			 // spotsize for pads
+var mag=200;
+var moveTo=1;
+var verbose = 1;
+
+var directory ="C:\\Quantum\\User\\Dewes\\Vacuum Squeezing\\gds";
+var file= "2011_09_23_All Structures.csf";
+var structure="A2";
+
+//Exposure parameters
+var dwellTimeMin=0.0008;                 // minimum dwelltime in ms (Elphy unit)
+
+tune1=1;              //whether to tune current at that point
+
+//Input to setPadWorkingArea(index). Determines, which working area gets exposed.
+var workingAreas = [1,2,2,2,2,1,1,2,2,2,2,1];
+
+//Position on the chip to which the working are gets exposed.
+var exposeAreas = [[-3.5,-1.3],[-3,-1.3],[-2.5,-1.3],[2.5,-1.3],[3,-1.3],[3.5,-1.3],
+           [-3.5,1.3],[-3,1.3],[-2.5,1.3],[2.5,1.3],[3,1.3],[3.5,1.3],
+           ];
+
+//We set the working area corresponding to the index specified.
+function setPadWorkingArea(index)
+{
+         var centerU = -3500+(index-1)*500;
+         var centerV = 1300;
+         area=Quantro_WorkingArea(mag,centerU,centerV,0);
+         Quantro_OpenAndShow(directory + file,structure,1,area);
+};
+
+//Determines which contact pads are exposed.           
+doExpose = [1,1,1,1,1,1,1,1,1,1,1,1];
+
+
+listOfLayer8 = new Array(8,-1);		    // Set of layers to be exposed at large spot
+
+var dose=275;                      	// µC/cm2
+
+var relDoseMin=1;                       // minimum relative dose of elements in list of layer
+
+
+var showCalculate=0;                    // wether to show dialog boxes for checking parameters
+var showTime=0;                  // wether to calculate and show the exposure time
+
+var reInit=0;                            // Re initialize the SEM if 1
+
+//**********************************************************************
+// MAIN CODE SECTION
+//**********************************************************************
+
+var probeCurrent,error=0,area1,area2;
+
+if (Quantro_SetColumnParam(voltage,spotSize7,mag,0,1)==0){error=1};
+if (error==0){probeCurrent=Quantro_GetCurrent(2,0);if (probeCurrent==0){error=1}};
+if (tune1!=0){Quantro_TuneCurrent()};
+Column.BeamBlank =true;
+
+for(var i=0;i<exposeAreas.length;i++)
+{
+        if (doExpose[i] == 1)
+        {
+           setPadWorkingArea(workingAreas[i]);
+           if ((error==0) && (moveTo==1)){Quantro_MoveToUV(exposeAreas[i][0],exposeAreas[i][1],1,0)};
+           App.Exec("CorrectWD()");        
+           if (error==0)
+           {         
+                  Quantro_Expose(structure,listOfLayer8,mag,dose,relDoseMin,dwellTimeMin,probeCurrent,showCalculate,showTime)
+           }
+        }
+}
+
+Quantro_SetColumnParam(voltage,spotSize1,mag,0,1);
+if ((error==0)&& reInit==1){Quantro_ReInitialize()};

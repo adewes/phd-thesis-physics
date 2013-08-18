@@ -1,0 +1,134 @@
+var directory ="C:\\Quantum\\User\\Dewes\\Scalable Architecture\\gds";
+var file= "all structures.csf";
+var structure="C10";
+
+var ManualMarksLayer=63;                 // Layer of the structure that contains boxes for manual alignment
+var AutoMarksLayer=61;                   // Layer of the structure that contains boxes for manual alignment
+
+var centerU=-4200,centerV=-387;        	   // center of the working area for left transmon in UV coordinates.
+var mag=500;
+var error=0;
+
+var area1=Quantro_WorkingArea(mag,centerU,centerV);
+Quantro_OpenAndShow(directory + file,structure,1,area1);
+
+//Expose the JBA...
+
+App.Exec("CorrectWD()");
+
+//Alignment and correction parameters
+var resetCorrec=0;                       // wether to reset correction for magnification mag
+var previousMag=0;                    	// previous magnification for reading corresponding corrections. None if 0
+var systematicCorrec="";		  // systematic correction to add to the UV coordinates. None if ""
+var ask=1;                               // ask confirmation during the process
+
+//Column parameters
+var voltage=25;
+var spotSize1=1;                         // spotsize for junction
+var spotSize2=2;
+var spotSize3=3;
+
+var mag=500;
+var moveTo=0;
+
+//Exposure parameters
+var dwellTimeMin=0.0007;                 // minimum dwelltime in ms (Elphy unit)
+
+var expose2=1;           //wether to expose JBA junction
+var expose3=1;           //wether to expose JBA junction undercut
+var expose12=1;          //wether to expose recontact pads
+var expose17=1;          //wether to expose recontact undercut
+
+listOfLayer2 = new Array(2,-1);      // Set of layers to be exposed for JBA junction
+listOfLayer3 = new Array(3,-1);      // Set of layers to be exposed for JBA junction undercut
+listOfLayer12 = new Array(12,-1);      // Set of layers to be exposed for recontact pads
+listOfLayer17 = new Array(17,-1);      // Set of layers to be exposed for recontact undercut
+
+var dose2=250;                  //JBA junction
+var dose3=250;                  //JBA junction undercut
+var dose12=250;                  // recontact pads
+var dose17=250;                  // recontact undercut
+
+var relDoseMin2=1;                       // minimum relative dose of elements in list of layer
+var relDoseMin3=0.1;                      // minimum relative dose of elements in list of layer
+var relDoseMin12=1;
+var relDoseMin17=0.1;
+
+var showCalculate=0;                    // wether to show dialog boxes for checking parameters
+var showTime=0;                         // wether to calculate and show the exposure time
+
+var reInit=0;                            // Re initialize the SEM if 1
+
+//**********************************************************************
+// MAIN CODE SECTION
+//**********************************************************************
+
+var probeCurrent,error=0,area1;
+// JBA junction exposure
+
+if (Quantro_SetColumnParam(voltage,spotSize2,mag,0)==0){error=1};   //Spot 2
+if (error==0){probeCurrent=Quantro_GetCurrent(2,0);if (probeCurrent==0){error=1}};
+
+if ((error==0)&& expose2!=0){Quantro_Expose(structure,listOfLayer2,mag,dose2,relDoseMin2,dwellTimeMin,probeCurrent,showCalculate,showTime)};
+if ((error==0)&& expose3!=0){Quantro_Expose(structure,listOfLayer3,mag,dose3,relDoseMin3,dwellTimeMin,probeCurrent,showCalculate,showTime)};
+
+// Recontact exposure
+
+if (Quantro_SetColumnParam(voltage,spotSize3,mag,0)==0){error=1}; //Spot 3
+if (error==0){probeCurrent=Quantro_GetCurrent(2,0);if (probeCurrent==0){error=1}};
+if ((error==0)&& expose12!=0){Quantro_Expose(structure,listOfLayer12,mag,dose12,relDoseMin12,dwellTimeMin,probeCurrent,showCalculate,showTime)};
+if ((error==0)&& expose17!=0){Quantro_Expose(structure,listOfLayer17,mag,dose17,relDoseMin17,dwellTimeMin,probeCurrent,showCalculate,showTime)};
+
+Quantro_SetColumnParam(voltage,1,mag,0);
+
+if ((error==0)&& reInit==1){Quantro_ReInitialize()};
+
+//Expose the contact pad...
+
+//Column parameters
+var voltage=25;
+var spotSize1=1;
+var spotSize6=6;			 // spotsize for pads
+var spotSize7=7;			 // spotsize for pads
+var mag=200;
+var moveTo=1;
+var verbose = 1;
+
+var directory ="C:\\Quantum\\User\\Dewes\\Scalable Architecture\\gds";
+var file= "all structures.csf";
+var structure="C10";
+
+//Exposure parameters
+var dwellTimeMin=0.0008;                 // minimum dwelltime in ms (Elphy unit)
+
+tune1=1;              //whether to tune current at that point
+
+area=Quantro_WorkingArea(mag,-4000,1300,0);
+Quantro_OpenAndShow(directory + file,structure,1,area);
+
+listOfLayer8 = new Array(8,-1);		    // Set of layers to be exposed at large spot
+
+var dose=250;                      	// µC/cm2
+
+var relDoseMin=1;                       // minimum relative dose of elements in list of layer
+
+var showCalculate=0;                    // wether to show dialog boxes for checking parameters
+var showTime=0;                  // wether to calculate and show the exposure time
+
+var reInit=0;                            // Re initialize the SEM if 1
+
+//**********************************************************************
+// MAIN CODE SECTION
+//**********************************************************************
+
+var probeCurrent,error=0,area1,area2;
+
+if (Quantro_SetColumnParam(voltage,spotSize6,mag,0,1)==0){error=1};
+if (error==0){probeCurrent=Quantro_GetCurrent(2,0);if (probeCurrent==0){error=1}};
+//if (tune1!=0){Quantro_TuneCurrent()};
+
+App.Exec("CorrectWD()");        
+Quantro_Expose(structure,listOfLayer8,mag,dose,relDoseMin,dwellTimeMin,probeCurrent,showCalculate,showTime)
+
+Quantro_SetColumnParam(voltage,spotSize1,mag,0,1);
+if ((error==0)&& reInit==1){Quantro_ReInitialize()};

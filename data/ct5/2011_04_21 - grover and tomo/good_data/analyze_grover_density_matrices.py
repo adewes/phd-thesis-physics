@@ -184,7 +184,7 @@ for signs in [(-1,-1),(1,-1),(-1,1),(1,1)]:
 		toDatacube(finalState,simulatedDensityMatrices)
 		simulatedDensityMatrices.commit()
 		show()
-
+simulatedDensityMatrices.savetxt("grover algorithm - simulation")
 ##Plot the density matrices at different points during the algorithm
 #You need to load the datacubes gv.densityMatrices and gv.simulatedDensityMatrices for this to work
 import matplotlib.gridspec as gridspec

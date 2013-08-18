@@ -5,9 +5,11 @@
 *.svg
 *.yaml
 *.yml
+~*
 *.emf
 *.wmf
 *.dat
+*.tmp
 #*.pxp
 *.hdf
 *.ai

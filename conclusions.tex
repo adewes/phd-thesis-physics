@@ -1,14 +1,14 @@
-\chapter{Conclusions \& Outlook} \label{chapter:conclusions}
+\chapter{Conclusions} \label{chapter:conclusions}
 
-In this thesis work, we implemented a two-qubit processor using superconducting Transmon qubits that are capacitively coupled to each other. Each of the qubit possesses its own single-shot QND readout realized using a Josephson bifurcation amplifier. Using the qubit-qubit interaction, we implemented the universal $\sqrt{i\mathrm{SWAP}}$ quantum gate and used it to create entangled two-qubit states. In addition, we implemented the Grover quantum search algorithm, demonstrating probabilistic quantum speed-up beyond the classical boundary for a four-element search problem.
-
-\smallskip
-
-Despite our successful implementation of a simple ``toy'' quantum processor, the approach that we have chosen for its realization is fundamentally flawed and can thus not be used to build larger quantum processors: The fixed, always-ON type of qubit-qubit coupling employed in our processor makes it impossible to realiable switch on and off the coupling between individual qubits when increasing their number. Furthermore, the qubit coherence times that we achieved in our experiments are not sufficient to run large-scale algorithms.
+In this thesis work, we implemented a two-qubit processor using superconducting Transmon qubits that are capacitively coupled to each other. Each of the qubit possesses its own single-shot QND readout realized using a Josephson bifurcation amplifier. Using a direct capacitive coupling between the qubits, we implemented the universal $\sqrt{i\mathrm{SWAP}}$ quantum gate and used it to create entangled two-qubit states. In addition, we implemented the Grover quantum search algorithm, demonstrating probabilistic quantum speed-up beyond the classical boundary for a four-element search problem.
 
 \smallskip
 
-To overcome this problems, it would be necessary to increase the coherence times of superconducting qubits by a large factor and to devise a quantum computing architecture that solves the coupling problem. In chapter \ref{chapter:scalable_architecture} of this work, we propose a qubit architecture that can potentially provide a tunable coupling scheme and would therefore be scalable beyond a small number of qubits. This architecture is compatible with any kind of Transmon qubits and could potentially be combined e.g. with recently developed 3D Transmons, which themselves exhibit very large coherence times. Together, long coherence times and tunable qubit-qubit coupling would probably allow the realization of a superconducting qubit processor with a fews 10s of qubits that could compete with current state-of-the-art ion qubit quantum processors. 
+Despite our successful implementation of a simple two-qubit quantum processor, the approach that we have chosen to realize it is not scalable beyond a few qubits: The fixed, always-ON type of qubit-qubit coupling employed in our processor makes it impossible to reliably switch on and off the coupling between individual qubits when increasing their number. Furthermore, the qubit coherence times that we achieved in our experiments would not be sufficient to run large-scale algorithms.
+
+\smallskip
+
+To overcome these problems, it would be necessary to increase the coherence times of superconducting qubits by a large factor and to devise a quantum computing architecture that solves the coupling problem. In chapter \ref{chapter:scalable_architecture} of this work, we propose a qubit architecture that might provide a tunable coupling scheme and would therefore be scalable beyond a small number of qubits. This architecture is compatible with different kinds of Transmon qubits and could thus be implemented using the recently developed 3D Transmons \citep{paik_observation_2011}, which exhibit very large coherence times. Together, long coherence times and a tunable qubit-qubit coupling could then possibly allow the realization of a superconducting qubit processor with a few tens of qubits. 
 
 \smallskip
 

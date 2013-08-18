@@ -1,0 +1,1 @@
+Quantro_GetASeriesOfCurrents(0,1,new Array (1,1,1,1,1,1,0),1,1)

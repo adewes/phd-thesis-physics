@@ -1,13 +1,19 @@
-\documentclass[12pt]{book}
+\documentclass[12pt,twoside]{book}
 
-\usepackage[a4paper,outer=1.4in,inner=0.8in,vmargin=3cm]{geometry}
+\usepackage[hcentering,twoside,a4paper,outer=1.4in,inner=0.8in,vmargin=3cm]{geometry}
+
+\newif\ifanimate
+\animatefalse
 
 \usepackage[utf8]{inputenc}
-
+\ifanimate
+\usepackage{animate}
+\fi
 \usepackage{verbatim}
 \usepackage{fancyhdr}
 \usepackage{flipbook}
 \usepackage{wrapfig}
+\usepackage{afterpage}
 \usepackage{pdflscape}
 \usepackage{natbib}
 \usepackage{graphicx}
@@ -19,6 +25,7 @@
 \usepackage{textcomp}
 \usepackage{floatflt}
 \usepackage{listings}
+%\usepackage{ulem}
 \usepackage{color}
 \usepackage{tabularx}
 \usepackage{multirow}
@@ -49,8 +56,8 @@
 \usepackage[scaled]{helvet}
 \usepackage{caption}
 
-
-\setlength{\marginparwidth}{1in}
+\setlength{\headheight}{28pt}
+%\setlength{\marginparwidth}{1in}
 
 \newcounter{todos}
 \newcounter{comments}
@@ -71,8 +78,8 @@
 \usepackage[T1]{fontenc}
 \linespread{1.2}
 
-\title{\normalsize Thèse de Doctorat de l'Université Pierre et Marie Curie \\ \huge Demonstrating Quantum Speed-Up with a Two-Transmon Quantum Processor \\ \normalsize Specialité: Physique Quantique}
-\author{Présentée par \bigskip \\ \bigskip \huge Andreas Dewes \\ \small Pour obtenir le grade de ``Docteur de l'Université Pierre et Marie Curie'' \vspace{3cm} \\ Soutenue le xx.xx.xxxx devant le jury composé de: \\ ... \\ ... \\ ... \\ ... \\ ...}
+\title{\normalsize Thèse de Doctorat de l'Université Pierre et Marie Curie \\ Specialité: Physique de la matière condensée \\ Ecole Doctorale de Physique de la Région Parisienne - ED 107 \bigskip \\ \huge Demonstrating Quantum Speed-Up with a Two-Transmon Quantum Processor}
+\author{Présentée par \bigskip \\ \bigskip \huge Andreas Dewes \\ \small Pour obtenir le grade de ``Docteur de l'Université Pierre et Marie Curie'' \vspace{3cm} \\ Soutenue le 15 novembre 2012 devant le jury composé de: \\ Prof. Alexey Ustinov (rapporteur) \\ Dr. Olivier Buisson (rapporteur) \\ Prof. Jean-Michel Raimond \\ Prof. David DiVincenzo \\ Dr. Denis Vion}
 \date{\vspace{2cm} Thèse préparée au sein du Service de Physique de l'Etat Condensé, CEA Saclay}
 \theoremstyle{definition}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -80,6 +87,8 @@
 
 \newcommand{\LA}[1]{\begin{mathcal}L\end{mathcal}_{#1}} % for Dirac brackets
 \newcommand{\Or}{\begin{mathcal}C\end{mathcal}} % for Dirac brackets
+\newcommand{\De}{\begin{mathcal}D\end{mathcal}} % for Dirac brackets
+\newcommand{\Er}{\begin{mathcal}E\end{mathcal}} % for Dirac brackets
 \newcommand{\bracket}[1]{\left< #1 \right>} % for Dirac brackets
 \newcommand{\ket}[1]{\left| #1 \right>} % for Dirac bras
 \newcommand{\bra}[1]{\left< #1 \right|} % for Dirac kets
@@ -97,6 +106,9 @@
 		\end{spacing}
 	}
 }
+
+\renewcommand{\todo}[1]{}
+
 \newcommand{\figcomment}[1]{
 	%To do: Fix the bug that makes the counter value increase by 2 each time this command is called.
 	\addtocounter{figcomments}{1}
@@ -142,43 +154,75 @@
 	}
 }
 
+\fancyhead[OL]{Andreas Dewes}
+
 \cfoot{}
 \rfoot[\thepage]{\thepage}
-\rhead[]{
-\setlength\unitlength{1cm}
-\begin{picture}(0,0)
-\put(-0.2,-0.36){
-%\includegraphics[width=0.1\textwidth]{"./data/ct5/film of swap/matrices/matrix_1"}
-\fbImageF{"./data/ct5/film of swap/matrices/matrix_"}{pdf}{scale=0.18}
-}
-\end{picture}
-}
 
 \begin{document}
 
 \pagestyle{plain}
+\pagenumbering{gobble}
+
+
+\ifanimate
+\includepdf[pages={1},fitpaper=true]{cover_web.pdf}
+\else
+\includepdf[pages={1},fitpaper=true]{cover.pdf}
+\fi
 
 \maketitle
 
-\tableofcontents
+\thispagestyle{empty}
+
+{\small
+\textbf{Cover Illustration}: King Aegeus asking the priestess Pythia, the Oracle of Delphi, for advice concerning family matters. Analogously, in this work we make use of a quantum Oracle to find the solution to a mathematical problem faster than possible when using classical computing\footnote{Incidentally, we use a language called Python to convey the messages of our Oracle.}. Similar to the prophecies uttered by the ancient Oracle, the solutions that we obtain also tend to be slightly ambiguous.}
+
+
+\chapter*{Acknowledgments}
+
+This thesis would not exist without the invaluable help of my colleagues at the CEA Saclay. Special thanks go to my advisers \textbf{Denis Vion}, \textbf{Patrice Bertet} and \textbf{Daniel Esteve}: Countless times they provided me with scientific and personal advice and were always patient, optimistic and supportive, even at times when I was not.
+
+\smallskip
+
+In addition, I thank \textbf{Florian Ong}, who worked as a Post-Doc in the group during the first year of my thesis and fabricated the original qubit chip with which most of the measurements discussed in this thesis have been made. Also, I want to thank \textbf{Agustin Palacios-Laloy}, who introduced me to his setup and helped me to get started with my measurements. Furthermore, I want to thank \textbf{Nicolas Boulant}, who, with his experience in quantum state \& process tomography, helped me to understand the data of the iSWAP experiment.
+
+\smallskip
+
+Last but not least, I want to thank all of my colleagues for their help and support, as well as for the countless interesting discussions I had with them. They made the Quantronics lab a very special and enjoyable place to work at.
 
 %\listoffigures
 
 %\listoftables
 
-\pagestyle{fancy}
-
 \chapter*{Short Summary}
 
-The thesis work discusses the characterization of a two-qubit processor implemented using capacitively coupled tunable superconducting qubits of the Transmon type. Each qubit can be manipulated and read out individually using a non-destructive single-shot readout. In addition, a universal-two qubit gate can be implemented using the interaction between the qubits. The processor implements therefore all basic building blocks of a universal quantum computer. Using it, we implement the universal sqrt(iSWAP) two-qubit gate, characterizing the gate operation by quantum process tomography and obtaining a gate fidelity of 90 \%. We use this gate to create entangled two-qubit Bell states and perform a test of the Bell inequality, observing a violation of the classical boundary by 22 standard deviations after correcting for readout errors. 
+\begin{center}
+{\huge Demonstrating Quantum Speed-Up with a Two-Transmon Quantum Processor} \\ \bigskip
+\end{center}
+
+The thesis work discusses the design, realization, characterization and operation of a two-qubit processor implemented using capacitively coupled tunable superconducting qubits of the Transmon type. Each qubit can be manipulated and read out individually using a non-destructive single-shot readout. In addition, a universal-two qubit gate can be implemented using the interaction between the qubits. The processor implements therefore all basic building blocks of a universal two-qubit quantum processor. Using it, we implement the universal $\sqrt{i\mathrm{SWAP}}$ two-qubit gate, characterizing the gate operation by quantum process tomography and obtaining a gate fidelity of 90 \%. We use this gate to create entangled two-qubit Bell states and perform a test of the CHSH Bell inequality, observing a violation of the classical boundary by 22 standard deviations after correcting for readout errors. 
 
 \smallskip
 
-Using the implemented two-qubit gate, we run the so-called Grover search algorithm, which for the two-qubit case finds among four elements $x \in \{00,01,10,11\}$ the one element y that solves a search problem encoded by a function $f$ for which $f(y)=1$ and $f(x\ne y)=0$. We find that our implementation of the algorithm retrieves the correct answer to the search problem after a single evaluation of the search function $f(x)$ with a success probability between 52 \% and 67 \%, therefore outperforming classical algorithms that are bound to a success probability of 25 \%. This constitutes therefore a proof-of-concept of the quantum speed-up for superconducting quantum processors.
+Using the implemented two-qubit gate, we run the so-called Grover search algorithm: For two-qubits, this algorithm finds among four elements $x \in \{00,01,10,11\}$ the one element $y$ that solves a search problem encoded by a function $f$ for which $f(y)=1$ and $f(x\ne y)=0$. Our implementation retrieves the correct answer to the search problem after a single evaluation of the search function $f(x)$, with a success probability between 52 \% and 67 \%, therefore outperforming classical algorithms that are bound to a success probability of 25 \%. This constitutes therefore a proof-of-concept of the quantum speed-up for superconducting quantum processors.
 
 \smallskip
 
-Finally, we propose a scalable architecture for a superconducting quantum processor that can potentially overcome the scalability issues faced by todays superconducting qubit architectures.
+Finally, we propose a scalable architecture for a superconducting quantum processor that can potentially overcome the scalability issues faced by today’s superconducting qubit architectures.
+
+\tableofcontents
+
+\newpage
+
+\rhead[]{
+\setlength\unitlength{1cm}
+\begin{picture}(0,0)
+\put(-0.2,-0.36){
+\fbImageF{"./data/ct5/film of swap/matrices/matrix_"}{pdf}{scale=0.18}
+}
+\end{picture}
+}
 
 \input{introduction}
 
@@ -195,6 +239,9 @@ Finally, we propose a scalable architecture for a superconducting quantum proces
 \input{"scalable architecture"}
 
 \input{conclusions}
+
+\newpage
+
 
 \appendix
 

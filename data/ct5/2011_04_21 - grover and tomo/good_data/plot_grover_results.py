@@ -16,7 +16,7 @@ from quantum.qulib import *
 densityMatrices = Datacube()
 groverSingleRunData = Datacube()
 
-densityMatrices.loadtxt("grover - maximum likelihood estimated density matrices of run 1")
+densityMatrices.loadtxt("grover - maximum likelihood density matrices-2")
 groverSingleRunData.loadtxt("Grover Search Algorithm")
 
 
@@ -44,7 +44,7 @@ show()
 
 fig = figure(10)
 subplot(441)
-rc('font',size = 10)
+rc('font',size = 12)
 rc('axes', edgecolor=(0.5,0.5,0.5),facecolor = 'white')
 
 fig.set_size_inches((12,3))
@@ -53,14 +53,9 @@ gs = gridspec.GridSpec(1, 4)
 for state in range(0,4):
 	densityMatrix = fromDatacube(densityMatrices,4+5*state)
         print densityMatrix
-	measuredProbs = map(lambda i:float(groverSingleRunData.children()[state]["zzp"+i][0]),["00","10","01","11"])
+	measuredProbs = map(lambda i:float(groverSingleRunData.children()[state]["zzp"+i][0]),["00","01","10","11"])
 	probs = matrix(map(lambda i:float(densityMatrix[i,i]),range(0,4)))
-	if state == 1:
-		ax = subplot(gs[0,2])
-	elif state == 2:
-		ax = subplot(gs[0,1])
-	else:
-		ax = subplot(gs[0,state])
+	ax = subplot(gs[0,state])
 	subplots_adjust(wspace = 0.4,hspace = 0.5,bottom = 0.2,top = 0.9)
 
 	cla()

@@ -1,0 +1,26 @@
+var directory ="C:\\Quantum\\User\\Dewes\\Scalable Architecture\\gds";
+var file= "all structures.csf";
+var structure="B8";
+var alignment = 1;
+var ManualMarksLayer=63;                 // Layer of the structure that contains boxes for manual alignment
+var AutoMarksLayer=61;                   // Layer of the structure that contains boxes for manual alignment
+
+var shiftU = 0,shiftV=0;
+var centerU=-1880.000,centerV=-660.000;        	   // center of the working area for left transmon in UV coordinates.
+var mag=1000;
+var magAlignment=200;
+var error=0;
+
+var areaAlignment=Quantro_WorkingArea(magAlignment,centerU+shiftU,centerV+shiftV);
+Quantro_OpenAndShow(directory + file,structure,1,areaAlignment);
+
+if (alignment == 1)
+{
+  Quantro_DoAlignment(structure,magAlignment,ManualMarksLayer,AutoMarksLayer,1);
+}
+
+var area1=Quantro_WorkingArea(mag,centerU+shiftU,centerV+shiftV);
+Quantro_OpenAndShow(directory + file,structure,1,area1);
+
+
+App.Exec("CorrectWD()");

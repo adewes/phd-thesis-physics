@@ -1,0 +1,29 @@
+[VARIABLES]
+
+[PREFERENCES]
+LayerOrder=0
+
+[LAYER]
+;<LayerNo>=<Name>,<Border>,<Fill>,<Pattern>,<Order>,<Usable>,<Active>,<Thickness>,<Connections>
+0=Chip Niobium,30,30,0,0,1,1,1000,
+1=Transmon capa,22,22,0,2,1,1,1000,
+2=JBA junction,23,23,0,4,1,1,1000,
+3=JBA junction undercut,39,39,0,5,1,1,1000,
+4=Transmon capa undecut,11,11,0,6,1,1,1000,
+5=Coupling Capa,2,2,0,12,1,1,1000,
+6=Mid pads,18,18,0,9,1,1,1000,
+7=Transmon squid,27,27,0,13,1,1,1000,
+8=Large pads,2,2,0,10,1,1,1000,
+9=Coupling Capa recontact,9,9,0,14,1,1,1000,
+10=Recontact Tr,10,10,0,3,1,1,1000,
+11=Coupling capa undercut,11,11,0,20,1,1,1000,
+12=JBA recontact,54,54,0,11,1,1,1000,
+13=EtchSpot3,38,38,7,17,1,1,1000,
+14=EtchSpot5,55,55,0,15,1,1,1000,
+15=Transmon squid undercut,9,9,0,21,1,1,1000,
+16=deplacement,16,16,0,7,1,1,1000,
+17=JBA recontact undercut,32,32,0,18,1,1,1000,
+18=Help,63,63,0,16,1,1,1000,
+19=doseTestText,19,19,7,1,1,1,1000,
+61=Automatic marks,19,19,0,8,1,0,1000,
+63=Manual marks,4,4,0,19,1,1,1000,

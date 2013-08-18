@@ -1,0 +1,2189 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     95241,       2180]
+NotebookOptionsPosition[     93468,       2118]
+NotebookOutlinePosition[     93874,       2135]
+CellTagsIndexPosition[     93831,       2132]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"Remove", "[", "\"\<Global`*\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.513047392984528*^9, 3.513047410752928*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Crosstalk", "Title",
+ CellChangeTimes->{{3.511622464019841*^9, 3.51162246539485*^9}, {
+   3.5116303934752083`*^9, 3.5116303942396035`*^9}, {3.511630681527362*^9, 
+   3.511630694990076*^9}, 3.51218051420129*^9, {3.513094322572892*^9, 
+   3.5130943233996925`*^9}, {3.5141936703796573`*^9, 
+   3.5141936962439594`*^9}, {3.5146264051617713`*^9, 3.514626406394148*^9}, {
+   3.514781057560049*^9, 3.514781060999049*^9}, {3.5148893004005337`*^9, 
+   3.514889302991534*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+ComplexMatrixDraw Code (copy to your Notebook, evaluate and use the \
+ComplexMatrixDraw function)\
+\>", "Subsection",
+ CellChangeTimes->{{3.511622464019841*^9, 3.51162246539485*^9}, {
+   3.5116303934752083`*^9, 3.5116303942396035`*^9}, {3.511630681527362*^9, 
+   3.511630694990076*^9}, 3.51218051420129*^9, {3.513043660053528*^9, 
+   3.513043660942728*^9}, {3.5142654575172544`*^9, 3.51426547796889*^9}, {
+   3.5142655093561454`*^9, 3.5142655473110123`*^9}, {3.514265850715945*^9, 
+   3.5142658749739876`*^9}, {3.5142888017474055`*^9, 3.5142888027301865`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Introduction: ComplexMatrixDraw daws a rectangular matrix of \
+complex numbers cij as an array of cells with possibly\n\t- a ",
+  FontSize->14],
+ StyleBox["frame",
+  FontSize->14,
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox[" and a central point\n\t- a ",
+  FontSize->14],
+ StyleBox["2D shape",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[" with an area proportional to |cij| or given by the optional \
+function functionFor2DShapeArea(cij);\n\t- an ",
+  FontSize->14],
+ StyleBox["arrow",
+  FontSize->14,
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[" with angle arg(cij) and length  |cij| or given by the optional \
+function  functionForArrowLength(cij);\n\t- a ",
+  FontSize->14],
+ StyleBox["label",
+  FontSize->14,
+  FontColor->RGBColor[1, 0.5, 0]],
+ StyleBox[".\n\t\nSyntax: ComplexMatrixDraw[m,opts] with \n\tm: a number, a \
+vector (list of numbers) or a matrix (a list of list of numbers)\n\topts: \
+optional replacement rules of the type optionName->optionValue as described \
+below:\n\nSeveral options (with default behavior) are available:\n\tOptions \
+for the ",
+  FontSize->14],
+ StyleBox["cell frame",
+  FontSize->14,
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox[":\n\t\t- ",
+  FontSize->14],
+ StyleBox["showFrame",
+  FontSize->14,
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox[": True (default) or False. Draw a black square around each matrix \
+cell\n\t\t- ",
+  FontSize->14],
+ StyleBox["frameFaceFunction",
+  FontSize->14,
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox[": function of the position ij returning directives for rendering \
+the face of the square frame (default is ",
+  FontSize->14],
+ "{White, Opacity[0]}",
+ StyleBox["&, i.e. transparent)\n\t\t- ",
+  FontSize->14],
+ StyleBox["showCentralPoint",
+  FontSize->14,
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox[": True or False (default) ",
+  FontSize->14],
+ "wheter",
+ StyleBox[" to draw a central point in the cell.\n\t\t- ",
+  FontSize->14],
+ StyleBox["centralPointSize",
+  FontSize->14,
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox[": parameter of the PointSize directive (Tiny,Small, Medium, or a \
+relative size like 0.01 for example).\n\tOptions for the",
+  FontSize->14],
+ StyleBox[" 2D shape",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[" representing the complex number:\n\t\t- ",
+  FontSize->14],
+ StyleBox["show2DShape",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": True (default) or False. Whether to draw the 2D shape or not.\n\t\
+\t- ",
+  FontSize->14],
+ StyleBox["whatShape",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": \"circle\" (default) or \"square\".\n\t\t- ",
+  FontSize->14],
+ StyleBox["functionFor2DShapeAera",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": any  single argument function to be applied to cij to define the \
+area of the 2D shape (default is Abs).\n\t\t- ",
+  FontSize->14],
+ StyleBox["hide2DShapeSmallerThan",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": Value of functionFor2DShapeAera(cij) below which the 2D shape \
+should not be drawn  (default is 0).\n\t\t- ",
+  FontSize->14],
+ StyleBox["borderColor",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": Color of the 2D shape border (default is Black).\n\t\t- ",
+  FontSize->14],
+ StyleBox["fill2DShape",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": whether to fill the 2Dshape (default is True);\n\t\t- ",
+  FontSize->14],
+ StyleBox["fillingColor",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": Filling color function  f[ |cij| , arg(cij)] of the 2D shape. \
+Default is Hue[#2/(2\[Pi])+0.5]&, i.e a cyclic color function of the phase \
+arg(cij) that is cyan for \[CurlyPhi]=0 and red for \[CurlyPhi]=\[Pi] . \n\t\t\
+- ",
+  FontSize->14],
+ StyleBox["thicknessShape",
+  FontSize->14,
+  FontColor->RGBColor[0.6, 0.4, 0.2]],
+ StyleBox[": thickness of the shape border (default is 0.01, i.e 1% of the \
+cell).\n\tOptions for the ",
+  FontSize->14],
+ StyleBox["Arrow",
+  FontSize->14,
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[" representing the complex Number\n\t\t- ",
+  FontSize->14],
+ StyleBox["showArrow",
+  FontSize->14,
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[":  True (default) or False. ",
+  FontSize->14],
+ "wheter",
+ StyleBox[" to draw the arrow or not.\n\t\t- ",
+  FontSize->14],
+ StyleBox["functionForArrowLength",
+  FontSize->14,
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[": any  single argument function to be applied to cij to define the \
+length of the arrow (default is Abs).\n\t\t- ",
+  FontSize->14],
+ StyleBox["hideArrowSmallerThan",
+  FontSize->14,
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[": Value of functionForArrowLength(cij) below which the arrow \
+should not be drawn  (default is 0).\n\t\t-",
+  FontSize->14],
+ StyleBox[" thicknessArrow",
+  FontSize->14,
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[": thickness of the arrow border (default is 0.01, i.e 1% of the \
+whole graph).\n\t\t- ",
+  FontSize->14],
+ StyleBox["arrowColor",
+  FontSize->14,
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[": Color of the arow (default is Black).\n\t\t-",
+  FontSize->14],
+ StyleBox[" arrowSize",
+  FontSize->14,
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[": Size of the arrow in fraction of the whole graph  (default is \
+0.05, i.e. 5%).\n\tOptions for the ",
+  FontSize->14],
+ StyleBox["label",
+  FontSize->14,
+  FontColor->RGBColor[1, 0.5, 0]],
+ StyleBox[" included in the cell\n\t\t- ",
+  FontSize->14],
+ StyleBox["showLabel",
+  FontSize->14,
+  FontColor->RGBColor[1, 0.5, 0]],
+ StyleBox[": True or False (default). Whether to write the number in the cell \
+or not.\n\t\t-",
+  FontSize->14],
+ StyleBox[" labelFunction",
+  FontSize->14,
+  FontColor->RGBColor[1, 0.5, 0]],
+ StyleBox[": Function to apply to the number to form the label. Default is \
+Identity\n\t\t- ",
+  FontSize->14],
+ StyleBox["labelStyle",
+  FontSize->14,
+  FontColor->RGBColor[1, 0.5, 0]],
+ StyleBox[": A directive for Style[], such as Small (default), Medium, Large, \
+Red ...\n\t\t- ",
+  FontSize->14],
+ StyleBox["labelShift",
+  FontSize->14,
+  FontColor->RGBColor[1, 0.5, 0]],
+ StyleBox[": a list {\[CapitalDelta]x,\[CapitalDelta]y} (default is {0,0}) \
+indicating how to shift the text in the cell. ",
+  FontSize->14]
+}], "Text",
+ CellChangeTimes->{{3.51218052387329*^9, 3.51218071035929*^9}, {
+   3.5130394174375277`*^9, 3.5130394486531277`*^9}, {3.513039520335128*^9, 
+   3.513039535981928*^9}, {3.513039570520328*^9, 3.5130401527767277`*^9}, {
+   3.5130401905131283`*^9, 3.513040961531528*^9}, {3.513041012854328*^9, 
+   3.513041036535128*^9}, {3.513041071588328*^9, 3.513041087094728*^9}, {
+   3.513041143519928*^9, 3.513041318629928*^9}, {3.513041398611128*^9, 
+   3.513041401325528*^9}, 3.5130414890443277`*^9, {3.513041813461928*^9, 
+   3.513041815162328*^9}, {3.513042040911928*^9, 3.513042041769928*^9}, {
+   3.5130422609811277`*^9, 3.5130422685159283`*^9}, {3.513043552304328*^9, 
+   3.513043555814328*^9}, {3.513083592932453*^9, 3.513083593868453*^9}, {
+   3.513084265466053*^9, 3.5130843490820527`*^9}, {3.513084475972453*^9, 
+   3.513084480278053*^9}, {3.513084523552453*^9, 3.513084550602853*^9}, {
+   3.5130845992972946`*^9, 3.513084719095148*^9}, {3.5130849234482713`*^9, 
+   3.5130850152613344`*^9}, {3.513085072607459*^9, 3.5130851018039837`*^9}, {
+   3.5130852265465436`*^9, 3.513085288083626*^9}, {3.5130853548920016`*^9, 
+   3.513085366731263*^9}, {3.513089131009492*^9, 3.513089175265892*^9}, {
+   3.5130892289142923`*^9, 3.5130892296006923`*^9}, {3.513089597512092*^9, 
+   3.513089605483692*^9}, {3.513092881942092*^9, 3.513092948086092*^9}, {
+   3.5130932259220924`*^9, 3.513093290069292*^9}, {3.5130933291004925`*^9, 
+   3.513093398100292*^9}, {3.513094307986892*^9, 3.513094327954892*^9}, {
+   3.5130943945210924`*^9, 3.5130945034402924`*^9}, {3.513094534624692*^9, 
+   3.513094539351492*^9}, {3.513094596619092*^9, 3.5130946146994925`*^9}, {
+   3.5141867053712006`*^9, 3.5141867881432085`*^9}, {3.5141868574682755`*^9, 
+   3.5141869375415354`*^9}, {3.514187000174331*^9, 3.514187013808469*^9}, {
+   3.5141918181482773`*^9, 3.5141919178147607`*^9}, {3.5141919881382084`*^9, 
+   3.5141920273090553`*^9}, {3.514193045813468*^9, 3.5141930581216316`*^9}, {
+   3.514264601481351*^9, 3.514264602074152*^9}, {3.5142655647518425`*^9, 
+   3.514265826707503*^9}, {3.5142664732074375`*^9, 3.5142664923642707`*^9}, {
+   3.5142690125506973`*^9, 3.5142690473387585`*^9}, {3.5142691835737977`*^9, 
+   3.5142692246798697`*^9}, {3.5148930364665337`*^9, 3.514893252917534*^9}, {
+   3.514893342763534*^9, 3.514893460210534*^9}, {3.514894225578534*^9, 
+   3.514894256501534*^9}, {3.515130512510667*^9, 3.5151305245069895`*^9}, {
+   3.515130636770423*^9, 3.5151307810284233`*^9}, {3.5151308504224234`*^9, 
+   3.5151309462834234`*^9}, {3.515131471615423*^9, 3.515131536858423*^9}, {
+   3.5151315685074234`*^9, 3.515131576791423*^9}, {3.5151317383184233`*^9, 
+   3.515131784108423*^9}, {3.5151318769504232`*^9, 3.515131932020423*^9}, {
+   3.5151323243284235`*^9, 3.515132325149423*^9}, {3.515132949343423*^9, 
+   3.515133025098423*^9}, {3.515134170181423*^9, 3.515134184786423*^9}, {
+   3.515134413176423*^9, 3.515134415994423*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "myPlotElement", "]"}], "=", "\[IndentingNewLine]", 
+   RowBox[{"{", " ", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      StyleBox["showFrame",
+       FontSize->14,
+       FontColor->RGBColor[0, 0, 1]], "\[Rule]", "True"}], ",", 
+     RowBox[{
+      StyleBox["frameFaceFunction",
+       FontSize->14,
+       FontColor->RGBColor[0, 0, 1]], 
+      StyleBox["\[Rule]",
+       FontSize->14], 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"White", ",", 
+          RowBox[{"Opacity", "[", "0", "]"}]}], "}"}], 
+        StyleBox["&",
+         FontSize->14]}], 
+       StyleBox[")",
+        FontSize->14]}]}], 
+     StyleBox[",",
+      FontSize->14], 
+     StyleBox[
+      RowBox[{
+       StyleBox["showCentralPoint",
+        FontColor->RGBColor[0, 0, 1]], "\[Rule]", "False"}],
+      FontSize->14], 
+     StyleBox[",",
+      FontSize->14], 
+     RowBox[{
+      StyleBox["centralPointSize",
+       FontSize->14,
+       FontColor->RGBColor[0, 0, 1]], 
+      StyleBox["\[Rule]",
+       FontSize->14], "Small"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      StyleBox["show2DShape",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", "True"}], ",", 
+     RowBox[{
+      StyleBox["whatShape",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", "\"\<circle\>\""}], 
+     ",", 
+     RowBox[{
+      StyleBox["functionFor2DShapeAera",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", "Abs"}], ",", 
+     RowBox[{
+      StyleBox["hide2DShapeSmallerThan",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", "0"}], ",", 
+     RowBox[{
+      StyleBox["borderColor",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", "Black"}], ",", 
+     RowBox[{
+      StyleBox["fill2DShape",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", "True"}], ",", 
+     RowBox[{
+      StyleBox["fillingColor",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"Hue", "[", 
+         RowBox[{
+          RowBox[{"#2", "/", 
+           RowBox[{"(", 
+            RowBox[{"2", "\[Pi]"}], ")"}]}], "+", "0.5"}], "]"}], "&"}], 
+       ")"}]}], ",", 
+     RowBox[{
+      StyleBox["thicknessShape",
+       FontSize->14,
+       FontColor->RGBColor[0.6, 0.4, 0.2]], "\[Rule]", ".001"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      StyleBox["showArrow",
+       FontSize->14,
+       FontColor->RGBColor[1, 0, 0]], "\[Rule]", "True"}], ",", 
+     RowBox[{
+      StyleBox["functionForArrowLength",
+       FontSize->14,
+       FontColor->RGBColor[1, 0, 0]], "\[Rule]", "Abs"}], ",", 
+     RowBox[{
+      StyleBox["hideArrowSmallerThan",
+       FontSize->14,
+       FontColor->RGBColor[1, 0, 0]], "->", "0"}], ",", 
+     RowBox[{
+      StyleBox["thicknessArrow",
+       FontSize->14,
+       FontColor->RGBColor[1, 0, 0]], "\[Rule]", ".001"}], ",", 
+     RowBox[{
+      StyleBox["arrowSize",
+       FontSize->14,
+       FontColor->RGBColor[1, 0, 0]], "\[Rule]", ".05"}], ",", 
+     RowBox[{
+      StyleBox["arrowColor",
+       FontSize->14,
+       FontColor->RGBColor[1, 0, 0]], "\[Rule]", "Black"}], ",", 
+     "\[IndentingNewLine]", 
+     StyleBox[
+      RowBox[{
+       StyleBox["showLabel",
+        FontColor->RGBColor[1, 0.5, 0]], "\[Rule]", "False"}],
+      FontSize->14], 
+     StyleBox[",",
+      FontSize->14], 
+     StyleBox[" ",
+      FontSize->14], 
+     RowBox[{
+      StyleBox["labelFunction",
+       FontSize->14,
+       FontColor->RGBColor[1, 0.5, 0]], 
+      StyleBox["\[Rule]",
+       FontSize->14], "Identity"}], ",", " ", 
+     RowBox[{
+      StyleBox["labelStyle",
+       FontSize->14,
+       FontColor->RGBColor[1, 0.5, 0]], 
+      StyleBox["\[Rule]",
+       FontSize->14], "Small"}], ",", 
+     RowBox[{
+      StyleBox["labelShift",
+       FontSize->14,
+       FontColor->RGBColor[1, 0.5, 0]], "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}]}]}], "\[IndentingNewLine]", "}"}]}], 
+  " ", ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"myPlotElement", "[", 
+    RowBox[{"c_", ",", "position_", ",", 
+     RowBox[{"OptionsPattern", "[", "]"}]}], "]"}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Block", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"center", "=", 
+        RowBox[{"(", 
+         RowBox[{"position", "-", 
+          RowBox[{"0.5", 
+           RowBox[{"{", 
+            RowBox[{"1", ",", "1"}], "}"}]}]}], ")"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"shapeAera", "=", 
+        RowBox[{
+         RowBox[{"OptionValue", "[", "functionFor2DShapeAera", "]"}], "[", 
+         "c", "]"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"arrowLength", "=", 
+        RowBox[{
+         RowBox[{"OptionValue", "[", "functionForArrowLength", "]"}], "[", 
+         "c", "]"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"\[CurlyPhi]", "=", 
+        RowBox[{"Arg", "[", "c", "]"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"frame", "=", 
+        RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"shape", "=", 
+        RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"arrow", "=", 
+        RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"centralPoint", "=", 
+        RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"number", "=", 
+        RowBox[{"{", "}"}]}]}], "\[IndentingNewLine]", "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"OptionValue", "[", "showFrame", "]"}], ",", 
+        RowBox[{"frame", "=", 
+         RowBox[{"{", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"EdgeForm", "[", "Dashed", "]"}], ",", 
+            RowBox[{"FaceForm", "[", 
+             RowBox[{
+              RowBox[{"OptionValue", "[", 
+               StyleBox["frameFaceFunction",
+                FontSize->14], 
+               StyleBox["]",
+                FontSize->14]}], "[", 
+              RowBox[{
+               RowBox[{"position", "[", 
+                RowBox[{"[", "1", "]"}], "]"}], ",", 
+               RowBox[{"position", "[", 
+                RowBox[{"[", "2", "]"}], "]"}]}], "]"}], "]"}], ",", 
+            RowBox[{"Rectangle", "[", 
+             RowBox[{
+              RowBox[{"center", "-", 
+               RowBox[{"0.5", 
+                RowBox[{"{", 
+                 RowBox[{"1", ",", 
+                  RowBox[{"-", "1"}]}], "}"}]}]}], ",", 
+              RowBox[{"center", "+", 
+               RowBox[{"0.5", 
+                RowBox[{"{", 
+                 RowBox[{"1", ",", 
+                  RowBox[{"-", "1"}]}], "}"}]}]}]}], "]"}]}], "}"}], 
+          "}"}]}]}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"OptionValue", "[", "showCentralPoint", "]"}], ",", 
+        RowBox[{"centralPoint", "=", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"PointSize", "[", 
+            RowBox[{"OptionValue", "[", 
+             StyleBox["centralPointSize",
+              FontSize->14], 
+             StyleBox["]",
+              FontSize->14]}], "]"}], ",", 
+           RowBox[{"Point", "[", "center", "]"}]}], "}"}]}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"OptionValue", "[", "show2DShape", " ", "]"}], "&&", " ", 
+         RowBox[{"shapeAera", ">=", 
+          RowBox[{"OptionValue", "[", "hide2DShapeSmallerThan", "]"}]}]}], 
+        ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"shape", "=", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"EdgeForm", "[", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Thickness", "[", 
+                RowBox[{"OptionValue", "[", "thicknessShape", "]"}], "]"}], 
+               ",", 
+               RowBox[{"OptionValue", "[", "borderColor", "]"}]}], "}"}], 
+             "]"}], ",", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"OptionValue", "[", "fill2DShape", "]"}], ",", 
+              RowBox[{"FaceForm", "[", 
+               RowBox[{
+                RowBox[{"OptionValue", "[", "fillingColor", "]"}], "[", 
+                RowBox[{
+                 RowBox[{"Abs", "[", "c", "]"}], ",", "\[CurlyPhi]"}], "]"}], 
+               "]"}], ",", 
+              RowBox[{"FaceForm", "[", "]"}]}], "]"}]}], "}"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"shape", "=", 
+          RowBox[{"Append", "[", 
+           RowBox[{"shape", ",", "\[IndentingNewLine]", 
+            RowBox[{"Switch", "[", 
+             RowBox[{
+              RowBox[{"OptionValue", "[", "whatShape", "]"}], ",", 
+              "\[IndentingNewLine]", "\"\<square\>\"", ",", 
+              RowBox[{"Rectangle", "[", 
+               RowBox[{
+                RowBox[{"center", "-", 
+                 RowBox[{
+                  RowBox[{"Sqrt", "[", "shapeAera", "]"}], "/", "2"}]}], ",", 
+                RowBox[{"center", "+", 
+                 RowBox[{
+                  RowBox[{"Sqrt", "[", "shapeAera", "]"}], "/", "2"}]}]}], 
+               "]"}], ",", "\[IndentingNewLine]", "_", ",", 
+              RowBox[{"Disk", "[", 
+               RowBox[{"center", ",", 
+                RowBox[{
+                 RowBox[{"Sqrt", "[", "shapeAera", "]"}], "/", "2"}]}], 
+               "]"}]}], "]"}]}], "]"}]}]}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"OptionValue", "[", "showArrow", "]"}], " ", "&&", " ", 
+         RowBox[{"arrowLength", ">=", 
+          RowBox[{"OptionValue", "[", "hideArrowSmallerThan", "]"}]}]}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"arrow", "=", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"OptionValue", "[", "arrowColor", "]"}], ",", 
+           RowBox[{"Thickness", "[", 
+            RowBox[{"OptionValue", "[", "thicknessArrow", "]"}], "]"}], ",", 
+           RowBox[{"Arrowheads", "[", 
+            RowBox[{"OptionValue", "[", "arrowSize", "]"}], "]"}], ",", 
+           RowBox[{"Arrow", "[", 
+            RowBox[{"{", 
+             RowBox[{"center", ",", 
+              RowBox[{"center", "+", 
+               RowBox[{"0.5", "arrowLength", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"Cos", "[", "\[CurlyPhi]", "]"}], ",", 
+                  RowBox[{"Sin", "[", "\[CurlyPhi]", "]"}]}], "}"}]}]}]}], 
+             "}"}], "]"}]}], "}"}]}]}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"OptionValue", "[", "showLabel", "]"}], ",", 
+        RowBox[{"number", "=", 
+         RowBox[{"{", 
+          RowBox[{"Text", "[", 
+           RowBox[{
+            RowBox[{"Style", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"OptionValue", "[", 
+                StyleBox["labelFunction",
+                 FontSize->14], "]"}], "[", "c", "]"}], ",", 
+              RowBox[{"OptionValue", "[", 
+               StyleBox["labelStyle",
+                FontSize->14], "]"}]}], "]"}], ",", 
+            RowBox[{"center", "+", 
+             RowBox[{"OptionValue", "[", 
+              StyleBox[
+               RowBox[{
+                StyleBox["label",
+                 FontSize->14], "Shift"}]], "]"}]}]}], "]"}], "}"}]}]}], 
+       "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Graphics", "[", 
+       RowBox[{
+       "frame", "~", "Join", "~", "shape", "~", "Join", "~", "arrow", "~", 
+        "Join", "~", "centralPoint", "~", "Join", "~", "number"}], "]"}]}]}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"complexMatrixDraw", "[", 
+    RowBox[{
+     RowBox[{"number_", "?", "NumberQ"}], ",", "opts___"}], "]"}], ":=", 
+   RowBox[{"complexMatrixDraw", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"{", "number", "}"}], "}"}], ",", "opts"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"complexMatrixDraw", "[", 
+    RowBox[{
+     RowBox[{"vector_", "?", "VectorQ"}], ",", "opts___"}], "]"}], ":=", 
+   RowBox[{"complexMatrixDraw", "[", 
+    RowBox[{
+     RowBox[{"List", "/@", "vector"}], ",", "opts"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"complexMatrixDraw", "[", 
+    RowBox[{"matrix_", ",", "opts___"}], "]"}], ":=", 
+   RowBox[{"Show", "[", 
+    RowBox[{"MapIndexed", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"myPlotElement", "[", 
+        RowBox[{"#1", ",", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"Reverse", "[", "#2", "]"}], ")"}], 
+          RowBox[{"{", 
+           RowBox[{"1", ",", 
+            RowBox[{"-", "1"}]}], "}"}]}], ",", "opts"}], "]"}], "&"}], ",", 
+      "matrix", ",", 
+      RowBox[{"{", "2", "}"}]}], "]"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.511632593435506*^9, 3.511632825718017*^9}, {
+   3.5116328955587697`*^9, 3.5116328984291515`*^9}, {3.5116331399936028`*^9, 
+   3.51163314656116*^9}, {3.5116332112695456`*^9, 3.511633223328268*^9}, {
+   3.5116332677723837`*^9, 3.511633316974468*^9}, {3.5116333604357896`*^9, 
+   3.511633437624095*^9}, {3.511633471943875*^9, 3.511633535248269*^9}, {
+   3.5116335710656395`*^9, 3.511633575168413*^9}, {3.511633758983035*^9, 
+   3.5116338020543585`*^9}, {3.511633841038509*^9, 3.511633980252016*^9}, {
+   3.511634051777558*^9, 3.5116341446437626`*^9}, {3.5116341883390827`*^9, 
+   3.511634218181691*^9}, {3.511634312592286*^9, 3.511634314916671*^9}, {
+   3.511634450323803*^9, 3.5116346617648478`*^9}, 3.511634708049751*^9, {
+   3.511634740185545*^9, 3.5116349896747456`*^9}, {3.511635032558871*^9, 
+   3.5116350526203423`*^9}, 3.5116352099297333`*^9, {3.5116352888964276`*^9, 
+   3.5116353030611367`*^9}, {3.51163537894005*^9, 3.511635396302739*^9}, {
+   3.5116354798246036`*^9, 3.511635486173763*^9}, {3.51163557989316*^9, 
+   3.51163559268616*^9}, {3.51163578531116*^9, 3.5116358170669727`*^9}, {
+   3.511635870106632*^9, 3.511635894224078*^9}, {3.5116359598684573`*^9, 
+   3.5116359687604*^9}, {3.5116360570246344`*^9, 3.5116361316545563`*^9}, {
+   3.5116362181248016`*^9, 3.5116362493558016`*^9}, {3.5116362940807147`*^9, 
+   3.5116364127803535`*^9}, {3.5116364494869184`*^9, 3.511636480343521*^9}, {
+   3.5116365335079803`*^9, 3.5116365365811605`*^9}, 3.511636598528363*^9, {
+   3.511636673423483*^9, 3.511636793090316*^9}, {3.5116368381272273`*^9, 
+   3.511636956717667*^9}, {3.5116370226272445`*^9, 3.511637026761218*^9}, {
+   3.5116373362164345`*^9, 3.511637359975082*^9}, 3.511637560090599*^9, {
+   3.511637656856779*^9, 3.5116376628783407`*^9}, {3.5116380009437733`*^9, 
+   3.5116380241564245`*^9}, {3.511638278356795*^9, 3.5116382789339914`*^9}, {
+   3.511638608435079*^9, 3.511638613115049*^9}, {3.5116387105364246`*^9, 
+   3.5116387451214027`*^9}, {3.51163892498825*^9, 3.511638928201829*^9}, 
+   3.511639218734367*^9, {3.5121796261642904`*^9, 3.51217963659529*^9}, {
+   3.51217966781429*^9, 3.51217969285629*^9}, {3.5121797568272905`*^9, 
+   3.51217977960329*^9}, 3.51217982337529*^9, {3.51217985696429*^9, 
+   3.5121799024402905`*^9}, {3.51217993400429*^9, 3.5121800661972904`*^9}, {
+   3.5121801057562904`*^9, 3.5121801206592903`*^9}, {3.5121801770772905`*^9, 
+   3.51218021304929*^9}, {3.51218027569329*^9, 3.51218040535429*^9}, 
+   3.51218047492029*^9, {3.51218073410429*^9, 3.5121807543882904`*^9}, {
+   3.5121807858762903`*^9, 3.5121807887352905`*^9}, {3.512214397444519*^9, 
+   3.5122144071254873`*^9}, {3.512214597797553*^9, 3.512214600657839*^9}, {
+   3.51221856896763*^9, 3.512218594841217*^9}, {3.5122186393876715`*^9, 
+   3.512218702889021*^9}, {3.5122188341761484`*^9, 3.51221884689642*^9}, {
+   3.512218915780308*^9, 3.5122189322279525`*^9}, {3.5122200225959787`*^9, 
+   3.5122200342771463`*^9}, {3.5122201099917173`*^9, 3.512220126972415*^9}, {
+   3.5122204757662907`*^9, 3.5122205069044046`*^9}, {3.512220676239336*^9, 
+   3.5122206923359456`*^9}, {3.512220773700081*^9, 3.51222079359007*^9}, {
+   3.5122209254000187`*^9, 3.5122209366953783`*^9}, {3.5122209872959595`*^9, 
+   3.5122211458352857`*^9}, {3.512221189532026*^9, 3.5122212088290367`*^9}, {
+   3.512221283608699*^9, 3.512221313561702*^9}, {3.5122213689474983`*^9, 
+   3.512221369441756*^9}, {3.512221407239973*^9, 3.5122214923012185`*^9}, 
+   3.5122240310877256`*^9, {3.512224243210726*^9, 3.5122243069337254`*^9}, {
+   3.5122243754217253`*^9, 3.512224586104726*^9}, {3.5122246464597254`*^9, 
+   3.512224669939726*^9}, {3.5122247566717253`*^9, 3.5122247577247257`*^9}, {
+   3.5122248424247255`*^9, 3.5122248725207253`*^9}, {3.512224919748726*^9, 
+   3.5122249216357255`*^9}, {3.5122249851877255`*^9, 
+   3.5122249879857254`*^9}, {3.512225062557726*^9, 3.512225064682726*^9}, {
+   3.5122251265697255`*^9, 3.5122251584567256`*^9}, 3.5122253630997257`*^9, {
+   3.5122254658117256`*^9, 3.5122256615307255`*^9}, {3.5122257077707253`*^9, 
+   3.5122258217617254`*^9}, {3.5122258635167255`*^9, 
+   3.5122259469387255`*^9}, {3.5122260188417253`*^9, 3.512226020295726*^9}, {
+   3.5122260793967257`*^9, 3.5122261245587254`*^9}, {3.5122972596674566`*^9, 
+   3.5122974793943253`*^9}, {3.5122975270379763`*^9, 
+   3.5122975441815863`*^9}, {3.5122975939759803`*^9, 3.5122977442786846`*^9}, 
+   3.5122977939808464`*^9, {3.512298003490709*^9, 3.5122980593224316`*^9}, {
+   3.512298312705205*^9, 3.5122983553648367`*^9}, {3.512298478286772*^9, 
+   3.512298510874055*^9}, {3.512298585359274*^9, 3.5122986434102545`*^9}, {
+   3.5122989719620547`*^9, 3.5122989772897367`*^9}, {3.512299019989309*^9, 
+   3.512299020442396*^9}, {3.513041314745528*^9, 3.5130415176079283`*^9}, {
+   3.513041659552328*^9, 3.513041796535928*^9}, {3.5130418300447283`*^9, 
+   3.5130418317919283`*^9}, {3.5130418753315277`*^9, 3.513042066043528*^9}, {
+   3.513042133248328*^9, 3.5130421502367277`*^9}, {3.513042240077128*^9, 
+   3.513042240685528*^9}, {3.513042284537128*^9, 3.513042299918728*^9}, {
+   3.513042352755928*^9, 3.513042357591928*^9}, {3.513042390648328*^9, 
+   3.513042401568328*^9}, {3.5130424336419277`*^9, 3.513042500207128*^9}, {
+   3.513042572481928*^9, 3.5130425928399277`*^9}, {3.513042629109928*^9, 
+   3.5130426342423277`*^9}, 3.513042685082728*^9, 3.513042740384728*^9, {
+   3.513042778901128*^9, 3.513042816309928*^9}, 3.513042855419128*^9, {
+   3.513042895292728*^9, 3.513042921157528*^9}, 3.513042956741128*^9, {
+   3.513043036005728*^9, 3.5130430874857283`*^9}, {3.513043360393128*^9, 
+   3.513043393792728*^9}, 3.513043676745528*^9, {3.5130472958589277`*^9, 
+   3.513047315702128*^9}, {3.513048921990328*^9, 3.513048930398728*^9}, {
+   3.5130490544499283`*^9, 3.5130491016243277`*^9}, 3.513049991980728*^9, {
+   3.5130500358635283`*^9, 3.5130500382659283`*^9}, {3.5130501201503277`*^9, 
+   3.513050149759128*^9}, {3.513050224545528*^9, 3.513050265651528*^9}, {
+   3.5130519089636526`*^9, 3.5130519903423643`*^9}, {3.5130541622791834`*^9, 
+   3.5130541991887836`*^9}, {3.5130544598179836`*^9, 3.5130544677115836`*^9}, 
+   3.513055206044984*^9, {3.5130557500179834`*^9, 3.513055785961384*^9}, {
+   3.5130558743197837`*^9, 3.513055877720584*^9}, {3.513056002208584*^9, 
+   3.5130560433301835`*^9}, {3.5130676001205835`*^9, 3.513067650322384*^9}, 
+   3.513067792719184*^9, {3.5130685849064536`*^9, 3.5130685970246234`*^9}, {
+   3.513079413061453*^9, 3.513079413295453*^9}, 3.513083602448453*^9, {
+   3.513083753006053*^9, 3.513083917726453*^9}, 3.5130840870332527`*^9, {
+   3.513084164846053*^9, 3.513084183238453*^9}, {3.5130850260381017`*^9, 
+   3.513085027987589*^9}, {3.5130851435853996`*^9, 3.5130852027276344`*^9}, {
+   3.5130853192338305`*^9, 3.5130853411653214`*^9}, {3.513085392687167*^9, 
+   3.5130854094867516`*^9}, {3.5130854865599403`*^9, 3.513085518258082*^9}, {
+   3.513085930165629*^9, 3.5130859782130127`*^9}, {3.5130860289591618`*^9, 
+   3.5130860312523327`*^9}, {3.5130860816708865`*^9, 
+   3.5130860844788504`*^9}, {3.513086257138526*^9, 3.5130863497239323`*^9}, {
+   3.513086416148492*^9, 3.513086439361292*^9}, {3.5130888404282923`*^9, 
+   3.5130888570266924`*^9}, 3.513088907851492*^9, {3.5130891125702925`*^9, 
+   3.5130891130850925`*^9}, {3.513089202987092*^9, 3.5130892124718924`*^9}, {
+   3.5130893742906923`*^9, 3.5130893940870924`*^9}, {3.5130914184572926`*^9, 
+   3.513091420594492*^9}, {3.513091464524092*^9, 3.5130914709824924`*^9}, {
+   3.5130916031768923`*^9, 3.5130916039100924`*^9}, {3.513091928374492*^9, 
+   3.513091957328092*^9}, {3.513092182997692*^9, 3.513092242230892*^9}, {
+   3.513092310184492*^9, 3.513092319482092*^9}, {3.513092489446092*^9, 
+   3.513092534795292*^9}, {3.513092636210892*^9, 3.5130926523724923`*^9}, {
+   3.5130927820084925`*^9, 3.5130927996364923`*^9}, {3.513092840305692*^9, 
+   3.513092876357292*^9}, {3.5130934157282925`*^9, 3.513093461077492*^9}, {
+   3.5130936656256924`*^9, 3.513093798724892*^9}, {3.5130943673448925`*^9, 
+   3.513094367376092*^9}, {3.5134283825821886`*^9, 3.5134283885100746`*^9}, {
+   3.5141920445779233`*^9, 3.514192054327736*^9}, {3.514192128114317*^9, 
+   3.51419213781733*^9}, {3.5141922431621037`*^9, 3.514192268043626*^9}, {
+   3.5141923008653946`*^9, 3.514192359426668*^9}, {3.514264610794567*^9, 
+   3.5142647198387585`*^9}, 3.5142647683080435`*^9, {3.514265328598628*^9, 
+   3.5142653328886356`*^9}, {3.514265368425498*^9, 3.5142653729339056`*^9}, {
+   3.514265404726762*^9, 3.5142654075191665`*^9}, {3.5142692403110976`*^9, 
+   3.514269247908311*^9}, {3.5142692894043837`*^9, 3.514269301463205*^9}, {
+   3.5148090931788015`*^9, 3.514809095116314*^9}, {3.514891541982534*^9, 
+   3.5148915435375338`*^9}, {3.514891576656534*^9, 3.5148916044005337`*^9}, {
+   3.514891635034534*^9, 3.514891646982534*^9}, {3.514891688948534*^9, 
+   3.5148918009455338`*^9}, {3.514891854474534*^9, 3.514891878233534*^9}, {
+   3.514891951689534*^9, 3.514891957316534*^9}, 3.514892239015534*^9, {
+   3.514892295924534*^9, 3.5148923118715343`*^9}, {3.514892748872534*^9, 
+   3.5148927934775343`*^9}, {3.514893229740534*^9, 3.514893259840534*^9}, {
+   3.514893474278534*^9, 3.514893500082534*^9}, {3.514893665290534*^9, 
+   3.5148936678675337`*^9}, {3.5148942147605343`*^9, 3.514894215783534*^9}, {
+   3.514894268725534*^9, 3.514894273173534*^9}, {3.515130816195423*^9, 
+   3.5151308218234234`*^9}, {3.5151309726344233`*^9, 3.515131029194423*^9}, {
+   3.5151310683094234`*^9, 3.515131086675423*^9}, {3.5151323326654234`*^9, 
+   3.515132341869423*^9}, {3.515134194819423*^9, 3.5151344363564234`*^9}}]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Crosstalk", "Subsection",
+ CellChangeTimes->{{3.511622464019841*^9, 3.51162246539485*^9}, {
+   3.5116303934752083`*^9, 3.5116303942396035`*^9}, {3.511630681527362*^9, 
+   3.511630694990076*^9}, 3.51218051420129*^9, {3.513043660053528*^9, 
+   3.513043660942728*^9}, {3.513044306502928*^9, 3.513044308234528*^9}, {
+   3.513425781846404*^9, 3.5134257975397024`*^9}, {3.5141956383146105`*^9, 
+   3.51419566539569*^9}, {3.5148892874255342`*^9, 3.5148892897285337`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+  "path", "=", 
+   "\"\<L:\\\\local-expdata\\\\2 Qubit \
+Experiments\\\\\\\\FO-C5\\\\3rd-Run\\\\2011_04_13\\\\\>\""}], ";"}]], "Input",
+ CellChangeTimes->{{3.539151738125596*^9, 3.5391517559845963`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"detection", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+     RowBox[{"path", "<>", "\"\<detection_matrix.txt\>\""}], ",", 
+     "\"\<Table\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"visibility", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+     RowBox[{"path", "<>", "\"\<visibility_matrix.txt\>\""}], ",", 
+     "\"\<Table\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"crosstalk", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+     RowBox[{"path", "<>", "\"\<crosstalk_matrix.txt\>\""}], ",", 
+     "\"\<Table\>\""}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"matrixSet", "=", 
+   RowBox[{"{", 
+    RowBox[{"detection", ",", "visibility", ",", "crosstalk"}], "}"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.5148893120915337`*^9, 3.5148893192165337`*^9}, {
+  3.514889524629534*^9, 3.514889612870534*^9}, {3.514891330438534*^9, 
+  3.514891379373534*^9}, {3.514895442292534*^9, 3.514895469381534*^9}, {
+  3.5391517290085964`*^9, 3.5391517329175963`*^9}, {3.5391517749075966`*^9, 
+  3.5391518019455967`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"matrixSet", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "0.8201375`", ",", "0.1518875`", ",", "0.1768375`", ",", "0.03115`"}],
+         "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+        "0.0698125`", ",", "0.7275625`", ",", "0.0164875`", ",", 
+         "0.1720875`"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+        "0.1003125`", ",", "0.0188`", ",", "0.7341875`", ",", "0.134725`"}], 
+        "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+        "0.0097375`", ",", "0.10175`", ",", "0.0724875`", ",", "0.6620375`"}],
+         "}"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "0.8222996559999999`", ",", "0.15670169599999995`", ",", 
+         "0.17906366390000003`", ",", "0.0341233024`"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+        "0.07130034400000002`", ",", "0.736898304`", ",", 
+         "0.015526336100000008`", ",", "0.16046669760000004`"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+        "0.09791034400000004`", ",", "0.018658304000000004`", ",", 
+         "0.7411463360999999`", ",", "0.14123669759999996`"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+        "0.008489656000000007`", ",", "0.08774169600000005`", ",", 
+         "0.06426366390000002`", ",", "0.6641733023999999`"}], "}"}]}], "}"}],
+      ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0.9981627400842952`", ",", 
+         RowBox[{"-", "0.005787041895118311`"}], ",", 
+         RowBox[{"-", "0.0022207525903058262`"}], ",", 
+         RowBox[{"-", "0.0025118892229731987`"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.0007181511024154474`"}], ",", "0.9849633965759865`", 
+         ",", 
+         RowBox[{"-", "0.000050875236278256214`"}], ",", 
+         "0.021177255365949`"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+        "0.004113336662040428`", ",", "0.0005252345573518134`", ",", 
+         "0.9903066155641249`", ",", 
+         RowBox[{"-", "0.008081142767995125`"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.001557925643920089`"}], ",", "0.020298410761780045`",
+          ",", "0.011965012262459065`", ",", "0.9894157766250193`"}], "}"}]}],
+       "}"}]}], "}"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.539151845578596*^9, 3.539151855729596*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"swapLines2And3", "=", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"#", "[", 
+       RowBox[{"[", "1", "]"}], "]"}], ",", 
+      RowBox[{"#", "[", 
+       RowBox[{"[", "3", "]"}], "]"}], ",", 
+      RowBox[{"#", "[", 
+       RowBox[{"[", "2", "]"}], "]"}], ",", 
+      RowBox[{"#", "[", 
+       RowBox[{"[", "4", "]"}], "]"}]}], "}"}], "&"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"from0213To0123", "[", "\[Rho]_", "]"}], ":=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"\[Rho]", "//", "swapLines2And3"}], "//", "Transpose"}], "//", 
+    "swapLines2And3"}], "//", "Transpose"}]}]}], "Input",
+ CellChangeTimes->{{3.514723273935187*^9, 3.5147232924631867`*^9}, {
+  3.514723500531187*^9, 3.5147235276341867`*^9}, {3.514723707144187*^9, 
+  3.514723825140187*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"detection", ",", "visibility", ",", "crosstalk"}], "}"}], "=", 
+   RowBox[{"matrixSet2", "=", 
+    RowBox[{"from0213To0123", "/@", "matrixSet"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.5148954307535343`*^9, 3.5148954314115343`*^9}, {
+  3.514895477456534*^9, 3.514895506623534*^9}, {3.5393727415027266`*^9, 
+  3.539372743906727*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"complexMatrixDraw", "[", 
+    RowBox[{"#", ",", 
+     RowBox[{
+      StyleBox["showArrow",
+       FontSize->14], 
+      StyleBox["\[Rule]",
+       FontSize->14], "False"}]}], "]"}], "&"}], "/@", 
+  "matrixSet2"}]], "Input",
+ CellChangeTimes->{{3.514891420961534*^9, 3.514891506755534*^9}, {
+  3.514892861815534*^9, 3.514892885422534*^9}, {3.514895513663534*^9, 
+  3.514895514799534*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   GraphicsBox[{{
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{0., -1.}, {1., -2.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{0.5, -1.5}, 0.4528072161527464]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{1., -1.}, {2., -2.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{1.5, -1.5}, 0.21026025539792345`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{2., -1.}, {3., -2.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{2.5, -1.5}, 0.1948637344402493]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{3., -1.}, {4., -2.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{3.5, -1.5}, 0.08824681297361396]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{0., -2.}, {1., -3.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{0.5, -2.5}, 0.1583607432414991]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{1., -2.}, {2., -3.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{1.5, -2.5}, 0.4284237096613585]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{2., -2.}, {3., -3.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{2.5, -2.5}, 0.06855654600401044]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{3., -2.}, {4., -3.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{3.5, -2.5}, 0.18352452152232956`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{0., -3.}, {1., -4.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{0.5, -3.5}, 0.13211027590615348`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{1., -3.}, {2., -4.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{1.5, -3.5}, 0.06420183019198128]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{2., -3.}, {3., -4.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{2.5, -3.5}, 0.4264863714117955]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{3., -3.}, {4., -4.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{3.5, -3.5}, 0.20741715213549722`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{0., -4.}, {1., -5.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{0.5, -4.5}, 0.04933938588997638]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{1., -4.}, {2., -5.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{1.5, -4.5}, 0.13461751371942657`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{2., -4.}, {3., -5.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{2.5, -4.5}, 0.1594913790773658]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{3., -4.}, {4., -5.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{3.5, -4.5}, 0.40682843435531885`]}}}], ",", 
+   GraphicsBox[{{
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{0., -1.}, {1., -2.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{0.5, -1.5}, 0.45340369870568986`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{1., -1.}, {2., -2.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{1.5, -1.5}, 0.2115795736242041]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{2., -1.}, {3., -2.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{2.5, -1.5}, 0.19792782522929914`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{3., -1.}, {4., -2.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{3.5, -1.5}, 0.09236246856813649]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{0., -2.}, {1., -3.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{0.5, -2.5}, 0.15645314314516026`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{1., -2.}, {2., -3.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{1.5, -2.5}, 0.43044928159424306`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{2., -2.}, {3., -3.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{2.5, -2.5}, 0.06829770127903281]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{3., -2.}, {4., -3.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{3.5, -2.5}, 0.18790735589646296`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{0., -3.}, {1., -4.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{0.5, -3.5}, 0.13351062130032954`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{1., -3.}, {2., -4.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{1.5, -3.5}, 0.06230235970651515]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{2., -3.}, {3., -4.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{2.5, -3.5}, 0.4292139047141879]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{3., -3.}, {4., -4.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{3.5, -3.5}, 0.20029147360783986`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{0., -4.}, {1., -5.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{0.5, -4.5}, 0.04606966463954347]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{1., -4.}, {2., -5.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{1.5, -4.5}, 0.12675139437102853`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{2., -4.}, {3., -5.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{2.5, -4.5}, 0.14810612411375843`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{3., -4.}, {4., -5.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{3.5, -4.5}, 0.40748414153191287`]}}}], ",", 
+   GraphicsBox[{{
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{0., -1.}, {1., -2.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{0.5, -1.5}, 0.4995404738567975]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{1., -1.}, {2., -2.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[1.]], 
+       DiskBox[{1.5, -1.5}, 0.023562430850327318`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{2., -1.}, {3., -2.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[1.]], 
+       DiskBox[{2.5, -1.5}, 0.038036304680917385`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{3., -1.}, {4., -2.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[1.]], 
+       DiskBox[{3.5, -1.5}, 0.02505937560561515]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{0., -2.}, {1., -3.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{0.5, -2.5}, 0.03206764982829435]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{1., -2.}, {2., -3.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{1.5, -2.5}, 0.49757075264833567`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{2., -2.}, {3., -3.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{2.5, -2.5}, 0.011458998182125407`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{3., -2.}, {4., -3.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[1.]], 
+       DiskBox[{3.5, -2.5}, 0.04494758827789074]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{0., -3.}, {1., -4.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[1.]], 
+       DiskBox[{0.5, -3.5}, 0.01339917070582586]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{1., -3.}, {2., -4.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[1.]], 
+       DiskBox[{1.5, -3.5}, 0.0035663439359607555`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{2., -3.}, {3., -4.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{2.5, -3.5}, 0.4962266106770138]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{3., -3.}, {4., -4.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{3.5, -3.5}, 0.07276203571566184]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{0., -4.}, {1., -5.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[1.]], 
+       DiskBox[{0.5, -4.5}, 0.019735283402576773`]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{1., -4.}, {2., -5.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{1.5, -4.5}, 0.05469234924205365]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{2., -4.}, {3., -5.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{2.5, -4.5}, 0.07123624562289207]}}, {
+      {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[
+       0]}], RectangleBox[{3., -4.}, {4., -5.}]}, 
+      {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5]], 
+       DiskBox[{3.5, -4.5}, 0.497346905244473]}}}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.5148914469845343`*^9, 3.514891470086534*^9}, 
+   3.514891507523534*^9, {3.5148928721945343`*^9, 3.514892885880534*^9}, 
+   3.514893615435534*^9, 3.514893781906534*^9, 3.514895515375534*^9, 
+   3.515134126834423*^9, 3.539151667649596*^9, {3.5391518660411963`*^9, 
+   3.5391518744807963`*^9}, {3.539372673247727*^9, 3.5393726930737267`*^9}, 
+   3.5393727523227267`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"complexMatrixDraw", "[", 
+  RowBox[{"crosstalk", ",", 
+   RowBox[{
+    StyleBox["showArrow",
+     FontSize->14], 
+    StyleBox["\[Rule]",
+     FontSize->14], "False"}], ",", 
+   RowBox[{"showLabel", "->", "True"}], ",", 
+   RowBox[{
+    StyleBox["labelFunction",
+     FontSize->14], 
+    StyleBox["\[Rule]",
+     FontSize->14], 
+    RowBox[{
+     StyleBox["(",
+      FontSize->14], 
+     RowBox[{
+      RowBox[{
+       StyleBox["(",
+        FontSize->14], 
+       RowBox[{
+        RowBox[{
+         StyleBox["ToString",
+          FontSize->14], 
+         StyleBox["[",
+          FontSize->14], 
+         RowBox[{
+          RowBox[{
+           StyleBox["Round",
+            FontSize->14], 
+           StyleBox["[",
+            FontSize->14], 
+           RowBox[{
+            StyleBox["1000",
+             FontSize->14], "#"}], "]"}], "/", "10."}], "]"}], "<>", 
+        "\"\<%\>\""}], ")"}], "&"}], ")"}]}], ",", 
+   RowBox[{"labelStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"FontSize", "\[Rule]", "24"}], ",", 
+      RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "}"}]}], ",", 
+   RowBox[{"labelShift", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0.2"}], "}"}]}], ",", 
+   RowBox[{"fillingColor", "\[Rule]", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"Hue", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#2", "/", 
+          RowBox[{"(", 
+           RowBox[{"2", "\[Pi]"}], ")"}]}], "+", "0.5"}], ",", "0.2", ",", 
+        "1"}], "]"}], "&"}], ")"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.514892895508534*^9, 3.514892979824534*^9}, {
+   3.514893278048534*^9, 3.514893283461534*^9}, {3.5148935437935343`*^9, 
+   3.514893570158534*^9}, {3.5148938057135344`*^9, 3.514893831744534*^9}, {
+   3.514893907756534*^9, 3.514893909292534*^9}, {3.5148939451955338`*^9, 
+   3.514893948122534*^9}, {3.514894088258534*^9, 3.5148940968015337`*^9}, {
+   3.5148943703865337`*^9, 3.514894378449534*^9}, {3.5148944305915337`*^9, 
+   3.5148944316625338`*^9}, {3.514894766060534*^9, 3.5148947748745337`*^9}, {
+   3.514897098455534*^9, 3.514897103723534*^9}, {3.5148978294375343`*^9, 
+   3.514897829998534*^9}, {3.515134138185423*^9, 3.515134139064423*^9}, {
+   3.515134592431423*^9, 3.515134602157423*^9}, {3.5151346433574233`*^9, 
+   3.5151347081374235`*^9}, 3.5151357027034235`*^9, {3.515135733918423*^9, 
+   3.515135748412423*^9}, {3.539372628315527*^9, 3.5393726447267265`*^9}, {
+   3.539372763003727*^9, 3.539372763899727*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -1.}, {1., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -1.5}, 0.4995404738567975], InsetBox[
+      StyleBox["\<\"99.8%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {0.5, -1.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -1.}, {2., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[1., 0.2, 1]], 
+     DiskBox[{1.5, -1.5}, 0.023562430850327318`], InsetBox[
+      StyleBox["\<\"-0.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {1.5, -1.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -1.}, {3., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[1., 0.2, 1]], 
+     DiskBox[{2.5, -1.5}, 0.038036304680917385`], InsetBox[
+      StyleBox["\<\"-0.6%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {2.5, -1.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -1.}, {4., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[1., 0.2, 1]], 
+     DiskBox[{3.5, -1.5}, 0.02505937560561515], InsetBox[
+      StyleBox["\<\"-0.3%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {3.5, -1.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -2.}, {1., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -2.5}, 0.03206764982829435], InsetBox[
+      StyleBox["\<\"0.4%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {0.5, -2.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -2.}, {2., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -2.5}, 0.49757075264833567`], InsetBox[
+      StyleBox["\<\"99.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {1.5, -2.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -2.}, {3., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -2.5}, 0.011458998182125407`], InsetBox[
+      StyleBox["\<\"0.1%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {2.5, -2.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -2.}, {4., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[1., 0.2, 1]], 
+     DiskBox[{3.5, -2.5}, 0.04494758827789074], InsetBox[
+      StyleBox["\<\"-0.8%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {3.5, -2.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -3.}, {1., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[1., 0.2, 1]], 
+     DiskBox[{0.5, -3.5}, 0.01339917070582586], InsetBox[
+      StyleBox["\<\"-0.1%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {0.5, -3.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -3.}, {2., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[1., 0.2, 1]], 
+     DiskBox[{1.5, -3.5}, 0.0035663439359607555`], InsetBox[
+      StyleBox["\<\"0%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {1.5, -3.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -3.}, {3., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -3.5}, 0.4962266106770138], InsetBox[
+      StyleBox["\<\"98.5%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {2.5, -3.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -3.}, {4., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -3.5}, 0.07276203571566184], InsetBox[
+      StyleBox["\<\"2.1%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {3.5, -3.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -4.}, {1., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[1., 0.2, 1]], 
+     DiskBox[{0.5, -4.5}, 0.019735283402576773`], InsetBox[
+      StyleBox["\<\"-0.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {0.5, -4.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -4.}, {2., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -4.5}, 0.05469234924205365], InsetBox[
+      StyleBox["\<\"1.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {1.5, -4.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -4.}, {3., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -4.5}, 0.07123624562289207], InsetBox[
+      StyleBox["\<\"2.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {2.5, -4.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -4.}, {4., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -4.5}, 0.497346905244473], InsetBox[
+      StyleBox["\<\"98.9%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {3.5, -4.3}]}}}]], "Output",
+ CellChangeTimes->{
+  3.515135703932423*^9, 3.5151357359154234`*^9, 3.5391516676815968`*^9, 
+   3.5391518770859966`*^9, {3.5393726630797267`*^9, 3.539372696685727*^9}, 
+   3.5393727653427267`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"complexMatrixDraw", "[", 
+  RowBox[{"visibility", ",", 
+   RowBox[{
+    StyleBox["showArrow",
+     FontSize->14], 
+    StyleBox["\[Rule]",
+     FontSize->14], "False"}], ",", 
+   RowBox[{"showLabel", "->", "True"}], ",", 
+   RowBox[{
+    StyleBox["labelFunction",
+     FontSize->14], 
+    StyleBox["\[Rule]",
+     FontSize->14], 
+    RowBox[{
+     StyleBox["(",
+      FontSize->14], 
+     RowBox[{
+      RowBox[{
+       StyleBox["(",
+        FontSize->14], 
+       RowBox[{
+        RowBox[{
+         StyleBox["ToString",
+          FontSize->14], 
+         StyleBox["[",
+          FontSize->14], 
+         RowBox[{
+          RowBox[{
+           StyleBox["Round",
+            FontSize->14], 
+           StyleBox["[",
+            FontSize->14], 
+           RowBox[{
+            StyleBox["1000",
+             FontSize->14], "#"}], "]"}], "/", "10."}], "]"}], "<>", 
+        "\"\<%\>\""}], ")"}], "&"}], ")"}]}], ",", 
+   RowBox[{"labelStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"FontSize", "\[Rule]", "24"}], ",", 
+      RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "}"}]}], ",", 
+   RowBox[{"labelShift", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0.2"}], "}"}]}], ",", 
+   RowBox[{"fillingColor", "\[Rule]", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"Hue", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#2", "/", 
+          RowBox[{"(", 
+           RowBox[{"2", "\[Pi]"}], ")"}]}], "+", "0.5"}], ",", "0.2", ",", 
+        "1"}], "]"}], "&"}], ")"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.5391519125135965`*^9, 3.5391519144167967`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -1.}, {1., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -1.5}, 0.45340369870568986`], InsetBox[
+      StyleBox["\<\"82.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {0.5, -1.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -1.}, {2., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -1.5}, 0.2115795736242041], InsetBox[
+      StyleBox["\<\"17.9%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {1.5, -1.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -1.}, {3., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -1.5}, 0.19792782522929914`], InsetBox[
+      StyleBox["\<\"15.7%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {2.5, -1.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -1.}, {4., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -1.5}, 0.09236246856813649], InsetBox[
+      StyleBox["\<\"3.4%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {3.5, -1.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -2.}, {1., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -2.5}, 0.15645314314516026`], InsetBox[
+      StyleBox["\<\"9.8%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {0.5, -2.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -2.}, {2., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -2.5}, 0.43044928159424306`], InsetBox[
+      StyleBox["\<\"74.1%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {1.5, -2.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -2.}, {3., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -2.5}, 0.06829770127903281], InsetBox[
+      StyleBox["\<\"1.9%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {2.5, -2.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -2.}, {4., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -2.5}, 0.18790735589646296`], InsetBox[
+      StyleBox["\<\"14.1%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {3.5, -2.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -3.}, {1., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -3.5}, 0.13351062130032954`], InsetBox[
+      StyleBox["\<\"7.1%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {0.5, -3.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -3.}, {2., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -3.5}, 0.06230235970651515], InsetBox[
+      StyleBox["\<\"1.6%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {1.5, -3.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -3.}, {3., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -3.5}, 0.4292139047141879], InsetBox[
+      StyleBox["\<\"73.7%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {2.5, -3.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -3.}, {4., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -3.5}, 0.20029147360783986`], InsetBox[
+      StyleBox["\<\"16.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {3.5, -3.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -4.}, {1., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -4.5}, 0.04606966463954347], InsetBox[
+      StyleBox["\<\"0.8%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {0.5, -4.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -4.}, {2., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -4.5}, 0.12675139437102853`], InsetBox[
+      StyleBox["\<\"6.4%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {1.5, -4.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -4.}, {3., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -4.5}, 0.14810612411375843`], InsetBox[
+      StyleBox["\<\"8.8%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {2.5, -4.3}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -4.}, {4., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -4.5}, 0.40748414153191287`], InsetBox[
+      StyleBox["\<\"66.4%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->24], {3.5, -4.3}]}}}]], "Output",
+ CellChangeTimes->{3.5391519151187963`*^9, 3.539372772951727*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"complexMatrixDraw", "[", 
+  RowBox[{"detection", ",", 
+   RowBox[{
+    StyleBox["showArrow",
+     FontSize->14], 
+    StyleBox["\[Rule]",
+     FontSize->14], "False"}], ",", 
+   RowBox[{"showLabel", "->", "True"}], ",", 
+   RowBox[{
+    StyleBox["labelFunction",
+     FontSize->14], 
+    StyleBox["\[Rule]",
+     FontSize->14], 
+    RowBox[{
+     StyleBox["(",
+      FontSize->14], 
+     RowBox[{
+      RowBox[{
+       StyleBox["(",
+        FontSize->14], 
+       RowBox[{
+        RowBox[{
+         StyleBox["ToString",
+          FontSize->14], 
+         StyleBox["[",
+          FontSize->14], 
+         RowBox[{
+          RowBox[{
+           StyleBox["Round",
+            FontSize->14], 
+           StyleBox["[",
+            FontSize->14], 
+           RowBox[{
+            StyleBox["1000",
+             FontSize->14], "#"}], "]"}], "/", "10."}], "]"}], "<>", 
+        "\"\<%\>\""}], ")"}], "&"}], ")"}]}], ",", 
+   RowBox[{"labelStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"FontSize", "\[Rule]", "32"}], ",", 
+      RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "}"}]}], ",", 
+   RowBox[{"labelShift", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0.26"}], "}"}]}], ",", 
+   RowBox[{"fillingColor", "\[Rule]", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"Hue", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#2", "/", 
+          RowBox[{"(", 
+           RowBox[{"2", "\[Pi]"}], ")"}]}], "+", "0.5"}], ",", "0.2", ",", 
+        "1"}], "]"}], "&"}], ")"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.5391519290963964`*^9, 3.5391519643367963`*^9}, {
+  3.5391526227615967`*^9, 3.539152639163596*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -1.}, {1., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -1.5}, 0.4528072161527464], InsetBox[
+      StyleBox["\<\"82.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {0.5, -1.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -1.}, {2., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -1.5}, 0.21026025539792345`], InsetBox[
+      StyleBox["\<\"17.7%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {1.5, -1.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -1.}, {3., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -1.5}, 0.1948637344402493], InsetBox[
+      StyleBox["\<\"15.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {2.5, -1.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -1.}, {4., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -1.5}, 0.08824681297361396], InsetBox[
+      StyleBox["\<\"3.1%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {3.5, -1.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -2.}, {1., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -2.5}, 0.1583607432414991], InsetBox[
+      StyleBox["\<\"10.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {0.5, -2.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -2.}, {2., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -2.5}, 0.4284237096613585], InsetBox[
+      StyleBox["\<\"73.4%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {1.5, -2.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -2.}, {3., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -2.5}, 0.06855654600401044], InsetBox[
+      StyleBox["\<\"1.9%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {2.5, -2.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -2.}, {4., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -2.5}, 0.18352452152232956`], InsetBox[
+      StyleBox["\<\"13.5%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {3.5, -2.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -3.}, {1., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -3.5}, 0.13211027590615348`], InsetBox[
+      StyleBox["\<\"7.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {0.5, -3.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -3.}, {2., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -3.5}, 0.06420183019198128], InsetBox[
+      StyleBox["\<\"1.6%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {1.5, -3.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -3.}, {3., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -3.5}, 0.4264863714117955], InsetBox[
+      StyleBox["\<\"72.8%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {2.5, -3.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -3.}, {4., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -3.5}, 0.20741715213549722`], InsetBox[
+      StyleBox["\<\"17.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {3.5, -3.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -4.}, {1., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -4.5}, 0.04933938588997638], InsetBox[
+      StyleBox["\<\"1.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {0.5, -4.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -4.}, {2., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -4.5}, 0.13461751371942657`], InsetBox[
+      StyleBox["\<\"7.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {1.5, -4.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -4.}, {3., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -4.5}, 0.1594913790773658], InsetBox[
+      StyleBox["\<\"10.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {2.5, -4.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -4.}, {4., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -4.5}, 0.40682843435531885`], InsetBox[
+      StyleBox["\<\"66.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {3.5, -4.24}]}}}]], "Output",
+ CellChangeTimes->{{3.5391519321539965`*^9, 3.5391519647423964`*^9}, {
+   3.5391526237355967`*^9, 3.5391526396385965`*^9}, 3.5393727812437267`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{"%", ",", 
+   RowBox[{"ImageSize", "\[Rule]", "800"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.5391520622735963`*^9, 3.5391520910711966`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -1.}, {1., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -1.5}, 0.4528072161527464], InsetBox[
+      StyleBox["\<\"82.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {0.5, -1.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -1.}, {2., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -1.5}, 0.21026025539792345`], InsetBox[
+      StyleBox["\<\"17.7%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {1.5, -1.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -1.}, {3., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -1.5}, 0.1948637344402493], InsetBox[
+      StyleBox["\<\"15.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {2.5, -1.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -1.}, {4., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -1.5}, 0.08824681297361396], InsetBox[
+      StyleBox["\<\"3.1%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {3.5, -1.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -2.}, {1., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -2.5}, 0.1583607432414991], InsetBox[
+      StyleBox["\<\"10.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {0.5, -2.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -2.}, {2., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -2.5}, 0.4284237096613585], InsetBox[
+      StyleBox["\<\"73.4%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {1.5, -2.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -2.}, {3., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -2.5}, 0.06855654600401044], InsetBox[
+      StyleBox["\<\"1.9%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {2.5, -2.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -2.}, {4., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -2.5}, 0.18352452152232956`], InsetBox[
+      StyleBox["\<\"13.5%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {3.5, -2.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -3.}, {1., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -3.5}, 0.13211027590615348`], InsetBox[
+      StyleBox["\<\"7.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {0.5, -3.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -3.}, {2., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -3.5}, 0.06420183019198128], InsetBox[
+      StyleBox["\<\"1.6%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {1.5, -3.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -3.}, {3., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -3.5}, 0.4264863714117955], InsetBox[
+      StyleBox["\<\"72.8%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {2.5, -3.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -3.}, {4., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -3.5}, 0.20741715213549722`], InsetBox[
+      StyleBox["\<\"17.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {3.5, -3.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -4.}, {1., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -4.5}, 0.04933938588997638], InsetBox[
+      StyleBox["\<\"1.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {0.5, -4.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -4.}, {2., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -4.5}, 0.13461751371942657`], InsetBox[
+      StyleBox["\<\"7.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {1.5, -4.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -4.}, {3., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -4.5}, 0.1594913790773658], InsetBox[
+      StyleBox["\<\"10.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {2.5, -4.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -4.}, {4., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -4.5}, 0.40682843435531885`], InsetBox[
+      StyleBox["\<\"66.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {3.5, -4.24}]}}},
+  ImageSize->800]], "Output",
+ CellChangeTimes->{{3.5391520788719964`*^9, 3.5391520916015964`*^9}, {
+   3.5391526261365967`*^9, 3.5391526423315964`*^9}, 3.539372796978727*^9}]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.515135707483423*^9, 3.515135707497423*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"(", 
+   RowBox[{"r1", "=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0.93", ",", "0.09"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0.07", ",", "0.81"}], "}"}]}], "}"}]}], ")"}], "//", 
+  "MatrixForm"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(", 
+   RowBox[{"r2", "=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0.88", ",", "0.09"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0.12", ",", "0.81"}], "}"}]}], "}"}]}], ")"}], "//", 
+  "MatrixForm"}]}], "Input",
+ CellChangeTimes->{{3.539372827472727*^9, 3.539372857571727*^9}, {
+  3.5393729475667267`*^9, 3.5393730527429266`*^9}, {3.5393731697429266`*^9, 
+  3.5393731959821267`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {"0.93`", "0.09`"},
+     {"0.07`", "0.81`"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.539373053507327*^9, 3.5393732077133265`*^9}],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {"0.88`", "0.09`"},
+     {"0.12`", "0.81`"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.539373053507327*^9, 3.539373207760127*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"KroneckerProduct", "[", 
+   RowBox[{"r1", ",", "r2"}], "]"}], "//", "MatrixForm"}]], "Input",
+ CellChangeTimes->{{3.539373297600527*^9, 3.5393733110165267`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {"0.8184`", "0.0837`", "0.07919999999999999`", "0.0081`"},
+     {"0.1116`", "0.7533000000000001`", "0.010799999999999999`", "0.0729`"},
+     {"0.06160000000000001`", "0.0063`", "0.7128000000000001`", "0.0729`"},
+     {"0.008400000000000001`", "0.05670000000000001`", "0.09720000000000001`",
+       "0.6561000000000001`"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.539373301890527*^9, 3.5393733118901267`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -1.}, {1., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -1.5}, 0.4528072161527464], InsetBox[
+      StyleBox["\<\"82.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {0.5, -1.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -1.}, {2., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -1.5}, 0.21026025539792345`], InsetBox[
+      StyleBox["\<\"17.7%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {1.5, -1.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -1.}, {3., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -1.5}, 0.1948637344402493], InsetBox[
+      StyleBox["\<\"15.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {2.5, -1.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -1.}, {4., -2.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -1.5}, 0.08824681297361396], InsetBox[
+      StyleBox["\<\"3.1%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {3.5, -1.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -2.}, {1., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -2.5}, 0.1583607432414991], InsetBox[
+      StyleBox["\<\"10.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {0.5, -2.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -2.}, {2., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -2.5}, 0.4284237096613585], InsetBox[
+      StyleBox["\<\"73.4%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {1.5, -2.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -2.}, {3., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -2.5}, 0.06855654600401044], InsetBox[
+      StyleBox["\<\"1.9%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {2.5, -2.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -2.}, {4., -3.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -2.5}, 0.18352452152232956`], InsetBox[
+      StyleBox["\<\"13.5%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {3.5, -2.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -3.}, {1., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -3.5}, 0.13211027590615348`], InsetBox[
+      StyleBox["\<\"7.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {0.5, -3.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -3.}, {2., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -3.5}, 0.06420183019198128], InsetBox[
+      StyleBox["\<\"1.6%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {1.5, -3.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -3.}, {3., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -3.5}, 0.4264863714117955], InsetBox[
+      StyleBox["\<\"72.8%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {2.5, -3.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -3.}, {4., -4.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -3.5}, 0.20741715213549722`], InsetBox[
+      StyleBox["\<\"17.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {3.5, -3.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{0., -4.}, {1., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{0.5, -4.5}, 0.04933938588997638], InsetBox[
+      StyleBox["\<\"1.%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {0.5, -4.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{1., -4.}, {2., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{1.5, -4.5}, 0.13461751371942657`], InsetBox[
+      StyleBox["\<\"7.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {1.5, -4.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{2., -4.}, {3., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{2.5, -4.5}, 0.1594913790773658], InsetBox[
+      StyleBox["\<\"10.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {2.5, -4.24}]}}, {
+    {EdgeForm[Dashing[{Small, Small}]], FaceForm[{GrayLevel[1], Opacity[0]}], 
+     RectangleBox[{3., -4.}, {4., -5.}]}, 
+    {EdgeForm[{GrayLevel[0], Thickness[0.001]}], FaceForm[Hue[0.5, 0.2, 1]], 
+     DiskBox[{3.5, -4.5}, 0.40682843435531885`], InsetBox[
+      StyleBox["\<\"66.2%\"\>",
+       StripOnInput->False,
+       FontFamily->"Arial",
+       FontSize->32], {3.5, -4.24}]}}}]], "Output",
+ CellChangeTimes->{{3.5391519321539965`*^9, 3.5391519647423964`*^9}, {
+   3.5391526237355967`*^9, 3.5391526396385965`*^9}, 3.5393727812437267`*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1348, 633},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+FrontEndVersion->"7.0 for Microsoft Windows (64-bit) (February 18, 2009)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 140, 2, 31, "Input"],
+Cell[CellGroupData[{
+Cell[710, 26, 472, 7, 83, "Title"],
+Cell[CellGroupData[{
+Cell[1207, 37, 570, 9, 36, "Subsection"],
+Cell[1780, 48, 9206, 226, 714, "Text"],
+Cell[10989, 276, 22465, 490, 692, "Input"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[33491, 771, 470, 6, 28, "Subsection"],
+Cell[33964, 779, 238, 6, 31, "Input"],
+Cell[34205, 787, 1082, 28, 92, "Input"],
+Cell[35290, 817, 2470, 65, 192, "Input"],
+Cell[37763, 884, 835, 24, 52, "Input"],
+Cell[38601, 910, 401, 9, 31, "Input"],
+Cell[CellGroupData[{
+Cell[39027, 923, 434, 13, 31, "Input"],
+Cell[39464, 938, 12620, 203, 197, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[52121, 1146, 2494, 67, 52, "Input"],
+Cell[54618, 1215, 6404, 133, 374, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[61059, 1353, 1621, 55, 52, "Input"],
+Cell[62683, 1410, 6281, 130, 374, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[69001, 1545, 1672, 56, 52, "Input"],
+Cell[70676, 1603, 6370, 131, 374, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[77083, 1739, 190, 4, 31, "Input"],
+Cell[77276, 1745, 6386, 132, 814, "Output"]
+}, Open  ]],
+Cell[83677, 1880, 92, 1, 31, "Input"],
+Cell[CellGroupData[{
+Cell[83794, 1885, 741, 23, 52, "Input"],
+Cell[84538, 1910, 667, 18, 57, "Output"],
+Cell[85208, 1930, 665, 18, 57, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[85910, 1953, 196, 4, 31, "Input"],
+Cell[86109, 1959, 946, 21, 86, "Output"],
+Cell[87058, 1982, 6370, 131, 374, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
